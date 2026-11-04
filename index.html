@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemie Grundlagenfach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f7;
+  --bg-alt: #f3f1ee;
+  --text: #1a1a1a;
+  --text-muted: #6b6560;
+  --text-light: #9c9891;
+  --border: #e5e2dd;
+  --accent: #4a7ab5;
+  --accent-light: #e8eff7;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* Header */
+.header {
+  background: #1e293b;
+  color: white;
+  padding: 60px 24px 52px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 25% 40%, rgba(74,122,181,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 75% 60%, rgba(123,192,138,0.1) 0%, transparent 40%);
+}
+.header-content { position: relative; max-width: 640px; margin: 0 auto; }
+.header-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  background: rgba(74,122,181,0.2);
+  border: 1px solid rgba(74,122,181,0.3);
+  color: #a8c4e0;
+  padding: 5px 16px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+.header h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.header p { font-size: 1.05rem; color: #94a3b8; }
+
+/* Main */
+.main { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+/* Topic cards */
+.topics { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.topic-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px 24px;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.topic-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+  border-color: var(--accent);
+}
+.topic-card.locked {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.topic-card.locked:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--border);
+}
+
+.topic-num {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.topic-card:nth-child(1) .topic-num { color: #5b8ab5; }
+.topic-card:nth-child(2) .topic-num { color: #2b7f7a; }
+
+.topic-title {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.topic-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.topic-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.topic-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.tag-active { background: #eef6f0; color: #2d5a37; }
+.tag-soon { background: var(--bg-alt); color: var(--text-light); }
+
+.topic-arrow {
+  margin-left: auto;
+  color: var(--accent);
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+}
+.topic-card:hover .topic-arrow { transform: translateX(3px); }
+.topic-card.locked .topic-arrow { display: none; }
+
+.lock-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 16px;
+}
+
+/* Footer note */
+.footer-note {
+  text-align: center;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .topics { grid-template-columns: 1fr; }
+  .header { padding: 44px 20px 40px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <div class="header-badge">GKG · GRUNDLAGENFACH</div>
+    <h1>Chemie Grundlagenfach</h1>
+    <p>Wählen Sie ein Thema, um zum Skript zu gelangen.</p>
+  </div>
+</header>
+
+<main class="main">
+  <div class="section-label">Themen</div>
+
+  <div class="topics">
+
+    <a href="atombau.html" class="topic-card locked">
+      <span class="lock-badge">&#x1F512;</span>
+      <div class="topic-num">Thema 1</div>
+      <div class="topic-title">Atombau</div>
+      <div class="topic-desc">Atommodelle, Elementarteilchen, Isotope, Elektronenkonfiguration, Orbitale, Flammenfärbung, Ionisierung, PSE.</div>
+      <div class="topic-footer">
+        <span class="topic-tag tag-soon">Kommt bald</span>
+      </div>
+    </a>
+
+    <a href="struktur.html" class="topic-card locked">
+      <span class="lock-badge">&#x1F512;</span>
+      <div class="topic-num">Thema 2</div>
+      <div class="topic-title">Struktur &amp; Eigenschaften</div>
+      <div class="topic-desc">Nomenklatur und Molekülionen, Metalle und Legierungen, Ionenverbindungen und Coulomb-Gesetz, zwischenmolekulare Kräfte.</div>
+      <div class="topic-footer">
+        <span class="topic-tag tag-soon">Kommt bald</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="footer-note">
+    Die Themen werden im Verlauf des Schuljahres freigeschaltet.<br>
+    Bei Fragen wenden Sie sich an Ihre Lehrperson.
+  </div>
+</main>
+
+<script>
+// Auto-unlock: prüft ob die HTML-Datei existiert und schaltet die Karte frei
+(async function() {
+  const cards = document.querySelectorAll('.topic-card');
+  for (const card of cards) {
+    const href = card.getAttribute('href');
+    if (!href || href.startsWith('http')) continue;
+    try {
+      const res = await fetch(href, { method: 'HEAD' });
+      if (res.ok) {
+        // Datei existiert → freischalten
+        card.classList.remove('locked');
+        const lock = card.querySelector('.lock-badge');
+        if (lock) lock.remove();
+        const tag = card.querySelector('.topic-tag');
+        if (tag) {
+          tag.classList.remove('tag-soon');
+          tag.classList.add('tag-active');
+          tag.textContent = 'Verfügbar';
+        }
+        // Arrow hinzufügen falls nicht vorhanden
+        if (!card.querySelector('.topic-arrow')) {
+          const footer = card.querySelector('.topic-footer');
+          if (footer) {
+            const arrow = document.createElement('span');
+            arrow.className = 'topic-arrow';
+            arrow.innerHTML = '&rarr;';
+            footer.appendChild(arrow);
+          }
+        }
+      } else {
+        // Datei existiert nicht → sperren
+        card.classList.add('locked');
+        card.removeAttribute('href');
+      }
+    } catch (e) {
+      // Fehler (z.B. CORS) → gesperrt lassen
+      card.classList.add('locked');
+      card.removeAttribute('href');
+    }
+  }
+})();
+</script>
+
+</body>
+</html>

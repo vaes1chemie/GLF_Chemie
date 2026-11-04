@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Struktur &amp; Eigenschaften – Phase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f7;
+  --bg-alt: #f3f1ee;
+  --text: #1a1a1a;
+  --text-muted: #6b6560;
+  --text-light: #9c9891;
+  --border: #e5e2dd;
+  --sidebar-bg: #f5f4f1;
+  --glossar-bg: #f0f4fa; --glossar-border: #8aadd4; --glossar-text: #2c4a6e; --glossar-label: #5b8ab5;
+  --merksatz-bg: #eef6f0; --merksatz-border: #7bc08a; --merksatz-text: #2d5a37; --merksatz-label: #5a9e6a;
+  --aufgabe-bg: #fdf5ee; --aufgabe-border: #d4a574; --aufgabe-text: #6b4226; --aufgabe-label: #c08a56;
+  --experiment-bg: #f4f0fa; --experiment-border: #a890c8; --experiment-text: #4a3668; --experiment-label: #8b72b0;
+  --discovery-bg: #faf5ee; --discovery-border: #c8b080; --discovery-text: #5a4a2e; --discovery-label: #a89060;
+  /* Thema «Struktur & Eigenschaften» = Petrol */
+  --accent: #2b7f7a;
+  --accent-light: #e6f2f1;
+  --accent-strong: #1d5753;
+  --quiz-bg: #f8f7f4;
+  --correct-bg: #eef6f0; --correct-border: #7bc08a; --correct-text: #2d5a37;
+  --wrong-bg: #fceaea; --wrong-border: #e07070; --wrong-text: #7a2020;
+  --forms-bg: #e8eff7; --forms-border: #8aadd4; --forms-text: #2c4a6e;
+  --kation: #3d6fb0; --kation-bg: #e8eff9;
+  --anion: #c0504d; --anion-bg: #fbecea;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --radius: 10px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.7; }
+
+/* === LAYOUT === */
+.layout { display: flex; min-height: 100vh; }
+.sidebar { width: 272px; background: var(--sidebar-bg); border-right: 1px solid var(--border); padding: 24px 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-shrink: 0; }
+.sidebar-brand { font-family: var(--serif); font-size: 1.15rem; padding: 0 20px 16px; border-bottom: 1px solid var(--border); margin-bottom: 12px; color: var(--text); }
+.sidebar-brand small { display: block; font-family: var(--sans); font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; letter-spacing: 0.04em; }
+.sidebar-phase { font-family: var(--mono); font-size: 0.68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-light); padding: 14px 20px 6px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.15s; text-decoration: none; border-left: 3px solid transparent; }
+.nav-item:hover { background: rgba(0,0,0,0.03); }
+.nav-item.active { color: var(--accent); background: var(--accent-light); border-left-color: var(--accent); }
+.nav-item.locked { color: var(--text-light); cursor: not-allowed; opacity: 0.55; }
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+.nav-item.active .nav-dot { background: var(--accent); }
+.lock-icon { font-size: 11px; margin-left: auto; }
+
+.main-wrap { flex: 1; min-width: 0; }
+.progress-bar { position: sticky; top: 0; height: 3px; background: var(--border); z-index: 50; }
+.progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.15s; }
+.content { max-width: 800px; margin: 0 auto; padding: 48px 40px 100px; }
+
+/* === HERO === */
+.hero-inline { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+.phase-badge { display: inline-block; font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--accent); background: var(--accent-light); padding: 4px 14px; border-radius: 100px; letter-spacing: 0.04em; margin-bottom: 12px; }
+.hero-inline h1 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.2; margin-bottom: 8px; }
+.hero-inline .subtitle { font-size: 0.95rem; color: var(--text-muted); }
+.dl-plan { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 22px; }
+.dl-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.dl-card .dl-tag { font-family: var(--mono); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.dl-card .dl-title { font-weight: 700; font-size: 0.95rem; margin: 2px 0 4px; }
+.dl-card .dl-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+/* === LESSON STRUCTURE === */
+.lesson-header { margin: 56px 0 32px; padding: 28px 0 0; border-top: 3px solid var(--accent); }
+.lesson-number { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.lesson-header h2 { font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 400; line-height: 1.2; }
+.lernziele { background: var(--accent-light); border: 1px solid #bfdcd9; border-radius: var(--radius); padding: 22px 26px; margin: 24px 0; }
+.lernziele h3 { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px; }
+.lernziele ul { list-style: none; padding: 0; margin: 0; }
+.lernziele li { padding: 3px 0 3px 22px; position: relative; font-size: 0.92rem; color: var(--accent-strong); }
+.lernziele li::before { content: '\2192'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+h3 { font-family: var(--serif); font-size: 1.45rem; font-weight: 400; margin: 40px 0 14px; }
+h4 { font-size: 1.02rem; font-weight: 700; margin: 24px 0 10px; }
+p { margin-bottom: 16px; }
+strong { font-weight: 600; }
+ul, ol { margin-bottom: 16px; padding-left: 20px; }
+li { margin-bottom: 4px; }
+a { color: var(--accent); font-weight: 600; }
+.f { font-family: var(--sans); white-space: nowrap; }
+.tag-gemeinsam { display: inline-block; font-family: var(--mono); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent); color: white; padding: 2px 9px; border-radius: 100px; vertical-align: middle; margin-left: 8px; }
+.tag-selbst { display: inline-block; font-family: var(--mono); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: var(--aufgabe-border); color: white; padding: 2px 9px; border-radius: 100px; vertical-align: middle; margin-left: 8px; }
+
+/* === CONTENT BOXES === */
+.glossar, .merksatz, .aufgabe, .experiment, .discovery { border-left: 4px solid; border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 22px 0; }
+.glossar { background: var(--glossar-bg); border-color: var(--glossar-border); }
+.merksatz { background: var(--merksatz-bg); border-color: var(--merksatz-border); }
+.aufgabe { background: var(--aufgabe-bg); border-color: var(--aufgabe-border); }
+.experiment { background: var(--experiment-bg); border-color: var(--experiment-border); padding: 18px 22px; }
+.discovery { background: var(--discovery-bg); border-color: var(--discovery-border); padding: 18px 22px; }
+.glossar-label, .merksatz-label, .aufgabe-label, .experiment-label, .discovery-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.glossar-label { color: var(--glossar-label); } .merksatz-label { color: var(--merksatz-label); } .aufgabe-label { color: var(--aufgabe-label); } .experiment-label { color: var(--experiment-label); } .discovery-label { color: var(--discovery-label); }
+.glossar-term { font-weight: 700; font-size: 0.98rem; margin-bottom: 3px; color: var(--glossar-text); }
+.glossar p { font-size: 0.9rem; color: var(--glossar-text); margin-bottom: 0; }
+.merksatz p, .merksatz li { font-size: 0.93rem; color: var(--merksatz-text); }
+.merksatz p:last-child, .merksatz ul:last-child, .merksatz ol:last-child { margin-bottom: 0; }
+.aufgabe p, .aufgabe li { font-size: 0.93rem; color: var(--aufgabe-text); }
+.experiment h4, .discovery h4 { margin-top: 0; margin-bottom: 10px; }
+.experiment h4 { color: var(--experiment-text); } .discovery h4 { color: var(--discovery-text); }
+.experiment p, .experiment li { font-size: 0.9rem; color: var(--experiment-text); }
+.discovery p, .discovery li { font-size: 0.9rem; color: var(--discovery-text); }
+.experiment ol, .experiment ul, .discovery ol, .discovery ul { padding-left: 20px; margin-bottom: 10px; }
+.discovery .hint { background: rgba(200,176,128,0.15); border-radius: 6px; padding: 9px 13px; margin-top: 10px; font-size: 0.83rem; color: var(--discovery-text); font-style: italic; }
+
+/* Aufklapp-Lösungen */
+details.loesung { margin-top: 12px; background: rgba(255,255,255,0.65); border: 1px dashed var(--discovery-border); border-radius: 7px; padding: 8px 14px; font-size: 0.88rem; }
+details.loesung summary { cursor: pointer; font-weight: 600; color: var(--discovery-text); list-style: none; }
+details.loesung summary::-webkit-details-marker { display: none; }
+details.loesung summary::before { content: '▸ '; }
+details.loesung[open] summary::before { content: '▾ '; }
+details.loesung[open] { padding-bottom: 12px; }
+details.loesung .inner { margin-top: 8px; color: var(--text); }
+details.loesung .inner p { margin-bottom: 8px; }
+details.loesung table { margin: 6px 0; }
+
+/* === TABLES === */
+.data-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.9rem; }
+.data-table th { background: #2f5e5b; color: white; font-weight: 600; padding: 9px 13px; text-align: left; }
+.data-table th:first-child { border-radius: 8px 0 0 0; }
+.data-table th:last-child { border-radius: 0 8px 0 0; }
+.data-table td { padding: 8px 13px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.data-table tr:nth-child(even) td { background: var(--bg-alt); }
+.table-scroll { overflow-x: auto; }
+
+/* === WIDGET-RAHMEN (analog Simulation) === */
+.widget { margin: 28px 0; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--border); background: white; }
+.widget-header { background: #1e293b; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.widget-title { color: white; font-weight: 600; font-size: 0.88rem; }
+.widget-badge { background: rgba(43,127,122,0.3); color: #a6dbd6; font-size: 0.68rem; font-weight: 600; padding: 3px 10px; border-radius: 100px; white-space: nowrap; }
+.widget-body { padding: 20px; background: var(--bg); }
+.widget-caption { background: #1e293b; padding: 10px 18px; color: #94a3b8; font-size: 0.78rem; }
+
+/* === MINERALWASSER-ETIKETT === */
+.etikett-wrap { display: flex; justify-content: center; padding: 8px 0; }
+.etikett { width: 100%; max-width: 440px; background: linear-gradient(160deg, #e9f4fb 0%, #d4e9f5 60%, #c3dff0 100%); border-radius: 14px; border: 1px solid #a9cbe0; padding: 22px 24px 18px; position: relative; overflow: hidden; box-shadow: 0 6px 18px rgba(30,80,120,0.12); }
+.etikett::before { content: ''; position: absolute; left: -40px; right: -40px; bottom: -60px; height: 120px; background: radial-gradient(ellipse at center, rgba(255,255,255,0.7), transparent 70%); }
+.etikett-brand { font-family: var(--serif); font-size: 1.7rem; color: #1f4e6e; text-align: center; line-height: 1.1; }
+.etikett-sub { text-align: center; font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; color: #4f7f9c; margin: 4px 0 14px; }
+.etikett-mountains { display: block; margin: 0 auto 10px; }
+.etikett-analyse { background: rgba(255,255,255,0.75); border-radius: 8px; padding: 10px 14px; position: relative; z-index: 1; }
+.etikett-analyse .ea-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #1f4e6e; margin-bottom: 4px; }
+.etikett-analyse table { width: 100%; font-size: 0.84rem; border-collapse: collapse; color: #1f3a4e; }
+.etikett-analyse td { padding: 2px 0; border-bottom: 1px dotted #b8d2e2; }
+.etikett-analyse td:last-child { text-align: right; font-family: var(--mono); font-size: 0.8rem; }
+.etikett-analyse tr:last-child td { border-bottom: none; }
+.etikett-foot { font-size: 0.66rem; color: #4f7f9c; text-align: center; margin-top: 10px; position: relative; z-index: 1; }
+
+/* === PSE-LADUNGS-STREIFEN === */
+.pse-strip { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; margin: 16px 0; font-size: 0.78rem; text-align: center; }
+.pse-strip div { border-radius: 6px; padding: 6px 2px; line-height: 1.3; }
+.pse-strip .g { font-family: var(--mono); font-size: 0.64rem; color: var(--text-muted); }
+.pse-strip .k { background: var(--kation-bg); color: var(--kation); font-weight: 700; }
+.pse-strip .a { background: var(--anion-bg); color: var(--anion); font-weight: 700; }
+.pse-strip .n { background: var(--bg-alt); color: var(--text-light); }
+
+/* === LADUNGSBAUKASTEN === */
+.lbk-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.lbk-side { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.lbk-side.k { border-top: 3px solid var(--kation); }
+.lbk-side.a { border-top: 3px solid var(--anion); }
+.lbk-side label { font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); display: block; margin-bottom: 5px; }
+.lbk-side select { width: 100%; font-family: var(--sans); font-size: 0.9rem; padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); }
+.lbk-btns { display: flex; gap: 6px; margin-top: 8px; }
+.lbk-btn, .btn { font-family: var(--sans); font-size: 0.85rem; font-weight: 600; padding: 6px 12px; border: 1.5px solid var(--border); border-radius: 6px; background: white; cursor: pointer; transition: all 0.15s; color: var(--text); }
+.lbk-btn:hover, .btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+.btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+.lbk-stage { min-height: 96px; background: white; border: 1px dashed var(--border); border-radius: 8px; padding: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; }
+.lbk-stage .empty { color: var(--text-light); font-size: 0.85rem; font-style: italic; }
+.ion-token { min-width: 58px; height: 58px; padding: 0 8px; border-radius: 29px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; animation: pop 0.2s ease-out; }
+.ion-token.k { background: var(--kation-bg); color: var(--kation); border: 2px solid var(--kation); }
+.ion-token.a { background: var(--anion-bg); color: var(--anion); border: 2px solid var(--anion); }
+@keyframes pop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.lbk-meter { margin: 14px 0 6px; }
+.lbk-meter-bar { position: relative; height: 12px; background: var(--bg-alt); border-radius: 6px; overflow: hidden; }
+.lbk-meter-fill { position: absolute; top: 0; bottom: 0; transition: all 0.25s; }
+.lbk-meter-mid { position: absolute; left: 50%; top: -3px; bottom: -3px; width: 2px; background: var(--text); }
+.lbk-meter-label { display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--text-muted); margin-top: 3px; }
+.lbk-sum { text-align: center; font-size: 0.95rem; margin-top: 6px; }
+.lbk-result { margin-top: 12px; padding: 12px 16px; border-radius: 8px; font-size: 0.92rem; display: none; }
+.lbk-result.show { display: block; }
+.lbk-result.ok { background: var(--correct-bg); border: 1px solid var(--correct-border); color: var(--correct-text); }
+.lbk-result.warn { background: #fdf6e3; border: 1px solid #e0c16f; color: #6b5310; }
+.lbk-result .big { font-size: 1.35rem; font-weight: 700; display: block; margin: 2px 0; }
+
+/* === MOLEKÜLIONEN-EXPLORER === */
+.mi-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.mi-chip { font-family: var(--sans); font-size: 0.88rem; font-weight: 600; padding: 6px 12px; border-radius: 100px; border: 1.5px solid var(--border); background: white; cursor: pointer; transition: all 0.15s; }
+.mi-chip:hover { border-color: var(--accent); }
+.mi-chip.active { background: var(--accent); border-color: var(--accent); color: white; }
+.mi-chip.k { border-color: #b8cbe6; }
+.mi-panel { display: grid; grid-template-columns: 260px 1fr; gap: 18px; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px; align-items: center; }
+.mi-panel svg { width: 100%; height: auto; display: block; }
+.mi-name { font-family: var(--serif); font-size: 1.5rem; line-height: 1.2; }
+.mi-formula { font-size: 1.15rem; font-weight: 700; color: var(--accent-strong); margin: 2px 0 10px; }
+.mi-row { font-size: 0.86rem; margin-bottom: 6px; line-height: 1.5; }
+.mi-row b { display: inline-block; min-width: 92px; color: var(--text-muted); font-weight: 600; }
+.mi-note { font-size: 0.74rem; color: var(--text-light); margin-top: 8px; font-style: italic; }
+
+/* === FLIP-KARTEN === */
+.flip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 22px 0; }
+.flip { perspective: 1000px; cursor: pointer; height: 280px; }
+.flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+.flip.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border: 1px solid var(--border); }
+.flip-front { background: white; }
+.flip-front .pair { display: flex; align-items: center; gap: 12px; font-size: 1.6rem; font-weight: 700; }
+.flip-front .pair .vs { font-size: 0.8rem; color: var(--text-light); font-weight: 500; }
+.flip-front .q { font-size: 0.82rem; color: var(--text-muted); margin-top: 12px; }
+.flip-front .turn { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-top: 12px; }
+.flip-back { background: #1e293b; color: #e2e8f0; transform: rotateY(180deg); font-size: 0.78rem; line-height: 1.45; text-align: left; align-items: stretch; justify-content: flex-start; gap: 8px; }
+.flip-back .fb-item b { color: white; display: block; font-size: 0.86rem; }
+.flip-back .fb-item.danger b { color: #fca5a5; }
+.flip-back .fb-item.ok b { color: #86efac; }
+
+/* === PRÄFIX-TABELLE === */
+.prefix-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.prefix-cell { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 8px; text-align: center; }
+.prefix-cell .num { font-family: var(--mono); font-size: 0.8rem; color: var(--text-muted); }
+.prefix-cell input { width: 100%; font-family: var(--sans); font-size: 0.92rem; text-align: center; border: 1px solid var(--border); border-radius: 5px; padding: 4px; margin-top: 4px; background: var(--bg); }
+.prefix-cell input.ok { border-color: var(--correct-border); background: var(--correct-bg); color: var(--correct-text); font-weight: 600; }
+.prefix-cell input.bad { border-color: var(--wrong-border); background: var(--wrong-bg); }
+.widget-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+.widget-msg { font-size: 0.86rem; color: var(--text-muted); }
+
+/* === ENTSCHEIDUNGSBAUM === */
+.tree { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 10px 0; }
+.tree-node { background: white; border: 2px solid var(--accent); border-radius: 10px; padding: 10px 16px; font-size: 0.9rem; font-weight: 600; text-align: center; max-width: 520px; }
+.tree-node.start { background: var(--accent); color: white; }
+.tree-arrow { width: 2px; height: 22px; background: var(--accent); position: relative; }
+.tree-arrow::after { content: ''; position: absolute; bottom: -5px; left: -5px; border: 6px solid transparent; border-top-color: var(--accent); }
+.tree-split { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; width: 100%; margin-top: 4px; }
+.tree-branch { display: flex; flex-direction: column; align-items: center; }
+.tree-cond { font-family: var(--mono); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-strong); background: var(--accent-light); padding: 3px 8px; border-radius: 4px; margin-bottom: 6px; text-align: center; }
+.tree-leaf { border-radius: 10px; padding: 12px 14px; font-size: 0.82rem; line-height: 1.5; width: 100%; border: 1px solid; }
+.tree-leaf h5 { font-size: 0.92rem; margin-bottom: 4px; }
+.tree-leaf ul { padding-left: 16px; margin: 0; }
+.tree-leaf li { margin-bottom: 2px; }
+.tree-leaf.ion { background: var(--merksatz-bg); border-color: var(--merksatz-border); color: var(--merksatz-text); }
+.tree-leaf.mol { background: var(--glossar-bg); border-color: var(--glossar-border); color: var(--glossar-text); }
+.tree-leaf.leg { background: var(--bg-alt); border-color: var(--border); color: var(--text-muted); }
+
+/* === TOOL-BUTTONS (Klassifizieren, Fehlerdetektiv) === */
+.tool-question { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
+.tool-question:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+.tool-prompt { font-weight: 600; margin-bottom: 8px; font-size: 0.94rem; }
+.tool-prompt .nr { color: var(--accent-strong); font-family: var(--mono); margin-right: 6px; }
+.tool-options { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.tool-btn { font-family: var(--sans); font-size: 0.85rem; padding: 7px 14px; background: white; color: var(--text); border: 1.5px solid var(--border); border-radius: 6px; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.tool-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.tool-btn.selected-correct { background: var(--correct-bg); border-color: var(--correct-border); color: var(--correct-text); }
+.tool-btn.selected-wrong { background: var(--wrong-bg); border-color: var(--wrong-border); color: var(--wrong-text); }
+.tool-feedback { display: none; padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; line-height: 1.5; }
+.tool-feedback.show { display: block; }
+.tool-feedback.correct { background: var(--correct-bg); color: var(--correct-text); border-left: 3px solid var(--correct-border); }
+.tool-feedback.wrong { background: var(--wrong-bg); color: var(--wrong-text); border-left: 3px solid var(--wrong-border); }
+.claim { font-size: 1rem; }
+.claim .f { font-weight: 700; color: var(--accent-strong); }
+
+/* === FORMEL-TRAINER === */
+.tr-levels { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.tr-level { font-family: var(--sans); font-size: 0.8rem; font-weight: 600; padding: 6px 12px; border-radius: 100px; border: 1.5px solid var(--border); background: white; cursor: pointer; }
+.tr-level.active { background: var(--accent); border-color: var(--accent); color: white; }
+.tr-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 22px; text-align: center; }
+.tr-dir { font-family: var(--mono); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); margin-bottom: 6px; }
+.tr-task { font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 16px; line-height: 1.3; }
+.tr-input { width: 100%; max-width: 360px; font-family: var(--sans); font-size: 1.1rem; padding: 10px 14px; border: 2px solid var(--border); border-radius: 8px; text-align: center; background: var(--bg); }
+.tr-input:focus { outline: none; border-color: var(--accent); }
+.tr-preview { font-size: 0.85rem; color: var(--text-muted); min-height: 1.4em; margin-top: 6px; }
+.tr-fb { margin-top: 14px; padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; display: none; text-align: left; }
+.tr-fb.show { display: block; }
+.tr-fb.correct { background: var(--correct-bg); border: 1px solid var(--correct-border); color: var(--correct-text); }
+.tr-fb.wrong { background: var(--wrong-bg); border: 1px solid var(--wrong-border); color: var(--wrong-text); }
+.tr-fb.info { background: var(--glossar-bg); border: 1px solid var(--glossar-border); color: var(--glossar-text); }
+.tr-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.tr-stats { display: flex; justify-content: center; gap: 22px; margin-top: 14px; font-size: 0.82rem; color: var(--text-muted); }
+.tr-stats b { color: var(--text); font-size: 1rem; }
+
+/* === SUMMARY === */
+.summary { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin: 36px 0; }
+.summary h3 { margin-top: 0; font-size: 1.25rem; }
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 18px 0; }
+.summary-card { background: white; border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 8px; padding: 14px 16px; }
+.summary-card h4 { font-size: 0.94rem; color: var(--accent-strong); margin: 0 0 6px; }
+.summary-card p { font-size: 0.85rem; line-height: 1.55; margin: 0; }
+
+/* === MC QUIZ === */
+.quiz-section { margin: 36px 0; background: var(--quiz-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; }
+.quiz-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.quiz-icon { width: 28px; height: 28px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--accent); font-weight: 700; }
+.quiz-title { font-size: 1rem; font-weight: 700; }
+.quiz-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; }
+.question { margin-bottom: 22px; }
+.q-text { font-size: 0.93rem; font-weight: 600; margin-bottom: 8px; line-height: 1.5; }
+.q-num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 700; margin-right: 6px; vertical-align: middle; }
+.option { display: flex; align-items: center; gap: 9px; padding: 9px 13px; margin: 3px 0; border-radius: 7px; border: 1px solid var(--border); background: white; cursor: pointer; font-size: 0.88rem; transition: all 0.15s; }
+.option:hover { border-color: var(--accent); background: var(--accent-light); }
+.option.correct { border-color: var(--correct-border); background: var(--correct-bg); color: var(--correct-text); }
+.option.wrong { border-color: var(--wrong-border); background: var(--wrong-bg); color: var(--wrong-text); }
+.opt-text { min-width: 0; flex: 1; }
+.radio { width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; position: relative; }
+.option.correct .radio { border-color: var(--correct-border); }
+.option.correct .radio::after { content:''; position:absolute; top:2.5px; left:2.5px; width:6px; height:6px; border-radius:50%; background: var(--correct-border); }
+.option.wrong .radio { border-color: var(--wrong-border); }
+.feedback { margin-top: 6px; padding: 9px 13px; border-radius: 7px; font-size: 0.82rem; display: none; line-height: 1.5; }
+.feedback.show { display: block; }
+.feedback.correct { background: var(--correct-bg); color: var(--correct-text); border: 1px solid var(--correct-border); }
+.feedback.wrong { background: var(--wrong-bg); color: var(--wrong-text); border: 1px solid var(--wrong-border); }
+
+/* === TASK CARDS === */
+.task-links { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 20px 0 36px; }
+.task-card { padding: 18px; border-radius: var(--radius); border: 1px solid; text-decoration: none; display: block; }
+.task-card.print { background: var(--aufgabe-bg); border-color: var(--aufgabe-border); }
+.task-card.forms { background: var(--forms-bg); border-color: var(--forms-border); transition: all 0.2s; }
+.task-card.forms:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.task-card-icon { font-size: 22px; margin-bottom: 6px; }
+.task-card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 3px; }
+.task-card.print .task-card-title { color: var(--aufgabe-text); }
+.task-card.forms .task-card-title { color: var(--forms-text); }
+.task-card-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+.task-card-desc .nrs { font-family: var(--mono); font-weight: 600; color: var(--aufgabe-text); }
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .content { padding: 32px 16px 80px; }
+}
+@media (max-width: 680px) {
+  .flip { height: 240px; }
+  .dl-plan, .lbk-controls { grid-template-columns: 1fr; }
+  .flip-grid { grid-template-columns: 1fr; }
+  .mi-panel { grid-template-columns: 1fr; }
+  .mi-panel svg { max-width: 260px; margin: 0 auto; }
+  .tree-split { grid-template-columns: 1fr; }
+  .prefix-grid { grid-template-columns: repeat(2, 1fr); }
+  .pse-strip { font-size: 0.68rem; }
+  .tr-task { font-size: 1.3rem; }
+}
+@media print {
+  .sidebar, .progress-bar, .widget, .quiz-section, .task-links { display: none; }
+  .content { max-width: 100%; padding: 20px; }
+  body { font-size: 11pt; }
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+section { animation: fadeUp 0.4s ease-out both; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ======== SIDEBAR ======== -->
+<nav class="sidebar">
+  <div class="sidebar-brand"><a href="index.html" style="text-decoration:none; color:inherit;">Struktur &amp; Eigenschaften</a><small>Chemie GLF · 2. Gymnasium · Va</small><a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a></div>
+
+  <div class="sidebar-phase">Phase 1 · Nomenklatur</div>
+  <a href="#L1" class="nav-item active"><span class="nav-dot"></span>L1 – Ionenverbindungen</a>
+  <a href="#L2" class="nav-item"><span class="nav-dot"></span>L2 – Molekülionen</a>
+  <a href="#L3" class="nav-item"><span class="nav-dot"></span>L3 – Molekülverbindungen</a>
+  <a href="#L4" class="nav-item"><span class="nav-dot"></span>L4 – Alles zusammen: Training</a>
+  <a href="#zusammenfassung" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+
+  <div class="sidebar-phase">Phase 2 · Metalle</div>
+  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>Metallgitter &amp; Eigenschaften <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>Legierungen <span class="lock-icon">&#x1F512;</span></a>
+
+  <div class="sidebar-phase">Phase 3 · Ionenverbindungen</div>
+  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>Coulomb-Gesetz &amp; Ionengitter <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>Eigenschaften &amp; Lösen in Wasser <span class="lock-icon">&#x1F512;</span></a>
+
+  <div class="sidebar-phase">Phase 4 · Molekulare Stoffe</div>
+  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>Zwischenmolekulare Kräfte <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>Siedepunkte &amp; Löslichkeit <span class="lock-icon">&#x1F512;</span></a>
+</nav>
+
+<!-- ======== MAIN ======== -->
+<div class="main-wrap">
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<main class="content">
+
+<div class="hero-inline">
+  <div class="phase-badge">Phase 1 · Lektionen 1–4 · Nomenklatur</div>
+  <h1>Wie heisst dieser Stoff?</h1>
+  <p class="subtitle">Ionenverbindungen, Molekülionen und Molekülverbindungen richtig benennen</p>
+  <div class="dl-plan">
+    <div class="dl-card">
+      <div class="dl-tag">Doppellektion 1 · L1 + L2</div>
+      <div class="dl-title">Salze lesen und schreiben</div>
+      <div class="dl-desc">Vom Mineralwasser-Etikett zu den Regeln für Ionenverbindungen und Molekülionen.</div>
+    </div>
+    <div class="dl-card">
+      <div class="dl-tag">Doppellektion 2 · L3 + L4</div>
+      <div class="dl-title">Moleküle benennen und alles mischen</div>
+      <div class="dl-desc">Warum ein einzelnes Wort über Leben und Tod entscheiden kann – und ein Trainer zum Üben.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 1                             -->
+<!-- ============================================================ -->
+<section id="L1">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 01</div>
+    <h2>Was steht da eigentlich? – Ionenverbindungen benennen</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können die Ladung von Hauptgruppen-Ionen aus dem Periodensystem ableiten.</li>
+    <li>Sie können einatomige Ionen benennen (Natrium-Ion, Chlorid-Ion, …).</li>
+    <li>Sie können aus den Ionen die Summenformel einer Ionenverbindung über den Ladungsausgleich bestimmen.</li>
+    <li>Sie können Ionenverbindungen benennen – auch mit Metallen, die verschiedene Ladungen haben können (römische Ziffern).</li>
+  </ul></div>
+
+  <h3>1.1 Einstieg: Das Etikett einer Mineralwasserflasche <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <p>Auf jeder Mineralwasserflasche steht eine Analyse – meist ganz klein, auf der Rückseite. Die wenigsten Menschen lesen sie, und noch weniger verstehen sie. Nach dieser Phase gehören Sie zu denen, die es können.</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Mineralwasser «Felsbach» – Rückseite des Etiketts</span><span class="widget-badge">ETIKETT</span></div>
+    <div class="widget-body">
+      <div class="etikett-wrap">
+        <div class="etikett">
+          <svg class="etikett-mountains" width="120" height="34" viewBox="0 0 120 34" aria-hidden="true"><path d="M0 34 L28 8 L42 20 L62 2 L86 26 L98 16 L120 34 Z" fill="#7fb2cf" opacity="0.7"/><path d="M56 8 L62 2 L68 8 L64 7 L62 9 L60 7 Z" fill="white"/></svg>
+          <div class="etikett-brand">Felsbach</div>
+          <div class="etikett-sub">Natürliches Mineralwasser · mit Kohlensäure</div>
+          <div class="etikett-analyse">
+            <div class="ea-title">Analyse · Mineralstoffe in mg/l</div>
+            <table>
+              <tr><td>Hydrogencarbonat</td><td>312</td></tr>
+              <tr><td>Calcium</td><td>82</td></tr>
+              <tr><td>Sulfat</td><td>38</td></tr>
+              <tr><td>Magnesium</td><td>26</td></tr>
+              <tr><td>Chlorid</td><td>11</td></tr>
+              <tr><td>Natrium</td><td>9,5</td></tr>
+              <tr><td>Nitrat</td><td>4,2</td></tr>
+              <tr><td>Kalium</td><td>1,8</td></tr>
+              <tr><td>Fluorid</td><td>0,2</td></tr>
+            </table>
+          </div>
+          <div class="etikett-foot">Gesamtmineralisation 480 mg/l · Fantasiemarke für den Unterricht</div>
+        </div>
+      </div>
+    </div>
+    <div class="widget-caption">Die Werte entsprechen einem typischen Schweizer Mineralwasser mittlerer Härte.</div>
+  </div>
+
+  <div class="discovery"><div class="discovery-label">Gemeinsamer Einstieg – Denken · Austauschen · Besprechen</div>
+    <h4>Was verrät das Etikett?</h4>
+    <ol>
+      <li>Auf dem Etikett stehen Namen wie «Calcium» und «Chlorid». Im Wasser sind aber keine Calcium-<em>Atome</em> und keine Chlor-<em>Atome</em>. Welche Teilchen sind es dann?</li>
+      <li>Sortieren Sie die neun Mineralstoffe in zwei Gruppen. Nach welchem Kriterium sortieren Sie? (Tipp: Periodensystem.)</li>
+      <li>Wasser ist elektrisch neutral. Was folgt daraus für die geladenen Teilchen darin?</li>
+      <li>Einige Namen enden auf <strong>-id</strong>, andere auf <strong>-at</strong>. Stellen Sie eine Vermutung auf: Was könnte der Unterschied sein?</li>
+    </ol>
+    <div class="hint">Zuerst 2 Minuten allein überlegen, dann mit der Nachbarin oder dem Nachbarn vergleichen.</div>
+    <details class="loesung"><summary>Auflösung nach der Besprechung</summary><div class="inner">
+      <p>Im Mineralwasser sind <strong>Ionen</strong> gelöst – geladene Teilchen. Metalle bilden positive Ionen (<strong>Kationen</strong>), Nichtmetalle negative Ionen (<strong>Anionen</strong>):</p>
+      <div class="table-scroll"><table class="data-table">
+        <thead><tr><th>Kationen (+)</th><th>Anionen (−)</th></tr></thead>
+        <tbody>
+          <tr><td>Calcium-Ion <span class="f">Ca<sup>2+</sup></span></td><td>Chlorid-Ion <span class="f">Cl<sup>−</sup></span></td></tr>
+          <tr><td>Magnesium-Ion <span class="f">Mg<sup>2+</sup></span></td><td>Fluorid-Ion <span class="f">F<sup>−</sup></span></td></tr>
+          <tr><td>Natrium-Ion <span class="f">Na<sup>+</sup></span></td><td>Hydrogencarbonat-Ion <span class="f">HCO<sub>3</sub><sup>−</sup></span></td></tr>
+          <tr><td>Kalium-Ion <span class="f">K<sup>+</sup></span></td><td>Sulfat-Ion <span class="f">SO<sub>4</sub><sup>2−</sup></span>, Nitrat-Ion <span class="f">NO<sub>3</sub><sup>−</sup></span></td></tr>
+        </tbody>
+      </table></div>
+      <p>Die positiven und negativen Ladungen gleichen sich insgesamt genau aus. Die Endung <strong>-id</strong> steht hier für einatomige Anionen, die Endung <strong>-at</strong> für Ionen, die aus mehreren Atomen inklusive Sauerstoff bestehen. Diese «Molekülionen» schauen wir in Lektion 2 genauer an.</p>
+    </div></details>
+  </div>
+
+
+  <h3>1.2 Welche Ladung hat ein Ion?</h3>
+  <p>Aus dem letzten Kapitel wissen Sie: Metallatome <strong>geben</strong> Valenzelektronen ab, Nichtmetallatome <strong>nehmen</strong> Elektronen auf – bis sie die Elektronenkonfiguration des nächsten Edelgases erreicht haben. Bei den Hauptgruppenelementen können Sie die Ladung deshalb direkt im Periodensystem ablesen:</p>
+
+  <div class="pse-strip" aria-label="Ionenladungen nach Hauptgruppe">
+    <div class="k"><span class="g">Gruppe 1</span><br>+1</div>
+    <div class="k"><span class="g">Gruppe 2</span><br>+2</div>
+    <div class="k"><span class="g">Gruppe 13</span><br>+3</div>
+    <div class="n"><span class="g">Gruppe 14</span><br>–</div>
+    <div class="a"><span class="g">Gruppe 15</span><br>−3</div>
+    <div class="a"><span class="g">Gruppe 16</span><br>−2</div>
+    <div class="a"><span class="g">Gruppe 17</span><br>−1</div>
+    <div class="n"><span class="g">Gruppe 18</span><br>–</div>
+  </div>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriffe</div>
+    <div class="glossar-term">Kation und Anion</div>
+    <p><strong>Kationen</strong> sind positiv geladene Ionen (meist Metall-Ionen, z.&nbsp;B. <span class="f">Na<sup>+</sup></span>). <strong>Anionen</strong> sind negativ geladene Ionen (meist Nichtmetall-Ionen, z.&nbsp;B. <span class="f">Cl<sup>−</sup></span>).</p>
+  </div>
+
+  <h3>1.3 Die Namen einatomiger Ionen</h3>
+  <p><strong>Kationen</strong> heissen einfach wie das Element: <em>Natrium-Ion</em>, <em>Calcium-Ion</em>, <em>Aluminium-Ion</em>. <strong>Anionen</strong> erhalten den lateinischen Wortstamm des Elements und die Endung <strong>-id</strong>:</p>
+
+  <div class="table-scroll">
+  <table class="data-table">
+    <thead><tr><th>Element</th><th>Ion</th><th>Name</th><th>Element</th><th>Ion</th><th>Name</th></tr></thead>
+    <tbody>
+      <tr><td>Fluor</td><td><span class="f">F<sup>−</sup></span></td><td>Fluorid</td><td>Sauerstoff (<em>oxygenium</em>)</td><td><span class="f">O<sup>2−</sup></span></td><td>Oxid</td></tr>
+      <tr><td>Chlor</td><td><span class="f">Cl<sup>−</sup></span></td><td>Chlorid</td><td>Schwefel (<em>sulfur</em>)</td><td><span class="f">S<sup>2−</sup></span></td><td>Sulfid</td></tr>
+      <tr><td>Brom</td><td><span class="f">Br<sup>−</sup></span></td><td>Bromid</td><td>Stickstoff (<em>nitrogenium</em>)</td><td><span class="f">N<sup>3−</sup></span></td><td>Nitrid</td></tr>
+      <tr><td>Iod</td><td><span class="f">I<sup>−</sup></span></td><td>Iodid</td><td>Phosphor</td><td><span class="f">P<sup>3−</sup></span></td><td>Phosphid</td></tr>
+      <tr><td colspan="3"></td><td>Wasserstoff (<em>hydrogenium</em>)</td><td><span class="f">H<sup>−</sup></span></td><td>Hydrid</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:0.88rem; color:var(--text-muted);">Das Hydrid-Ion <span class="f">H<sup>−</sup></span> ist ein Sonderfall: Wasserstoff nimmt hier ein Elektron auf und erreicht so die Konfiguration von Helium – das passiert nur mit sehr unedlen Metallen wie Lithium oder Natrium.</p>
+
+  <h3>1.4 Von den Ionen zur Formel: der Ladungsausgleich <span class="tag-selbst">selbst erarbeiten</span></h3>
+  <p>Eine Ionenverbindung ist nach aussen immer <strong>elektrisch neutral</strong>. Die Kationen und Anionen müssen also in einem Verhältnis vorliegen, bei dem sich alle Ladungen genau aufheben. Probieren Sie es aus:</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Ladungsbaukasten – einatomige Ionen</span><span class="widget-badge">INTERAKTIV</span></div>
+    <div class="widget-body">
+      <div class="lbk" data-set="mono"></div>
+    </div>
+    <div class="widget-caption">Wählen Sie ein Kation und ein Anion. Fügen Sie Ionen hinzu, bis die Gesamtladung null ist.</div>
+  </div>
+
+  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag</div>
+    <h4>Regeln aus dem Baukasten ableiten</h4>
+    <ol>
+      <li>Bauen Sie Natriumchlorid, Magnesiumchlorid, Aluminiumoxid und Calciumnitrid. Notieren Sie jeweils die Formel.</li>
+      <li>Beim Aluminiumoxid brauchen Sie 2 Aluminium-Ionen und 3 Oxid-Ionen. Sehen Sie einen «Trick», wie man diese Zahlen direkt aus den Ladungen erhält?</li>
+      <li>Bauen Sie Magnesiumoxid einmal mit 1&nbsp;+&nbsp;1 und einmal mit 2&nbsp;+&nbsp;2 Ionen. Was meldet der Baukasten? Warum?</li>
+      <li>Vergleichen Sie die Namen mit den Formeln: Kommen im Namen Zahlen vor?</li>
+    </ol>
+    <details class="loesung"><summary>Lösung</summary><div class="inner">
+      <p>1. <span class="f">NaCl</span>, <span class="f">MgCl<sub>2</sub></span>, <span class="f">Al<sub>2</sub>O<sub>3</sub></span>, <span class="f">Ca<sub>3</sub>N<sub>2</sub></span></p>
+      <p>2. <strong>Kreuzregel:</strong> Die Ladungszahl des einen Ions wird zur Anzahl des anderen Ions: <span class="f">Al<sup>3+</sup></span> und <span class="f">O<sup>2−</sup></span> → <span class="f">Al<sub>2</sub>O<sub>3</sub></span>.</p>
+      <p>3. Auch <span class="f">Mg<sub>2</sub>O<sub>2</sub></span> ist neutral, aber man schreibt immer das <strong>kleinste ganzzahlige Verhältnis</strong>: <span class="f">MgO</span>.</p>
+      <p style="margin-bottom:0;">4. Nein! Bei Ionenverbindungen ergibt sich das Verhältnis aus den Ladungen. Deshalb braucht der Name <strong>keine Zahlwörter</strong>: «Aluminiumoxid», nicht «Dialuminiumtrioxid».</p>
+    </div></details>
+  </div>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Ionenverbindungen</div>
+    <ul>
+      <li><strong>Name:</strong> Zuerst das Metall (voller Name), dann das Nichtmetall (lateinischer Stamm + <strong>-id</strong>): Calcium + Chlor → <em>Calciumchlorid</em>.</li>
+      <li><strong>Formel:</strong> Die Ladungen müssen sich zu null ausgleichen; man schreibt das kleinste ganzzahlige Verhältnis: <span class="f">CaCl<sub>2</sub></span>.</li>
+      <li><strong>Keine Zahlwörter</strong> im Namen – die Ladungen legen das Verhältnis eindeutig fest.</li>
+    </ul>
+  </div>
+
+  <h3>1.5 Wenn ein Metall verschiedene Ladungen haben kann</h3>
+  <p>Eisen rostet. Rost besteht zu einem grossen Teil aus <span class="f">Fe<sub>2</sub>O<sub>3</sub></span>. Es gibt aber auch ein schwarzes Eisenoxid mit der Formel <span class="f">FeO</span>. Beide Stoffe mit «Eisenoxid» zu benennen, wäre also nicht eindeutig.</p>
+  <p>Das Problem tritt bei den <strong>Nebengruppenmetallen</strong> auf (z.&nbsp;B. Eisen, Kupfer, Chrom): Sie können je nach Reaktionspartner unterschiedlich viele Elektronen abgeben. Ihre Ladung lässt sich nicht aus dem Periodensystem ablesen. Deshalb schreibt man die <strong>Ladung des Metall-Ions als römische Ziffer</strong> in Klammern hinter den Metallnamen:</p>
+
+  <div class="table-scroll"><table class="data-table">
+    <thead><tr><th>Formel</th><th>Ionen</th><th>Name</th><th>Aussehen</th></tr></thead>
+    <tbody>
+      <tr><td><span class="f">FeO</span></td><td><span class="f">Fe<sup>2+</sup></span> + <span class="f">O<sup>2−</sup></span></td><td><strong>Eisen(II)-oxid</strong></td><td>schwarz</td></tr>
+      <tr><td><span class="f">Fe<sub>2</sub>O<sub>3</sub></span></td><td>2 <span class="f">Fe<sup>3+</sup></span> + 3 <span class="f">O<sup>2−</sup></span></td><td><strong>Eisen(III)-oxid</strong></td><td>rotbraun (Rost)</td></tr>
+      <tr><td><span class="f">CuCl</span></td><td><span class="f">Cu<sup>+</sup></span> + <span class="f">Cl<sup>−</sup></span></td><td><strong>Kupfer(I)-chlorid</strong></td><td>weiss</td></tr>
+      <tr><td><span class="f">CuCl<sub>2</sub></span></td><td><span class="f">Cu<sup>2+</sup></span> + 2 <span class="f">Cl<sup>−</sup></span></td><td><strong>Kupfer(II)-chlorid</strong></td><td>gelbbraun, gelöst blaugrün</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – römische Ziffern</div>
+    <p>Bei Metallen der <strong>Gruppen 3–12</strong> und bei Metallen der <strong>Gruppen 13–16 ab Periode 4</strong> (z.&nbsp;B. Gallium, Zinn, Blei) wird die Ladung des Metall-Ions als römische Ziffer angegeben: <em>Eisen(III)-chlorid</em>, <em>Blei(II)-oxid</em>. Bei Hauptgruppenmetallen wie Natrium, Calcium oder Aluminium ist die Ladung eindeutig – dort steht <strong>keine</strong> Ziffer.</p>
+  </div>
+
+  <div class="aufgabe"><div class="aufgabe-label">Kurz überlegen – rückwärts rechnen</div>
+    <p>Wie findet man die römische Ziffer, wenn nur die Formel gegeben ist? Bestimmen Sie den Namen von <span class="f">CrCl<sub>3</sub></span> und <span class="f">PbO<sub>2</sub></span>.</p>
+    <details class="loesung"><summary>Lösung</summary><div class="inner">
+      <p>Man geht vom Anion aus, dessen Ladung bekannt ist: 3 <span class="f">Cl<sup>−</sup></span> ergeben −3, also muss Chrom +3 sein → <strong>Chrom(III)-chlorid</strong>.</p>
+      <p style="margin-bottom:0;">2 <span class="f">O<sup>2−</sup></span> ergeben −4, also ist Blei +4 → <strong>Blei(IV)-oxid</strong>.</p>
+    </div></details>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 1</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für Sie</div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Welche Ladung hat ein Ion von Schwefel (Gruppe 16)?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>+6</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>+2</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>−2</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>−6</div>
+      <div class="feedback correct">Richtig! Schwefel hat 6 Valenzelektronen und nimmt 2 Elektronen auf, um die Edelgaskonfiguration von Argon zu erreichen: <span class="f">S<sup>2−</sup></span> (Sulfid).</div>
+      <div class="feedback wrong">Schwefel ist ein Nichtmetall mit 6 Valenzelektronen. Ist es einfacher, 6 abzugeben oder 2 aufzunehmen?</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Wie lautet die Formel von Calciumnitrid?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">CaN</span></div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">Ca<sub>2</sub>N<sub>3</sub></span></div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span><span class="f">Ca<sub>3</sub>N<sub>2</sub></span></div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">CaN<sub>3</sub></span></div>
+      <div class="feedback correct">Genau! <span class="f">Ca<sup>2+</sup></span> und <span class="f">N<sup>3−</sup></span>: 3 · (+2) + 2 · (−3) = 0 → <span class="f">Ca<sub>3</sub>N<sub>2</sub></span>.</div>
+      <div class="feedback wrong">Bestimmen Sie zuerst die Ladungen: Calcium ist in Gruppe 2, Stickstoff in Gruppe 15. Dann muss die Summe null ergeben.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">3</span>Welcher Name ist korrekt für <span class="f">AlCl<sub>3</sub></span>?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Aluminiumtrichlorid</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Aluminium(III)-chlorid</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Aluminiumchlorid</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Chloraluminid</div>
+      <div class="feedback correct">Richtig! Aluminium ist ein Hauptgruppenmetall der 3. Periode mit eindeutiger Ladung +3. Darum: keine Zahlwörter und keine römische Ziffer.</div>
+      <div class="feedback wrong">Bei Ionenverbindungen gibt es keine Zahlwörter. Und Aluminium (Gruppe 13, Periode 3) hat immer die Ladung +3 – braucht es da eine römische Ziffer?</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">4</span>Welche Formel gehört zu Eisen(III)-chlorid?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">Fe<sub>3</sub>Cl</span></div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span><span class="f">FeCl<sub>3</sub></span></div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">FeCl<sub>2</sub></span></div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">Fe<sub>2</sub>Cl<sub>3</sub></span></div>
+      <div class="feedback correct">Genau! Die römische Ziffer III gibt die Ladung des Eisen-Ions an: <span class="f">Fe<sup>3+</sup></span> braucht drei <span class="f">Cl<sup>−</sup></span>.</div>
+      <div class="feedback wrong">Die römische Ziffer ist die <em>Ladung</em> des Metall-Ions, nicht die Anzahl. <span class="f">Fe<sup>3+</sup></span> + ? <span class="f">Cl<sup>−</sup></span> = 0</div>
+    </div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 1</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128196;</div>
+      <div class="task-card-title">Aufgabenblatt Nomenklatur (ausgedruckt)</div>
+      <div class="task-card-desc">Lösen Sie die Aufgaben <span class="nrs">6-1, 6-8, 6-9 und 6-12</span> auf dem ausgeteilten Blatt. Die Lösungen finden Sie am Ende des Skripts.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 2                             -->
+<!-- ============================================================ -->
+<section id="L2">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 02</div>
+    <h2>Ionen aus mehreren Atomen – Molekülionen</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können erklären, was ein Molekülion ist und warum es als Einheit betrachtet wird.</li>
+    <li>Sie kennen die Namen, Formeln und Ladungen der Molekülionen aus der Liste.</li>
+    <li>Sie können die Struktur der Molekülionen beschreiben (Lewis-Formel, räumliche Gestalt).</li>
+    <li>Sie können Formeln mit Molekülionen korrekt aufstellen – inklusive Klammern.</li>
+  </ul></div>
+
+  <h3>2.1 Ein Rätsel: Natriumsulfat <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <p>Natriumsulfat (<span class="f">Na<sub>2</sub>SO<sub>4</sub></span>) verhält sich wie ein typisches Salz: Es bildet Kristalle, ist spröde und leitet gelöst den Strom. Es muss also aus Ionen bestehen. Aber aus welchen?</p>
+
+  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 1</div>
+    <h4>Passt das zusammen?</h4>
+    <p>Nehmen Sie an, <span class="f">Na<sub>2</sub>SO<sub>4</sub></span> bestünde nur aus einatomigen Ionen: <span class="f">Na<sup>+</sup></span>, <span class="f">S<sup>2−</sup></span> und <span class="f">O<sup>2−</sup></span>.</p>
+    <ol>
+      <li>Berechnen Sie die Gesamtladung von 2 <span class="f">Na<sup>+</sup></span> + 1 <span class="f">S<sup>2−</sup></span> + 4 <span class="f">O<sup>2−</sup></span>.</li>
+      <li>Was schliessen Sie daraus?</li>
+    </ol>
+    <details class="loesung"><summary>Lösung</summary><div class="inner">
+      <p>2 · (+1) + (−2) + 4 · (−2) = <strong>−8</strong>. Die Verbindung wäre stark negativ geladen – das ist unmöglich.</p>
+      <p style="margin-bottom:0;">Schluss: Schwefel und Sauerstoff bilden zusammen <strong>ein einziges Ion</strong>, das Sulfat-Ion <span class="f">SO<sub>4</sub><sup>2−</sup></span>. Dann gilt: 2 · (+1) + (−2) = 0 ✓</p>
+    </div></details>
+  </div>
+
+  <p>Im Sulfat-Ion sind das Schwefelatom und die vier Sauerstoffatome durch <strong>kovalente Bindungen</strong> verknüpft. Der ganze Verband trägt zusätzlich zwei Elektronen und ist darum zweifach negativ geladen. In Natriumsulfat wirken also <strong>beide Bindungsarten</strong>: kovalente Bindungen <em>innerhalb</em> des Sulfat-Ions und ionische Bindungen <em>zwischen</em> den Natrium-Ionen und den Sulfat-Ionen.</p>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Molekülion (zusammengesetztes Ion)</div>
+    <p>Ein Atomverband, dessen Atome kovalent miteinander verbunden sind und der als Ganzes eine elektrische Ladung trägt. Beispiele: <span class="f">SO<sub>4</sub><sup>2−</sup></span>, <span class="f">NO<sub>3</sub><sup>−</sup></span>, <span class="f">NH<sub>4</sub><sup>+</sup></span>. In einer Ionenverbindung verhält sich ein Molekülion wie ein einzelnes Ion.</p>
+  </div>
+
+  <h3>2.2 Muster in den Namen <span class="tag-selbst">selbst erarbeiten</span></h3>
+  <p>Die Namen der Molekülionen wirken auf den ersten Blick willkürlich. Sie folgen aber einigen wenigen Mustern. Finden Sie diese selbst heraus:</p>
+
+  <div class="table-scroll">
+  <table class="data-table">
+    <thead><tr><th>Grundform</th><th>+ 1 H</th><th>+ 2 H</th></tr></thead>
+    <tbody>
+      <tr><td>Sulfat <span class="f">SO<sub>4</sub><sup>2−</sup></span></td><td>Hydrogensulfat <span class="f">HSO<sub>4</sub><sup>−</sup></span></td><td>–</td></tr>
+      <tr><td>Phosphat <span class="f">PO<sub>4</sub><sup>3−</sup></span></td><td>Hydrogenphosphat <span class="f">HPO<sub>4</sub><sup>2−</sup></span></td><td>Dihydrogenphosphat <span class="f">H<sub>2</sub>PO<sub>4</sub><sup>−</sup></span></td></tr>
+      <tr><td>Carbonat <span class="f">CO<sub>3</sub><sup>2−</sup></span></td><td>Hydrogencarbonat <span class="f">HCO<sub>3</sub><sup>−</sup></span></td><td>–</td></tr>
+      <tr><td>Nitrat <span class="f">NO<sub>3</sub><sup>−</sup></span></td><td>–</td><td>–</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 2</div>
+    <h4>Regeln finden</h4>
+    <ol>
+      <li>Alle Ionen der ersten Spalte enden auf <strong>-at</strong>. Welches Element ist in allen enthalten?</li>
+      <li>Was bedeutet die Vorsilbe <strong>Hydrogen-</strong>? Was passiert dabei jedes Mal mit der Ladung? Erklären Sie, warum.</li>
+      <li>Wofür steht «Di-» in Dihydrogenphosphat?</li>
+      <li><strong>Vorhersage:</strong> Das Sulfid-Ion <span class="f">S<sup>2−</sup></span> kann ebenfalls ein H aufnehmen. Wie heisst das entstehende Ion und welche Ladung hat es?</li>
+    </ol>
+    <div class="hint">Tipp zu Frage 2: Das H wird nicht als Atom, sondern als <span class="f">H<sup>+</sup></span> angelagert – also als Proton.</div>
+    <details class="loesung"><summary>Lösung</summary><div class="inner">
+      <p>1. Alle enthalten <strong>Sauerstoff</strong>. Die Endung -at steht für sauerstoffhaltige Molekülionen.</p>
+      <p>2. «Hydrogen-» bedeutet: Ein <span class="f">H<sup>+</sup></span> ist angelagert. Weil es eine positive Ladung mitbringt, wird die Ladung des Ions um 1 weniger negativ: <span class="f">CO<sub>3</sub><sup>2−</sup></span> + <span class="f">H<sup>+</sup></span> → <span class="f">HCO<sub>3</sub><sup>−</sup></span>.</p>
+      <p>3. «Di» bedeutet zwei: Zwei <span class="f">H<sup>+</sup></span> sind angelagert, die Ladung sinkt von 3− auf 1−.</p>
+      <p style="margin-bottom:0;">4. <strong>Hydrogensulfid</strong>, <span class="f">HS<sup>−</sup></span>. Die Endung bleibt -id, weil kein Sauerstoff dabei ist.</p>
+    </div></details>
+  </div>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Namensmuster</div>
+    <ul>
+      <li><strong>-at</strong>: sauerstoffhaltiges Molekülion (Sulfat, Phosphat, Carbonat, Nitrat, Acetat).</li>
+      <li><strong>Hydrogen- / Dihydrogen-</strong>: ein bzw. zwei <span class="f">H<sup>+</sup></span> angelagert – die Ladung wird pro H um 1 weniger negativ.</li>
+      <li><strong>Ausnahmen</strong>, die man sich merken muss: Hydroxid <span class="f">OH<sup>−</sup></span> (endet auf -id, obwohl es zwei Atome hat), Ammonium <span class="f">NH<sub>4</sub><sup>+</sup></span> und Oxonium <span class="f">H<sub>3</sub>O<sup>+</sup></span> (positive Molekülionen).</li>
+    </ul>
+  </div>
+
+  <h3>2.3 Die Molekülionen im Überblick</h3>
+  <p>Diese Molekülionen müssen Sie kennen – mit Name, Formel und Ladung. Klicken Sie ein Ion an, um seine Struktur, seine räumliche Gestalt und ein Beispiel aus dem Alltag zu sehen.</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Molekülionen-Explorer</span><span class="widget-badge">INTERAKTIV</span></div>
+    <div class="widget-body">
+      <div class="mi-chips" id="miChips"></div>
+      <div class="mi-panel" id="miPanel"></div>
+    </div>
+    <div class="widget-caption">Lewis-Formeln nach der Edelgasregel, mit allen bindenden und nichtbindenden Elektronenpaaren.</div>
+  </div>
+
+  <h3>2.4 Formeln mit Molekülionen: Klammern!</h3>
+  <p>Kommt ein Molekülion in einer Formel <strong>mehrmals</strong> vor, wird es in Klammern gesetzt. Die Zahl hinter der Klammer gilt für das ganze Ion:</p>
+
+  <div class="table-scroll"><table class="data-table">
+    <thead><tr><th>Name</th><th>Ionen</th><th>richtig</th><th>falsch</th></tr></thead>
+    <tbody>
+      <tr><td>Kupfer(II)-nitrat</td><td><span class="f">Cu<sup>2+</sup></span> + 2 <span class="f">NO<sub>3</sub><sup>−</sup></span></td><td><strong class="f">Cu(NO<sub>3</sub>)<sub>2</sub></strong></td><td><span class="f">CuNO<sub>32</sub></span> oder <span class="f">CuN<sub>2</sub>O<sub>6</sub></span></td></tr>
+      <tr><td>Calciumphosphat</td><td>3 <span class="f">Ca<sup>2+</sup></span> + 2 <span class="f">PO<sub>4</sub><sup>3−</sup></span></td><td><strong class="f">Ca<sub>3</sub>(PO<sub>4</sub>)<sub>2</sub></strong></td><td><span class="f">Ca<sub>3</sub>P<sub>2</sub>O<sub>8</sub></span></td></tr>
+      <tr><td>Ammoniumsulfat</td><td>2 <span class="f">NH<sub>4</sub><sup>+</sup></span> + <span class="f">SO<sub>4</sub><sup>2−</sup></span></td><td><strong class="f">(NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub></strong></td><td><span class="f">N<sub>2</sub>H<sub>8</sub>SO<sub>4</sub></span></td></tr>
+      <tr><td>Natriumsulfat</td><td>2 <span class="f">Na<sup>+</sup></span> + <span class="f">SO<sub>4</sub><sup>2−</sup></span></td><td><strong class="f">Na<sub>2</sub>SO<sub>4</sub></strong></td><td><span class="f">Na<sub>2</sub>(SO<sub>4</sub>)</span> – Klammer bei nur einem Ion überflüssig</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Die Formel <span class="f">CuN<sub>2</sub>O<sub>6</sub></span> enthält zwar die richtige Anzahl Atome. Sie verschleiert aber, dass die Verbindung aus Nitrat-Ionen aufgebaut ist. Die Klammer zeigt die <strong>Struktur</strong>. Probieren Sie es im Baukasten aus:</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Ladungsbaukasten – mit Molekülionen</span><span class="widget-badge">INTERAKTIV</span></div>
+    <div class="widget-body">
+      <div class="lbk" data-set="poly"></div>
+    </div>
+    <div class="widget-caption">Achten Sie darauf, wann in der Formel Klammern erscheinen.</div>
+  </div>
+
+  <h3>2.5 Zurück zum Etikett</h3>
+  <div class="aufgabe"><div class="aufgabe-label">Anwenden</div>
+    <p>Beim Eindampfen des Mineralwassers «Felsbach» bleiben verschiedene Salze zurück. Bestimmen Sie Formeln und Namen:</p>
+    <ol>
+      <li>das Salz aus den Calcium-Ionen und den Hydrogencarbonat-Ionen</li>
+      <li>das Salz aus den Magnesium-Ionen und den Sulfat-Ionen</li>
+      <li>das Salz aus den Kalium-Ionen und den Nitrat-Ionen</li>
+      <li>Kalk (Calciumcarbonat) setzt sich als Kalkrand im Wasserkocher ab. Wie lautet die Formel?</li>
+    </ol>
+    <details class="loesung"><summary>Lösung</summary><div class="inner">
+      <p>1. Calciumhydrogencarbonat <span class="f">Ca(HCO<sub>3</sub>)<sub>2</sub></span> &nbsp;·&nbsp; 2. Magnesiumsulfat <span class="f">MgSO<sub>4</sub></span> &nbsp;·&nbsp; 3. Kaliumnitrat <span class="f">KNO<sub>3</sub></span> &nbsp;·&nbsp; 4. <span class="f">CaCO<sub>3</sub></span></p>
+      <p style="margin-bottom:0;">Übrigens: Beim Erhitzen wird aus gelöstem Calciumhydrogencarbonat Kalk – deshalb verkalkt der Wasserkocher.</p>
+    </div></details>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 2</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für Sie</div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Welche Ladung hat das Hydrogenphosphat-Ion?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>3−</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>2−</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>1−</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>1+</div>
+      <div class="feedback correct">Richtig! Phosphat <span class="f">PO<sub>4</sub><sup>3−</sup></span> + <span class="f">H<sup>+</sup></span> → <span class="f">HPO<sub>4</sub><sup>2−</sup></span>.</div>
+      <div class="feedback wrong">Gehen Sie vom Phosphat-Ion <span class="f">PO<sub>4</sub><sup>3−</sup></span> aus. Was macht ein angelagertes <span class="f">H<sup>+</sup></span> mit der Ladung?</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Wie lautet die Formel von Aluminiumsulfat?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">AlSO<sub>4</sub></span></div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">Al<sub>2</sub>SO<sub>43</sub></span></div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span><span class="f">Al<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub></span></div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">Al<sub>3</sub>(SO<sub>4</sub>)<sub>2</sub></span></div>
+      <div class="feedback correct">Genau! 2 · (+3) + 3 · (−2) = 0, und weil das Sulfat-Ion dreimal vorkommt, braucht es Klammern.</div>
+      <div class="feedback wrong"><span class="f">Al<sup>3+</sup></span> und <span class="f">SO<sub>4</sub><sup>2−</sup></span> – wenden Sie die Kreuzregel an und denken Sie an die Klammern.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">3</span>Welche Bindungen wirken in Kaliumnitrat <span class="f">KNO<sub>3</sub></span>?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>nur ionische Bindungen</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>nur kovalente Bindungen</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>kovalente Bindungen im Nitrat-Ion, ionische Bindungen zwischen den Ionen</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>metallische Bindungen zwischen K und N</div>
+      <div class="feedback correct">Richtig! N und O sind kovalent verbunden; das ganze <span class="f">NO<sub>3</sub><sup>−</sup></span> wird von <span class="f">K<sup>+</sup></span> elektrostatisch angezogen.</div>
+      <div class="feedback wrong">Überlegen Sie: Wie sind N und O <em>im</em> Nitrat-Ion verbunden? Und wie hält das Nitrat-Ion mit dem Kalium-Ion zusammen?</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">4</span>Wie heisst <span class="f">NaHCO<sub>3</sub></span> (Hauptbestandteil von Backpulver)?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Natriumcarbonat</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Natriumhydrogencarbonat</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Natriumhydrogencarbid</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Natriumtrioxocarbonat</div>
+      <div class="feedback correct">Genau! <span class="f">Na<sup>+</sup></span> und das Hydrogencarbonat-Ion <span class="f">HCO<sub>3</sub><sup>−</sup></span> – das gleiche Ion wie auf dem Mineralwasser-Etikett.</div>
+      <div class="feedback wrong">Zerlegen Sie die Formel: <span class="f">Na<sup>+</sup></span> und <span class="f">HCO<sub>3</sub><sup>−</sup></span>. Wie heisst das Molekülion?</div>
+    </div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 2</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128196;</div>
+      <div class="task-card-title">Aufgabenblatt Nomenklatur (ausgedruckt)</div>
+      <div class="task-card-desc">Lösen Sie die Aufgaben <span class="nrs">6-10, 6-11, 6-13 und 6-14</span>. Für 6-10 und 6-11 hilft der Molekülionen-Explorer oben – zeichnen Sie aber zuerst selbst.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 3                             -->
+<!-- ============================================================ -->
+<section id="L3">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 03</div>
+    <h2>Ein Wort kann tödlich sein – Molekülverbindungen benennen</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können erklären, warum bei Molekülverbindungen Zahlwörter im Namen nötig sind.</li>
+    <li>Sie kennen die griechischen Zahlwörter von 1 bis 10.</li>
+    <li>Sie können Molekülverbindungen benennen und aus dem Namen die Summenformel ableiten.</li>
+  </ul></div>
+
+  <h3>3.1 Einstieg: Drei Stoffpaare <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <p>Die Stoffe in jedem Paar bestehen aus denselben Elementen. Sie unterscheiden sich nur um ein einziges Atom. Überlegen Sie zuerst: Kennen Sie die Stoffe? Was wissen Sie über ihre Eigenschaften? Klicken Sie danach auf die Karte.</p>
+
+  <div class="flip-grid">
+    <div class="flip" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <div class="pair"><span>CO</span><span class="vs">vs.</span><span>CO<sub>2</sub></span></div>
+          <div class="q">Welcher Stoff ist lebensgefährlich?</div>
+          <div class="turn">Karte umdrehen ↻</div>
+        </div>
+        <div class="flip-face flip-back">
+          <div class="fb-item danger"><b>CO – Kohlenstoffmonoxid</b>Farb- und geruchlos, hoch giftig. Entsteht bei unvollständiger Verbrennung (Holzofen, Gasheizung). Blockiert den Sauerstofftransport im Blut. Dagegen helfen CO-Melder.</div>
+          <div class="fb-item ok"><b>CO<sub>2</sub> – Kohlenstoffdioxid</b>Wir atmen es aus. Es sorgt für die Bläschen im Mineralwasser «mit Kohlensäure».</div>
+        </div>
+      </div>
+    </div>
+    <div class="flip" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <div class="pair"><span>N<sub>2</sub>O</span><span class="vs">vs.</span><span>NO<sub>2</sub></span></div>
+          <div class="q">Welcher Stoff wird in der Medizin eingesetzt?</div>
+          <div class="turn">Karte umdrehen ↻</div>
+        </div>
+        <div class="flip-face flip-back">
+          <div class="fb-item ok"><b>N<sub>2</sub>O – Distickstoffmonoxid</b>«Lachgas». Wird in der Zahnmedizin und bei Geburten zur Schmerzlinderung verwendet, ausserdem als Treibgas für Rahmbläser.</div>
+          <div class="fb-item danger"><b>NO<sub>2</sub> – Stickstoffdioxid</b>Braunes, stechend riechendes Reizgas aus Autoabgasen. Verantwortlich für Sommersmog.</div>
+        </div>
+      </div>
+    </div>
+    <div class="flip" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <div class="pair"><span>H<sub>2</sub>O</span><span class="vs">vs.</span><span>H<sub>2</sub>O<sub>2</sub></span></div>
+          <div class="q">Welchen Stoff kann man trinken?</div>
+          <div class="turn">Karte umdrehen ↻</div>
+        </div>
+        <div class="flip-face flip-back">
+          <div class="fb-item ok"><b>H<sub>2</sub>O – Dihydrogenoxid</b>Wasser. Lebensnotwendig.</div>
+          <div class="fb-item danger"><b>H<sub>2</sub>O<sub>2</sub> – Wasserstoffperoxid</b>Ätzendes Bleich- und Desinfektionsmittel, z.&nbsp;B. zum Haare-Blondieren oder zum Reinigen von Kontaktlinsen.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="discovery"><div class="discovery-label">Diskussion im Plenum</div>
+    <h4>Warum reicht «Kohlenstoffoxid» nicht?</h4>
+    <ol>
+      <li>Bei den Ionenverbindungen brauchten wir keine Zahlen im Namen. Warum funktioniert dieser «Trick» bei CO und <span class="f">CO<sub>2</sub></span> nicht?</li>
+      <li>Was müsste ein Name also zusätzlich enthalten?</li>
+    </ol>
+    <details class="loesung"><summary>Auflösung</summary><div class="inner">
+      <p style="margin-bottom:0;">Molekülverbindungen bestehen aus Nichtmetallen, die <strong>keine Ionen</strong> bilden, sondern Elektronenpaare teilen. Es gibt keinen Ladungsausgleich, der das Verhältnis festlegt – und dieselben Elemente können sich in verschiedenen Verhältnissen verbinden. Deshalb muss die <strong>Anzahl der Atome im Namen stehen</strong>.</p>
+    </div></details>
+  </div>
+
+  <h3>3.2 Die Regeln selbst ableiten <span class="tag-selbst">selbst erarbeiten</span></h3>
+  <p>Hier sehen Sie korrekte Namen von Molekülverbindungen. Untersuchen Sie sie wie eine Detektivin oder ein Detektiv.</p>
+
+  <div class="table-scroll">
+  <table class="data-table">
+    <thead><tr><th>Formel</th><th>Name</th><th>Formel</th><th>Name</th></tr></thead>
+    <tbody>
+      <tr><td><span class="f">CO</span></td><td>Kohlenstoffmonoxid</td><td><span class="f">PCl<sub>5</sub></span></td><td>Phosphorpentachlorid</td></tr>
+      <tr><td><span class="f">CO<sub>2</sub></span></td><td>Kohlenstoffdioxid</td><td><span class="f">SF<sub>6</sub></span></td><td>Schwefelhexafluorid</td></tr>
+      <tr><td><span class="f">SO<sub>3</sub></span></td><td>Schwefeltrioxid</td><td><span class="f">N<sub>2</sub>O<sub>4</sub></span></td><td>Distickstofftetraoxid</td></tr>
+      <tr><td><span class="f">CCl<sub>4</sub></span></td><td>Kohlenstofftetrachlorid</td><td><span class="f">P<sub>4</sub>O<sub>10</sub></span></td><td>Tetraphosphordecaoxid</td></tr>
+      <tr><td><span class="f">NCl<sub>3</sub></span></td><td>Stickstofftrichlorid</td><td><span class="f">IBr</span></td><td>Iodbromid</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag</div>
+    <h4>Wie ist ein Name aufgebaut?</h4>
+    <ol>
+      <li>Wie wird das <strong>erste</strong> Element im Namen bezeichnet, wie das <strong>zweite</strong>? Erinnert Sie das an etwas?</li>
+      <li>Woran erkennt man im Namen die Anzahl der Atome? Füllen Sie damit die Zahlwort-Tabelle unten aus.</li>
+      <li>Vergleichen Sie CO, <span class="f">NCl<sub>3</sub></span> und <span class="f">N<sub>2</sub>O<sub>4</sub></span>: Wann steht beim ersten Element ein Zahlwort, wann nicht?</li>
+      <li>Warum heisst es «Iodbromid» und nicht «Monoiodmonobromid»?</li>
+    </ol>
+  </div>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Die griechischen Zahlwörter</span><span class="widget-badge">AUSFÜLLEN</span></div>
+    <div class="widget-body">
+      <div class="prefix-grid" id="prefixGrid"></div>
+      <div class="widget-actions">
+        <button class="btn primary" onclick="checkPrefixes()">Prüfen</button>
+        <button class="btn" onclick="showPrefixes()">Lösung zeigen</button>
+        <span class="widget-msg" id="prefixMsg"></span>
+      </div>
+    </div>
+    <div class="widget-caption">Vier Zahlwörter stecken in der Tabelle oben. Die übrigen kennen Sie vielleicht aus Wörtern wie Hexagon, Oktopus oder Dekade.</div>
+  </div>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Molekülverbindungen</div>
+    <ul>
+      <li>Das <strong>erste</strong> Nichtmetall erhält seinen vollen Namen, das <strong>zweite</strong> den lateinischen Stamm + <strong>-id</strong> (wie bei den Anionen).</li>
+      <li>Die Anzahl der Atome wird mit <strong>griechischen Zahlwörtern</strong> angegeben: mono, di, tri, tetra, penta, hexa, hepta, octa, nona, deca.</li>
+      <li><strong>«Mono»</strong> lässt man beim ersten Element weg (Kohlenstoffdioxid, nicht Monokohlenstoffdioxid). Bei einer 1:1-Verbindung aus zwei Halogenen fällt es meist ganz weg: Iodbromid.</li>
+      <li>Die <strong>Reihenfolge</strong> der Elemente übernehmen wir so, wie sie im Skript, in Übungen und Tests angegeben ist.</li>
+    </ul>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--text-muted);">Hinweise: Bei «tetraoxid» und «pentaoxid» darf der Vokal auch wegfallen («Tetroxid», «Pentoxid»). Einige Stoffe kennt man fast nur unter ihrem <strong>Trivialnamen</strong>: <span class="f">H<sub>2</sub>O</span> (Wasser), <span class="f">NH<sub>3</sub></span> (Ammoniak), <span class="f">HCl</span> (Chlorwasserstoff).</p>
+
+  <div class="aufgabe"><div class="aufgabe-label">Kurz anwenden</div>
+    <p>Wie lauten die Formeln von <strong>Siliciumtetrafluorid</strong> und <strong>Distickstoffpentaoxid</strong>? Wie heisst <span class="f">CS<sub>2</sub></span>?</p>
+    <details class="loesung"><summary>Lösung</summary><div class="inner">
+      <p style="margin-bottom:0;"><span class="f">SiF<sub>4</sub></span> · <span class="f">N<sub>2</sub>O<sub>5</sub></span> · Kohlenstoffdisulfid</p>
+    </div></details>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 3</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für Sie</div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Wie heisst <span class="f">PCl<sub>3</sub></span>?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Phosphorchlorid</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Phosphortrichlorid</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Monophosphortrichlorid</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Phosphor(III)-chlorid</div>
+      <div class="feedback correct">Richtig! Zwei Nichtmetalle → Molekülverbindung → Zahlwort «tri» für 3 Cl; «mono» beim ersten Element entfällt.</div>
+      <div class="feedback wrong">P und Cl sind beide Nichtmetalle. Bei Molekülverbindungen braucht es Zahlwörter – aber nicht «mono» beim ersten Element. Römische Ziffern gibt es nur für Metall-Ionen.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Wie lautet die Formel von Distickstofftrioxid?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">N<sub>3</sub>O<sub>2</sub></span></div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">NO<sub>3</sub></span></div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span><span class="f">N<sub>2</sub>O<sub>3</sub></span></div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span><span class="f">N<sub>2</sub>O<sub>6</sub></span></div>
+      <div class="feedback correct">Genau! «Di» = 2 Stickstoff, «tri» = 3 Sauerstoff.</div>
+      <div class="feedback wrong">Lesen Sie die Zahlwörter einzeln: «Di-stickstoff» und «tri-oxid».</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">3</span>Warum heisst <span class="f">MgCl<sub>2</sub></span> «Magnesiumchlorid», <span class="f">SCl<sub>2</sub></span> aber «Schwefeldichlorid»?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil Schwefel schwerer ist als Magnesium.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Weil <span class="f">MgCl<sub>2</sub></span> aus Ionen besteht und das Verhältnis durch die Ladungen festgelegt ist, <span class="f">SCl<sub>2</sub></span> aber eine Molekülverbindung ist.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Das ist eine reine Konvention ohne Grund.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil Magnesium eine römische Ziffer braucht.</div>
+      <div class="feedback correct">Richtig! Bei Ionen bestimmen die Ladungen das Verhältnis eindeutig. Bei Molekülen nicht – darum stehen dort Zahlwörter.</div>
+      <div class="feedback wrong">Überlegen Sie: Welcher Bindungstyp liegt jeweils vor? Und was legt bei Ionenverbindungen das Verhältnis fest?</div>
+    </div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 3</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128196;</div>
+      <div class="task-card-title">Aufgabenblatt Nomenklatur (ausgedruckt)</div>
+      <div class="task-card-desc">Lösen Sie die Aufgaben <span class="nrs">6-2 und 6-3</span>. Zeichnen Sie bei 6-2 auch die Lewis-Formeln.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 4                             -->
+<!-- ============================================================ -->
+<section id="L4">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 04</div>
+    <h2>Alles zusammen: Entscheiden, Fehler finden, trainieren</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können bei einer beliebigen Formel entscheiden, welche Benennungsregeln gelten.</li>
+    <li>Sie erkennen typische Fehler in Namen und Formeln und können sie begründet korrigieren.</li>
+    <li>Sie können Namen und Formeln von Ionen- und Molekülverbindungen sicher und schnell ineinander übersetzen.</li>
+  </ul></div>
+
+  <h3>4.1 Der Entscheidungsbaum</h3>
+  <p>Die meisten Fehler passieren nicht, weil man eine Regel nicht kennt, sondern weil man die <em>falsche</em> Regel anwendet. Stellen Sie sich deshalb immer zuerst die Frage: <strong>Welche Elemente sind beteiligt?</strong></p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Welche Regel gilt?</span><span class="widget-badge">ÜBERSICHT</span></div>
+    <div class="widget-body">
+      <div class="tree">
+        <div class="tree-node start">Formel oder Name einer Verbindung</div>
+        <div class="tree-arrow"></div>
+        <div class="tree-node">Sind Metalle, Nichtmetalle oder beides beteiligt?</div>
+        <div class="tree-arrow"></div>
+        <div class="tree-split">
+          <div class="tree-branch">
+            <div class="tree-cond">Metall + Nichtmetall<br>oder NH<sub>4</sub><sup>+</sup></div>
+            <div class="tree-leaf ion"><h5>Ionenverbindung</h5><ul>
+              <li>Metall zuerst, Anion mit ‑id oder ‑at</li>
+              <li>Ladungsausgleich, keine Zahlwörter</li>
+              <li>Nebengruppenmetall → römische Ziffer</li>
+              <li>Molekülion mehrfach → Klammern</li>
+            </ul></div>
+          </div>
+          <div class="tree-branch">
+            <div class="tree-cond">nur<br>Nichtmetalle</div>
+            <div class="tree-leaf mol"><h5>Molekülverbindung</h5><ul>
+              <li>erstes Element voller Name</li>
+              <li>zweites Element Stamm + ‑id</li>
+              <li>griechische Zahlwörter</li>
+              <li>kein «mono» vorne</li>
+            </ul></div>
+          </div>
+          <div class="tree-branch">
+            <div class="tree-cond">nur<br>Metalle</div>
+            <div class="tree-leaf leg"><h5>Legierung</h5><ul>
+              <li>keine feste Formel</li>
+              <li>Benennung in diesem Kurs nicht verlangt (→ Phase 2)</li>
+            </ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="widget-caption">Einzige Ausnahme: Verbindungen mit dem Ammonium-Ion bestehen nur aus Nichtmetallen, sind aber Ionenverbindungen (z.&nbsp;B. NH<sub>4</sub>Cl).</div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Zuordnen: Welcher Verbindungstyp?</span><span class="widget-badge">INTERAKTIV</span></div>
+    <div class="widget-body" id="classify"></div>
+    <div class="widget-caption">Bei einer falschen Antwort dürfen Sie es nochmals versuchen.</div>
+  </div>
+
+  <h3>4.2 Fehlerdetektiv</h3>
+  <p>In einer Prüfung wurden die folgenden Antworten abgegeben. Stimmen sie? Entscheiden Sie – und begründen Sie im Kopf, bevor Sie klicken.</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Fehlerdetektiv</span><span class="widget-badge">INTERAKTIV</span></div>
+    <div class="widget-body" id="detective"></div>
+    <div class="widget-caption">Nicht alle Aussagen sind falsch.</div>
+  </div>
+
+  <h3>4.3 Formel-Trainer</h3>
+  <p>Jetzt geht es ums Üben. Der Trainer stellt Ihnen beliebig viele Aufgaben in beide Richtungen. Beginnen Sie mit Stufe 1 und steigern Sie sich. Tippen Sie Formeln einfach mit normalen Zahlen ein (z.&nbsp;B. <span class="f" style="font-family:var(--mono);">Ca(NO3)2</span>) – die Tiefstellung erfolgt automatisch.</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Formel-Trainer</span><span class="widget-badge">UNBEGRENZT ÜBEN</span></div>
+    <div class="widget-body">
+      <div class="tr-levels" id="trLevels"></div>
+      <div class="tr-card">
+        <div class="tr-dir" id="trDir"></div>
+        <div class="tr-task" id="trTask"></div>
+        <input class="tr-input" id="trInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ihre Antwort">
+        <div class="tr-preview" id="trPreview"></div>
+        <div class="tr-fb" id="trFb"></div>
+        <div class="tr-actions">
+          <button class="btn primary" id="trCheck">Prüfen</button>
+          <button class="btn" id="trHint">Tipp</button>
+          <button class="btn" id="trSolve">Lösung zeigen</button>
+          <button class="btn" id="trNext">Nächste Aufgabe →</button>
+        </div>
+        <div class="tr-stats"><span>richtig: <b id="trRight">0</b></span><span>Aufgaben: <b id="trTotal">0</b></span><span>Serie: <b id="trStreak">0</b></span></div>
+      </div>
+    </div>
+    <div class="widget-caption">Gross- und Kleinschreibung ist bei Formeln wichtig: Co (Cobalt) ist nicht dasselbe wie CO (Kohlenstoffmonoxid). Bei Namen spielt sie keine Rolle.</div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 4</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128196;</div>
+      <div class="task-card-title">Aufgabenblatt Nomenklatur (ausgedruckt)</div>
+      <div class="task-card-desc">Lösen Sie die gemischte Aufgabe <span class="nrs">6-15</span>. Entscheiden Sie bei jeder Teilaufgabe zuerst mit dem Entscheidungsbaum, welche Regel gilt.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                     ZUSAMMENFASSUNG                          -->
+<!-- ============================================================ -->
+<section id="zusammenfassung">
+  <div class="lesson-header">
+    <div class="lesson-number">Zusammenfassung</div>
+    <h2>Phase 1 auf einen Blick</h2>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card"><h4>Ionenverbindungen</h4><p>Metall + Nichtmetallstamm + <strong>-id</strong>. Formel über Ladungsausgleich, kleinstes Verhältnis. <strong>Keine Zahlwörter.</strong><br><span class="f">Al<sub>2</sub>O<sub>3</sub></span> = Aluminiumoxid</p></div>
+    <div class="summary-card"><h4>Römische Ziffern</h4><p>Ladung des Metall-Ions bei Gruppen 3–12 (und Gruppen 13–16 ab Periode 4).<br><span class="f">FeCl<sub>3</sub></span> = Eisen(III)-chlorid</p></div>
+    <div class="summary-card"><h4>Molekülionen</h4><p>Kovalent verbundene, geladene Atomgruppen. <strong>-at</strong> = mit Sauerstoff, <strong>Hydrogen-</strong> = + <span class="f">H<sup>+</sup></span>. Mehrfach → Klammern.<br><span class="f">Ca(NO<sub>3</sub>)<sub>2</sub></span> = Calciumnitrat</p></div>
+    <div class="summary-card"><h4>Molekülverbindungen</h4><p>Nur Nichtmetalle. Zahlwörter mono … deca, kein «mono» vorne.<br><span class="f">N<sub>2</sub>O<sub>4</sub></span> = Distickstofftetraoxid</p></div>
+  </div>
+
+  <div class="summary">
+    <h3>Die Molekülionen zum Lernen</h3>
+    <div class="table-scroll">
+    <table class="data-table">
+      <thead><tr><th>Formel</th><th>Name</th><th>Formel</th><th>Name</th></tr></thead>
+      <tbody id="ionTable"></tbody>
+    </table>
+    </div>
+    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0;">Dazu kommen die einatomigen Anionen Fluorid, Chlorid, Bromid, Iodid, Oxid, Sulfid, Nitrid, Phosphid und Hydrid (Tabelle in Abschnitt 1.3).</p>
+  </div>
+
+  <p id="phase2-teaser" style="text-align:center; color:var(--text-muted); margin-top:44px; font-size:0.9rem;">
+    <strong>Weiter geht's in Phase 2:</strong> Aufbau und Eigenschaften von Metallen und Legierungen
+  </p>
+
+  <div id="formsBlock" style="margin-top:40px; padding-top:28px; border-top: 1px solid var(--border); display:none;">
+    <h4 style="margin-top:0;">Lernkontrolle Phase 1</h4>
+    <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:14px;">Multiple-Choice zum Grundverständnis der gesamten Phase 1.</p>
+    <div class="task-links">
+      <a class="task-card forms" id="formsLink" href="#" target="_blank">
+        <div class="task-card-icon">&#128203;</div>
+        <div class="task-card-title">MC-Lernkontrolle: Phase 1 abschliessen</div>
+        <div class="task-card-desc">MS Forms · Multiple-Choice zum Grundverständnis aller 4 Lektionen · 12 Fragen</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<script>
+/* ================================================================
+   EINSTELLUNG: Link zur MS-Forms-Lernkontrolle hier eintragen.
+   Leer lassen = der Block wird nicht angezeigt.
+   ================================================================ */
+const FORMS_URL = 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=rQuDwrIivEKqXe-HgrWYGz2j0qfMSOpEqRiOQYLBt2dUM0Q3UEdPWDNUS1YyUVFOTDkwTVRQRUJCUC4u';
+
+/* ===================== Allgemein ===================== */
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const pct = el.scrollHeight > el.clientHeight ? (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+});
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.sidebar .nav-item:not(.locked)');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector('.sidebar .nav-item[href="#' + entry.target.id + '"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Optionstext in einen Span packen, damit lange Antworten sauber umbrechen
+document.querySelectorAll('.option').forEach(o => {
+  const span = document.createElement('span'); span.className = 'opt-text';
+  [...o.childNodes].filter(n => !(n.classList && n.classList.contains('radio'))).forEach(n => span.appendChild(n));
+  o.appendChild(span);
+});
+function selectOption(el) {
+  const q = el.closest('.question');
+  if (q.classList.contains('answered')) return;
+  q.classList.add('answered');
+  const options = q.querySelectorAll('.option');
+  const feedbacks = q.querySelectorAll('.feedback');
+  options.forEach(o => o.style.pointerEvents = 'none');
+  if (el.dataset.correct === 'true') { el.classList.add('correct'); feedbacks[0].classList.add('show'); }
+  else {
+    el.classList.add('wrong');
+    options.forEach(o => { if (o.dataset.correct === 'true') o.classList.add('correct'); });
+    feedbacks[1].classList.add('show');
+  }
+}
+
+/* ===================== Chemie-Hilfsfunktionen ===================== */
+// Formel mit tiefgestellten Ziffern als HTML
+function fmtF(f) { return f.replace(/(\d+)/g, '<sub>$1</sub>'); }
+// Ion mit Ladung als HTML
+function ionHTML(f, q) {
+  const a = Math.abs(q);
+  return fmtF(f) + '<sup>' + (a > 1 ? a : '') + (q > 0 ? '+' : '−') + '</sup>';
+}
+const ROMAN = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+
+// Kationen: t = 'h' Hauptgruppe, 'u' Ladung variabel (römische Ziffer), 'm' Molekülion
+const CATIONS = {
+  Li:  { s: 'Li', n: 'Lithium', q: 1, t: 'h' },
+  Na:  { s: 'Na', n: 'Natrium', q: 1, t: 'h' },
+  K:   { s: 'K',  n: 'Kalium', q: 1, t: 'h' },
+  Rb:  { s: 'Rb', n: 'Rubidium', q: 1, t: 'h' },
+  Cs:  { s: 'Cs', n: 'Cäsium', q: 1, t: 'h' },
+  Be:  { s: 'Be', n: 'Beryllium', q: 2, t: 'h' },
+  Mg:  { s: 'Mg', n: 'Magnesium', q: 2, t: 'h' },
+  Ca:  { s: 'Ca', n: 'Calcium', q: 2, t: 'h' },
+  Sr:  { s: 'Sr', n: 'Strontium', q: 2, t: 'h' },
+  Ba:  { s: 'Ba', n: 'Barium', q: 2, t: 'h' },
+  Al:  { s: 'Al', n: 'Aluminium', q: 3, t: 'h' },
+  Fe2: { s: 'Fe', n: 'Eisen', q: 2, t: 'u' },
+  Fe3: { s: 'Fe', n: 'Eisen', q: 3, t: 'u' },
+  Cu1: { s: 'Cu', n: 'Kupfer', q: 1, t: 'u' },
+  Cu2: { s: 'Cu', n: 'Kupfer', q: 2, t: 'u' },
+  Zn:  { s: 'Zn', n: 'Zink', q: 2, t: 'u' },
+  Ag:  { s: 'Ag', n: 'Silber', q: 1, t: 'u' },
+  Ni:  { s: 'Ni', n: 'Nickel', q: 2, t: 'u' },
+  Cr:  { s: 'Cr', n: 'Chrom', q: 3, t: 'u' },
+  Co:  { s: 'Co', n: 'Cobalt', q: 2, t: 'u' },
+  Mn2: { s: 'Mn', n: 'Mangan', q: 2, t: 'u' },
+  Mn4: { s: 'Mn', n: 'Mangan', q: 4, t: 'u' },
+  Pb2: { s: 'Pb', n: 'Blei', q: 2, t: 'u' },
+  Pb4: { s: 'Pb', n: 'Blei', q: 4, t: 'u' },
+  Sn2: { s: 'Sn', n: 'Zinn', q: 2, t: 'u' },
+  Au:  { s: 'Au', n: 'Gold', q: 3, t: 'u' },
+  Ga:  { s: 'Ga', n: 'Gallium', q: 3, t: 'u' },
+  NH4: { s: 'NH4', n: 'Ammonium', q: 1, t: 'm' }
+};
+const ANIONS = {
+  F:  { s: 'F',  n: 'fluorid', q: -1, t: 'e' },
+  Cl: { s: 'Cl', n: 'chlorid', q: -1, t: 'e' },
+  Br: { s: 'Br', n: 'bromid', q: -1, t: 'e' },
+  I:  { s: 'I',  n: 'iodid', q: -1, t: 'e' },
+  O:  { s: 'O',  n: 'oxid', q: -2, t: 'e' },
+  S:  { s: 'S',  n: 'sulfid', q: -2, t: 'e' },
+  N:  { s: 'N',  n: 'nitrid', q: -3, t: 'e' },
+  P:  { s: 'P',  n: 'phosphid', q: -3, t: 'e' },
+  H:  { s: 'H',  n: 'hydrid', q: -1, t: 'e' },
+  SO4:   { s: 'SO4', n: 'sulfat', q: -2, t: 'm' },
+  HSO4:  { s: 'HSO4', n: 'hydrogensulfat', q: -1, t: 'm' },
+  PO4:   { s: 'PO4', n: 'phosphat', q: -3, t: 'm' },
+  HPO4:  { s: 'HPO4', n: 'hydrogenphosphat', q: -2, t: 'm' },
+  H2PO4: { s: 'H2PO4', n: 'dihydrogenphosphat', q: -1, t: 'm' },
+  NO3:   { s: 'NO3', n: 'nitrat', q: -1, t: 'm' },
+  CO3:   { s: 'CO3', n: 'carbonat', q: -2, t: 'm' },
+  HCO3:  { s: 'HCO3', n: 'hydrogencarbonat', q: -1, t: 'm' },
+  OH:    { s: 'OH', n: 'hydroxid', q: -1, t: 'm' },
+  CH3COO:{ s: 'CH3COO', n: 'acetat', q: -1, t: 'm' }
+};
+
+// Formel aus Kation, Anion und Anzahlen
+function buildFormula(c, a, nc, na) {
+  const part = (ion, n) => {
+    const multi = ion.t === 'm' && /[A-Z].*[A-Z]|\d/.test(ion.s); // mehratomig
+    if (n === 1) return ion.s;
+    return multi ? '(' + ion.s + ')' + n : ion.s + n;
+  };
+  return part(c, nc) + part(a, na);
+}
+function ionicCompound(c, a) {
+  const g = gcd(c.q, -a.q);
+  const nc = -a.q / g, na = c.q / g;
+  const formula = buildFormula(c, a, nc, na);
+  const name = c.n + (c.t === 'u' ? '(' + ROMAN[c.q] + ')-' : '') + a.n;
+  return { formula, name, nc, na, c, a, type: 'ion' };
+}
+
+/* ===================== Ladungsbaukasten ===================== */
+const LBK_SETS = {
+  mono: { cat: ['Na','K','Li','Mg','Ca','Ba','Al','Fe2','Fe3','Cu1','Cu2','Zn'], an: ['Cl','F','Br','I','O','S','N','P'] },
+  poly: { cat: ['Na','K','Mg','Ca','Al','NH4','Fe3','Cu2'], an: ['SO4','NO3','PO4','CO3','OH','HCO3','HSO4','HPO4','H2PO4','CH3COO','Cl','O'] }
+};
+function catLabel(k) { const c = CATIONS[k]; return c.n + (c.t === 'u' ? '(' + ROMAN[c.q] + ')' : '') + ' ' + c.s.replace(/\d/g, d => '₀₁₂₃₄₅₆₇₈₉'[d]) + ['','⁺','²⁺','³⁺','⁴⁺'][c.q]; }
+function anLabel(k) { const a = ANIONS[k]; const nm = a.n.charAt(0).toUpperCase() + a.n.slice(1); return nm + ' ' + a.s.replace(/\d/g, d => '₀₁₂₃₄₅₆₇₈₉'[d]) + ['','⁻','²⁻','³⁻'][-a.q]; }
+
+document.querySelectorAll('.lbk').forEach(box => {
+  const set = LBK_SETS[box.dataset.set];
+  box.innerHTML = `
+    <div class="lbk-controls">
+      <div class="lbk-side k"><label>Kation</label><select class="selK">${set.cat.map(k => `<option value="${k}">${catLabel(k)}</option>`).join('')}</select>
+        <div class="lbk-btns"><button class="lbk-btn addK">+ Kation</button><button class="lbk-btn remK">−</button></div></div>
+      <div class="lbk-side a"><label>Anion</label><select class="selA">${set.an.map(k => `<option value="${k}">${anLabel(k)}</option>`).join('')}</select>
+        <div class="lbk-btns"><button class="lbk-btn addA">+ Anion</button><button class="lbk-btn remA">−</button></div></div>
+    </div>
+    <div class="lbk-stage"></div>
+    <div class="lbk-meter"><div class="lbk-meter-bar"><div class="lbk-meter-fill"></div><div class="lbk-meter-mid"></div></div>
+      <div class="lbk-meter-label"><span>negativ</span><span>neutral</span><span>positiv</span></div></div>
+    <div class="lbk-sum"></div>
+    <div class="lbk-result"></div>
+    <div class="widget-actions" style="justify-content:center;"><button class="btn reset">Neu beginnen</button></div>`;
+  let nc = 0, na = 0;
+  const selK = box.querySelector('.selK'), selA = box.querySelector('.selA');
+  const stage = box.querySelector('.lbk-stage'), fill = box.querySelector('.lbk-meter-fill');
+  const sum = box.querySelector('.lbk-sum'), res = box.querySelector('.lbk-result');
+  function render() {
+    const c = CATIONS[selK.value], a = ANIONS[selA.value];
+    let html = '';
+    for (let i = 0; i < nc; i++) html += `<span class="ion-token k">${ionHTML(c.s, c.q)}</span>`;
+    for (let i = 0; i < na; i++) html += `<span class="ion-token a">${ionHTML(a.s, a.q)}</span>`;
+    stage.innerHTML = html || '<span class="empty">Noch keine Ionen – fügen Sie Kationen und Anionen hinzu.</span>';
+    const total = nc * c.q + na * a.q;
+    const scale = Math.min(Math.abs(total) / 8, 1) * 50;
+    fill.style.left = total >= 0 ? '50%' : (50 - scale) + '%';
+    fill.style.width = scale + '%';
+    fill.style.background = total > 0 ? 'var(--kation)' : 'var(--anion)';
+    sum.innerHTML = (nc || na) ? `Gesamtladung: ${nc} · (${c.q > 0 ? '+' : ''}${c.q}) + ${na} · (${String(a.q).replace('-', '−')}) = <strong>${total > 0 ? '+' : ''}${String(total).replace('-', '−')}</strong>` : '';
+    res.className = 'lbk-result';
+    if (nc > 0 && na > 0 && total === 0) {
+      const comp = ionicCompound(c, a);
+      if (gcd(nc, na) > 1) {
+        res.className = 'lbk-result show warn';
+        res.innerHTML = `Neutral – aber nicht das <strong>kleinste</strong> ganzzahlige Verhältnis. Kürzen Sie!`;
+      } else {
+        res.className = 'lbk-result show ok';
+        res.innerHTML = `✓ Ladung ausgeglichen!<span class="big">${fmtF(comp.formula)}</span>${comp.name.charAt(0).toUpperCase() + comp.name.slice(1)}`;
+      }
+    }
+  }
+  box.querySelector('.addK').onclick = () => { if (nc < 6) nc++; render(); };
+  box.querySelector('.remK').onclick = () => { if (nc > 0) nc--; render(); };
+  box.querySelector('.addA').onclick = () => { if (na < 6) na++; render(); };
+  box.querySelector('.remA').onclick = () => { if (na > 0) na--; render(); };
+  box.querySelector('.reset').onclick = () => { nc = 0; na = 0; render(); };
+  selK.onchange = () => { nc = 0; na = 0; render(); };
+  selA.onchange = () => { nc = 0; na = 0; render(); };
+  render();
+});
+
+/* ===================== Molekülionen-Explorer (Lewis) ===================== */
+// atoms: [Symbol, x, y, Anzahl freie Elektronenpaare]; bonds: [i, j, Bindungsordnung]
+const MI = [
+  { k: 'SO4', f: 'SO4', q: -2, n: 'Sulfat-Ion', w: 240, h: 220,
+    atoms: [['S',120,110,0],['O',120,58,3],['O',120,162,3],['O',68,110,3],['O',172,110,3]],
+    bonds: [[0,1,1],[0,2,1],[0,3,1],[0,4,1]], geo: 'Tetraeder (Bindungswinkel ca. 109,5°)',
+    bsp: 'Natriumsulfat <span class="f">Na<sub>2</sub>SO<sub>4</sub></span> – Abführmittel; Calciumsulfat <span class="f">CaSO<sub>4</sub></span> – Gips' },
+  { k: 'HSO4', f: 'HSO4', q: -1, n: 'Hydrogensulfat-Ion', w: 240, h: 220,
+    atoms: [['S',105,110,0],['O',105,58,3],['O',105,162,3],['O',53,110,3],['O',157,110,2],['H',188,146,0]],
+    bonds: [[0,1,1],[0,2,1],[0,3,1],[0,4,1],[4,5,1]], geo: 'Tetraeder um das S-Atom',
+    bsp: 'Natriumhydrogensulfat <span class="f">NaHSO<sub>4</sub></span> – Bestandteil von WC-Reinigern' },
+  { k: 'PO4', f: 'PO4', q: -3, n: 'Phosphat-Ion', w: 240, h: 220,
+    atoms: [['P',120,110,0],['O',120,58,3],['O',68,110,3],['O',172,110,3],['O',120,162,3]],
+    bonds: [[0,1,1],[0,2,1],[0,3,1],[0,4,1]], geo: 'Tetraeder (Bindungswinkel ca. 109,5°)',
+    bsp: 'Calciumphosphat <span class="f">Ca<sub>3</sub>(PO<sub>4</sub>)<sub>2</sub></span> – Phosphatdünger, Hauptbestandteil von Knochen und Zähnen' },
+  { k: 'HPO4', f: 'HPO4', q: -2, n: 'Hydrogenphosphat-Ion', w: 240, h: 220,
+    atoms: [['P',105,110,0],['O',105,58,3],['O',53,110,3],['O',105,162,3],['O',157,110,2],['H',188,146,0]],
+    bonds: [[0,1,1],[0,2,1],[0,3,1],[0,4,1],[4,5,1]], geo: 'Tetraeder um das P-Atom',
+    bsp: 'Dinatriumhydrogenphosphat <span class="f">Na<sub>2</sub>HPO<sub>4</sub></span> – Schmelzsalz in Schmelzkäse (E 339)' },
+  { k: 'H2PO4', f: 'H2PO4', q: -1, n: 'Dihydrogenphosphat-Ion', w: 260, h: 220,
+    atoms: [['P',130,110,0],['O',130,58,3],['O',78,110,2],['H',47,146,0],['O',182,110,2],['H',213,146,0],['O',130,162,3]],
+    bonds: [[0,1,1],[0,2,1],[2,3,1],[0,4,1],[4,5,1],[0,6,1]], geo: 'Tetraeder um das P-Atom',
+    bsp: 'Calciumdihydrogenphosphat <span class="f">Ca(H<sub>2</sub>PO<sub>4</sub>)<sub>2</sub></span> – Backtriebmittel (E 341)' },
+  { k: 'NO3', f: 'NO3', q: -1, n: 'Nitrat-Ion', w: 240, h: 210,
+    atoms: [['N',120,118,0],['O',120,66,2],['O',75,144,3],['O',165,144,3]],
+    bonds: [[0,1,2],[0,2,1],[0,3,1]], geo: 'trigonal-planar (Bindungswinkel 120°)',
+    bsp: 'Kaliumnitrat <span class="f">KNO<sub>3</sub></span> – Nitratdünger, Bestandteil von Schwarzpulver' },
+  { k: 'CO3', f: 'CO3', q: -2, n: 'Carbonat-Ion', w: 240, h: 210,
+    atoms: [['C',120,118,0],['O',120,66,2],['O',75,144,3],['O',165,144,3]],
+    bonds: [[0,1,2],[0,2,1],[0,3,1]], geo: 'trigonal-planar (Bindungswinkel 120°)',
+    bsp: 'Calciumcarbonat <span class="f">CaCO<sub>3</sub></span> – Kalkstein (Jura), Marmor, Kreide, Eierschalen, Kesselstein' },
+  { k: 'HCO3', f: 'HCO3', q: -1, n: 'Hydrogencarbonat-Ion', w: 240, h: 210,
+    atoms: [['C',105,112,0],['O',105,60,2],['O',60,138,3],['O',150,138,2],['H',192,122,0]],
+    bonds: [[0,1,2],[0,2,1],[0,3,1],[3,4,1]], geo: 'trigonal-planar um das C-Atom',
+    bsp: 'Natriumhydrogencarbonat <span class="f">NaHCO<sub>3</sub></span> – Natron, Backpulver; gelöst in fast jedem Mineralwasser' },
+  { k: 'OH', f: 'OH', q: -1, n: 'Hydroxid-Ion', w: 220, h: 160,
+    atoms: [['O',92,80,3],['H',142,80,0]],
+    bonds: [[0,1,1]], geo: 'linear (nur zwei Atome)',
+    bsp: 'Natriumhydroxid <span class="f">NaOH</span> – wichtigste Base, Abflussreiniger' },
+  { k: 'CH3COO', f: 'CH3COO', q: -1, n: 'Acetat-Ion', w: 230, h: 220,
+    atoms: [['C',85,110,0],['H',85,62,0],['H',37,110,0],['H',85,158,0],['C',135,110,0],['O',161,65,2],['O',161,155,3]],
+    bonds: [[0,1,1],[0,2,1],[0,3,1],[0,4,1],[4,5,2],[4,6,1]], geo: 'Tetraeder am CH₃-Kohlenstoff, trigonal-planar am COO-Kohlenstoff',
+    bsp: 'Natriumacetat <span class="f">NaCH<sub>3</sub>COO</span> – in Wärmekissen; das Acetat-Ion stammt aus der Essigsäure' },
+  { k: 'NH4', f: 'NH4', q: 1, n: 'Ammonium-Ion', w: 220, h: 220,
+    atoms: [['N',110,110,0],['H',110,62,0],['H',110,158,0],['H',62,110,0],['H',158,110,0]],
+    bonds: [[0,1,1],[0,2,1],[0,3,1],[0,4,1]], geo: 'Tetraeder (Bindungswinkel ca. 109,5°)',
+    bsp: 'Ammoniumchlorid <span class="f">NH<sub>4</sub>Cl</span> – Salmiak, Bestandteil von Kohle-Zink-Batterien' },
+  { k: 'H3O', f: 'H3O', q: 1, n: 'Oxonium-Ion', w: 220, h: 190,
+    atoms: [['O',110,92,1],['H',64,112,0],['H',156,112,0],['H',110,142,0]],
+    bonds: [[0,1,1],[0,2,1],[0,3,1]], geo: 'trigonale Pyramide',
+    bsp: 'In jeder sauren Lösung, z.&nbsp;B. in Salzsäure oder Zitronensaft – mehr dazu beim Thema Säuren und Basen' },
+  { k: 'CN', f: 'CN', q: -1, n: 'Cyanid-Ion', w: 230, h: 150, extra: true,
+    atoms: [['C',92,75,1],['N',142,75,1]],
+    bonds: [[0,1,3]], geo: 'linear (nur zwei Atome)',
+    bsp: 'Kaliumcyanid <span class="f">KCN</span> – stark giftig («Zyankali»)' }
+];
+const ELCOL = { O: '#c0392b', N: '#2c5aa0', S: '#a07800', P: '#c0601e', C: 'currentColor', H: '#6b6560' };
+
+function lewisSVG(ion) {
+  const R = 11, LP_R = 17, LP_L = 6;
+  let out = '';
+  const A = ion.atoms;
+  // Bindungen
+  ion.bonds.forEach(([i, j, o]) => {
+    const [, x1, y1] = A[i], [, x2, y2] = A[j];
+    const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L, px = -uy, py = ux;
+    const offs = o === 1 ? [0] : o === 2 ? [-3, 3] : [-4.5, 0, 4.5];
+    offs.forEach(d => {
+      out += `<line x1="${(x1 + ux * R + px * d).toFixed(1)}" y1="${(y1 + uy * R + py * d).toFixed(1)}" x2="${(x2 - ux * R + px * d).toFixed(1)}" y2="${(y2 - uy * R + py * d).toFixed(1)}" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`;
+    });
+  });
+  // Freie Elektronenpaare (als Striche, deutsche Schreibweise)
+  A.forEach(([el, x, y, nlp], idx) => {
+    if (!nlp) return;
+    // Bindungswinkel sammeln, freie Elektronenpaare gleichmässig in die grösste Lücke setzen
+    const bangs = [];
+    ion.bonds.forEach(([i, j]) => {
+      if (i === idx) bangs.push(Math.atan2(A[j][2] - y, A[j][1] - x) * 180 / Math.PI);
+      if (j === idx) bangs.push(Math.atan2(A[i][2] - y, A[i][1] - x) * 180 / Math.PI);
+    });
+    bangs.sort((p, q) => p - q);
+    let gStart = bangs[0], gSize = 360;
+    for (let b = 0; b < bangs.length; b++) {
+      const cur = bangs[b], nxt = b + 1 < bangs.length ? bangs[b + 1] : bangs[0] + 360;
+      if (bangs.length > 1 && (b === 0 || nxt - cur > gSize)) { gStart = cur; gSize = nxt - cur; }
+    }
+    if (bangs.length === 1) { gStart = bangs[0]; gSize = 360; }
+    const base = 0;
+    const angs = [];
+    for (let k = 1; k <= nlp; k++) angs.push(gStart + gSize * k / (nlp + 1));
+    angs.forEach(d => {
+      const t = (base + d) * Math.PI / 180, cx = x + Math.cos(t) * LP_R, cy = y + Math.sin(t) * LP_R;
+      const qx = -Math.sin(t) * LP_L, qy = Math.cos(t) * LP_L;
+      out += `<line x1="${(cx - qx).toFixed(1)}" y1="${(cy - qy).toFixed(1)}" x2="${(cx + qx).toFixed(1)}" y2="${(cy + qy).toFixed(1)}" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`;
+    });
+  });
+  // Atomsymbole
+  A.forEach(([el, x, y]) => {
+    out += `<text x="${x}" y="${y + 6.5}" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="19" font-weight="700" fill="${ELCOL[el]}">${el}</text>`;
+  });
+  // Klammern + Ladung
+  const xs = A.map(a => a[1]), ys = A.map(a => a[2]);
+  const x0 = Math.min(...xs) - 26, x1 = Math.max(...xs) + 26, y0 = Math.min(...ys) - 28, y1 = Math.max(...ys) + 28;
+  out += `<path d="M${x0 + 7} ${y0} H${x0} V${y1} H${x0 + 7} M${x1 - 7} ${y0} H${x1} V${y1} H${x1 - 7}" fill="none" stroke="currentColor" stroke-width="1.8"/>`;
+  const qa = Math.abs(ion.q);
+  out += `<text x="${x1 + 4}" y="${y0 + 12}" font-family="DM Sans, sans-serif" font-size="16" font-weight="700" fill="currentColor">${qa > 1 ? qa : ''}${ion.q > 0 ? '+' : '−'}</text>`;
+  const cx = (x0 + x1) / 2 + 8, cy = (y0 + y1) / 2;
+  return `<svg viewBox="${cx - 135} ${cy - 106} 270 212" role="img" aria-label="Lewis-Formel ${ion.n}" style="color:var(--text)">${out}</svg>`;
+}
+
+(function initExplorer() {
+  const chips = document.getElementById('miChips'), panel = document.getElementById('miPanel');
+  chips.innerHTML = MI.map((m, i) => `<button class="mi-chip${m.q > 0 ? ' k' : ''}" data-i="${i}">${ionHTML(m.f, m.q)}</button>`).join('');
+  function show(i) {
+    const m = MI[i];
+    chips.querySelectorAll('.mi-chip').forEach((c, j) => c.classList.toggle('active', j === i));
+    panel.innerHTML = lewisSVG(m) + `<div>
+      <div class="mi-name">${m.n}</div>
+      <div class="mi-formula">${ionHTML(m.f, m.q)}</div>
+      <div class="mi-row"><b>Ladung</b>${Math.abs(m.q) > 1 ? Math.abs(m.q) : ''}${m.q > 0 ? '+ (Kation)' : '− (Anion)'}</div>
+      <div class="mi-row"><b>Gestalt</b>${m.geo}</div>
+      <div class="mi-row"><b>Beispiel</b>${m.bsp}</div>
+    </div>`;
+  }
+  chips.addEventListener('click', e => { const b = e.target.closest('.mi-chip'); if (b) show(+b.dataset.i); });
+  show(0);
+  // Lerntabelle in der Zusammenfassung
+  const list = MI.filter(m => !m.extra);
+  const half = Math.ceil(list.length / 2);
+  let rows = '';
+  for (let i = 0; i < half; i++) {
+    const a = list[i], b = list[i + half];
+    rows += `<tr><td><span class="f">${ionHTML(a.f, a.q)}</span></td><td>${a.n}</td><td>${b ? '<span class="f">' + ionHTML(b.f, b.q) + '</span>' : ''}</td><td>${b ? b.n : ''}</td></tr>`;
+  }
+  document.getElementById('ionTable').innerHTML = rows;
+})();
+
+/* ===================== Präfix-Tabelle ===================== */
+const PREFIXES = [['mono'],['di'],['tri'],['tetra'],['penta'],['hexa'],['hepta'],['octa','okta'],['nona'],['deca','deka']];
+(function () {
+  document.getElementById('prefixGrid').innerHTML = PREFIXES.map((p, i) =>
+    `<div class="prefix-cell"><div class="num">${i + 1}</div><input data-i="${i}" type="text" autocomplete="off" spellcheck="false" aria-label="Zahlwort für ${i + 1}"></div>`).join('');
+})();
+function checkPrefixes() {
+  let ok = 0;
+  document.querySelectorAll('#prefixGrid input').forEach(inp => {
+    const v = inp.value.trim().toLowerCase().replace(/-/g, '');
+    const good = PREFIXES[inp.dataset.i].includes(v);
+    inp.classList.toggle('ok', good); inp.classList.toggle('bad', !good && v !== '');
+    if (good) ok++;
+  });
+  document.getElementById('prefixMsg').textContent = ok === 10 ? 'Perfekt – alle 10 richtig!' : ok + ' von 10 richtig.';
+}
+function showPrefixes() {
+  document.querySelectorAll('#prefixGrid input').forEach(inp => { inp.value = PREFIXES[inp.dataset.i][0]; inp.classList.add('ok'); inp.classList.remove('bad'); });
+  document.getElementById('prefixMsg').textContent = '';
+}
+
+/* ===================== Tool-Fragen (Klassifizieren, Fehlerdetektiv) ===================== */
+function renderToolQuestions(container, items, options) {
+  container.innerHTML = items.map((it, i) => `
+    <div class="tool-question">
+      <div class="tool-prompt"><span class="nr">${i + 1}.</span>${it.p}</div>
+      <div class="tool-options">${options.map(o => `<button class="tool-btn" data-v="${o.v}">${o.l}</button>`).join('')}</div>
+      <div class="tool-feedback correct">${it.ok}</div>
+      <div class="tool-feedback wrong">${it.no}</div>
+    </div>`).join('');
+  container.querySelectorAll('.tool-question').forEach((q, i) => {
+    q.addEventListener('click', e => {
+      const btn = e.target.closest('.tool-btn');
+      if (!btn || q.dataset.locked) return;
+      const correct = btn.dataset.v === items[i].a;
+      q.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('selected-correct', 'selected-wrong'));
+      btn.classList.add(correct ? 'selected-correct' : 'selected-wrong');
+      q.querySelectorAll('.tool-feedback').forEach(f => f.classList.remove('show'));
+      q.querySelector('.tool-feedback.' + (correct ? 'correct' : 'wrong')).classList.add('show');
+      if (correct) { q.dataset.locked = '1'; q.querySelectorAll('.tool-btn').forEach(b => { if (b !== btn) b.style.opacity = '0.45'; }); }
+    });
+  });
+}
+
+renderToolQuestions(document.getElementById('classify'), [
+  { p: '<span class="f">Mg<sub>3</sub>N<sub>2</sub></span>', a: 'ion', ok: 'Richtig! Metall + Nichtmetall, nur einatomige Ionen: <span class="f">Mg<sup>2+</sup></span> und <span class="f">N<sup>3−</sup></span> → Magnesiumnitrid.', no: 'Mg ist ein Metall, N ein Nichtmetall. Ist <span class="f">N<sup>3−</sup></span> ein Molekülion?' },
+  { p: '<span class="f">PCl<sub>5</sub></span>', a: 'mol', ok: 'Richtig! Nur Nichtmetalle → Phosphorpentachlorid.', no: 'Sind P und Cl Metalle oder Nichtmetalle?' },
+  { p: '<span class="f">NH<sub>4</sub>Cl</span>', a: 'mi', ok: 'Richtig – die Ausnahme! Nur Nichtmetalle, aber mit dem Ammonium-Ion → Ionenverbindung: Ammoniumchlorid.', no: 'Achtung, Ausnahme: Erkennen Sie in der Formel ein bekanntes Molekülion?' },
+  { p: '<span class="f">CuSO<sub>4</sub></span>', a: 'mi', ok: 'Richtig! <span class="f">Cu<sup>2+</sup></span> und das Sulfat-Ion → Kupfer(II)-sulfat.', no: 'Cu ist ein Metall. Welches Anion steckt in <span class="f">SO<sub>4</sub></span>?' },
+  { p: '<span class="f">SiO<sub>2</sub></span>', a: 'mol', ok: 'Richtig! Silicium ist ein Halbmetall und bildet mit Sauerstoff kovalente Bindungen → Siliciumdioxid (Quarz, Sand).', no: 'Silicium steht in Gruppe 14 – es gibt keine Elektronen ab. Welche Bindung entsteht mit Sauerstoff?' },
+  { p: '<span class="f">H<sub>2</sub>SO<sub>4</sub></span> (reine Schwefelsäure)', a: 'mol', ok: 'Richtig – eine Falle! Reine Schwefelsäure besteht nur aus Nichtmetallen und bildet Moleküle. Sulfat-Ionen entstehen erst, wenn man sie in Wasser löst (Thema Säuren).', no: 'Schauen Sie genau hin: Ist hier ein Metall oder ein Ammonium-Ion beteiligt?' },
+  { p: '<span class="f">KOH</span>', a: 'mi', ok: 'Richtig! <span class="f">K<sup>+</sup></span> und das Hydroxid-Ion <span class="f">OH<sup>−</sup></span> → Kaliumhydroxid.', no: 'K ist ein Metall. Welches Anion bilden O und H gemeinsam?' }
+], [
+  { v: 'ion', l: 'Ionenverbindung (einatomige Ionen)' },
+  { v: 'mi', l: 'Ionenverbindung mit Molekülion' },
+  { v: 'mol', l: 'Molekülverbindung' }
+]);
+
+renderToolQuestions(document.getElementById('detective'), [
+  { p: '<span class="claim">Magnesiumchlorid: <span class="f">MgCl</span></span>', a: 'no', ok: 'Gut erkannt! <span class="f">Mg<sup>2+</sup></span> braucht zwei <span class="f">Cl<sup>−</sup></span>: <strong><span class="f">MgCl<sub>2</sub></span></strong>.', no: 'Prüfen Sie den Ladungsausgleich: Welche Ladung hat das Magnesium-Ion?' },
+  { p: '<span class="claim"><span class="f">CaCl<sub>2</sub></span>: Calciumdichlorid</span>', a: 'no', ok: 'Richtig! Bei Ionenverbindungen gibt es keine Zahlwörter: <strong>Calciumchlorid</strong>.', no: 'Ist <span class="f">CaCl<sub>2</sub></span> eine Ionen- oder eine Molekülverbindung? Welche Regel gilt für Zahlwörter?' },
+  { p: '<span class="claim">Calciumnitrat: <span class="f">CaNO<sub>32</sub></span></span>', a: 'no', ok: 'Genau! Ohne Klammern liest man «32 Sauerstoffatome». Richtig: <strong><span class="f">Ca(NO<sub>3</sub>)<sub>2</sub></span></strong>.', no: 'Was bedeutet die Ziffer 32 in dieser Formel wörtlich?' },
+  { p: '<span class="claim"><span class="f">N<sub>2</sub>O</span>: Distickstoffmonoxid</span>', a: 'yes', ok: 'Stimmt! Zwei Nichtmetalle → Zahlwörter. Beim zweiten Element steht «mono».', no: 'Doch, das ist korrekt: Molekülverbindung, «di» für 2 N, «mono» für 1 O.' },
+  { p: '<span class="claim"><span class="f">FeCl<sub>3</sub></span>: Eisenchlorid</span>', a: 'no', ok: 'Richtig! Eisen kann +2 oder +3 sein. Richtig: <strong>Eisen(III)-chlorid</strong>.', no: 'Eisen ist ein Nebengruppenmetall. Ist «Eisenchlorid» eindeutig?' },
+  { p: '<span class="claim"><span class="f">KBr</span>: Kalium(I)-bromid</span>', a: 'no', ok: 'Gut! Kalium ist ein Hauptgruppenmetall mit immer derselben Ladung: <strong>Kaliumbromid</strong>.', no: 'Braucht ein Hauptgruppenmetall wie Kalium eine römische Ziffer?' },
+  { p: '<span class="claim">Ammoniumsulfat: <span class="f">NH<sub>4</sub>SO<sub>4</sub></span></span>', a: 'no', ok: 'Genau! 1 · (+1) + 1 · (−2) ≠ 0. Richtig: <strong><span class="f">(NH<sub>4</sub>)<sub>2</sub>SO<sub>4</sub></span></strong>.', no: 'Rechnen Sie die Gesamtladung aus: <span class="f">NH<sub>4</sub><sup>+</sup></span> und <span class="f">SO<sub>4</sub><sup>2−</sup></span>.' },
+  { p: '<span class="claim"><span class="f">CO<sub>2</sub></span>: Kohlenstoffoxid</span>', a: 'no', ok: 'Richtig! Damit wäre nicht klar, ob CO oder <span class="f">CO<sub>2</sub></span> gemeint ist: <strong>Kohlenstoffdioxid</strong>.', no: 'Erinnern Sie sich an den Einstieg in Lektion 3 – ist der Name eindeutig?' },
+  { p: '<span class="claim">Aluminiumoxid: <span class="f">Al<sub>2</sub>O<sub>3</sub></span></span>', a: 'yes', ok: 'Stimmt! 2 · (+3) + 3 · (−2) = 0.', no: 'Rechnen Sie nach: 2 · (+3) + 3 · (−2) = ? Das ist korrekt.' }
+], [
+  { v: 'yes', l: '✓ stimmt' },
+  { v: 'no', l: '✗ Fehler!' }
+]);
+
+/* ===================== Formel-Trainer ===================== */
+const ALLOW = {
+  Fe2: ['Cl','Br','O','S','SO4','NO3','OH'], Fe3: ['F','Cl','Br','O','SO4','NO3','OH'],
+  Cu1: ['Cl','Br','I','O','S'], Cu2: ['F','Cl','Br','O','S','SO4','NO3','OH','CO3','CH3COO'],
+  Zn: ['F','Cl','Br','I','O','S','SO4','NO3','OH','CO3','CH3COO'], Ag: ['F','Cl','Br','I','O','S','NO3','SO4','CH3COO'],
+  Ni: ['Cl','Br','O','S','SO4','NO3','OH','CO3'], Cr: ['F','Cl','O','SO4','NO3','OH'],
+  Co: ['Cl','Br','O','S','SO4','NO3','OH','CO3'], Mn2: ['Cl','O','S','SO4','CO3'], Mn4: ['O'],
+  Pb2: ['Cl','Br','I','O','S','SO4','NO3','CO3','CH3COO'], Pb4: ['O'], Sn2: ['Cl','F','O','S'],
+  Au: ['Cl','Br'], Ga: ['F','Cl','Br','I','O','N','P','S'],
+  NH4: ['F','Cl','Br','I','S','SO4','HSO4','PO4','HPO4','H2PO4','NO3','CO3','HCO3','CH3COO','OH']
+};
+function allowed(ck, ak) {
+  if (ALLOW[ck]) return ALLOW[ck].includes(ak);
+  const c = CATIONS[ck], a = ANIONS[ak];
+  if (ak === 'H') return ['Li','Na','K','Mg','Ca','Sr','Ba'].includes(ck);
+  if (['HSO4','HPO4','H2PO4','HCO3'].includes(ak)) return ['Li','Na','K','Mg','Ca','Ba'].includes(ck);
+  if (['Be','Al'].includes(ck) && ['CO3','HCO3','CH3COO'].includes(ak)) return false;
+  return true;
+}
+const MOLECULES = [
+  ['CO', 'Kohlenstoffmonoxid', ['kohlenstoffmonooxid']],
+  ['CO2', 'Kohlenstoffdioxid'], ['CS2', 'Kohlenstoffdisulfid'], ['CCl4', 'Kohlenstofftetrachlorid'],
+  ['SO2', 'Schwefeldioxid'], ['SO3', 'Schwefeltrioxid'], ['SF6', 'Schwefelhexafluorid'], ['SCl2', 'Schwefeldichlorid'],
+  ['NO', 'Stickstoffmonoxid', ['stickstoffmonooxid']], ['NO2', 'Stickstoffdioxid'], ['N2O', 'Distickstoffmonoxid', ['distickstoffmonooxid']],
+  ['N2O4', 'Distickstofftetraoxid', ['distickstofftetroxid']], ['N2O5', 'Distickstoffpentaoxid', ['distickstoffpentoxid']],
+  ['N2O3', 'Distickstofftrioxid'], ['NCl3', 'Stickstofftrichlorid'],
+  ['PCl3', 'Phosphortrichlorid'], ['PCl5', 'Phosphorpentachlorid'], ['P4O10', 'Tetraphosphordecaoxid', ['tetraphosphordecoxid', 'tetraphosphordekaoxid']],
+  ['SiF4', 'Siliciumtetrafluorid', ['siliziumtetrafluorid']], ['SiO2', 'Siliciumdioxid', ['siliziumdioxid']],
+  ['IBr', 'Iodbromid', ['iodmonobromid']], ['BrI', 'Bromiodid', ['brommonoiodid']], ['ClF3', 'Chlortrifluorid'],
+  ['HF', 'Wasserstofffluorid', ['fluorwasserstoff', 'hydrogenfluorid']],
+  ['H2O', 'Dihydrogenoxid', ['diwasserstoffoxid', 'wasser', 'dihydrogenmonoxid', 'diwasserstoffmonoxid']]
+];
+function makeMolecule() {
+  const [f, n, alt] = MOLECULES[Math.floor(Math.random() * MOLECULES.length)];
+  return { formula: f, name: n, alt: alt || [], type: 'mol' };
+}
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const LEVELS = [
+  { l: '1 · Ionen (Hauptgruppen)', cat: ['Li','Na','K','Rb','Cs','Be','Mg','Ca','Sr','Ba','Al'], an: ['F','Cl','Br','I','O','S','N','P','H'] },
+  { l: '2 · Römische Ziffern', cat: ['Fe2','Fe3','Cu1','Cu2','Zn','Ag','Ni','Cr','Co','Mn2','Mn4','Pb2','Pb4','Sn2','Au','Ga'], an: ['F','Cl','Br','I','O','S','N','P'] },
+  { l: '3 · Molekülionen', cat: ['Na','K','Li','Mg','Ca','Ba','Al','NH4','Fe2','Fe3','Cu2','Zn','Ag','Pb2'], an: ['SO4','HSO4','PO4','HPO4','H2PO4','NO3','CO3','HCO3','OH','CH3COO'], extraNH4: true },
+  { l: '4 · Molekülverbindungen', mol: true },
+  { l: '5 · Alles gemischt', mix: true }
+];
+function makeIonic(lv) {
+  for (let t = 0; t < 200; t++) {
+    let ck = pick(lv.cat), ak = pick(lv.an);
+    if (lv.extraNH4 && Math.random() < 0.12) { ck = 'NH4'; ak = pick(['Cl','Br','S']); }
+    if (allowed(ck, ak)) return ionicCompound(CATIONS[ck], ANIONS[ak]);
+  }
+  return ionicCompound(CATIONS.Na, ANIONS.Cl);
+}
+function makeTask(levelIdx) {
+  let lv = LEVELS[levelIdx];
+  if (lv.mix) { const r = Math.random(); lv = LEVELS[r < 0.2 ? 0 : r < 0.45 ? 1 : r < 0.75 ? 2 : 3]; }
+  const comp = lv.mol ? makeMolecule() : makeIonic(lv);
+  comp.dir = Math.random() < 0.5 ? 'n2f' : 'f2n';
+  return comp;
+}
+
+// --- Normalisierung & Prüfung ---
+function normName(s) {
+  return s.toLowerCase().replace(/ä/g, 'ae').replace(/[\s\-–‐]/g, '').replace(/-?ion$/, '')
+    .replace(/jod/g, 'iod').replace(/cesium/g, 'caesium').replace(/sulph/g, 'sulf').replace(/silizium/g, 'silicium')
+    .replace(/\(i\)/g, '(i)');
+}
+function normFormula(s) {
+  return s.replace(/\s+/g, '').replace(/[₀-₉]/g, d => '₀₁₂₃₄₅₆₇₈₉'.indexOf(d));
+}
+function parseFormula(s) {
+  const tokens = s.match(/[A-Z][a-z]?|\(|\)|\d+|./g) || [];
+  const stack = [{}];
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i];
+    if (t === '(') stack.push({});
+    else if (t === ')') {
+      if (stack.length < 2) return null;
+      const grp = stack.pop();
+      let n = 1; if (/^\d+$/.test(tokens[i + 1] || '')) { n = +tokens[++i]; }
+      for (const e in grp) stack[stack.length - 1][e] = (stack[stack.length - 1][e] || 0) + grp[e] * n;
+    } else if (/^[A-Z][a-z]?$/.test(t)) {
+      let n = 1; if (/^\d+$/.test(tokens[i + 1] || '')) { n = +tokens[++i]; }
+      stack[stack.length - 1][t] = (stack[stack.length - 1][t] || 0) + n;
+    } else return null;
+  }
+  return stack.length === 1 ? stack[0] : null;
+}
+const sameCounts = (a, b) => a && b && Object.keys(a).length === Object.keys(b).length && Object.keys(a).every(k => a[k] === b[k]);
+const sameElements = (a, b) => a && b && Object.keys(a).sort().join() === Object.keys(b).sort().join();
+const NUMWORDS = /(mono|di|tri|tetra|penta|hexa|hepta|octa|okta|nona|deca|deka)/g;
+
+function acceptedFormulas(comp) {
+  const list = [comp.formula];
+  if (comp.type === 'ion' && comp.a && comp.a.s === 'CH3COO') {
+    // Acetat darf auch nachgestellt werden: KCH3COO oder CH3COOK
+    if (comp.nc === 1 && comp.na === 1) list.push('CH3COO' + comp.c.s);
+  }
+  return list;
+}
+function checkFormula(comp, ans) {
+  const a = normFormula(ans);
+  if (!a) return { ok: false, msg: 'Bitte geben Sie eine Formel ein.' };
+  if (acceptedFormulas(comp).includes(a)) return { ok: true };
+  const exp = comp.formula;
+  if (a.toLowerCase() === exp.toLowerCase()) return { ok: false, msg: 'Fast! Achten Sie auf Gross- und Kleinschreibung der Elementsymbole (z.&nbsp;B. Co ≠ CO).' };
+  if (exp.includes('(') && a === exp.replace(/[()]/g, '')) return { ok: false, msg: 'Die Klammern fehlen! Ein Molekülion, das mehrfach vorkommt, wird eingeklammert.' };
+  const pa = parseFormula(a), pe = parseFormula(exp);
+  if (!pa) return { ok: false, msg: 'Diese Formel kann ich nicht lesen. Prüfen Sie Elementsymbole und Klammern.' };
+  if (sameCounts(pa, pe)) {
+    return { ok: false, msg: comp.type === 'ion' && comp.a.t === 'm'
+      ? 'Die Atome stimmen, aber schreiben Sie das Molekülion als Einheit – mit Klammern, falls es mehrfach vorkommt.'
+      : 'Die Atome stimmen, aber die Schreibweise nicht. Schreiben Sie das Metall bzw. das erste Element zuerst.' };
+  }
+  if (sameElements(pa, pe)) return { ok: false, msg: comp.type === 'ion'
+    ? 'Die Elemente stimmen, aber das Anzahlverhältnis nicht. Prüfen Sie den Ladungsausgleich.'
+    : 'Die Elemente stimmen, aber die Anzahlen nicht. Lesen Sie die Zahlwörter nochmals genau.' };
+  return { ok: false, msg: 'Noch nicht richtig. Welche Elemente bzw. Ionen stecken im Namen?' };
+}
+function checkName(comp, ans) {
+  const a = normName(ans);
+  if (!a) return { ok: false, msg: 'Bitte geben Sie einen Namen ein.' };
+  const exp = normName(comp.name);
+  const alts = [exp].concat((comp.alt || []).map(normName));
+  if (alts.includes(a)) {
+    if (comp.type === 'mol' && a === 'wasser') return { ok: true, msg: 'Richtig – «Wasser» ist der Trivialname. Systematisch: Dihydrogenoxid.' };
+    return { ok: true };
+  }
+  if (comp.type === 'ion') {
+    const hasRoman = exp.includes('(');
+    if (hasRoman && !a.includes('(')) {
+      if (a === exp.replace(/\([ivx]+\)/, '')) return { ok: false, msg: 'Die Ladung des Metall-Ions fehlt! Dieses Metall kann verschiedene Ladungen haben → römische Ziffer, z.&nbsp;B. Eisen(III)-chlorid.' };
+      return { ok: false, msg: 'Dieses Metall braucht eine römische Ziffer für seine Ladung. Bestimmen Sie die Ladung über das Anion.' };
+    }
+    if (hasRoman && a.replace(/\([ivx]+\)/, '') === exp.replace(/\([ivx]+\)/, '')) return { ok: false, msg: 'Die römische Ziffer stimmt nicht. Rechnen Sie zurück: Welche Ladung tragen alle Anionen zusammen?' };
+    if (!hasRoman && /\([ivx]+\)/.test(a) && a.replace(/\([ivx]+\)/, '') === exp) return { ok: false, msg: 'Dieses Metall ist ein Hauptgruppenmetall mit eindeutiger Ladung – keine römische Ziffer.' };
+    const stripA = a.replace(NUMWORDS, ''), stripE = exp.replace(NUMWORDS, '');
+    if (stripA === stripE && a !== exp) return { ok: false, msg: 'Bei Ionenverbindungen werden <strong>keine Zahlwörter</strong> verwendet – die Ladungen legen das Verhältnis fest.' };
+  } else {
+    const stripA = a.replace(NUMWORDS, ''), stripE = exp.replace(NUMWORDS, '');
+    if (stripA === stripE) return { ok: false, msg: 'Die Elemente stimmen, aber die Zahlwörter nicht. Zählen Sie die Atome nochmals (und denken Sie daran: kein «mono» beim ersten Element).' };
+    if (/\([ivx]+\)/.test(a)) return { ok: false, msg: 'Römische Ziffern gibt es nur bei Metall-Ionen. Hier sind nur Nichtmetalle beteiligt → Zahlwörter.' };
+  }
+  return { ok: false, msg: 'Noch nicht richtig. Bestimmen Sie zuerst: Ionen- oder Molekülverbindung?' };
+}
+function explain(comp) {
+  if (comp.type === 'mol') return 'Molekülverbindung aus Nichtmetallen: Zahlwörter geben die Anzahl Atome an.';
+  const c = comp.c, a = comp.a;
+  return `Ionenverbindung: ${comp.nc} · ${ionHTML(c.s, c.q)} + ${comp.na} · ${ionHTML(a.s, a.q)} → ${comp.nc} · (${c.q > 0 ? '+' : ''}${c.q}) + ${comp.na} · (${String(a.q).replace('-', '−')}) = 0`;
+}
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+(function initTrainer() {
+  let level = 0, task = null, answered = false, right = 0, total = 0, streak = 0, hintUsed = false;
+  const $ = id => document.getElementById(id);
+  const inp = $('trInput'), fb = $('trFb');
+  $('trLevels').innerHTML = LEVELS.map((l, i) => `<button class="tr-level${i === 0 ? ' active' : ''}" data-i="${i}">${l.l}</button>`).join('');
+  $('trLevels').addEventListener('click', e => {
+    const b = e.target.closest('.tr-level'); if (!b) return;
+    level = +b.dataset.i;
+    document.querySelectorAll('.tr-level').forEach(x => x.classList.toggle('active', x === b));
+    next();
+  });
+  function setFb(cls, html) { fb.className = 'tr-fb show ' + cls; fb.innerHTML = html; }
+  function next() {
+    task = makeTask(level); answered = false; hintUsed = false;
+    fb.className = 'tr-fb'; inp.value = ''; $('trPreview').innerHTML = '';
+    if (task.dir === 'n2f') {
+      $('trDir').textContent = 'Name → Formel';
+      $('trTask').textContent = cap(task.name);
+      inp.placeholder = 'Formel, z. B. Al2O3';
+    } else {
+      $('trDir').textContent = 'Formel → Name';
+      $('trTask').innerHTML = fmtF(task.formula);
+      inp.placeholder = 'Name, z. B. Aluminiumoxid';
+    }
+    inp.focus({ preventScroll: true });
+  }
+  inp.addEventListener('input', () => {
+    $('trPreview').innerHTML = task && task.dir === 'n2f' && inp.value.trim() ? 'Ihre Eingabe: <strong>' + fmtF(normFormula(inp.value).replace(/</g, '&lt;')) + '</strong>' : '';
+  });
+  function check() {
+    if (!task) return;
+    const r = task.dir === 'n2f' ? checkFormula(task, inp.value) : checkName(task, inp.value);
+    if (!inp.value.trim()) { setFb('info', r.msg); return; }
+    if (r.ok) {
+      if (!answered) { total++; right++; streak++; answered = true; }
+      setFb('correct', '✓ Richtig! ' + (r.msg || '') + '<br><span style="font-size:0.84rem;">' + explain(task) + '</span>');
+    } else {
+      if (!answered) { total++; streak = 0; answered = true; }
+      setFb('wrong', r.msg);
+    }
+    $('trRight').textContent = right; $('trTotal').textContent = total; $('trStreak').textContent = streak;
+  }
+  $('trCheck').onclick = check;
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); if (fb.classList.contains('correct')) next(); else check(); } });
+  $('trNext').onclick = next;
+  $('trSolve').onclick = () => {
+    if (!task) return;
+    if (!answered) { total++; streak = 0; answered = true; $('trTotal').textContent = total; $('trStreak').textContent = streak; }
+    setFb('info', 'Lösung: <strong>' + (task.dir === 'n2f' ? fmtF(task.formula) : cap(task.name)) + '</strong><br><span style="font-size:0.84rem;">' + explain(task) + '</span>');
+  };
+  $('trHint').onclick = () => {
+    if (!task) return;
+    let h;
+    if (task.type === 'mol') h = 'Nur Nichtmetalle → <strong>Molekülverbindung</strong>. Achten Sie auf die Zahlwörter.';
+    else if (task.dir === 'n2f') h = 'Ionenverbindung aus ' + ionHTML(task.c.s, task.c.q) + ' und ' + ionHTML(task.a.s, task.a.q) + '. Gleichen Sie die Ladungen aus.';
+    else h = 'Ionenverbindung. Das Anion ist ' + ionHTML(task.a.s, task.a.q) + (task.c.t === 'u' ? '. Das Metall braucht eine römische Ziffer.' : '.');
+    setFb('info', '💡 ' + h);
+  };
+  next();
+})();
+
+/* ===================== Forms & Auto-Unlock ===================== */
+if (FORMS_URL) { document.getElementById('formsLink').href = FORMS_URL; document.getElementById('formsBlock').style.display = 'block'; }
+
+(async function () {
+  const phases = [
+    { num: '2', file: 'struktur-phase2.html' },
+    { num: '3', file: 'struktur-phase3.html' },
+    { num: '4', file: 'struktur-phase4.html' }
+  ];
+  for (const phase of phases) {
+    try {
+      const res = await fetch(phase.file, { method: 'HEAD' });
+      if (res.ok) {
+        document.querySelectorAll('.nav-item[data-phase="' + phase.num + '"]').forEach(item => {
+          item.classList.remove('locked'); item.href = phase.file;
+          const lock = item.querySelector('.lock-icon'); if (lock) lock.remove();
+        });
+        if (phase.num === '2') {
+          const t = document.getElementById('phase2-teaser');
+          if (t) t.innerHTML = '<a href="' + phase.file + '" style="color:var(--accent); text-decoration:none; font-weight:600;">&rarr; <strong>Weiter zu Phase 2:</strong> Aufbau und Eigenschaften von Metallen und Legierungen</a>';
+        }
+      }
+    } catch (e) { /* gesperrt lassen */ }
+  }
+})();
+
+// Für automatisierte Tests
+window.__chem = { ionicCompound, CATIONS, ANIONS, checkFormula, checkName, makeTask, LEVELS, allowed, parseFormula, MOLECULES };
+</script>
+</body>
+</html>
