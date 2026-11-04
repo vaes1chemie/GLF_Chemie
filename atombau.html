@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atombau – Phase 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f7;
+  --bg-alt: #f3f1ee;
+  --text: #1a1a1a;
+  --text-muted: #6b6560;
+  --text-light: #9c9891;
+  --border: #e5e2dd;
+  --nav-bg: #1e293b;
+  --nav-text: #e2e8f0;
+  --sidebar-bg: #f5f4f1;
+  --glossar-bg: #f0f4fa; --glossar-border: #8aadd4; --glossar-text: #2c4a6e; --glossar-label: #5b8ab5;
+  --merksatz-bg: #eef6f0; --merksatz-border: #7bc08a; --merksatz-text: #2d5a37; --merksatz-label: #5a9e6a;
+  --aufgabe-bg: #fdf5ee; --aufgabe-border: #d4a574; --aufgabe-text: #6b4226; --aufgabe-label: #c08a56;
+  --experiment-bg: #f4f0fa; --experiment-border: #a890c8; --experiment-text: #4a3668; --experiment-label: #8b72b0;
+  --discovery-bg: #faf5ee; --discovery-border: #c8b080; --discovery-text: #5a4a2e; --discovery-label: #a89060;
+  --accent: #4a7ab5;
+  --accent-light: #e8eff7;
+  --quiz-bg: #f8f7f4;
+  --correct-bg: #eef6f0; --correct-border: #7bc08a; --correct-text: #2d5a37;
+  --wrong-bg: #fceaea; --wrong-border: #e07070; --wrong-text: #7a2020;
+  --forms-bg: #e8eff7; --forms-border: #8aadd4; --forms-text: #2c4a6e;
+  --onenote-bg: #f4f0fa; --onenote-border: #a890c8; --onenote-text: #4a3668;
+  --teams-bg: #f0f0fa; --teams-border: #7b83c8; --teams-text: #3b3b6e;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --radius: 10px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.7; }
+
+/* === LAYOUT === */
+.layout { display: flex; min-height: 100vh; }
+
+/* === SIDEBAR === */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+.sidebar-brand {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  padding: 0 20px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.sidebar-brand small { display: block; font-family: var(--sans); font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; letter-spacing: 0.04em; }
+.sidebar-phase {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+  padding: 14px 20px 6px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: rgba(0,0,0,0.03); }
+.nav-item.active { color: var(--accent); background: var(--accent-light); border-left-color: var(--accent); }
+.nav-item.done { color: var(--merksatz-text); }
+.nav-item.locked { color: var(--text-light); cursor: not-allowed; opacity: 0.55; }
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+.nav-item.active .nav-dot { background: var(--accent); }
+.nav-item.done .nav-dot { background: var(--merksatz-border); }
+.lock-icon { font-size: 11px; margin-left: auto; }
+
+/* === MAIN CONTENT === */
+.main-wrap {
+  flex: 1;
+  min-width: 0;
+}
+.progress-bar { position: sticky; top: 0; height: 3px; background: var(--border); z-index: 50; }
+.progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.15s; }
+.content { max-width: 780px; margin: 0 auto; padding: 48px 40px 100px; }
+
+/* === HERO === */
+.hero-inline {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.phase-badge { display: inline-block; font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--accent); background: var(--accent-light); padding: 4px 14px; border-radius: 100px; letter-spacing: 0.04em; margin-bottom: 12px; }
+.hero-inline h1 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.2; margin-bottom: 8px; }
+.hero-inline .subtitle { font-size: 0.95rem; color: var(--text-muted); }
+
+/* === LESSON STRUCTURE === */
+.lesson-header { margin: 56px 0 32px; padding: 28px 0; border-top: 3px solid var(--accent); }
+.lesson-header:first-child { margin-top: 0; }
+.lesson-number { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.lesson-header h2 { font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 400; line-height: 1.2; }
+.lernziele { background: var(--accent-light); border: 1px solid #c5d5e8; border-radius: var(--radius); padding: 22px 26px; margin: 24px 0; }
+.lernziele h3 { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.lernziele ul { list-style: none; padding: 0; }
+.lernziele li { padding: 3px 0 3px 22px; position: relative; font-size: 0.92rem; color: #2c4a6e; }
+.lernziele li::before { content: '\2192'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+h3 { font-family: var(--serif); font-size: 1.45rem; font-weight: 400; margin: 40px 0 14px; }
+h4 { font-size: 1.02rem; font-weight: 700; margin: 24px 0 10px; }
+p { margin-bottom: 16px; }
+strong { font-weight: 600; }
+ul, ol { margin-bottom: 16px; padding-left: 20px; }
+li { margin-bottom: 4px; }
+a { color: var(--accent); font-weight: 600; }
+
+/* === CONTENT BOXES === */
+.glossar { background: var(--glossar-bg); border-left: 4px solid var(--glossar-border); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 22px 0; }
+.glossar-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; color: var(--glossar-label); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.glossar-term { font-weight: 700; font-size: 0.98rem; margin-bottom: 3px; color: var(--glossar-text); }
+.glossar p { font-size: 0.9rem; color: var(--glossar-text); margin-bottom: 0; }
+.merksatz { background: var(--merksatz-bg); border-left: 4px solid var(--merksatz-border); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 22px 0; }
+.merksatz-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; color: var(--merksatz-label); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.merksatz p { font-size: 0.93rem; color: var(--merksatz-text); margin-bottom: 0; }
+.aufgabe { background: var(--aufgabe-bg); border-left: 4px solid var(--aufgabe-border); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 18px 0; }
+.aufgabe-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; color: var(--aufgabe-label); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.aufgabe p { font-size: 0.93rem; color: var(--aufgabe-text); margin-bottom: 0; }
+.experiment { background: var(--experiment-bg); border-left: 4px solid var(--experiment-border); border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 24px 0; }
+.experiment-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; color: var(--experiment-label); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.experiment h4 { color: var(--experiment-text); margin-top: 0; margin-bottom: 10px; }
+.experiment p, .experiment li { font-size: 0.9rem; color: var(--experiment-text); }
+.experiment ul, .experiment ol { padding-left: 20px; margin-bottom: 10px; }
+.discovery { background: var(--discovery-bg); border-left: 4px solid var(--discovery-border); border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 24px 0; }
+.discovery-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; color: var(--discovery-label); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.discovery h4 { color: var(--discovery-text); margin-top: 0; margin-bottom: 10px; }
+.discovery p, .discovery li { font-size: 0.9rem; color: var(--discovery-text); }
+.discovery ol, .discovery ul { padding-left: 20px; margin-bottom: 10px; }
+.discovery .hint { background: rgba(200,176,128,0.15); border-radius: 6px; padding: 9px 13px; margin-top: 10px; font-size: 0.83rem; color: var(--discovery-text); font-style: italic; }
+
+/* === TABLES === */
+.data-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.9rem; }
+.data-table th { background: #3d5a80; color: white; font-weight: 600; padding: 9px 13px; text-align: left; }
+.data-table th:first-child { border-radius: 8px 0 0 0; }
+.data-table th:last-child { border-radius: 0 8px 0 0; }
+.data-table td { padding: 9px 13px; border-bottom: 1px solid var(--border); }
+.data-table tr:nth-child(even) td { background: var(--bg-alt); }
+
+/* === SIMULATIONS === */
+.sim-container { margin: 28px 0; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--border); background: #0f172a; }
+.sim-header { background: #1e293b; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; }
+.sim-title { color: white; font-weight: 600; font-size: 0.88rem; }
+.sim-badge { background: rgba(74,122,181,0.2); color: #a8c4e0; font-size: 0.68rem; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+.sim-container iframe { width: 100%; height: 500px; border: none; display: block; }
+.sim-caption { background: #1e293b; padding: 10px 18px; color: #94a3b8; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
+.sim-scaled { position: relative; width: 100%; height: 0; padding-bottom: 75%; overflow: hidden; background: #fff; }
+.sim-scaled iframe { position: absolute; top: 0; left: 0; width: 142.86%; height: 142.86%; transform: scale(0.7); transform-origin: top left; border: none; }
+
+/* === SUMMARY === */
+.summary { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin: 36px 0; }
+.summary h3 { margin-top: 0; font-size: 1.25rem; }
+
+/* === MC QUIZ === */
+.quiz-section {
+  margin: 36px 0;
+  background: var(--quiz-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+}
+.quiz-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.quiz-icon { width: 28px; height: 28px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--accent); font-weight: 700; }
+.quiz-title { font-size: 1rem; font-weight: 700; }
+.quiz-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; }
+.question { margin-bottom: 22px; }
+.q-text { font-size: 0.93rem; font-weight: 600; margin-bottom: 8px; line-height: 1.5; }
+.q-num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 700; margin-right: 6px; vertical-align: middle; flex-shrink: 0; }
+.option {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 13px; margin: 3px 0;
+  border-radius: 7px; border: 1px solid var(--border);
+  background: white; cursor: pointer;
+  font-size: 0.88rem; transition: all 0.15s;
+}
+.option:hover { border-color: var(--accent); background: var(--accent-light); }
+.option.selected { border-color: var(--accent); background: var(--accent-light); }
+.option.correct { border-color: var(--correct-border); background: var(--correct-bg); color: var(--correct-text); }
+.option.wrong { border-color: var(--wrong-border); background: var(--wrong-bg); color: var(--wrong-text); }
+.radio { width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; position: relative; transition: all 0.15s; }
+.option.selected .radio { border-color: var(--accent); }
+.option.selected .radio::after { content: ''; position: absolute; top: 2.5px; left: 2.5px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.option.correct .radio { border-color: var(--correct-border); }
+.option.correct .radio::after { background: var(--correct-border); content:''; position:absolute; top:2.5px; left:2.5px; width:6px; height:6px; border-radius:50%; }
+.option.wrong .radio { border-color: var(--wrong-border); }
+.feedback { margin-top: 6px; padding: 9px 13px; border-radius: 7px; font-size: 0.82rem; display: none; line-height: 1.5; }
+.feedback.show { display: block; }
+.feedback.correct { background: var(--correct-bg); color: var(--correct-text); border: 1px solid var(--correct-border); }
+.feedback.wrong { background: var(--wrong-bg); color: var(--wrong-text); border: 1px solid var(--wrong-border); }
+
+/* === TASK CARDS === */
+.task-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 36px; }
+.task-card {
+  padding: 18px; border-radius: var(--radius);
+  border: 1px solid; text-decoration: none;
+  transition: all 0.2s; cursor: pointer; display: block;
+}
+.task-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.task-card.forms { background: var(--forms-bg); border-color: var(--forms-border); }
+.task-card.onenote { background: var(--onenote-bg); border-color: var(--onenote-border); }
+.task-card.teams { background: var(--teams-bg); border-color: var(--teams-border); }
+.task-card-icon { font-size: 22px; margin-bottom: 6px; }
+.task-card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 3px; }
+.task-card.forms .task-card-title { color: var(--forms-text); }
+.task-card.onenote .task-card-title { color: var(--onenote-text); }
+.task-card.teams .task-card-title { color: var(--teams-text); }
+.task-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; }
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .content { padding: 32px 18px 80px; }
+  .task-links { grid-template-columns: 1fr; }
+}
+@media print {
+  .sidebar, .progress-bar, .sim-container, .quiz-section, .task-links { display: none; }
+  .content { max-width: 100%; padding: 20px; }
+  body { font-size: 11pt; }
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+section { animation: fadeUp 0.4s ease-out both; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ======== SIDEBAR ======== -->
+<nav class="sidebar">
+  <div class="sidebar-brand"><a href="index.html" style="text-decoration:none; color:inherit;">Atombau</a><small>Chemie GLF · 1. Gymnasium · Va</small><a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a></div>
+
+  <div class="sidebar-phase">Phase 1 · Lektionen 1–3</div>
+  <a href="#L1" class="nav-item active"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
+  <a href="#L2" class="nav-item"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
+  <a href="#L3" class="nav-item"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
+  <a href="#zusammenfassung" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+
+  <div class="sidebar-phase">Phase 2 · Lektionen 4–7</div>
+  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr) <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L5 – Orbitalmodell <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L6 – Elektronenkonfiguration <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L7 – Flammenfärbung <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>Zusammenfassung <span class="lock-icon">&#x1F512;</span></a>
+
+  <div class="sidebar-phase">Phase 3 · Lektionen 8–10</div>
+  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L8 – Das Periodensystem <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L9 – Trends im PSE <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>Zusammenfassung <span class="lock-icon">&#x1F512;</span></a>
+
+  <div class="sidebar-phase">Phase 4 · Lektionen 11–12</div>
+  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L11 – Repetition <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>Abschluss <span class="lock-icon">&#x1F512;</span></a>
+
+</nav>
+
+<!-- ======== MAIN ======== -->
+<div class="main-wrap">
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<main class="content">
+
+<div class="hero-inline">
+  <div class="phase-badge">Phase 1 · Lektionen 1–3</div>
+  <h1>Vom Dalton-Modell zum Kern-Hülle-Modell</h1>
+  <p class="subtitle">Chemie GLF – 1. Gymnasium – Va</p>
+</div>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 1                             -->
+<!-- ============================================================ -->
+<section id="L1">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 01</div>
+    <h2>Was ist im Atom drin?</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können das Atommodell von Dalton beschreiben und seine Grenzen benennen.</li>
+    <li>Sie können die Grundregel elektrischer Ladungen formulieren: Gleiche Ladungen stossen sich ab, ungleiche ziehen sich an.</li>
+    <li>Sie können qualitativ beschreiben, wie Abstand und Ladung die elektrostatische Kraft beeinflussen (Coulomb-Gesetz).</li>
+    <li>Sie können den glühelektrischen Effekt beschreiben und seine Bedeutung für die Entdeckung des Elektrons einordnen.</li>
+    <li>Sie können erklären, warum das Dalton-Modell erweitert werden musste.</li>
+  </ul></div>
+
+  <h3>1.1 Rückblick: Das Atommodell von Dalton</h3>
+  <p>Zu Beginn des 19.&nbsp;Jahrhunderts formulierte der englische Naturforscher <strong>John Dalton</strong> (1766–1844) ein Atommodell, das für die Chemie revolutionär war. Seine Kernaussagen:</p>
+  <ul>
+    <li>Alle Stoffe bestehen aus kleinsten, unteilbaren Teilchen – den <strong>Atomen</strong>.</li>
+    <li>Atome eines Elements sind untereinander gleich (gleiche Masse, gleiche Grösse).</li>
+    <li>Atome verschiedener Elemente unterscheiden sich in Masse und Grösse.</li>
+    <li>Bei chemischen Reaktionen werden Atome umgruppiert, aber nicht zerstört oder erschaffen.</li>
+  </ul>
+  <p>Dieses Modell erklärte das <em>Gesetz der Erhaltung der Masse</em> und das <em>Gesetz der konstanten Proportionen</em>. Doch eine zentrale Frage blieb offen: <strong>Sind Atome wirklich unteilbar?</strong></p>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Atom (griech. átomos = unteilbar)</div>
+    <p>Kleinster Baustein eines chemischen Elements, der noch die chemischen Eigenschaften dieses Elements trägt. Heute wissen wir: Atome sind <em>nicht</em> unteilbar, sondern bestehen aus Protonen, Neutronen und Elektronen.</p>
+  </div>
+
+  <h3>1.2 Elektrische Ladungen: Anziehung und Abstossung</h3>
+  <p>Bevor wir herausfinden, was im Atom steckt, brauchen wir ein wichtiges Werkzeug: das Verständnis von <strong>elektrischen Ladungen</strong>. Denn die Bausteine des Atoms sind geladen – und ihr Verhalten lässt sich nur verstehen, wenn wir wissen, wie Ladungen miteinander wechselwirken.</p>
+
+  <div class="experiment"><div class="experiment-label">Schüler<sup>*</sup>innenexperiment</div>
+    <h4>Luftballons und elektrische Ladung</h4>
+    <p><strong>Material (pro Gruppe):</strong> 2 aufgeblasene Luftballons an Fäden, Wollpullover oder Haare, kleine Papierschnipsel.</p>
+    <p><strong>Durchführung:</strong></p>
+    <ol>
+      <li><strong>Versuch A:</strong> Reiben Sie einen Luftballon an Ihren Haaren (oder am Wollpullover). Halten Sie den Ballon über kleine Papierschnipsel. Was geschieht?</li>
+      <li><strong>Versuch B:</strong> Reiben Sie den Ballon erneut an den Haaren und halten Sie ihn nahe an Ihre Haare (ohne zu berühren). Was beobachten Sie?</li>
+      <li><strong>Versuch C:</strong> Reiben Sie <em>beide</em> Luftballons an den Haaren und hängen Sie sie an ihren Fäden nebeneinander. Was geschieht, wenn sich die Ballons nähern?</li>
+    </ol>
+    <p><strong>Beobachtungsaufträge:</strong></p>
+    <ol>
+      <li>In welchen Versuchen ziehen sich die Objekte an? In welchem stossen sie sich ab?</li>
+      <li>Formulieren Sie eine Vermutung: Was hat sich beim Reiben verändert?</li>
+      <li>Leiten Sie eine Regel ab: Wann ziehen sich Objekte an, wann stossen sie sich ab?</li>
+    </ol>
+  </div>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Elektrische Ladung</div>
+    <p>Eine grundlegende Eigenschaft von Materie. Es gibt zwei Arten: <strong>positive (+)</strong> und <strong>negative (−)</strong> Ladung.</p>
+  </div>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz</div>
+    <p><strong>Gleiche Ladungen stossen sich ab</strong> (+ und + oder − und −). <strong>Ungleiche Ladungen ziehen sich an</strong> (+ und −). Diese Grundregel erklärt alle elektrostatischen Phänomene und wird uns beim Verständnis des Atomaufbaus immer wieder begegnen.</p>
+  </div>
+
+  <h4>Simulation: Ballons und statische Elektrizität</h4>
+  <p>Erkunden Sie die PhET-Simulation, um das Prinzip der Ladungsübertragung und der Anziehung/Abstossung auf Teilchenebene zu sehen. Reiben Sie den Ballon am Pullover und beobachten Sie, was mit den Ladungen geschieht.</p>
+
+  <div class="sim-container">
+    <div class="sim-header">
+      <span class="sim-title">PhET: Balloons and Static Electricity</span>
+      <span class="sim-badge">INTERAKTIV</span>
+    </div>
+    <iframe src="https://phet.colorado.edu/sims/html/balloons-and-static-electricity/latest/balloons-and-static-electricity_all.html" allowfullscreen style="width:100%;height:500px;border:none;display:block;"></iframe>
+    <div class="sim-caption">© PhET Interactive Simulations, University of Colorado Boulder. Lizenz: CC-BY.</div>
+  </div>
+
+  <h4>Die elektrostatische Kraft: Das Coulomb-Gesetz</h4>
+  <p>Die Anziehung und Abstossung zwischen geladenen Teilchen ist nicht einfach «an oder aus» — sie hängt davon ab, <strong>wie stark</strong> die Teilchen geladen sind und <strong>wie weit</strong> sie voneinander entfernt sind. Diese Kraft nennt man die <strong>elektrostatische Kraft</strong>. Sie ist vergleichbar mit der Gravitationskraft und der magnetischen Kraft.</p>
+  <p>Die elektrostatische Kraft zwischen geladenen Körpern <strong>nimmt mit zunehmendem Abstand stark ab</strong> und <strong>steigt mit zunehmender Ladung</strong> der Körper. Den Raum, in dem ein geladener Körper elektrostatische Kräfte ausübt, bezeichnet man als sein <strong>elektrisches Feld</strong>.</p>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Elektrisches Feld</div>
+    <p>Der Raum um einen geladenen Körper, in dem elektrostatische Kräfte auf andere geladene Körper wirken.</p>
+  </div>
+
+  <p>Das Coulomb-Gesetz beschreibt die elektrostatische Kraft mit einer Formel:</p>
+
+  <table class="data-table" style="max-width:540px;">
+    <thead><tr><th colspan="2">Coulomb-Gesetz</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center; font-family:var(--serif); padding:18px 16px; width:45%; vertical-align:middle;"><span style="font-size:1.5rem;"><em>F</em> = <em>k</em> · </span><span style="display:inline-block; text-align:center; vertical-align:middle; font-size:1.2rem; line-height:1.3;"><span style="display:block; padding:0 4px;"><em>Q</em><sub>1</sub> · <em>Q</em><sub>2</sub></span><span style="display:block; border-top:2px solid currentColor; padding:2px 4px 0;"><em>r</em><sup>2</sup></span></span></td>
+        <td style="font-size:0.88rem; line-height:1.9; padding:14px 16px;">
+          <strong>F:</strong> elektrostatische Kraft<br>
+          <strong>Q<sub>1</sub>, Q<sub>2</sub>:</strong> Ladungen der Körper<br>
+          <strong>r:</strong> Abstand zwischen den Körpern<br>
+          <strong>k:</strong> Konstante (abhängig vom Medium: Vakuum, Luft, Wasser, …)
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Sie müssen diese Formel nicht auswendig kennen, jedoch verstehen, dass ein <strong>grösserer Abstand (r)</strong> die elektrostatische Kraft <strong>verkleinert</strong> und <strong>grössere Ladungen (Q)</strong> die elektrostatische Kraft <strong>vergrössern</strong>.</p>
+
+  <h4>Simulation: Coulomb-Gesetz ausprobieren</h4>
+  <p>Verändern Sie die Ladungen und den Abstand mit den Reglern. Beobachten Sie, wie sich die Anziehungskraft im Vergleich zum Ausgangszustand verändert.</p>
+
+  <div class="sim-container">
+    <div class="sim-header">
+      <span class="sim-title">Coulomb-Gesetz: Kraft zwischen zwei Ladungen</span>
+      <span class="sim-badge">INTERAKTIV</span>
+    </div>
+    <div style="background:#faf9f7; padding:1.25rem 1.25rem 0.75rem;">
+      <style>
+        .clmb-controls { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 1rem; }
+        .clmb-cg { flex: 1; min-width: 130px; }
+        .clmb-cg label { font-size: 12px; color: #5f5e5a; display: block; margin-bottom: 3px; font-family: var(--sans); }
+        .clmb-cg .clmb-row { display: flex; align-items: center; gap: 6px; }
+        .clmb-cg input[type=range] { flex: 1; }
+        .clmb-cg .clmb-val { font-size: 14px; font-weight: 600; min-width: 24px; text-align: right; font-family: var(--mono); }
+        .clmb-factor { background: #f3f1ee; border-radius: 10px; padding: 14px; text-align: center; margin-bottom: 1rem; }
+        .clmb-factor .clmb-flabel { font-size: 12px; color: #6b6560; margin: 0 0 6px; }
+        .clmb-fval { font-size: 26px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .clmb-frac { display: inline-flex; flex-direction: column; align-items: center; font-size: 20px; font-weight: 500; line-height: 1.1; }
+        .clmb-frac .clmb-num { padding-bottom: 2px; }
+        .clmb-frac .clmb-bar { width: 100%; height: 2px; background: #1a1a1a; margin: 1px 0; }
+        .clmb-frac .clmb-den { padding-top: 2px; }
+      </style>
+      <div class="clmb-controls">
+        <div class="clmb-cg">
+          <label>Ladung Q₁ (negativ)</label>
+          <div class="clmb-row"><input type="range" min="1" max="10" value="1" step="1" id="clmb-q1"><span class="clmb-val" id="clmb-q1v">−1</span></div>
+        </div>
+        <div class="clmb-cg">
+          <label>Ladung Q₂ (positiv)</label>
+          <div class="clmb-row"><input type="range" min="1" max="10" value="1" step="1" id="clmb-q2"><span class="clmb-val" id="clmb-q2v">+1</span></div>
+        </div>
+        <div class="clmb-cg">
+          <label>Abstand r</label>
+          <div class="clmb-row"><input type="range" min="0" max="12" value="3" step="1" id="clmb-dist"><span class="clmb-val" id="clmb-dv">1</span></div>
+        </div>
+      </div>
+      <div class="clmb-factor">
+        <p class="clmb-flabel">Anziehungskraft im Vergleich zum Ausgangszustand (Q₁=1, Q₂=1, r=1)</p>
+        <div class="clmb-fval" id="clmb-factor"></div>
+      </div>
+      <svg id="clmb-scene" viewBox="0 0 700 110" style="width:100%;display:block;">
+        <line id="clmb-conn" x1="180" y1="55" x2="520" y2="55" stroke="rgba(0,0,0,0.15)" stroke-width="1" stroke-dasharray="6,4"/>
+        <circle id="clmb-c1" cx="180" cy="55" r="24" fill="#E24B4A" opacity="0.85"/>
+        <text id="clmb-c1t" x="180" y="60" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">−Q₁</text>
+        <circle id="clmb-c2" cx="520" cy="55" r="24" fill="#378ADD" opacity="0.85"/>
+        <text id="clmb-c2t" x="520" y="60" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">+Q₂</text>
+        <text id="clmb-ftxt" x="350" y="105" text-anchor="middle" fill="#6b6560" font-size="13"></text>
+      </svg>
+    </div>
+    <div class="sim-caption">Verändern Sie Ladungen und Abstand — der Faktor zeigt die resultierende Kraft relativ zum Ausgangszustand.</div>
+  </div>
+
+  <script>
+  (function(){
+    const rSteps=[1/4,1/3,1/2,1,2,3,4,5,6,7,8,9,10];
+    const rLabels=['¼','⅓','½','1','2','3','4','5','6','7','8','9','10'];
+    const q1El=document.getElementById('clmb-q1'),q2El=document.getElementById('clmb-q2'),dEl=document.getElementById('clmb-dist');
+    const q1v=document.getElementById('clmb-q1v'),q2v=document.getElementById('clmb-q2v'),dv=document.getElementById('clmb-dv');
+    const factorEl=document.getElementById('clmb-factor'),ftxt=document.getElementById('clmb-ftxt');
+    const c1=document.getElementById('clmb-c1'),c1t=document.getElementById('clmb-c1t');
+    const c2=document.getElementById('clmb-c2'),c2t=document.getElementById('clmb-c2t');
+    const conn=document.getElementById('clmb-conn');
+    function gcd(a,b){return b?gcd(b,a%b):a;}
+    function getFrac(q1,q2,rIdx){
+      const r=rSteps[rIdx];let num=q1*q2,den=1;
+      if(r===0.25){num*=16;}else if(r===1/3){num*=9;}else if(r===0.5){num*=4;}else if(r>=1){den=Math.round(r)*Math.round(r);}
+      const g=gcd(Math.abs(num),Math.abs(den));return{n:num/g,d:den/g};
+    }
+    function renderFactor(n,d){
+      if(d===1)return'<span style="font-size:26px;font-weight:500">'+n+'×</span>';
+      return'<span class="clmb-frac"><span class="clmb-num">'+n+'</span><span class="clmb-bar"></span><span class="clmb-den">'+d+'</span></span><span style="font-size:20px;font-weight:500;margin-left:2px">×</span>';
+    }
+    function update(){
+      const q1=+q1El.value,q2=+q2El.value,rIdx=+dEl.value;const r=rSteps[rIdx];
+      q1v.textContent='−'+q1;q2v.textContent='+'+q2;dv.textContent=rLabels[rIdx];
+      const f=getFrac(q1,q2,rIdx);factorEl.innerHTML=renderFactor(f.n,f.d);
+      const x1=180;const t=(r-0.25)/(10-0.25);const x2=x1+56+t*340;const mid=(x1+x2)/2;
+      c1.setAttribute('cx',x1);c1t.setAttribute('x',x1);
+      c2.setAttribute('cx',x2);c2t.setAttribute('x',x2);
+      conn.setAttribute('x1',x1);conn.setAttribute('x2',x2);
+      ftxt.setAttribute('x',mid);ftxt.textContent='r = '+rLabels[rIdx];
+    }
+    dEl.setAttribute('max',rSteps.length-1);
+    q1El.addEventListener('input',update);q2El.addEventListener('input',update);dEl.addEventListener('input',update);
+    update();
+  })();
+  </script>
+
+  <h3>1.3 Hinweis auf eine innere Struktur: Der glühelektrische Effekt</h3>
+  <p>Mit dem Wissen über elektrische Ladungen können wir nun ein entscheidendes Experiment verstehen: Erhitzt man einen Metalldraht stark (z.&nbsp;B. einen Glühfaden in einer Vakuumröhre), so treten ab einer bestimmten Temperatur Teilchen aus dem Metall aus. Diese Teilchen lassen sich mit einem elektrischen Feld ablenken – und zwar immer <strong>in Richtung des positiven Pols</strong>.</p>
+  <p>Was wir gerade gelernt haben, hilft uns: Wenn die Teilchen von der positiven Anode <em>angezogen</em> werden, müssen sie <strong>negativ geladen</strong> sein (ungleiche Ladungen ziehen sich an!). Dieses Phänomen heisst <strong>glühelektrischer Effekt</strong> (auch: Edison-Effekt oder thermionische Emission).</p>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Glühelektrischer Effekt (thermionische Emission)</div>
+    <p>Beim Erhitzen eines Metalldrahts im Vakuum treten negativ geladene Teilchen (Elektronen) aus der Metalloberfläche aus. Die Elektronen erhalten durch die Wärmeenergie genug Energie, um die Anziehungskraft des Metalls zu überwinden.</p>
+  </div>
+
+  <h4>Video &amp; Animation: Glühelektrischer Effekt</h4>
+  <p>Schauen Sie sich den Versuch als Video und Animation an. LEIFIphysik bietet eine hervorragende interaktive Darstellung:</p>
+  <p style="margin-bottom:8px;">🔗 <a href="https://www.leifiphysik.de/elektrizitaetslehre/gluehelektrischer-effekt/versuche/edison-effekt-einer-diode" target="_blank">LEIFIphysik: Edison-Effekt an einer Diode – Versuch mit Animation</a></p>
+  <p><strong>Beobachten Sie beim Ansehen:</strong></p>
+  <ol>
+    <li>Was geschieht, wenn die Glühwendel erhitzt wird?</li>
+    <li>Was passiert, wenn das Elektroskop positiv geladen ist? Was bei negativer Ladung?</li>
+  </ol>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Elektron (e⁻)</div>
+    <p>Ein negativ geladenes Elementarteilchen mit sehr geringer Masse (ca. 9,109 × 10⁻³¹ kg). Elektronen sind Bestandteil aller Atome.</p>
+  </div>
+
+  <h3>1.4 Konsequenz: Atome haben eine innere Struktur</h3>
+  <p>Der glühelektrische Effekt zeigt: Aus Atomen können negativ geladene Teilchen – <strong>Elektronen</strong> – herausgelöst werden. Das hat weitreichende Konsequenzen:</p>
+  <ul>
+    <li>Atome sind <strong>nicht unteilbar</strong> – sie enthalten mindestens eine Art von Bestandteil (Elektronen). Das Dalton-Modell muss erweitert werden.</li>
+    <li>Da Atome insgesamt <strong>elektrisch neutral</strong> sind, muss neben der negativen Ladung der Elektronen auch eine <strong>positive Ladung</strong> vorhanden sein.</li>
+    <li>Die zentrale Frage lautet nun: <em>Wie ist die positive Ladung im Atom verteilt?</em> → Das klären wir in Lektion 2.</li>
+  </ul>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz</div>
+    <p>Der glühelektrische Effekt zeigt, dass aus Atomen negativ geladene Elektronen austreten können. Atome sind also nicht unteilbar. Da Atome insgesamt neutral sind, muss im Atom auch positive Ladung vorhanden sein.</p>
+  </div>
+
+  <!-- MC QUIZ L1 -->
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 1</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für dich</div>
+
+    <div class="question" id="q1-1">
+      <div class="q-text"><span class="q-num">1</span>Was war Daltons wichtigste Aussage über Atome?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Atome bestehen aus Protonen und Neutronen.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Atome sind die kleinsten, unteilbaren Bausteine der Materie.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Atome sind negativ geladen.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Atome können bei chemischen Reaktionen zerstört werden.</div>
+      <div class="feedback correct">Richtig! Dalton ging davon aus, dass Atome unteilbar sind. Erst der glühelektrische Effekt zeigte, dass Atome eine innere Struktur haben.</div>
+      <div class="feedback wrong">Nicht ganz. Daltons Kernaussage war, dass Atome die kleinsten, unteilbaren Teilchen sind. Die anderen Aussagen kamen erst später.</div>
+    </div>
+
+    <div class="question" id="q1-2">
+      <div class="q-text"><span class="q-num">2</span>Zwei negativ geladene Objekte werden einander angenähert. Was passiert?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Sie ziehen sich an.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Sie stossen sich ab.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Es passiert nichts.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Sie neutralisieren sich gegenseitig.</div>
+      <div class="feedback correct">Genau! Gleiche Ladungen stossen sich ab — das ist die Grundregel der Elektrostatik.</div>
+      <div class="feedback wrong">Erinnere dich an die Grundregel: Gleiche Ladungen (+ und + oder − und −) stossen sich ab, ungleiche ziehen sich an.</div>
+    </div>
+
+    <div class="question" id="q1-3">
+      <div class="q-text"><span class="q-num">3</span>Beim glühelektrischen Effekt fliegen die austretenden Teilchen zur positiven Anode. Was lässt sich daraus schliessen?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Die Teilchen sind positiv geladen.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Die Teilchen sind ungeladen.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Die Teilchen sind negativ geladen.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Die Teilchen werden von der Anode abgestossen.</div>
+      <div class="feedback correct">Richtig! Ungleiche Ladungen ziehen sich an — die Teilchen werden von der positiven Anode angezogen, also müssen sie negativ geladen sein. Es sind Elektronen!</div>
+      <div class="feedback wrong">Denk an die Ladungsregel: Ungleiche Ladungen ziehen sich an. Wenn die Teilchen zur positiven Anode fliegen, welche Ladung müssen sie dann haben?</div>
+    </div>
+
+    <div class="question" id="q1-4">
+      <div class="q-text"><span class="q-num">4</span>Warum muss im Atom neben den Elektronen auch positive Ladung vorhanden sein?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil Atome immer positiv geladen sind.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil Dalton das vorhergesagt hat.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Weil Atome insgesamt elektrisch neutral sind.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil positive Ladungen leichter sind als negative.</div>
+      <div class="feedback correct">Genau! Atome sind nach aussen neutral. Wenn sie negative Elektronen enthalten, muss die negative Ladung durch positive Ladung ausgeglichen werden.</div>
+      <div class="feedback wrong">Überlege: Atome sind nach aussen elektrisch neutral (weder + noch −). Wenn sie negative Elektronen enthalten, was braucht es zum Ausgleich?</div>
+    </div>
+
+    <div class="question" id="q1-5">
+      <div class="q-text"><span class="q-num">5</span>Zwei geladene Kugeln ziehen sich an. Was passiert mit der elektrostatischen Kraft, wenn man den Abstand zwischen den Kugeln verdoppelt?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Die Kraft wird doppelt so gross.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Die Kraft bleibt gleich.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Die Kraft wird halb so gross.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Die Kraft sinkt auf ein Viertel.</div>
+      <div class="feedback correct">Richtig! Im Coulomb-Gesetz steht r² im Nenner. Wenn sich der Abstand verdoppelt (2r), wird r² zu (2r)² = 4r² — die Kraft sinkt auf ein Viertel.</div>
+      <div class="feedback wrong">Schau dir die Formel genau an: Der Abstand r steht im Nenner und wird quadriert (r²). Was passiert also mit der Kraft, wenn r doppelt so gross wird?</div>
+    </div>
+  </div>
+
+  <!-- TASK CARD L1 -->
+  <h4>Aufgaben zu Lektion 1</h4>
+  <div class="task-links" style="grid-template-columns: 1fr;">
+    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
+      <div class="task-card-icon">&#128221;</div>
+      <div class="task-card-title">Aufgaben 1.1 – 1.5 bearbeiten</div>
+      <div class="task-card-desc">Übungsaufgaben auf OneNote</div>
+	   <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 2                             -->
+<!-- ============================================================ -->
+<section id="L2">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 02</div>
+    <h2>Der Streuversuch von Rutherford</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können den Aufbau und die Durchführung des Rutherford-Streuversuchs beschreiben.</li>
+    <li>Sie können die Beobachtungen selbständig interpretieren und Schlussfolgerungen ableiten.</li>
+    <li>Sie können das Kern-Hülle-Modell skizzieren und erklären.</li>
+    <li>Sie können den Grössenunterschied zwischen Atomkern und Atomhülle einordnen.</li>
+  </ul></div>
+
+  <h3>2.1 Die Fragestellung</h3>
+  <p>Wir wissen nun: Atome enthalten negativ geladene Elektronen und müssen auch positive Ladung enthalten. Aber <strong>wie ist diese positive Ladung verteilt?</strong> Gleichmässig im ganzen Atom? Oder an einem bestimmten Ort konzentriert?</p>
+  <p>Um 1910 entwarf der neuseeländisch-britische Physiker <strong>Ernest Rutherford</strong> (1871–1937) zusammen mit seinen Mitarbeitern <strong>Hans Geiger</strong> und <strong>Ernest Marsden</strong> ein geniales Experiment, um das herauszufinden.</p>
+
+  <h3>2.2 Der Versuchsaufbau</h3>
+  <p>Rutherford beschoss eine sehr dünne <strong>Goldfolie</strong> mit sogenannten <strong>Alphateilchen</strong> (α-Teilchen). Um die Goldfolie herum war ein Leuchtschirm angebracht, der bei jedem Auftreffen eines Alphateilchens kurz aufleuchtete. So konnte man beobachten, in welche Richtung die Teilchen nach dem Durchgang flogen.</p>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Alphateilchen (α-Teilchen)</div>
+    <p>Positiv geladene Teilchen, die aus 2 Protonen und 2 Neutronen bestehen (entsprechen einem Helium-4-Kern). Sie werden von manchen radioaktiven Stoffen ausgesendet und haben eine relativ grosse Masse.</p>
+  </div>
+
+  <h3>2.3 Simulation: Beobachten Sie selbst</h3>
+  <p>Erkunden Sie die folgende Animation zum Streuversuch. Beobachten Sie genau, was mit den Alphateilchen geschieht, wenn sie auf die Goldfolie treffen.</p>
+
+  <div class="sim-container">
+    <div class="sim-header">
+      <span class="sim-title">Animation: Streuversuch von Rutherford</span>
+      <span class="sim-badge">INTERAKTIV</span>
+    </div>
+    <div class="sim-scaled">
+      <iframe src="https://www.chemie-interaktiv.net/html5_flash/a110.html" allowfullscreen scrolling="no"></iframe>
+    </div>
+    <div class="sim-caption">© chemie-interaktiv.net – Animation zum Streuversuch von Rutherford.</div>
+  </div>
+
+  <h3>2.4 Entdeckungsauftrag: Auswertung des Streuversuchs</h3>
+  <p>Anstatt die Ergebnisse einfach zu lesen, sollen Sie die Schlussfolgerungen <strong>selbst erarbeiten</strong>. Arbeiten Sie die folgenden Schritte der Reihe nach durch.</p>
+
+  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 1</div>
+    <h4>Beobachtungen sammeln</h4>
+    <p>Betrachten Sie die Simulation aufmerksam und besprechen Sie Ihre Beobachtungen mit Ihrer Mitschüler<sup>*</sup>in:</p>
+    <ol>
+      <li>Was geschieht mit den <strong>meisten</strong> α-Teilchen, wenn sie auf die Goldfolie treffen?</li>
+      <li>Was geschieht mit <strong>einigen wenigen</strong> α-Teilchen?</li>
+      <li>Was geschieht in <strong>ganz seltenen</strong> Fällen?</li>
+    </ol>
+    <p>Besprechen Sie Ihre drei Beobachtungen mit Ihrer Mitschüler<sup>*</sup>in, bevor Sie weiterlesen.</p>
+  </div>
+
+  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 2</div>
+    <h4>Interpretieren: Was bedeutet Beobachtung 1?</h4>
+    <p>Die allermeisten α-Teilchen fliegen ungehindert durch die Goldfolie (ca. 99,99 %).</p>
+    <ol>
+      <li>Was sagt das über das <strong>Innere des Atoms</strong> aus? Ist es dicht gefüllt oder eher leer?</li>
+      <li>Formulieren Sie einen Satz, der Ihre Schlussfolgerung zusammenfasst.</li>
+    </ol>
+    <div class="hint">Tipp: Stellen Sie sich vor, Sie werfen Bälle durch einen Raum. Wenn fast alle durchfliegen – was sagt das über die Hindernisse im Raum?</div>
+  </div>
+
+  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 3</div>
+    <h4>Interpretieren: Was bedeutet Beobachtung 2?</h4>
+    <p>Einige wenige α-Teilchen werden leicht abgelenkt.</p>
+    <ol>
+      <li>Die α-Teilchen sind <em>positiv</em> geladen. Welche Kraft könnte sie ablenken?</li>
+      <li>Was muss sich in der Nähe ihrer Bahn befinden?</li>
+    </ol>
+    <div class="hint">Tipp: Erinnern Sie sich an die elektrostatische Abstossung: Gleiche Ladungen stossen sich ab.</div>
+  </div>
+
+  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 4</div>
+    <h4>Interpretieren: Was bedeutet Beobachtung 3?</h4>
+    <p>Ganz wenige α-Teilchen (etwa 1 von 20'000) prallen zurück und fliegen in die entgegengesetzte Richtung.</p>
+    <ol>
+      <li>Damit ein α-Teilchen <em>zurückprallt</em>, muss es auf etwas treffen, das <strong>schwerer</strong> ist als es selbst und eine <strong>grosse positive Ladung</strong> hat. Warum?</li>
+      <li>Dieses «Etwas» muss <strong>sehr klein</strong> sein, weil es so selten getroffen wird. Warum?</li>
+      <li>Fassen Sie zusammen: Was befindet sich im Innern des Atoms?</li>
+    </ol>
+    <div class="hint">Rutherford selbst beschrieb seine Überraschung sinngemäss: «Es war, als ob man mit einer Kanone auf Seidenpapier schiesst und die Kugel zurückkommt.»</div>
+  </div>
+
+  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 5</div>
+    <h4>Ihr Atommodell</h4>
+    <p>Zeichnen Sie auf Basis Ihrer Schlussfolgerungen aus den Schritten 2–4 eine <strong>Skizze</strong> eines Atoms. Beschriften Sie:</p>
+    <ol>
+      <li>Wo befindet sich die positive Ladung und die Masse?</li>
+      <li>Wo befinden sich die Elektronen?</li>
+      <li>Was befindet sich dazwischen?</li>
+    </ol>
+    <p>Vergleichen Sie Ihre Skizze anschliessend mit dem Modell im nächsten Abschnitt.</p>
+  </div>
+
+  <h3>2.5 Das Kern-Hülle-Modell von Rutherford</h3>
+  <p>Wenn Sie die Entdeckungsaufträge sorgfältig bearbeitet haben, sollten Sie zu ähnlichen Schlussfolgerungen gekommen sein wie Rutherford selbst:</p>
+  <p><strong>1. Der Atomkern:</strong> Die gesamte positive Ladung und nahezu die gesamte Masse des Atoms sind in einem winzigen Kern konzentriert. Der Kern hat einen Durchmesser von etwa 10⁻¹⁵ m bis 10⁻¹⁴ m.</p>
+  <p><strong>2. Die Atomhülle:</strong> Die Elektronen bewegen sich in der Hülle um den Kern herum. Die Hülle hat einen Durchmesser von etwa 10⁻¹⁰ m – das ist rund <strong>10'000- bis 100'000-mal grösser</strong> als der Kern!</p>
+  <p><strong>3. Leerer Raum:</strong> Das Atom besteht grösstenteils aus leerem Raum. Deshalb fliegen fast alle Alphateilchen ungehindert durch.</p>
+  <p><strong>Grössenvergleich:</strong> Wenn der Atomkern so gross wäre wie eine Erbse (ca. 1 cm), dann hätte die Atomhülle einen Durchmesser von etwa 100 Metern – das ist ein ganzes Fussballfeld!</p>
+
+  <!-- Darstellung Kern-Hülle-Modell -->
+  <div style="text-align:center; margin:32px 0;">
+    <svg viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg" style="max-width:540px; width:100%;">
+      <!-- Hülle (grosser Kreis) -->
+      <circle cx="230" cy="170" r="130" fill="rgba(74,122,181,0.04)" stroke="#8aadd4" stroke-width="2.5" stroke-dasharray="8 4"/>
+
+      <!-- Kern (kleiner Punkt mit +) -->
+      <circle cx="230" cy="170" r="9" fill="#3d5a80"/>
+      <text x="230" y="174.5" font-family="DM Sans, sans-serif" font-size="12" fill="white" text-anchor="middle" font-weight="700">+</text>
+
+      <!-- Elektronen verteilt in der Hülle (verschiedene Radien) -->
+      <!-- innerer Ring ~40-55 -->
+      <circle cx="255" cy="130" r="5" fill="#4a7ab5"/>
+      <text x="255" y="134" font-family="DM Sans, sans-serif" font-size="7" fill="white" text-anchor="middle" font-weight="700">−</text>
+      <circle cx="195" cy="205" r="5" fill="#4a7ab5"/>
+      <text x="195" y="209" font-family="DM Sans, sans-serif" font-size="7" fill="white" text-anchor="middle" font-weight="700">−</text>
+      <!-- mittlerer Ring ~70-90 -->
+      <circle cx="160" cy="120" r="5" fill="#4a7ab5"/>
+      <text x="160" y="124" font-family="DM Sans, sans-serif" font-size="7" fill="white" text-anchor="middle" font-weight="700">−</text>
+      <circle cx="300" cy="195" r="5" fill="#4a7ab5"/>
+      <text x="300" y="199" font-family="DM Sans, sans-serif" font-size="7" fill="white" text-anchor="middle" font-weight="700">−</text>
+      <circle cx="210" cy="245" r="5" fill="#4a7ab5"/>
+      <text x="210" y="249" font-family="DM Sans, sans-serif" font-size="7" fill="white" text-anchor="middle" font-weight="700">−</text>
+      <!-- äusserer Ring ~100-120 -->
+      <circle cx="290" cy="80" r="5" fill="#4a7ab5"/>
+      <text x="290" y="84" font-family="DM Sans, sans-serif" font-size="7" fill="white" text-anchor="middle" font-weight="700">−</text>
+      <circle cx="130" cy="215" r="5" fill="#4a7ab5"/>
+      <text x="130" y="219" font-family="DM Sans, sans-serif" font-size="7" fill="white" text-anchor="middle" font-weight="700">−</text>
+
+      <!-- === Beschriftungen mit langen Linien ausserhalb === -->
+
+      <!-- Kern-Beschriftung (rechts unten) -->
+      <line x1="237" y1="176" x2="420" y2="280" stroke="#3d5a80" stroke-width="1"/>
+      <line x1="420" y1="280" x2="480" y2="280" stroke="#3d5a80" stroke-width="1"/>
+      <text x="422" y="275" font-family="DM Sans, sans-serif" font-size="12" fill="#3d5a80" font-weight="600">Atomkern</text>
+      <text x="422" y="293" font-family="DM Sans, sans-serif" font-size="10" fill="#3d5a80">positive Ladung (+)</text>
+      <text x="422" y="307" font-family="DM Sans, sans-serif" font-size="10" fill="#3d5a80">fast gesamte Masse</text>
+
+      <!-- Elektron-Beschriftung (links oben, zeigt auf ein Elektron) -->
+      <line x1="155" y1="118" x2="30" y2="52" stroke="#4a7ab5" stroke-width="1"/>
+      <line x1="30" y1="52" x2="0" y2="52" stroke="#4a7ab5" stroke-width="1"/>
+      <text x="2" y="47" font-family="DM Sans, sans-serif" font-size="12" fill="#4a7ab5" font-weight="600">Elektronen (e⁻)</text>
+      <text x="2" y="63" font-family="DM Sans, sans-serif" font-size="10" fill="#4a7ab5">negative Ladung (−)</text>
+
+      <!-- Leerer Raum Beschriftung (rechts oben) -->
+      <line x1="275" y1="110" x2="420" y2="60" stroke="#6b6560" stroke-width="1"/>
+      <line x1="420" y1="60" x2="480" y2="60" stroke="#6b6560" stroke-width="1"/>
+      <text x="422" y="55" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560" font-weight="600">leerer Raum</text>
+      <text x="422" y="71" font-family="DM Sans, sans-serif" font-size="10" fill="#6b6560">(grösster Teil des Atoms)</text>
+
+      <!-- Hülle-Beschriftung (links unten, zeigt auf den Rand) -->
+      <line x1="130" y1="268" x2="30" y2="320" stroke="#8aadd4" stroke-width="1"/>
+      <line x1="30" y1="320" x2="0" y2="320" stroke="#8aadd4" stroke-width="1"/>
+      <text x="2" y="315" font-family="DM Sans, sans-serif" font-size="12" fill="#5b8ab5" font-weight="600">Atomhülle</text>
+      <text x="2" y="331" font-family="DM Sans, sans-serif" font-size="10" fill="#5b8ab5">Ø ca. 10⁻¹⁰ m</text>
+
+      <!-- Massstabs-Hinweis -->
+      <text x="260" y="352" font-family="DM Sans, sans-serif" font-size="9" fill="#9c9891" text-anchor="middle" font-style="italic">Nicht massstabsgetreu – der Kern ist in Wirklichkeit ~100'000× kleiner als die Hülle</text>
+    </svg>
+  </div>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz</div>
+    <p>Im Kern-Hülle-Modell von Rutherford besteht das Atom aus einem winzigen, positiv geladenen Kern (mit fast der gesamten Masse) und einer riesigen, fast leeren Hülle, in der sich die Elektronen aufhalten.</p>
+  </div>
+
+  <!-- MC QUIZ L2 -->
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 2</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für dich</div>
+
+    <div class="question" id="q2-1">
+      <div class="q-text"><span class="q-num">1</span>Was geschieht mit den meisten Alphateilchen im Streuversuch?</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Sie fliegen ungehindert durch die Goldfolie.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Sie werden stark abgelenkt.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Sie prallen zurück.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Sie bleiben in der Folie stecken.</div>
+      <div class="feedback correct">Richtig! Ca. 99,99 % der Alphateilchen fliegen ungehindert durch — das zeigt, dass das Atom grösstenteils aus leerem Raum besteht.</div>
+      <div class="feedback wrong">Denk daran: Was sagt es über die Struktur des Atoms, wenn fast alle Teilchen einfach durchfliegen?</div>
+    </div>
+
+    <div class="question" id="q2-2">
+      <div class="q-text"><span class="q-num">2</span>Warum prallen einige wenige Alphateilchen zurück?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Sie treffen auf Elektronen, die sie abstossen.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Sie treffen direkt auf den kleinen, schweren, positiv geladenen Kern.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Sie werden von der Goldfolie reflektiert wie Licht an einem Spiegel.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Die Goldfolie ist magnetisch.</div>
+      <div class="feedback correct">Genau! Nur ein direkter Treffer auf den winzigen, schweren und stark positiv geladenen Kern kann ein Alphateilchen zurückschleudern — gleiche Ladungen stossen sich ab.</div>
+      <div class="feedback wrong">Überlege: Alphateilchen sind positiv geladen und relativ schwer. Nur etwas noch Schwereres und ebenfalls Positives kann sie zurückwerfen. Was im Atom erfüllt das?</div>
+    </div>
+
+    <div class="question" id="q2-3">
+      <div class="q-text"><span class="q-num">3</span>Wenn der Atomkern so gross wäre wie eine Erbse — wie gross wäre dann die Atomhülle?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>So gross wie ein Tennisball</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>So gross wie ein Zimmer (ca. 5 m)</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>So gross wie ein Fussballfeld (ca. 100 m)</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>So gross wie die Schweiz</div>
+      <div class="feedback correct">Richtig! Der Kern ist rund 10'000- bis 100'000-mal kleiner als das Atom. Bei einer Erbse von 1 cm ergibt das ca. 100 m — ein ganzes Fussballfeld, das fast nur aus leerem Raum besteht!</div>
+      <div class="feedback wrong">Der Grössenunterschied zwischen Kern und Hülle beträgt den Faktor 10'000 bis 100'000. Rechne: 1 cm × 10'000 = ?</div>
+    </div>
+  </div>
+
+  <!-- TASK CARD L2 -->
+  
+  <h4>Aufgaben zu Lektion 2</h4>
+ <div class="task-links" style="grid-template-columns: 1fr;">
+    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
+      <div class="task-card-icon">&#128221;</div>
+      <div class="task-card-title">Aufgaben 2.1 – 2.3 + Atommodell-Skizze</div>
+      <div class="task-card-desc">Übungsaufgaben auf OneNote</div>
+	  <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 3                             -->
+<!-- ============================================================ -->
+<section id="L3">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 03</div>
+    <h2>Elementarteilchen, Isotope und Nuklidsymbole</h2>
+  </div>
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können die drei Elementarteilchen (Proton, Neutron, Elektron) mit ihren Eigenschaften benennen.</li>
+    <li>Sie können Ordnungszahl und Massenzahl definieren und aus dem PSE ablesen.</li>
+    <li>Sie können den Begriff «Isotop» erklären und Beispiele nennen.</li>
+    <li>Sie können die Nuklidsymbol-Schreibweise anwenden.</li>
+    <li>Sie können die Teilchenzusammensetzung eines Atoms aus dem Nuklidsymbol bestimmen.</li>
+  </ul></div>
+
+
+  <h3>3.1 Die drei Elementarteilchen des Atoms</h3>
+  <p>Nach den bisherigen Erkenntnissen wissen wir: Atome bestehen aus einem positiv geladenen Kern und einer Hülle mit Elektronen. Im Kern befinden sich zwei Arten von Teilchen – <strong>Protonen</strong> und <strong>Neutronen</strong>:</p>
+
+  <table class="data-table">
+    <thead><tr><th>Teilchen</th><th>Symbol</th><th>Ladung</th><th>Masse (u)</th><th>Ort</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Proton</strong></td><td>p⁺</td><td>+1 (positiv)</td><td>≈ 1 u</td><td>Kern</td></tr>
+      <tr><td><strong>Neutron</strong></td><td>n⁰</td><td>0 (neutral)</td><td>≈ 1 u</td><td>Kern</td></tr>
+      <tr><td><strong>Elektron</strong></td><td>e⁻</td><td>−1 (negativ)</td><td>≈ 0 u</td><td>Hülle</td></tr>
+    </tbody>
+  </table>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Atomare Masseneinheit (u)</div>
+    <p>Eine Einheit für die Masse von Atomen und subatomaren Teilchen. Per Definition entspricht 1 u genau 1/12 der Masse eines Kohlenstoff-12-Atoms. In Zahlen: 1 u = 1,661 × 10⁻²⁷ kg. Protonen und Neutronen haben jeweils eine Masse von etwa 1 u, Elektronen sind rund 1836-mal leichter.</p>
+  </div>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Nukleonen</div>
+    <p>Sammelbegriff für die Teilchen im Atomkern, also Protonen und Neutronen (von lat. <em>nucleus</em> = Kern).</p>
+  </div>
+
+  <h3>3.2 Ordnungszahl und Massenzahl</h3>
+  <p><strong>Ordnungszahl (Z):</strong> Die Anzahl der Protonen im Kern eines Atoms. Sie bestimmt, um welches Element es sich handelt. Im Periodensystem sind die Elemente nach aufsteigender Ordnungszahl sortiert. Bei einem neutralen Atom gilt: Anzahl Protonen = Anzahl Elektronen.</p>
+  <p><strong>Massenzahl (A):</strong> Die Gesamtzahl der Nukleonen (Protonen + Neutronen) im Kern. Es gilt: <strong>A = Z + N</strong>, wobei N die Neutronenzahl ist.</p>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz</div>
+    <p>Die Ordnungszahl Z gibt die Anzahl Protonen an und definiert das Element. Die Massenzahl A = Z + N gibt die Gesamtzahl der Nukleonen an. Die Neutronenzahl berechnet sich als N = A − Z.</p>
+  </div>
+
+  <h3>3.3 Die Nuklidsymbol-Schreibweise</h3>
+  <p>Um ein bestimmtes Atom eindeutig zu kennzeichnen, verwendet man das <strong>Nuklidsymbol</strong>. Dabei steht die Massenzahl links oben und die Ordnungszahl links unten am Elementsymbol:</p>
+  <div style="text-align:center; font-size:2.5rem; margin:24px 0; font-family:var(--serif);">
+    <sup style="font-size:1.2rem; vertical-align:super; margin-right:-4px;">A</sup><sub style="font-size:1.2rem; vertical-align:sub; margin-right:2px;">Z</sub>X
+  </div>
+  <p>Beispiele:</p>
+  <table class="data-table">
+    <thead><tr><th>Nuklidsymbol</th><th>Protonen (Z)</th><th>Neutronen (N = A − Z)</th><th>Elektronen (neutral)</th></tr></thead>
+    <tbody>
+      <tr><td><sup>12</sup><sub>6</sub>C (Kohlenstoff-12)</td><td>6</td><td>6</td><td>6</td></tr>
+      <tr><td><sup>14</sup><sub>6</sub>C (Kohlenstoff-14)</td><td>6</td><td>8</td><td>6</td></tr>
+      <tr><td><sup>23</sup><sub>11</sub>Na (Natrium-23)</td><td>11</td><td>12</td><td>11</td></tr>
+      <tr><td><sup>56</sup><sub>26</sub>Fe (Eisen-56)</td><td>26</td><td>30</td><td>26</td></tr>
+      <tr><td><sup>197</sup><sub>79</sub>Au (Gold-197)</td><td>79</td><td>118</td><td>79</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.4 Isotope</h3>
+  <p>Nicht alle Atome eines Elements sind identisch – das widerspricht Daltons ursprünglicher Annahme! Atome desselben Elements haben zwar immer dieselbe Anzahl Protonen (gleiche Ordnungszahl Z), können aber eine <strong>unterschiedliche Anzahl Neutronen</strong> besitzen. Solche Varianten nennt man <strong>Isotope</strong>.</p>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Isotope</div>
+    <p>Atome desselben Elements, die sich in der Neutronenzahl (und damit in der Massenzahl) unterscheiden. Sie haben identische chemische Eigenschaften, da die Elektronenkonfiguration gleich ist. Beispiel: Kohlenstoff-12 und Kohlenstoff-14 sind Isotope des Elements Kohlenstoff.</p>
+  </div>
+
+  <p>Wichtige Beispiele:</p>
+  <table class="data-table">
+    <thead><tr><th>Element</th><th>Isotop</th><th>Protonen</th><th>Neutronen</th></tr></thead>
+    <tbody>
+      <tr><td>Wasserstoff</td><td>¹H (Protium)</td><td>1</td><td>0</td></tr>
+      <tr><td>Wasserstoff</td><td>²H (Deuterium)</td><td>1</td><td>1</td></tr>
+      <tr><td>Wasserstoff</td><td>³H (Tritium)</td><td>1</td><td>2</td></tr>
+      <tr><td>Kohlenstoff</td><td>¹²C</td><td>6</td><td>6</td></tr>
+      <tr><td>Kohlenstoff</td><td>¹³C</td><td>6</td><td>7</td></tr>
+      <tr><td>Kohlenstoff</td><td>¹⁴C</td><td>6</td><td>8</td></tr>
+      <tr><td>Chlor</td><td>³⁵Cl</td><td>17</td><td>18</td></tr>
+      <tr><td>Chlor</td><td>³⁷Cl</td><td>17</td><td>20</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Relative Atommasse im PSE</h4>
+  <p>Die im Periodensystem angegebene Atommasse ist ein <strong>gewichteter Durchschnitt</strong> der Massen aller natürlich vorkommenden Isotope eines Elements. Deshalb sind die Werte im PSE meistens keine ganzen Zahlen. Beispiel: Chlor hat die relative Atommasse 35,45 u – ein Mittelwert aus ca. 75 % ³⁵Cl und 25 % ³⁷Cl.</p>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz</div>
+    <p>Isotope sind Atome desselben Elements mit gleicher Protonenzahl, aber unterschiedlicher Neutronenzahl. Sie haben dieselben chemischen Eigenschaften, unterscheiden sich jedoch in der Masse. Die Atommasse im PSE ist ein Durchschnitt über alle natürlichen Isotope.</p>
+  </div>
+
+  <h3>3.5 Simulation: Bau ein Atom</h3>
+  <p>Nutzen Sie die PhET-Simulation «Build an Atom», um Atome aus Protonen, Neutronen und Elektronen zusammenzubauen. Beobachten Sie, wie sich Element, Ladung und Masse ändern.</p>
+
+  <div class="sim-container">
+    <div class="sim-header">
+      <span class="sim-title">PhET: Build an Atom</span>
+      <span class="sim-badge">INTERAKTIV</span>
+    </div>
+    <iframe src="https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom_all.html" allowfullscreen style="width:100%;height:500px;border:none;display:block;"></iframe>
+    <div class="sim-caption">© PhET Interactive Simulations, University of Colorado Boulder. Lizenz: CC-BY.</div>
+  </div>
+
+  <!-- MC QUIZ L3 -->
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 3</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für dich</div>
+
+    <div class="question" id="q3-1">
+      <div class="q-text"><span class="q-num">1</span>Welches Teilchen bestimmt, um welches Element es sich handelt?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Das Neutron</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Das Proton</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Das Elektron</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Alle drei zusammen</div>
+      <div class="feedback correct">Richtig! Die Anzahl der Protonen (= Ordnungszahl Z) definiert das Element. Ändert man die Protonenzahl, hat man ein anderes Element.</div>
+      <div class="feedback wrong">Denk daran: Die Ordnungszahl Z gibt die Anzahl eines bestimmten Teilchens an und definiert das Element. Welches Teilchen ist das?</div>
+    </div>
+
+    <div class="question" id="q3-2">
+      <div class="q-text"><span class="q-num">2</span>Ein Atom hat 8 Protonen, 8 Neutronen und 8 Elektronen. Wie lautet die Massenzahl A?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>8</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>16</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>24</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>64</div>
+      <div class="feedback correct">Genau! A = Z + N = 8 Protonen + 8 Neutronen = 16. Das ist Sauerstoff-16 (<sup>16</sup><sub>8</sub>O). Elektronen zählen nicht zur Massenzahl, weil ihre Masse verschwindend gering ist.</div>
+      <div class="feedback wrong">Die Massenzahl A ist die Summe von Protonen und Neutronen (Nukleonen). Elektronen zählen nicht dazu. Also: A = Z + N = ?</div>
+    </div>
+
+    <div class="question" id="q3-3">
+      <div class="q-text"><span class="q-num">3</span>¹²C und ¹⁴C sind Isotope von Kohlenstoff. Worin unterscheiden sie sich?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>In der Anzahl Protonen</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>In der Anzahl Elektronen</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>In der Anzahl Neutronen</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>In den chemischen Eigenschaften</div>
+      <div class="feedback correct">Richtig! Beide haben 6 Protonen (sonst wären sie kein Kohlenstoff), aber ¹²C hat 6 Neutronen und ¹⁴C hat 8 Neutronen. Die chemischen Eigenschaften sind identisch!</div>
+      <div class="feedback wrong">Isotope sind Atome desselben Elements — sie haben also die gleiche Protonenzahl und die gleichen chemischen Eigenschaften. Was kann dann unterschiedlich sein?</div>
+    </div>
+
+    <div class="question" id="q3-4">
+      <div class="q-text"><span class="q-num">4</span>Warum ist die relative Atommasse von Chlor im PSE 35,45 und nicht eine ganze Zahl?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil Chloratome unterschiedlich viele Elektronen haben.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil die Messung ungenau ist.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Weil es ein Durchschnitt aus den Massen verschiedener Isotope ist.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil Neutronen keine ganzzahlige Masse haben.</div>
+      <div class="feedback correct">Genau! Chlor kommt natürlich als Mischung von ³⁵Cl (ca. 75 %) und ³⁷Cl (ca. 25 %) vor. Der gewichtete Durchschnitt ergibt 35,45 u.</div>
+      <div class="feedback wrong">Denk an Isotope: Chlor existiert in der Natur als Mischung von ³⁵Cl und ³⁷Cl. Was passiert, wenn man den Durchschnitt berechnet?</div>
+    </div>
+  </div>
+
+<!-- TASK CARD L3 -->
+  <h4>Aufgaben zu Lektion 3</h4>
+  <div class="task-links" style="grid-template-columns: 1fr;">
+    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
+      <div class="task-card-icon">📝</div>
+      <div class="task-card-title">Aufgaben 3.1 – 3.4</div>
+      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                    ZUSAMMENFASSUNG                           -->
+<!-- ============================================================ -->
+<section id="zusammenfassung">
+  <div class="lesson-header" style="border-top-color: var(--merksatz-border);">
+    <div class="lesson-number" style="color: var(--merksatz-label);">Zusammenfassung</div>
+    <h2>Phase 1 auf einen Blick</h2>
+  </div>
+
+  <div class="summary">
+    <h3>Entwicklung der Atommodelle</h3>
+    <table class="data-table">
+      <thead><tr><th>Modell</th><th>Vorstellung</th><th>Stärken &amp; Grenzen</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Dalton</strong> (ca. 1803)</td>
+          <td>Atome sind unteilbare, massive Kugeln.</td>
+          <td>✓ Massenerhaltung, konstante Proportionen<br>✗ Glühelektrischer Effekt zeigt: Atome enthalten Elektronen</td>
+        </tr>
+        <tr>
+          <td><strong>Rutherford</strong> (1911)</td>
+          <td>Winziger, positiver Kern + grosse, fast leere Hülle mit Elektronen.</td>
+          <td>✓ Streuversuch, Kern-Hülle-Struktur<br>✗ Stabilität der Bahnen, Spektrallinien → Phase 2</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="summary">
+    <h3>Zentrale Begriffe</h3>
+    <table class="data-table">
+      <thead><tr><th>Begriff</th><th>Erklärung</th></tr></thead>
+      <tbody>
+        <tr><td>Elektrische Ladung</td><td>Grundeigenschaft von Materie; zwei Arten (+/−); gleiche stossen sich ab, ungleiche ziehen sich an</td></tr>
+        <tr><td>Coulomb-Gesetz</td><td>Die elektrostatische Kraft wächst mit grösseren Ladungen und sinkt mit grösserem Abstand (quadratisch: F ∝ Q₁·Q₂ / r²)</td></tr>
+        <tr><td>Glühelektrischer Effekt</td><td>Austritt von Elektronen aus erhitztem Metall; Beweis für die innere Struktur von Atomen</td></tr>
+        <tr><td>Elektron (e⁻)</td><td>Negativ geladenes Teilchen in der Atomhülle, Masse ≈ 0 u</td></tr>
+        <tr><td>Proton (p⁺)</td><td>Positiv geladenes Teilchen im Atomkern, Masse ≈ 1 u</td></tr>
+        <tr><td>Neutron (n⁰)</td><td>Ungeladenes Teilchen im Atomkern, Masse ≈ 1 u</td></tr>
+        <tr><td>Ordnungszahl (Z)</td><td>Anzahl Protonen; definiert das Element</td></tr>
+        <tr><td>Massenzahl (A)</td><td>Anzahl Protonen + Neutronen (Nukleonen)</td></tr>
+        <tr><td>Isotope</td><td>Atome desselben Elements mit unterschiedlicher Neutronenzahl</td></tr>
+        <tr><td>Nuklidsymbol</td><td>Schreibweise: Massenzahl oben links, Ordnungszahl unten links</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p id="phase2-teaser" style="text-align:center; color:var(--text-muted); margin-top:44px; font-size:0.9rem;">
+    <strong>Weiter geht's in Phase 2:</strong> Schalenmodell, Orbitalmodell, Elektronenkonfiguration und Flammenfärbung
+  </p>
+
+  <!-- FORMS MC: End of Phase -->
+  <div style="margin-top:40px; padding-top:28px; border-top: 1px solid var(--border);">
+    <h4 style="margin-top:0;">Lernkontrolle Phase 1</h4>
+    <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:14px;">Multiple-Choice zum Grundverständnis der gesamten Phase 1.</p>
+    <div class="task-links" style="grid-template-columns: 1fr;">
+      <a class="task-card forms" href="https://forms.office.com/Pages/ResponsePage.aspx?id=rQuDwrIivEKqXe-HgrWYGz2j0qfMSOpEqRiOQYLBt2dUMFBVWUdWNFhWMFZHU0JQSDJRNjE2UExWVC4u" target="_blank">
+        <div class="task-card-icon">&#128203;</div>
+        <div class="task-card-title">MC-Lernkontrolle: Phase 1 abschliessen</div>
+        <div class="task-card-desc">MS Forms · Multiple-Choice zum Grundverständnis aller 3 Lektionen</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const pct = el.scrollHeight > el.clientHeight
+    ? (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+});
+
+// Sidebar active state
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.sidebar .nav-item:not(.locked)');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector('.sidebar .nav-item[href="#'+entry.target.id+'"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// MC Quiz
+function selectOption(el) {
+  const q = el.closest('.question');
+  if (q.classList.contains('answered')) return;
+  q.classList.add('answered');
+  const options = q.querySelectorAll('.option');
+  const feedbacks = q.querySelectorAll('.feedback');
+  const isCorrect = el.dataset.correct === 'true';
+  options.forEach(o => o.style.pointerEvents = 'none');
+  el.classList.add('selected');
+  if (isCorrect) {
+    el.classList.add('correct');
+    feedbacks[0].classList.add('show');
+  } else {
+    el.classList.add('wrong');
+    options.forEach(o => { if (o.dataset.correct === 'true') o.classList.add('correct'); });
+    feedbacks[1].classList.add('show');
+  }
+}
+
+// Auto-unlock: prüft ob Phase-Dateien existieren und schaltet Sidebar-Links frei
+(async function() {
+  const phases = [
+    { num: '2', file: 'atombau-phase2.html' },
+    { num: '3', file: 'atombau-phase3.html' },
+    { num: '4', file: 'atombau-phase4.html' }
+  ];
+  for (const phase of phases) {
+    try {
+      const res = await fetch(phase.file, { method: 'HEAD' });
+      if (res.ok) {
+        // Phase-Datei existiert → alle zugehörigen Sidebar-Links freischalten
+        const items = document.querySelectorAll('.nav-item[data-phase="' + phase.num + '"]');
+        items.forEach(item => {
+          item.classList.remove('locked');
+          item.href = phase.file;
+          const lock = item.querySelector('.lock-icon');
+          if (lock) lock.remove();
+        });
+        // Phase-2-Teaser am Seitenende zu Link machen
+        if (phase.num === '2') {
+          const teaser = document.getElementById('phase2-teaser');
+          if (teaser) {
+            teaser.innerHTML = '<a href="' + phase.file + '" style="color:var(--accent); text-decoration:none; font-weight:600;">&rarr; <strong>Weiter zu Phase 2:</strong> Schalenmodell, Orbitalmodell, Elektronenkonfiguration und Flammenfärbung</a>';
+          }
+        }
+      }
+    } catch (e) {
+      // Datei nicht erreichbar → gesperrt lassen
+    }
+  }
+})();
+</script>
+</body>
+</html>

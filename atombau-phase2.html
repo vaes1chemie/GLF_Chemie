@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atombau – Phase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f7;
+  --bg-alt: #f3f1ee;
+  --text: #1a1a1a;
+  --text-muted: #6b6560;
+  --text-light: #9c9891;
+  --border: #e5e2dd;
+  --nav-bg: #1e293b;
+  --nav-text: #e2e8f0;
+  --sidebar-bg: #f5f4f1;
+  --glossar-bg: #f0f4fa; --glossar-border: #8aadd4; --glossar-text: #2c4a6e; --glossar-label: #5b8ab5;
+  --merksatz-bg: #eef6f0; --merksatz-border: #7bc08a; --merksatz-text: #2d5a37; --merksatz-label: #5a9e6a;
+  --aufgabe-bg: #fdf5ee; --aufgabe-border: #d4a574; --aufgabe-text: #6b4226; --aufgabe-label: #c08a56;
+  --experiment-bg: #f4f0fa; --experiment-border: #a890c8; --experiment-text: #4a3668; --experiment-label: #8b72b0;
+  --discovery-bg: #faf5ee; --discovery-border: #c8b080; --discovery-text: #5a4a2e; --discovery-label: #a89060;
+  --accent: #4a7ab5;
+  --accent-light: #e8eff7;
+  --quiz-bg: #f8f7f4;
+  --correct-bg: #eef6f0; --correct-border: #7bc08a; --correct-text: #2d5a37;
+  --wrong-bg: #fceaea; --wrong-border: #e07070; --wrong-text: #7a2020;
+  --forms-bg: #e8eff7; --forms-border: #8aadd4; --forms-text: #2c4a6e;
+  --onenote-bg: #f4f0fa; --onenote-border: #a890c8; --onenote-text: #4a3668;
+  --teams-bg: #f0f0fa; --teams-border: #7b83c8; --teams-text: #3b3b6e;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --radius: 10px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.7; }
+
+/* === LAYOUT === */
+.layout { display: flex; min-height: 100vh; }
+
+/* === SIDEBAR === */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+.sidebar-brand {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  padding: 0 20px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.sidebar-brand small { display: block; font-family: var(--sans); font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; letter-spacing: 0.04em; }
+.sidebar-phase {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+  padding: 14px 20px 6px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: rgba(0,0,0,0.03); }
+.nav-item.active { color: var(--accent); background: var(--accent-light); border-left-color: var(--accent); }
+.nav-item.done { color: var(--merksatz-text); }
+.nav-item.locked { color: var(--text-light); cursor: not-allowed; opacity: 0.55; }
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+.nav-item.active .nav-dot { background: var(--accent); }
+.nav-item.done .nav-dot { background: var(--merksatz-border); }
+.lock-icon { font-size: 11px; margin-left: auto; }
+
+/* === MAIN CONTENT === */
+.main-wrap { flex: 1; min-width: 0; }
+.progress-bar { position: sticky; top: 0; height: 3px; background: var(--border); z-index: 50; }
+.progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.15s; }
+.content { max-width: 780px; margin: 0 auto; padding: 48px 40px 100px; }
+
+/* === HERO === */
+.hero-inline { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+.phase-badge { display: inline-block; font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--accent); background: var(--accent-light); padding: 4px 14px; border-radius: 100px; letter-spacing: 0.04em; margin-bottom: 12px; }
+.hero-inline h1 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.2; margin-bottom: 8px; }
+.hero-inline .subtitle { font-size: 0.95rem; color: var(--text-muted); }
+
+/* === LESSON STRUCTURE === */
+.lesson-header { margin: 56px 0 32px; padding: 28px 0; border-top: 3px solid var(--accent); }
+.lesson-header:first-child { margin-top: 0; }
+.lesson-number { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.lesson-header h2 { font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 400; line-height: 1.2; }
+.lernziele { background: var(--accent-light); border: 1px solid #c5d5e8; border-radius: var(--radius); padding: 22px 26px; margin: 24px 0; }
+.lernziele h3 { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.lernziele ul { list-style: none; padding: 0; }
+.lernziele li { padding: 3px 0 3px 22px; position: relative; font-size: 0.92rem; color: #2c4a6e; }
+.lernziele li::before { content: '\2192'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+h3 { font-family: var(--serif); font-size: 1.45rem; font-weight: 400; margin: 40px 0 14px; }
+h4 { font-size: 1.02rem; font-weight: 700; margin: 24px 0 10px; }
+p { margin-bottom: 16px; }
+strong { font-weight: 600; }
+ul, ol { margin-bottom: 16px; padding-left: 20px; }
+li { margin-bottom: 4px; }
+a { color: var(--accent); font-weight: 600; }
+
+/* === CONTENT BOXES === */
+.glossar { background: var(--glossar-bg); border-left: 4px solid var(--glossar-border); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 22px 0; }
+.glossar-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; color: var(--glossar-label); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.glossar-term { font-weight: 700; font-size: 0.98rem; margin-bottom: 3px; color: var(--glossar-text); }
+.glossar p { font-size: 0.9rem; color: var(--glossar-text); margin-bottom: 0; }
+.merksatz { background: var(--merksatz-bg); border-left: 4px solid var(--merksatz-border); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 22px 0; }
+.merksatz-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; color: var(--merksatz-label); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.merksatz p { font-size: 0.93rem; color: var(--merksatz-text); margin-bottom: 0; }
+.aufgabe { background: var(--aufgabe-bg); border-left: 4px solid var(--aufgabe-border); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 18px 0; }
+.aufgabe-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; color: var(--aufgabe-label); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.aufgabe p { font-size: 0.93rem; color: var(--aufgabe-text); margin-bottom: 0; }
+.experiment { background: var(--experiment-bg); border-left: 4px solid var(--experiment-border); border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 24px 0; }
+.experiment-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; color: var(--experiment-label); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.experiment h4 { color: var(--experiment-text); margin-top: 0; margin-bottom: 10px; }
+.experiment p, .experiment li { font-size: 0.9rem; color: var(--experiment-text); }
+.experiment ul, .experiment ol { padding-left: 20px; margin-bottom: 10px; }
+.discovery { background: var(--discovery-bg); border-left: 4px solid var(--discovery-border); border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 24px 0; }
+.discovery-label { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; color: var(--discovery-label); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
+.discovery h4 { color: var(--discovery-text); margin-top: 0; margin-bottom: 10px; }
+.discovery p, .discovery li { font-size: 0.9rem; color: var(--discovery-text); }
+.discovery ol, .discovery ul { padding-left: 20px; margin-bottom: 10px; }
+.discovery .hint { background: rgba(200,176,128,0.15); border-radius: 6px; padding: 9px 13px; margin-top: 10px; font-size: 0.83rem; color: var(--discovery-text); font-style: italic; }
+
+/* === TABLES === */
+.data-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.9rem; }
+.data-table th { background: #3d5a80; color: white; font-weight: 600; padding: 9px 13px; text-align: left; }
+.data-table th:first-child { border-radius: 8px 0 0 0; }
+.data-table th:last-child { border-radius: 0 8px 0 0; }
+.data-table td { padding: 9px 13px; border-bottom: 1px solid var(--border); }
+.data-table tr:nth-child(even) td { background: var(--bg-alt); }
+
+/* === SIMULATIONS === */
+.sim-container { margin: 28px 0; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--border); background: #0f172a; }
+.sim-header { background: #1e293b; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; }
+.sim-title { color: white; font-weight: 600; font-size: 0.88rem; }
+.sim-badge { background: rgba(74,122,181,0.2); color: #a8c4e0; font-size: 0.68rem; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+.sim-container iframe { width: 100%; height: 500px; border: none; display: block; }
+.sim-caption { background: #1e293b; padding: 10px 18px; color: #94a3b8; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
+
+/* === SUMMARY === */
+.summary { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin: 36px 0; }
+.summary h3 { margin-top: 0; font-size: 1.25rem; }
+
+/* === MC QUIZ === */
+.quiz-section { margin: 36px 0; background: var(--quiz-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; }
+.quiz-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.quiz-icon { width: 28px; height: 28px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--accent); font-weight: 700; }
+.quiz-title { font-size: 1rem; font-weight: 700; }
+.quiz-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; }
+.question { margin-bottom: 22px; }
+.q-text { font-size: 0.93rem; font-weight: 600; margin-bottom: 8px; line-height: 1.5; }
+.q-num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 700; margin-right: 6px; vertical-align: middle; flex-shrink: 0; }
+.option { display: flex; align-items: center; gap: 9px; padding: 9px 13px; margin: 3px 0; border-radius: 7px; border: 1px solid var(--border); background: white; cursor: pointer; font-size: 0.88rem; transition: all 0.15s; }
+.option:hover { border-color: var(--accent); background: var(--accent-light); }
+.option.selected { border-color: var(--accent); background: var(--accent-light); }
+.option.correct { border-color: var(--correct-border); background: var(--correct-bg); color: var(--correct-text); }
+.option.wrong { border-color: var(--wrong-border); background: var(--wrong-bg); color: var(--wrong-text); }
+.radio { width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; position: relative; transition: all 0.15s; }
+.option.selected .radio { border-color: var(--accent); }
+.option.selected .radio::after { content: ''; position: absolute; top: 2.5px; left: 2.5px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.option.correct .radio { border-color: var(--correct-border); }
+.option.correct .radio::after { background: var(--correct-border); content:''; position:absolute; top:2.5px; left:2.5px; width:6px; height:6px; border-radius:50%; }
+.option.wrong .radio { border-color: var(--wrong-border); }
+.feedback { margin-top: 6px; padding: 9px 13px; border-radius: 7px; font-size: 0.82rem; display: none; line-height: 1.5; }
+.feedback.show { display: block; }
+.feedback.correct { background: var(--correct-bg); color: var(--correct-text); border: 1px solid var(--correct-border); }
+.feedback.wrong { background: var(--wrong-bg); color: var(--wrong-text); border: 1px solid var(--wrong-border); }
+
+/* === TASK CARDS === */
+.task-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 36px; }
+.task-card { padding: 18px; border-radius: var(--radius); border: 1px solid; text-decoration: none; transition: all 0.2s; cursor: pointer; display: block; }
+.task-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.task-card.forms { background: var(--forms-bg); border-color: var(--forms-border); }
+.task-card.onenote { background: var(--onenote-bg); border-color: var(--onenote-border); }
+.task-card.teams { background: var(--teams-bg); border-color: var(--teams-border); }
+.task-card-icon { font-size: 22px; margin-bottom: 6px; }
+.task-card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 3px; }
+.task-card.forms .task-card-title { color: var(--forms-text); }
+.task-card.onenote .task-card-title { color: var(--onenote-text); }
+.task-card.teams .task-card-title { color: var(--teams-text); }
+.task-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; }
+.task-hint { display: none; margin-top: 10px; padding: 10px 14px; background: rgba(168,144,200,0.1); border-radius: 6px; font-size: 0.82rem; color: var(--onenote-text); line-height: 1.5; }
+.task-hint.show { display: block; }
+
+/* === IE CHART === */
+.ie-chart-container { margin: 24px 0; background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+
+/* === ORBITAL VISUALS === */
+.orbital-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px; margin: 24px 0; }
+.orbital-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; text-align: center; }
+.orbital-card h5 { font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
+.orbital-card p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0; }
+
+/* === KÄSTCHEN TRAINER === */
+.trainer-container { margin: 28px 0; background: white; border: 2px solid var(--accent); border-radius: var(--radius); overflow: hidden; }
+.trainer-header { background: var(--accent); color: white; padding: 14px 20px; font-weight: 600; font-size: 0.92rem; display: flex; align-items: center; justify-content: space-between; }
+.trainer-body { padding: 24px; }
+.trainer-element { font-size: 1.3rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.trainer-info { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px; }
+.orbital-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.orbital-label { font-family: var(--mono); font-size: 0.82rem; font-weight: 500; min-width: 28px; color: var(--text); }
+.box-group { display: flex; gap: 2px; }
+.e-box { width: 36px; height: 36px; border: 2px solid var(--border); border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; transition: all 0.15s; user-select: none; background: white; }
+.e-box:hover { border-color: var(--accent); background: var(--accent-light); }
+.e-box.filled-up { color: var(--accent); font-weight: 700; }
+.e-box.filled-down { color: #c05050; font-weight: 700; }
+.e-box.filled-both { font-weight: 700; }
+.trainer-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 7px; border: 1px solid var(--border); background: white; font-family: var(--sans); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.15s; margin-right: 8px; margin-top: 12px; }
+.trainer-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.trainer-btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+.trainer-btn.primary:hover { background: #3d6a9e; }
+.trainer-result { margin-top: 14px; padding: 12px 16px; border-radius: 7px; font-size: 0.88rem; display: none; }
+.trainer-result.show { display: block; }
+.trainer-result.correct { background: var(--correct-bg); color: var(--correct-text); border: 1px solid var(--correct-border); }
+.trainer-result.wrong { background: var(--wrong-bg); color: var(--wrong-text); border: 1px solid var(--wrong-border); }
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .content { padding: 32px 18px 80px; }
+  .task-links { grid-template-columns: 1fr; }
+}
+@media print {
+  .sidebar, .progress-bar, .sim-container, .quiz-section, .task-links, .trainer-container { display: none; }
+  .content { max-width: 100%; padding: 20px; }
+  body { font-size: 11pt; }
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+section { animation: fadeUp 0.4s ease-out both; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ======== SIDEBAR ======== -->
+<nav class="sidebar">
+  <div class="sidebar-brand"><a href="index.html" style="text-decoration:none; color:inherit;">Atombau</a><small>Chemie GLF · 1. Gymnasium · Va</small><a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a></div>
+
+  <div class="sidebar-phase">Phase 1 · Lektionen 1–3</div>
+  <a href="atombau.html#L1" class="nav-item"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
+  <a href="atombau.html#L2" class="nav-item"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
+  <a href="atombau.html#L3" class="nav-item"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
+  <a href="atombau.html#zusammenfassung" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+
+  <div class="sidebar-phase">Phase 2 · Lektionen 4–7</div>
+  <a href="#L4" class="nav-item active"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr)</a>
+  <a href="#L5" class="nav-item"><span class="nav-dot"></span>L5 – Orbitalmodell</a>
+  <a href="#L6" class="nav-item"><span class="nav-dot"></span>L6 – Elektronenkonfiguration</a>
+  <a href="#L7" class="nav-item"><span class="nav-dot"></span>L7 – Flammenfärbung</a>
+  <a href="#zusammenfassung2" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+
+  <div class="sidebar-phase">Phase 3 · Lektionen 8–10</div>
+  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L8 – Das Periodensystem <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L9 – Trends im PSE <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>Zusammenfassung <span class="lock-icon">&#x1F512;</span></a>
+
+  <div class="sidebar-phase">Phase 4 · Lektionen 11–12</div>
+  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L11 – Repetition <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen <span class="lock-icon">&#x1F512;</span></a>
+  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>Abschluss <span class="lock-icon">&#x1F512;</span></a>
+
+</nav>
+
+<!-- ======== MAIN ======== -->
+<div class="main-wrap">
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<main class="content">
+
+<div class="hero-inline">
+  <div class="phase-badge">Phase 2 · Lektionen 4–7</div>
+  <h1>Die Elektronenhülle verstehen</h1>
+  <p class="subtitle">Vom Schalenmodell über Orbitale bis zur Elektronenkonfiguration</p>
+</div>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 4                              -->
+<!-- ============================================================ -->
+<section id="L4">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 04</div>
+    <h2>Aufbau der Elektronenhülle</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können erklären, warum das Rutherford-Modell für die Beschreibung der Elektronenhülle nicht ausreicht.</li>
+    <li>Sie können die zentrale Idee des Bohr-Modells in eigenen Worten beschreiben: Elektronen bewegen sich auf bestimmten Bahnen mit fester Energie.</li>
+    <li>Sie können den Begriff «Ionisierungsenergie» definieren und aus einem IE-Diagramm Rückschlüsse auf den Schalenbau ziehen.</li>
+    <li>Sie können die Hauptschalen K, L, M, N benennen und deren maximale Elektronenzahl angeben.</li>
+  </ul></div>
+
+  <h3>4.1 Das Problem mit Rutherford</h3>
+  <p>Am Ende von Phase 1 haben wir das <strong>Kern-Hülle-Modell</strong> von Rutherford kennengelernt: Ein winziger, positiver Kern wird von Elektronen in einer grossen, fast leeren Hülle umkreist. Doch dieses Modell hat ein schwerwiegendes Problem:</p>
+  <p>Nach den Gesetzen der klassischen Physik müssten die kreisenden Elektronen ständig Energie abstrahlen und dabei immer langsamer werden — wie ein Satellit, der in die Atmosphäre eintritt. Die Konsequenz: <strong>Die Elektronen müssten auf einer Spiralbahn in den Kern stürzen.</strong> Das Atom wäre in Bruchteilen einer Sekunde zusammengestürzt. Offensichtlich passiert das nicht — sonst gäbe es keine Materie!</p>
+  <p>Wie sind also die Elektronen in der Hülle verteilt? Und warum stürzen sie nicht in den Kern?</p>
+
+  <h3>4.2 Ionisierungsenergien verraten den Aufbau der Atomhülle</h3>
+  <p>Wie können wir herausfinden, wie die Elektronen in der Hülle angeordnet sind? Die Antwort liefern <strong>Ionisierungsenergien</strong>.</p>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Ionisierungsenergie (IE)</div>
+    <p>Die Energie, die benötigt wird, um ein Elektron aus der Hülle eines Atoms zu entfernen. Je näher das Elektron am Kern liegt, desto grösser ist die benötigte Energie.</p>
+  </div>
+
+  <p>Betrachten Sie die folgende Tabelle: Sie zeigt die <strong>13 Ionisierungsenergien von Aluminium</strong> (für 6·10²³ Atome). Das 1. Elektron ist am leichtesten zu entfernen, das 13. am schwersten.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Elektron</th><th>1.</th><th>2.</th><th>3.</th><th>4.</th><th>5.</th><th>6.</th><th>7.</th><th>8.</th><th>9.</th><th>10.</th><th>11.</th><th>12.</th><th>13.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>IE [MJ]</strong></td><td>0.6</td><td>1.8</td><td>2.8</td><td>11.6</td><td>14.9</td><td>18.4</td><td>23.3</td><td>27.5</td><td>31.7</td><td>38.5</td><td>42.7</td><td>201</td><td>222</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="aufgabe"><div class="aufgabe-label">Aufgabe</div>
+    <p><strong>a)</strong> Zeichnen Sie ein Balkendiagramm der Ionisierungsenergien (x-Achse: Elektronen 1–13, y-Achse: Energie in MJ).<br>
+    <strong>b)</strong> Was fällt Ihnen an den Sprüngen im Diagramm auf?<br>
+    <strong>c)</strong> Wie würde das Diagramm aussehen, wenn das Rutherford-Modell vollständig richtig wäre (d.h. alle Elektronen gleichmässig um den Kern verteilt)?<br>
+    <strong>d)</strong> Wie kommen die Sprünge im Atom zustande? (Denken Sie an das Coulomb-Gesetz.)</p>
+  </div>
+
+  <p style="font-size:0.88rem; color:var(--onenote-text); background:var(--onenote-bg); border-left:3px solid var(--onenote-border); padding:10px 14px; border-radius:0 6px 6px 0; margin:12px 0;">📝 Für diese Aufgabe finden Sie in Ihrem persönlichen Bereich auf OneNote eine vorbereitete Seite mit dem Diagramm-Raster (Klassennotizbuch GKG_Ch_2029_E → <strong>4 Atombau – Aufgaben Atombau</strong>).</p>
+
+  <h3>4.3 Niels Bohrs geniale Idee</h3>
+  <p>Der dänische Physiker <strong>Niels Bohr</strong> (1885–1962) löste dieses Problem 1913 mit einer damals geradezu revolutionären Annahme:</p>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz</div>
+    <p>Elektronen bewegen sich <strong>ohne Energieverlust</strong> auf ganz bestimmten Bahnen um den Kern. Jede Bahn entspricht einem bestimmten <strong>Energieniveau</strong>. Die Energie eines Elektrons steigt mit zunehmendem Abstand zum Kern.</p>
+  </div>
+
+  <p>Die entscheidende Besonderheit: Beim Wechsel von einer Bahn zur anderen ändert sich die Energie des Elektrons <strong>sprunghaft</strong> — es gibt keine Zwischenwerte. Man spricht von <strong>Quantensprüngen</strong>. Das ist, als ob Sie eine Treppe hinaufsteigen: Sie können auf Stufe 1 oder Stufe 2 stehen, aber nicht dazwischen schweben.</p>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Energieniveau</div>
+    <p>Ein klar definierter Energiewert, den ein Elektron auf einer bestimmten Bahn besitzt. Zwischen den Niveaus gibt es keine erlaubten Zustände.</p>
+  </div>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Quantensprung</div>
+    <p>Der sprunghafte Wechsel eines Elektrons von einem Energieniveau zu einem anderen. Dabei wird Energie in Form von elektromagnetischer Strahlung aufgenommen oder abgegeben — ohne Durchlaufen von Zwischenwerten.</p>
+  </div>
+
+  <h4>Veranschaulichung: Energieniveaus und Quantensprünge</h4>
+  <p>Die folgende Darstellung zeigt das Bohr-Modell schematisch: Elektronen befinden sich auf festen Schalen (Energieniveaus). Durch Energiezufuhr können sie auf höhere Schalen springen — und beim Zurückfallen Licht aussenden.</p>
+
+  <!-- Quantensprung-Abbildung -->
+  <div style="margin: 24px 0; text-align:center;">
+    <img src="quantensprung.png" alt="Quantensprung: Grundzustand → angeregter Zustand → Licht" style="max-width:420px; width:100%; border-radius:8px;">
+    <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Schritt 1: Elektron absorbiert Energie und springt auf höhere Schale (angeregter Zustand). Schritt 2: Instabiler Zustand. Schritt 3: Elektron fällt zurück und sendet Licht aus.</p>
+  </div>
+
+  <h3>4.4 Das Schalenmodell</h3>
+  <p>Die Elektronen ordnen sich in der Atomhülle in <strong>konzentrischen Schalen</strong> um den Kern an. Jede Schale hat eine bestimmte Nummer und einen Buchstaben:</p>
+
+  <table class="data-table" style="max-width:500px;">
+    <thead><tr><th>Hauptschale</th><th>Buchstabe</th><th>Max. Elektronen</th></tr></thead>
+    <tbody>
+      <tr><td>1. Hauptschale</td><td>K</td><td>2</td></tr>
+      <tr><td>2. Hauptschale</td><td>L</td><td>8</td></tr>
+      <tr><td>3. Hauptschale</td><td>M</td><td>18</td></tr>
+      <tr><td>4. Hauptschale</td><td>N</td><td>32</td></tr>
+    </tbody>
+  </table>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz</div>
+    <p>Die maximale Elektronenzahl pro Hauptschale berechnet sich mit der Formel: <strong>2n²</strong> (wobei n die Schalennummer ist). Also: 2·1² = 2, 2·2² = 8, 2·3² = 18, 2·4² = 32.</p>
+  </div>
+
+  <p>Die Besetzung erfolgt <strong>von innen nach aussen</strong>: Zuerst wird die K-Schale gefüllt, dann die L-Schale, dann die M-Schale. Dabei gilt für die ersten 20 Elemente eine wichtige Regel: In der äussersten Schale befinden sich <strong>maximal 8 Elektronen</strong>.</p>
+
+  <!-- QUIZ L4 -->
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Kurzcheck: Lektion 4</div></div>
+    <div class="quiz-sub">Testen Sie Ihr Verständnis – klicken Sie auf die richtige Antwort.</div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Warum reicht das Rutherford-Modell nicht aus?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Es kann die Masse des Kerns nicht erklären.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Kreisende Elektronen müssten Energie verlieren und in den Kern stürzen.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Es sagt voraus, dass Atome keine Elektronen haben.</div>
+      <div class="feedback correct">Richtig! Nach der klassischen Physik verlieren beschleunigte Ladungen Energie – das Atom wäre instabil.</div>
+      <div class="feedback wrong">Nicht ganz. Denken Sie daran: Was passiert mit einem kreisenden, geladenen Teilchen laut klassischer Physik?</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Die Ionisierungsenergien von Aluminium zeigen drei grosse Sprünge. Was bedeuten diese Sprünge?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Aluminium hat drei verschiedene Isotope.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Die Elektronen haben alle die gleiche Energie.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Die Elektronen sind in drei Schalen angeordnet, die unterschiedlich stark an den Kern gebunden sind.</div>
+      <div class="feedback correct">Genau! Die Sprünge zeigen den Übergang von einer Schale zur nächsten, näher am Kern gelegenen.</div>
+      <div class="feedback wrong">Nicht ganz. Überlegen Sie: Warum braucht man für manche Elektronen plötzlich viel mehr Energie?</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">3</span>Wie viele Elektronen passen maximal in die 3. Hauptschale (M-Schale)?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>8</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>18</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>32</div>
+      <div class="feedback correct">Richtig! 2 · 3² = 2 · 9 = 18 Elektronen.</div>
+      <div class="feedback wrong">Erinnern Sie sich an die Formel 2n². Für n = 3: 2 · 3² = ?</div>
+    </div>
+  </div>
+
+  <!-- TASK CARD L4 -->
+  <h4>Aufgaben zu Lektion 4</h4>
+  <div class="task-links" style="grid-template-columns: 1fr;">
+    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
+      <div class="task-card-icon">&#128221;</div>
+      <div class="task-card-title">Aufgaben 4.1 – 4.2</div>
+      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
+      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--                        LEKTION 5                              -->
+<!-- ============================================================ -->
+<section id="L5">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 05</div>
+    <h2>Das Orbitalmodell</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können erklären, warum das Schalenmodell (Bohr) nicht alle Beobachtungen erklären kann und weiterentwickelt werden muss.</li>
+    <li>Sie können den Unterschied zwischen einer «Bahn» (Bohr) und einem «Orbital» (Aufenthaltswahrscheinlichkeit) beschreiben.</li>
+    <li>Sie können die Unterschalen s, p und d benennen und die Form der zugehörigen Orbitale skizzieren.</li>
+    <li>Sie können das Pauli-Prinzip und den Elektronenspin in eigenen Worten erklären.</li>
+  </ul></div>
+
+  <h3>5.1 Warum reichen Schalen nicht?</h3>
+  <p>Das Bohr-Modell war ein gewaltiger Fortschritt und beschrieb das <strong>Wasserstoffatom</strong> hervorragend. Doch bei Atomen mit mehreren Elektronen zeigten sich Probleme: Wenn man das Licht analysiert, das angeregte Atome aussenden, sieht man schmale farbige Linien — sogenannte <strong>Spektrallinien</strong>. Jedes Element hat ein einzigartiges Muster solcher Linien (wie ein «Fingerabdruck»). Bei genauerer Untersuchung zeigte sich, dass diese Linien <strong>feiner aufgespalten</strong> waren, als Bohrs Modell vorhersagte. Es musste also noch eine <strong>Feinstruktur</strong> innerhalb der Schalen geben.</p>
+  <p>Zudem konnte der deutsche Physiker <strong>Werner Heisenberg</strong> in den 1920er-Jahren zeigen, dass es grundsätzlich unmöglich ist, den genauen Ort und die Geschwindigkeit eines Elektrons gleichzeitig exakt zu bestimmen. Es gibt also <strong>keine festen Bahnen</strong> — nur <strong>Aufenthaltswahrscheinlichkeiten</strong>.</p>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Heisenberg'sche Unschärferelation</div>
+    <p>Ort und Geschwindigkeit eines Elektrons können nicht gleichzeitig genau bestimmt werden. Statt Bahnen beschreiben wir daher nur die Wahrscheinlichkeit, ein Elektron an einem bestimmten Ort anzutreffen.</p>
+  </div>
+
+  <h3>5.2 Von der Schale zur Unterschale mit Orbitalen</h3>
+  <p>Im modernen Atommodell sprechen wir nicht mehr von «Bahnen», sondern von <strong>Orbitalen</strong>. Ein Orbital ist der Raum, in dem sich ein Elektron mit einer bestimmten Wahrscheinlichkeit (typischerweise 90%) aufhält.</p>
+
+  <div class="glossar"><div class="glossar-label">Fachbegriff</div>
+    <div class="glossar-term">Orbital</div>
+    <p>Der räumliche Bereich um den Atomkern, in dem sich ein Elektron mit hoher Wahrscheinlichkeit aufhält. Jedes Orbital kann <strong>maximal 2 Elektronen</strong> aufnehmen.</p>
+  </div>
+
+  <p>Die Hauptschalen bestehen aus <strong>Unterschalen</strong>, die mit den Buchstaben <strong>s, p, d</strong> und <strong>f</strong> bezeichnet werden. Jede Unterschale enthält eine bestimmte Anzahl Orbitale:</p>
+
+  <table class="data-table" style="max-width: 560px;">
+    <thead><tr><th>Unterschale</th><th>Anzahl Orbitale</th><th>Max. Elektronen</th><th>Form</th></tr></thead>
+    <tbody>
+      <tr><td><strong>s</strong></td><td>1</td><td>2</td><td>Kugel</td></tr>
+      <tr><td><strong>p</strong></td><td>3</td><td>6</td><td>Hantel (entlang x, y, z)</td></tr>
+      <tr><td><strong>d</strong></td><td>5</td><td>10</td><td>Komplexere Formen</td></tr>
+      <tr><td><strong>f</strong></td><td>7</td><td>14</td><td>Komplexere Formen (wird im GLF nicht behandelt)</td></tr>
+    </tbody>
+  </table>
+
+  <p>Die Hauptschalen enthalten unterschiedlich viele Unterschalen:</p>
+  <ul>
+    <li><strong>1. Hauptschale (K):</strong> nur 1s → 2 Elektronen</li>
+    <li><strong>2. Hauptschale (L):</strong> 2s + 2p → 2 + 6 = 8 Elektronen</li>
+    <li><strong>3. Hauptschale (M):</strong> 3s + 3p + 3d → 2 + 6 + 10 = 18 Elektronen</li>
+    <li><strong>4. Hauptschale (N):</strong> 4s + 4p + 4d + 4f → 2 + 6 + 10 + 14 = 32 Elektronen</li>
+  </ul>
+  <p>Jetzt verstehen wir, woher die Formel <strong>2n²</strong> kommt!</p>
+
+  <div style="margin: 24px 0; text-align:center;">
+    <img src="unterschalen.png" alt="Schalenmodell mit Unterschalen und maximaler Elektronenzahl" style="max-width:400px; width:100%; border-radius:8px; border:1px solid var(--border);">
+    <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Das Schalenmodell mit Haupt- und Unterschalen. Die Zahlen unten geben die maximale Elektronenzahl pro Unterschale an.</p>
+  </div>
+
+  <h3>5.3 Die Formen der Orbitale</h3>
+  <p>Jede Unterschale hat eine charakteristische räumliche Form:</p>
+
+  <div class="orbital-grid">
+    <div class="orbital-card">
+      <svg viewBox="0 0 120 120" width="100" height="100" style="margin-bottom:8px;">
+        <defs><radialGradient id="sg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#4a7ab5" stop-opacity="0.5"/><stop offset="70%" stop-color="#4a7ab5" stop-opacity="0.15"/><stop offset="100%" stop-color="#4a7ab5" stop-opacity="0"/></radialGradient></defs>
+        <circle cx="60" cy="60" r="40" fill="url(#sg)" stroke="#4a7ab5" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.7"/>
+        <circle cx="60" cy="60" r="4" fill="#3d5a80"/>
+      </svg>
+      <h5>s-Orbital</h5>
+      <p>Kugelförmig um den Kern. 1 Orbital pro Unterschale.</p>
+    </div>
+    <div class="orbital-card">
+      <svg viewBox="0 0 120 120" width="100" height="100" style="margin-bottom:8px;">
+        <defs><radialGradient id="pg1" cx="50%" cy="25%" r="40%"><stop offset="0%" stop-color="#c05050" stop-opacity="0.5"/><stop offset="100%" stop-color="#c05050" stop-opacity="0"/></radialGradient><radialGradient id="pg2" cx="50%" cy="75%" r="40%"><stop offset="0%" stop-color="#4a7ab5" stop-opacity="0.5"/><stop offset="100%" stop-color="#4a7ab5" stop-opacity="0"/></radialGradient></defs>
+        <ellipse cx="60" cy="32" rx="22" ry="28" fill="url(#pg1)" stroke="#c05050" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.7"/>
+        <ellipse cx="60" cy="88" rx="22" ry="28" fill="url(#pg2)" stroke="#4a7ab5" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.7"/>
+        <circle cx="60" cy="60" r="4" fill="#3d5a80"/>
+      </svg>
+      <h5>p-Orbital</h5>
+      <p>Hantelförmig. 3 Orbitale (p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub>), je entlang einer Achse.</p>
+    </div>
+    <div class="orbital-card">
+      <svg viewBox="0 0 120 120" width="100" height="100" style="margin-bottom:8px;">
+        <defs><radialGradient id="dg1" cx="50%" cy="25%" r="35%"><stop offset="0%" stop-color="#8b72b0" stop-opacity="0.4"/><stop offset="100%" stop-color="#8b72b0" stop-opacity="0"/></radialGradient><radialGradient id="dg2" cx="50%" cy="75%" r="35%"><stop offset="0%" stop-color="#c08a56" stop-opacity="0.4"/><stop offset="100%" stop-color="#c08a56" stop-opacity="0"/></radialGradient></defs>
+        <ellipse cx="40" cy="38" rx="20" ry="24" fill="url(#dg1)" stroke="#8b72b0" stroke-width="1.2" stroke-dasharray="4 2" opacity="0.7" transform="rotate(-45 40 38)"/>
+        <ellipse cx="80" cy="38" rx="20" ry="24" fill="url(#dg1)" stroke="#8b72b0" stroke-width="1.2" stroke-dasharray="4 2" opacity="0.7" transform="rotate(45 80 38)"/>
+        <ellipse cx="40" cy="82" rx="20" ry="24" fill="url(#dg2)" stroke="#c08a56" stroke-width="1.2" stroke-dasharray="4 2" opacity="0.7" transform="rotate(45 40 82)"/>
+        <ellipse cx="80" cy="82" rx="20" ry="24" fill="url(#dg2)" stroke="#c08a56" stroke-width="1.2" stroke-dasharray="4 2" opacity="0.7" transform="rotate(-45 80 82)"/>
+        <circle cx="60" cy="60" r="4" fill="#3d5a80"/>
+      </svg>
+      <h5>d-Orbital</h5>
+      <p>Komplexere Formen (z.B. Kleeblatt). 5 Orbitale pro Unterschale.</p>
+    </div>
+  </div>
+
+  <p>Die folgende Abbildung zeigt die Orbitalformen der s-, p-, d- und f-Orbitale des Wasserstoff-Atoms entlang der drei Raumachsen:</p>
+  <div style="margin: 20px 0; text-align:center;">
+    <img src="auffuellschema-orbitale.png" alt="s- und p-Orbitale aus dem Skript" style="max-width:100%; border-radius:8px; border:1px solid var(--border);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <p style="display:none; font-size:0.82rem; color:var(--text-muted); font-style:italic;">(Abbildung wird im Unterricht gezeigt)</p>
+  </div>
+
+  <!-- QUIZ L5 -->
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Kurzcheck: Lektion 5</div></div>
+    <div class="quiz-sub">Testen Sie Ihr Verständnis.</div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Was ist ein Orbital?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Eine kreisförmige Bahn wie im Bohr-Modell.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Ein Raum, in dem sich ein Elektron mit hoher Wahrscheinlichkeit aufhält.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Ein anderes Wort für die Hauptschale.</div>
+      <div class="feedback correct">Genau! Orbitale beschreiben Aufenthaltswahrscheinlichkeiten, keine festen Bahnen.</div>
+      <div class="feedback wrong">Nicht ganz. Im modernen Modell sprechen wir nicht mehr von festen Bahnen.</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Wie viele Elektronen passen maximal in die p-Unterschale?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>2</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>6</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>10</div>
+      <div class="feedback correct">Richtig! 3 Orbitale × 2 Elektronen = 6.</div>
+      <div class="feedback wrong">Denken Sie daran: Die p-Unterschale hat 3 Orbitale (p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub>), und jedes fasst 2 Elektronen.</div>
+    </div>
+  </div>
+
+  <!-- TASK CARD L5 -->
+  <h4>Aufgaben zu Lektion 5</h4>
+  <div class="task-links" style="grid-template-columns: 1fr;">
+    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
+      <div class="task-card-icon">&#128221;</div>
+      <div class="task-card-title">Aufgaben 5.1 – 5.2</div>
+      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
+      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--                        LEKTION 6                              -->
+<!-- ============================================================ -->
+<section id="L6">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 06</div>
+    <h2>Auffüllregeln und Elektronenkonfiguration</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können das Aufbauprinzip anwenden: Orbitale werden in der Reihenfolge steigender Energie besetzt.</li>
+    <li>Sie können die Hund'sche Regel und das Pauli-Prinzip bei der Besetzung von Orbitalen korrekt anwenden.</li>
+    <li>Sie können die Elektronenkonfiguration eines Atoms in drei Darstellungen notieren: Schalendarstellung, Kästchenschreibweise, Symboldarstellung.</li>
+    <li>Sie können das Auffüllschema (Diagonalregel) als Werkzeug einsetzen.</li>
+  </ul></div>
+
+  <h3>6.1 In welcher Reihenfolge werden Orbitale gefüllt?</h3>
+  <p>Im Grundzustand eines Atoms besetzen die Elektronen die Orbitale mit der <strong>niedrigsten Energie zuerst</strong>. Das klingt einfach, hat aber eine Überraschung: Die Energieniveaus der Unterschalen verschiedener Hauptschalen können sich <strong>überlappen</strong>. So liegt z.B. das 4s-Orbital energetisch <em>tiefer</em> als das 3d-Orbital — und wird daher <em>zuerst</em> besetzt!</p>
+
+  <h4>Das Auffüllschema (Diagonalregel)</h4>
+  <p>Um die Reihenfolge nicht auswendig lernen zu müssen, gibt es ein visuelles Werkzeug: das <strong>Auffüllschema</strong>. Schreiben Sie die Unterschalen in Zeilen und lesen Sie die diagonalen Pfeile von oben nach unten ab:</p>
+
+  <!-- Auffüllschema als Bild (Vorlage der Lehrperson) -->
+  <div style="margin: 24px 0; text-align:center;">
+    <img src="auffuellschema.png" alt="Auffüllschema (Diagonalregel) und Energieniveau-Diagramm" style="max-width:100%; max-height:520px; border-radius:8px; border:1px solid var(--border);">
+    <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Links: Auffüllschema (Diagonalregel) — folgen Sie den Pfeilen von oben nach unten. Rechts: Energieniveau-Diagramm mit der Auffüllreihenfolge.</p>
+  </div>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Auffüllreihenfolge</div>
+    <p>Die Orbitale werden in der Reihenfolge steigender Energie besetzt: <strong>1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → …</strong> Beachten Sie: Das 4s-Orbital wird <em>vor</em> dem 3d-Orbital besetzt!</p>
+  </div>
+
+  <h3>6.2 Die Hund'sche Regel</h3>
+  <p>Wenn mehrere Orbitale einer Unterschale die <strong>gleiche Energie</strong> haben (z.B. die drei p-Orbitale), werden sie zuerst <strong>einzeln besetzt</strong>, bevor ein zweites Elektron hinzukommt. Der Grund: Elektronen stossen sich gegenseitig ab und verteilen sich daher möglichst gleichmässig.</p>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Hund'sche Regel</div>
+    <p>Energetisch gleichwertige Orbitale (z.B. die drei 2p-Orbitale) werden zuerst <strong>einfach und mit parallelem Spin</strong> besetzt, bevor eine Doppelbesetzung beginnt.</p>
+  </div>
+
+  <h3>6.3 Der Elektronenspin und das Pauli-Prinzip</h3>
+  <p>Ein Orbital kann maximal <strong>zwei Elektronen</strong> aufnehmen. Aber wie vertragen sich zwei negativ geladene Teilchen auf so engem Raum? Die Antwort: Sie rotieren in <strong>entgegengesetzter Richtung</strong> — man spricht vom <strong>Elektronenspin</strong>.</p>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Pauli-Prinzip</div>
+    <p>In einem Orbital befinden sich <strong>maximal zwei Elektronen</strong>, und diese müssen <strong>entgegengesetzten Spin</strong> haben. Man stellt sie als ↑ und ↓ dar.</p>
+  </div>
+
+  <p>In der Kästchenschreibweise stellen wir jedes Orbital als Kästchen dar. Ein Elektron mit Spin «aufwärts» wird als ↑ gezeichnet, eines mit Spin «abwärts» als ↓. Ein voll besetztes Orbital zeigt ↑↓.</p>
+
+  <h3>6.4 Drei Darstellungsmethoden</h3>
+  <p>Die Elektronenkonfiguration eines Atoms kann auf drei Arten dargestellt werden. Wir zeigen sie am Beispiel von <strong>Stickstoff (N, Z = 7)</strong>:</p>
+
+  <table class="data-table">
+    <thead><tr><th style="width:35%;">Methode</th><th>Beispiel: Stickstoff (N)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Schalendarstellung</strong><br><span style="font-size:0.82rem; color:var(--text-muted);">Elektronen als Punkte auf Schalenkreisen</span></td>
+        <td style="text-align:center; padding:16px;">
+          <img src="schalen-N.png" alt="Schalendarstellung Stickstoff" style="width:110px; height:auto;">
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">K: 2 e⁻ · L: 5 e⁻</div>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Kästchenschreibweise</strong><br><span style="font-size:0.82rem; color:var(--text-muted);">Kästchen = Orbital, Pfeile = Elektronen mit Spin</span></td>
+        <td style="padding:16px;">
+          <div style="font-family:var(--mono); font-size:0.9rem; display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span style="font-size:0.75rem; color:var(--text-muted); min-width:22px;">1s</span>
+            <span style="display:inline-block; border:2px solid #4a7ab5; width:28px; height:28px; text-align:center; line-height:26px; border-radius:3px; font-size:0.9rem;">↑↓</span>
+            <span style="margin-left:10px; font-size:0.75rem; color:var(--text-muted); min-width:22px;">2s</span>
+            <span style="display:inline-block; border:2px solid #4a7ab5; width:28px; height:28px; text-align:center; line-height:26px; border-radius:3px; font-size:0.9rem;">↑↓</span>
+            <span style="margin-left:10px; font-size:0.75rem; color:var(--text-muted); min-width:22px;">2p</span>
+            <span style="display:inline-block; border:2px solid #4a7ab5; width:28px; height:28px; text-align:center; line-height:26px; border-radius:3px; font-size:0.9rem;">↑</span>
+            <span style="display:inline-block; border:2px solid #4a7ab5; width:28px; height:28px; text-align:center; line-height:26px; border-radius:3px; font-size:0.9rem;">↑</span>
+            <span style="display:inline-block; border:2px solid #4a7ab5; width:28px; height:28px; text-align:center; line-height:26px; border-radius:3px; font-size:0.9rem;">↑</span>
+          </div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:6px;">Beachten Sie: Die drei 2p-Orbitale sind je einfach besetzt (Hund'sche Regel).</div>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Symboldarstellung</strong><br><span style="font-size:0.82rem; color:var(--text-muted);">Kurzschreibweise mit Hochzahlen</span></td>
+        <td style="padding:16px; font-family:var(--mono); font-size:1.05rem;">1s² 2s² 2p³</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="merksatz"><div class="merksatz-label">Wichtig – Reihenfolge in der Symbolschreibweise</div>
+    <p>In der Symbolschreibweise werden die Orbitale <strong>nach aufsteigendem Abstand vom Kern</strong> (also nach Schalennummer) aufgelistet — <em>nicht</em> nach der Auffüllreihenfolge. Die Auffüllreihenfolge bestimmt, in welcher Reihenfolge die Elektronen eingefüllt werden (z.&nbsp;B. 4s vor 3d). In der Symbolschreibweise ordnen wir anschliessend nach Schalen:</p>
+    <p style="font-family:var(--mono); font-size:0.95rem; margin-top:8px;">Beispiel Vanadium (V, Z&nbsp;=&nbsp;23):<br>
+    Auffüllreihenfolge: 1s² 2s² 2p⁶ 3s² 3p⁶ <strong>4s² 3d³</strong><br>
+    Symbolschreibweise: 1s² 2s² 2p⁶ 3s² 3p⁶ <strong>3d³ 4s²</strong></p>
+  </div>
+
+  <!-- KÄSTCHENSCHREIBWEISE TRAINER -->
+  <h4>Interaktiver Trainer: Kästchenschreibweise</h4>
+  <p>Klicken Sie auf die Kästchen, um Elektronen einzufüllen. Erster Klick = ↑ (Spin aufwärts), zweiter Klick = ↑↓ (Spin abwärts hinzu), dritter Klick = leer.</p>
+
+  <div class="trainer-container" id="orbitalTrainer">
+    <div class="trainer-header">
+      <span>Kästchenschreibweise – Trainer</span>
+      <span style="font-size:0.78rem; opacity:0.8;">Klicken Sie auf die Kästchen</span>
+    </div>
+    <div class="trainer-body">
+      <div class="trainer-element" id="trainerElement">C – Kohlenstoff</div>
+      <div class="trainer-info" id="trainerInfo">Ordnungszahl Z = 6 → 6 Elektronen verteilen</div>
+
+      <div class="orbital-row"><span class="orbital-label">4p</span><div class="box-group"><div class="e-box" data-orbital="4p" data-idx="0" onclick="clickBox(this)"></div><div class="e-box" data-orbital="4p" data-idx="1" onclick="clickBox(this)"></div><div class="e-box" data-orbital="4p" data-idx="2" onclick="clickBox(this)"></div></div></div>
+      <div class="orbital-row"><span class="orbital-label">3d</span><div class="box-group"><div class="e-box" data-orbital="3d" data-idx="0" onclick="clickBox(this)"></div><div class="e-box" data-orbital="3d" data-idx="1" onclick="clickBox(this)"></div><div class="e-box" data-orbital="3d" data-idx="2" onclick="clickBox(this)"></div><div class="e-box" data-orbital="3d" data-idx="3" onclick="clickBox(this)"></div><div class="e-box" data-orbital="3d" data-idx="4" onclick="clickBox(this)"></div></div></div>
+      <div class="orbital-row"><span class="orbital-label">4s</span><div class="box-group"><div class="e-box" data-orbital="4s" data-idx="0" onclick="clickBox(this)"></div></div></div>
+      <div class="orbital-row"><span class="orbital-label">3p</span><div class="box-group"><div class="e-box" data-orbital="3p" data-idx="0" onclick="clickBox(this)"></div><div class="e-box" data-orbital="3p" data-idx="1" onclick="clickBox(this)"></div><div class="e-box" data-orbital="3p" data-idx="2" onclick="clickBox(this)"></div></div></div>
+      <div class="orbital-row"><span class="orbital-label">3s</span><div class="box-group"><div class="e-box" data-orbital="3s" data-idx="0" onclick="clickBox(this)"></div></div></div>
+      <div class="orbital-row"><span class="orbital-label">2p</span><div class="box-group"><div class="e-box" data-orbital="2p" data-idx="0" onclick="clickBox(this)"></div><div class="e-box" data-orbital="2p" data-idx="1" onclick="clickBox(this)"></div><div class="e-box" data-orbital="2p" data-idx="2" onclick="clickBox(this)"></div></div></div>
+      <div class="orbital-row"><span class="orbital-label">2s</span><div class="box-group"><div class="e-box" data-orbital="2s" data-idx="0" onclick="clickBox(this)"></div></div></div>
+      <div class="orbital-row"><span class="orbital-label">1s</span><div class="box-group"><div class="e-box" data-orbital="1s" data-idx="0" onclick="clickBox(this)"></div></div></div>
+
+      <div style="margin-top:16px;">
+        <button class="trainer-btn primary" onclick="checkTrainer()">Prüfen</button>
+        <button class="trainer-btn" onclick="resetTrainer()">Zurücksetzen</button>
+        <button class="trainer-btn" onclick="newElement()">Neues Element</button>
+      </div>
+      <div class="trainer-result" id="trainerResult"></div>
+    </div>
+  </div>
+
+  <!-- TASK CARD L6 -->
+  <h4>Aufgaben zu Lektion 6</h4>
+  <div class="task-links" style="grid-template-columns: 1fr;">
+    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
+      <div class="task-card-icon">&#128221;</div>
+      <div class="task-card-title">Aufgaben 6.1 – 6.8</div>
+      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
+      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--                        LEKTION 7                              -->
+<!-- ============================================================ -->
+<section id="L7">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 07</div>
+    <h2>Flammenfärbung</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können erklären, warum bestimmte Salze die Flamme färben — mit den Begriffen «angeregter Zustand», «Grundzustand» und «Energieniveau».</li>
+    <li>Sie können den Zusammenhang zwischen Elektronenübergängen und der Wellenlänge des emittierten Lichts beschreiben.</li>
+    <li>Sie können das Experiment der Flammenfärbung korrekt durchführen und protokollieren.</li>
+    <li>Sie können erklären, warum die Flammenfärbung als Nachweismethode für Metalle eingesetzt werden kann.</li>
+  </ul></div>
+
+  <h3>7.1 Wenn Atome leuchten</h3>
+  <p>Wenn Salze in die Flamme eines Bunsenbrenners gehalten werden, zeigen viele von ihnen eine <strong>charakteristische Färbung</strong>. Lithium-Salze leuchten rot, Natrium-Salze gelb, Kupfer-Salze grün. Doch woher kommen diese Farben?</p>
+  <p>Die Antwort liegt in den <strong>Elektronenübergängen</strong>, die wir in den letzten Lektionen kennengelernt haben:</p>
+
+  <ol>
+    <li>Die Wärmeenergie der Flamme überträgt Energie auf die Elektronen der Metall-Ionen im Salz.</li>
+    <li>Elektronen springen von ihrer normalen Position (dem <strong>Grundzustand</strong>) auf ein höheres Energieniveau — den <strong>angeregten Zustand</strong>.</li>
+    <li>Der angeregte Zustand ist instabil. Nach sehr kurzer Zeit (ca. 10⁻⁹ s) fällt das Elektron zurück in den Grundzustand.</li>
+    <li>Beim Zurückfallen wird die aufgenommene Energie als <strong>elektromagnetische Strahlung</strong> abgegeben — als Licht einer ganz bestimmten Wellenlänge.</li>
+  </ol>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz</div>
+    <p>Die Farbe der Flamme hängt von der <strong>Energiedifferenz</strong> zwischen den Niveaus ab: Jedes Element hat einzigartige Energieniveaus und daher einzigartige Spektrallinien. Deshalb kann die Flammenfärbung als <strong>Nachweismethode</strong> für bestimmte Metalle dienen.</p>
+  </div>
+
+  <h3>7.2 Das elektromagnetische Spektrum</h3>
+  <p>Die elektromagnetische Strahlung umfasst einen riesigen Bereich — von Gammastrahlung über Röntgen, UV, sichtbares Licht und Infrarot bis zu Radiowellen. Nur ein kleiner Teil ist für das menschliche Auge sichtbar: das <strong>sichtbare Spektrum</strong> mit Wellenlängen von etwa 400 nm (violett) bis 700 nm (rot).</p>
+
+  <!-- Spektrum SVG -->
+  <div style="margin: 24px 0; text-align:center;">
+    <svg viewBox="0 0 600 80" width="100%" style="max-width:600px;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="visSpec" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#7b00ff"/>
+          <stop offset="15%" stop-color="#0000ff"/>
+          <stop offset="30%" stop-color="#00ccff"/>
+          <stop offset="45%" stop-color="#00ff00"/>
+          <stop offset="60%" stop-color="#ffff00"/>
+          <stop offset="75%" stop-color="#ff8800"/>
+          <stop offset="100%" stop-color="#ff0000"/>
+        </linearGradient>
+      </defs>
+      <rect x="50" y="10" width="500" height="36" rx="4" fill="url(#visSpec)"/>
+      <text x="50" y="65" font-family="'DM Sans',sans-serif" font-size="11" fill="#6b6560">400 nm</text>
+      <text x="168" y="65" font-family="'DM Sans',sans-serif" font-size="11" fill="#6b6560" text-anchor="middle">violett</text>
+      <text x="260" y="65" font-family="'DM Sans',sans-serif" font-size="11" fill="#6b6560" text-anchor="middle">grün</text>
+      <text x="375" y="65" font-family="'DM Sans',sans-serif" font-size="11" fill="#6b6560" text-anchor="middle">gelb</text>
+      <text x="490" y="65" font-family="'DM Sans',sans-serif" font-size="11" fill="#6b6560" text-anchor="middle">rot</text>
+      <text x="545" y="65" font-family="'DM Sans',sans-serif" font-size="11" fill="#6b6560" text-anchor="end">700 nm</text>
+      <text x="10" y="32" font-family="'DM Sans',sans-serif" font-size="10" fill="#9c9891" text-anchor="end">UV ←</text>
+      <text x="558" y="32" font-family="'DM Sans',sans-serif" font-size="10" fill="#9c9891">→ IR</text>
+    </svg>
+  </div>
+
+  <p>Bei vielen Elektronenübergängen entsteht Strahlung im UV- oder Infrarot-Bereich, die wir nicht sehen können. Im Analyselabor werden daher <strong>Spektrometer</strong> eingesetzt, die auch diese unsichtbaren Wellenlängen messen können.</p>
+
+  <h3>7.3 Praktikum: Flammenfärbung</h3>
+
+  <div class="experiment"><div class="experiment-label">Schüler*innenexperiment</div>
+    <h4>Flammenfärbung im Labor</h4>
+    <p>In diesem Praktikum untersuchen Sie die Flammenfärbung verschiedener Salze mit dem Bunsenbrenner und bestimmen die Farbe visuell.</p>
+    <p><strong>Hinweis:</strong> Die ausführliche Versuchsanleitung mit Materialliste, Durchführung und Beobachtungstabelle erhalten Sie als <strong>gedrucktes Dokument</strong> im Unterricht.</p>
+    <p><strong>Ziel:</strong> Sie sollen die Technik der Flammenfärbung erlernen und die Ursache der Lichtemission mit den Konzepten aus L4–L6 erklären können.</p>
+  </div>
+
+  <!-- TASK CARD L7: Auswertung -->
+  <h4>Auswertung Praktikum</h4>
+  <div class="task-links" style="grid-template-columns: 1fr;">
+    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
+      <div class="task-card-icon">&#128221;</div>
+      <div class="task-card-title">Auswertung Flammenfärbung</div>
+      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
+      <div class="task-hint">Die Auswertung laden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Experimente Atombau</strong> hoch</div>
+    </div>
+  </div>
+
+  <!-- QUIZ L7 -->
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Kurzcheck: Lektion 7</div></div>
+    <div class="quiz-sub">Testen Sie Ihr Verständnis zur Flammenfärbung.</div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Was passiert mit den Elektronen, wenn ein Salz in die Flamme gehalten wird?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Die Elektronen verlassen das Atom dauerhaft.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Elektronen werden auf ein höheres Energieniveau angehoben und fallen unter Lichtabgabe zurück.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Der Atomkern beginnt zu leuchten.</div>
+      <div class="feedback correct">Genau! Die Wärme hebt Elektronen an, beim Zurückfallen wird Licht emittiert.</div>
+      <div class="feedback wrong">Denken Sie an die Energieniveaus: Was geschieht, wenn ein Elektron Energie aufnimmt und wieder abgibt?</div>
+    </div>
+
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Warum hat jedes Element eine eigene Flammenfärbung?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil jedes Element eine andere Masse hat.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Weil jedes Element einzigartige Energieniveaus hat und daher Licht mit charakteristischer Wellenlänge emittiert.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil die Flamme verschiedene Temperaturen hat.</div>
+      <div class="feedback correct">Richtig! Die einzigartigen Abstände zwischen den Energieniveaus bestimmen die Wellenlänge des emittierten Lichts.</div>
+      <div class="feedback wrong">Die Temperatur der Flamme ist für alle Salze gleich. Der Schlüssel liegt in der Elektronenstruktur des jeweiligen Elements.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--                    ZUSAMMENFASSUNG                            -->
+<!-- ============================================================ -->
+<section id="zusammenfassung2">
+  <div class="lesson-header" style="border-top-color: var(--merksatz-border);">
+    <div class="lesson-number" style="color: var(--merksatz-label);">Zusammenfassung</div>
+    <h2>Phase 2 auf einen Blick</h2>
+  </div>
+
+  <div class="summary">
+    <h3>Modellentwicklung</h3>
+    <table class="data-table">
+      <thead><tr><th>Modell</th><th>Vorstellung</th><th>Stärken &amp; Grenzen</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Bohr</strong> (1913)</td>
+          <td>Elektronen auf festen Bahnen (Energieniveaus); Quantensprünge; Schalen K, L, M, N.</td>
+          <td>✓ Erklärt Wasserstoff-Spektrum, Ionisierungsenergien<br>✗ Versagt bei Mehrelektronen-Atomen, keine exakten Bahnen möglich</td>
+        </tr>
+        <tr>
+          <td><strong>Orbitalmodell</strong></td>
+          <td>Elektronen in Aufenthaltswahrscheinlichkeits-Räumen (Orbitale); Unterschalen s, p, d, f.</td>
+          <td>✓ Erklärt Feinstruktur, Magnetismus, Hund'sche Regel<br>✗ Mathematisch komplex (Quantenmechanik)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="summary">
+    <h3>Zentrale Begriffe Phase 2</h3>
+    <table class="data-table">
+      <thead><tr><th>Begriff</th><th>Erklärung</th></tr></thead>
+      <tbody>
+        <tr><td>Energieniveau</td><td>Definierter Energiewert einer Elektronenbahn oder eines Orbitals</td></tr>
+        <tr><td>Quantensprung</td><td>Sprunghafter Wechsel zwischen Energieniveaus</td></tr>
+        <tr><td>Ionisierungsenergie</td><td>Energie, um ein Elektron aus der Hülle zu entfernen</td></tr>
+        <tr><td>Hauptschale</td><td>Grobstruktur der Hülle: K (n=1), L (n=2), M (n=3), N (n=4); max. 2n² Elektronen</td></tr>
+        <tr><td>Unterschale</td><td>Feinstruktur innerhalb einer Hauptschale: s, p, d, f</td></tr>
+        <tr><td>Orbital</td><td>Raum mit hoher Aufenthaltswahrscheinlichkeit für max. 2 Elektronen</td></tr>
+        <tr><td>Elektronenspin</td><td>Eigenrotation des Elektrons (↑ oder ↓); zwei Elektronen im gleichen Orbital haben entgegengesetzten Spin</td></tr>
+        <tr><td>Pauli-Prinzip</td><td>Max. 2 Elektronen pro Orbital, mit entgegengesetztem Spin</td></tr>
+        <tr><td>Hund'sche Regel</td><td>Gleichwertige Orbitale werden zuerst einfach besetzt</td></tr>
+        <tr><td>Aufbauprinzip</td><td>Orbitale werden in der Reihenfolge steigender Energie besetzt</td></tr>
+        <tr><td>Elektronenkonfiguration</td><td>Verteilung der Elektronen auf Orbitale (Schalen-/Kästchen-/Symboldarstellung)</td></tr>
+        <tr><td>Angeregter Zustand</td><td>Elektron auf höherem Energieniveau nach Energieaufnahme; instabil</td></tr>
+        <tr><td>Flammenfärbung</td><td>Charakteristische Lichtfarbe beim Zurückfallen angeregter Elektronen</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="summary">
+    <h3>Auffüllreihenfolge (Kurzübersicht)</h3>
+    <p style="font-family:var(--mono); font-size:0.95rem; margin-bottom:0;">1s → 2s → 2p → 3s → 3p → <span style="color:#c05050; font-weight:600;">4s → 3d</span> → 4p → <span style="color:#c05050; font-weight:600;">5s → 4d</span> → 5p → <span style="color:#c05050; font-weight:600;">6s → 4f → 5d</span> → 6p → 7s → 5f → 6d → 7p</p>
+    <p style="font-size:0.82rem; color:var(--text-muted); margin-top:6px; margin-bottom:0;"><span style="color:#c05050;">Rot markiert:</span> Stellen, an denen die Reihenfolge von der Schalennummer abweicht.</p>
+  </div>
+
+  <p id="phase3-teaser" style="text-align:center; color:var(--text-muted); margin-top:44px; font-size:0.9rem;">
+    <strong>Weiter geht's in Phase 3:</strong> Valenzelektronen, Periodensystem und Ionenbildung
+  </p>
+
+  <!-- FORMS MC: End of Phase -->
+  <div style="margin-top:40px; padding-top:28px; border-top: 1px solid var(--border);">
+    <h4 style="margin-top:0;">Lernkontrolle Phase 2</h4>
+    <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:14px;">Multiple-Choice zum Grundverständnis der gesamten Phase 2.</p>
+    <div class="task-links" style="grid-template-columns: 1fr;">
+      <a class="task-card forms" href="https://forms.office.com/Pages/ResponsePage.aspx?id=rQuDwrIivEKqXe-HgrWYGz2j0qfMSOpEqRiOQYLBt2dURVdMS0lRR0VWWklCWTVDRkc4WUxFR0pHTy4u" target="_blank">
+        <div class="task-card-icon">&#128203;</div>
+        <div class="task-card-title">MC-Lernkontrolle: Phase 2 abschliessen</div>
+        <div class="task-card-desc">MS Forms · Multiple-Choice zum Grundverständnis der Lektionen 4-7</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<script>
+// === Progress bar ===
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const pct = el.scrollHeight > el.clientHeight
+    ? (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+});
+
+// === Sidebar active state ===
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.sidebar .nav-item:not(.locked)');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector('.sidebar .nav-item[href="#'+entry.target.id+'"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// === MC Quiz ===
+function selectOption(el) {
+  const q = el.closest('.question');
+  if (q.classList.contains('answered')) return;
+  q.classList.add('answered');
+  const options = q.querySelectorAll('.option');
+  const feedbacks = q.querySelectorAll('.feedback');
+  const isCorrect = el.dataset.correct === 'true';
+  options.forEach(o => o.style.pointerEvents = 'none');
+  el.classList.add('selected');
+  if (isCorrect) {
+    el.classList.add('correct');
+    feedbacks[0].classList.add('show');
+  } else {
+    el.classList.add('wrong');
+    options.forEach(o => { if (o.dataset.correct === 'true') o.classList.add('correct'); });
+    feedbacks[1].classList.add('show');
+  }
+}
+
+// === KÄSTCHENSCHREIBWEISE TRAINER ===
+const elements = [
+  { sym: 'C', name: 'Kohlenstoff', z: 6, config: {'1s':[2],'2s':[2],'2p':[1,1,0],'3s':[0],'3p':[0,0,0],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'N', name: 'Stickstoff', z: 7, config: {'1s':[2],'2s':[2],'2p':[1,1,1],'3s':[0],'3p':[0,0,0],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'O', name: 'Sauerstoff', z: 8, config: {'1s':[2],'2s':[2],'2p':[2,1,1],'3s':[0],'3p':[0,0,0],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'Ne', name: 'Neon', z: 10, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[0],'3p':[0,0,0],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'Na', name: 'Natrium', z: 11, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[1],'3p':[0,0,0],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'Al', name: 'Aluminium', z: 13, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[1,0,0],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'Cl', name: 'Chlor', z: 17, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[2,2,1],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'Ar', name: 'Argon', z: 18, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[2,2,2],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'K', name: 'Kalium', z: 19, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[2,2,2],'4s':[1],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'Ca', name: 'Calcium', z: 20, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[2,2,2],'4s':[2],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'Fe', name: 'Eisen', z: 26, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[2,2,2],'4s':[2],'3d':[2,1,1,1,1],'4p':[0,0,0]} },
+  { sym: 'V', name: 'Vanadium', z: 23, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[2,2,2],'4s':[2],'3d':[1,1,1,0,0],'4p':[0,0,0]} },
+  { sym: 'Ti', name: 'Titan', z: 22, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[2,2,2],'4s':[2],'3d':[1,1,0,0,0],'4p':[0,0,0]} },
+  { sym: 'Si', name: 'Silizium', z: 14, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[1,1,0],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'P', name: 'Phosphor', z: 15, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[1,1,1],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+  { sym: 'S', name: 'Schwefel', z: 16, config: {'1s':[2],'2s':[2],'2p':[2,2,2],'3s':[2],'3p':[2,1,1],'4s':[0],'3d':[0,0,0,0,0],'4p':[0,0,0]} },
+];
+
+let currentElement = elements[0];
+
+function loadElement(elem) {
+  currentElement = elem;
+  document.getElementById('trainerElement').textContent = elem.sym + ' – ' + elem.name;
+  document.getElementById('trainerInfo').textContent = 'Ordnungszahl Z = ' + elem.z + ' → ' + elem.z + ' Elektronen verteilen';
+  resetTrainer();
+}
+
+function clickBox(el) {
+  const state = parseInt(el.dataset.state || '0');
+  const next = (state + 1) % 3;
+  el.dataset.state = next;
+  el.className = 'e-box';
+  if (next === 1) { el.textContent = '↑'; el.classList.add('filled-up'); }
+  else if (next === 2) { el.textContent = '↑↓'; el.classList.add('filled-both'); }
+  else { el.textContent = ''; }
+}
+
+function resetTrainer() {
+  document.querySelectorAll('#orbitalTrainer .e-box').forEach(b => {
+    b.dataset.state = '0'; b.textContent = ''; b.className = 'e-box';
+  });
+  const res = document.getElementById('trainerResult');
+  res.className = 'trainer-result'; res.textContent = '';
+}
+
+function checkTrainer() {
+  const boxes = document.querySelectorAll('#orbitalTrainer .e-box');
+  const userConfig = {};
+  boxes.forEach(b => {
+    const orb = b.dataset.orbital;
+    if (!userConfig[orb]) userConfig[orb] = [];
+    userConfig[orb].push(parseInt(b.dataset.state || '0'));
+  });
+
+  const correctConfig = currentElement.config;
+  let correct = true;
+  let totalUser = 0;
+
+  for (const orb in correctConfig) {
+    const expected = correctConfig[orb];
+    const actual = userConfig[orb] || [];
+    // Flatten if single value
+    const expArr = Array.isArray(expected) ? expected : [expected];
+    for (let i = 0; i < expArr.length; i++) {
+      if ((actual[i] || 0) !== expArr[i]) correct = false;
+      totalUser += (actual[i] || 0);
+    }
+  }
+
+  // Also check total electron count
+  for (const orb in userConfig) {
+    userConfig[orb].forEach(v => {});
+  }
+
+  const res = document.getElementById('trainerResult');
+  if (correct) {
+    res.className = 'trainer-result show correct';
+    res.textContent = '✓ Korrekt! Die Elektronenkonfiguration von ' + currentElement.sym + ' stimmt.';
+  } else {
+    // Build correct string
+    let configStr = '';
+    const order = ['1s','2s','2p','3s','3p','3d','4s','4p'];
+    order.forEach(orb => {
+      const vals = correctConfig[orb];
+      if (!vals) return;
+      const arr = Array.isArray(vals) ? vals : [vals];
+      const sum = arr.reduce((a,b) => a+b, 0);
+      if (sum > 0) configStr += orb + sum.toString().sup() + ' ';
+    });
+    res.className = 'trainer-result show wrong';
+    res.innerHTML = '✗ Noch nicht ganz richtig. Die korrekte Konfiguration von ' + currentElement.sym + ' (Z = ' + currentElement.z + ') ist: <strong>' + order.filter(o => {
+      const v = correctConfig[o];
+      const arr = Array.isArray(v) ? v : [v];
+      return arr.reduce((a,b) => a+b, 0) > 0;
+    }).map(o => {
+      const v = correctConfig[o];
+      const arr = Array.isArray(v) ? v : [v];
+      return o + '<sup>' + arr.reduce((a,b) => a+b, 0) + '</sup>';
+    }).join(' ') + '</strong>';
+  }
+}
+
+function newElement() {
+  let next;
+  do { next = elements[Math.floor(Math.random() * elements.length)]; }
+  while (next === currentElement && elements.length > 1);
+  loadElement(next);
+}
+
+// === Auto-unlock: prüft, welche Phase-Dateien existieren ===
+(async function() {
+  const phases = [
+    { num: '3', file: 'atombau-phase3.html' },
+    { num: '4', file: 'atombau-phase4.html' }
+  ];
+  for (const phase of phases) {
+    try {
+      const res = await fetch(phase.file, { method: 'HEAD' });
+      if (res.ok) {
+        const items = document.querySelectorAll('.nav-item[data-phase="' + phase.num + '"]');
+        items.forEach(item => {
+          item.classList.remove('locked');
+          item.href = phase.file;
+          const lock = item.querySelector('.lock-icon');
+          if (lock) lock.remove();
+        });
+        // Teaser am Seitenende zu Link machen (nur Phase 3)
+        if (phase.num === '3') {
+          const teaser = document.getElementById('phase3-teaser');
+          if (teaser) {
+            teaser.innerHTML = '<a href="' + phase.file + '" style="color:var(--accent); text-decoration:none; font-weight:600;">&rarr; <strong>Weiter zu Phase 3:</strong> Valenzelektronen, Periodensystem und Ionenbildung</a>';
+          }
+        }
+      }
+    } catch (e) {
+      // Datei nicht erreichbar → gesperrt lassen
+    }
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atombau – Phase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f7;
+  --bg-alt: #f3f1ee;
+  --text: #1a1a1a;
+  --text-muted: #6b6560;
+  --text-light: #9c9891;
+  --border: #e5e2dd;
+  --sidebar-bg: #f5f4f1;
+
+  --glossar-bg: #f0f4fa; --glossar-border: #8aadd4; --glossar-text: #2c4a6e; --glossar-label: #5b8ab5;
+  --merksatz-bg: #eef6f0; --merksatz-border: #7bc08a; --merksatz-text: #2d5a37; --merksatz-label: #5a9e6a;
+  --aufgabe-bg: #fdf5ee; --aufgabe-border: #d4a574; --aufgabe-text: #6b4226; --aufgabe-label: #c08a56;
+  --experiment-bg: #f4f0fa; --experiment-border: #a890c8; --experiment-text: #4a3668; --experiment-label: #8b72b0;
+  --discovery-bg: #faf5ee; --discovery-border: #c8b080; --discovery-text: #5a4a2e; --discovery-label: #a89060;
+
+  /* Phase 4 = amber/green, gemäss roter Faden */
+  --accent: #7a9342;          /* gedämpftes Grün, passend zur Vertiefungsphase */
+  --accent-light: #f1f4e8;
+  --accent-strong: #4c5e25;
+
+  --quiz-bg: #f8f7f4;
+  --correct-bg: #eef6f0; --correct-border: #7bc08a; --correct-text: #2d5a37;
+  --wrong-bg: #fceaea; --wrong-border: #e07070; --wrong-text: #7a2020;
+  --forms-bg: #e8eff7; --forms-border: #8aadd4; --forms-text: #2c4a6e;
+  --onenote-bg: #f4f0fa; --onenote-border: #a890c8; --onenote-text: #4a3668;
+  --teams-bg: #f0f0fa; --teams-border: #7b83c8; --teams-text: #3b3b6e;
+
+  /* Bindungstyp-Farben (analog MINT-Skript) */
+  --ionisch-bg: #eef6f0; --ionisch-border: #5fa46b; --ionisch-text: #1f5a2c;
+  --metall-bg: #fceee7; --metall-border: #d57a55; --metall-text: #6b2f15;
+  --kovalent-bg: #e8eff7; --kovalent-border: #5b8ab5; --kovalent-text: #1f3a5c;
+
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --radius: 10px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.7; }
+
+/* === LAYOUT === */
+.layout { display: flex; min-height: 100vh; }
+
+/* === SIDEBAR === */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+.sidebar-brand {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  padding: 0 20px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.sidebar-brand small { display: block; font-family: var(--sans); font-size: 0.72rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; letter-spacing: 0.04em; }
+.sidebar-phase {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+  padding: 14px 20px 6px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: rgba(0,0,0,0.03); }
+.nav-item.active { color: var(--accent); background: var(--accent-light); border-left-color: var(--accent); }
+.nav-item.done { color: var(--merksatz-text); }
+.nav-item.locked { color: var(--text-light); cursor: not-allowed; opacity: 0.55; }
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+.nav-item.active .nav-dot { background: var(--accent); }
+.nav-item.done .nav-dot { background: var(--merksatz-border); }
+.lock-icon { font-size: 11px; margin-left: auto; }
+
+/* === MAIN CONTENT === */
+.main-wrap { flex: 1; min-width: 0; }
+.progress-bar { position: sticky; top: 0; height: 3px; background: var(--border); z-index: 50; }
+.progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.15s; }
+.content { max-width: 800px; margin: 0 auto; padding: 32px 40px 80px; }
+
+.hero-inline { padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 36px; }
+.phase-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--accent-light);
+  color: var(--accent-strong);
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+h1 { font-family: var(--serif); font-size: 2.1rem; font-weight: 400; line-height: 1.2; margin-bottom: 8px; }
+.subtitle { color: var(--text-muted); font-size: 1.02rem; }
+
+section { margin-bottom: 64px; padding-top: 8px; }
+.lesson-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 24px;
+}
+.lesson-number {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.lesson-header h2 { font-family: var(--serif); font-size: 1.7rem; font-weight: 400; line-height: 1.25; }
+h3 { font-family: var(--sans); font-size: 1.2rem; font-weight: 700; margin: 28px 0 12px; color: var(--text); }
+h4 { font-family: var(--sans); font-size: 1.02rem; font-weight: 700; margin: 22px 0 10px; color: var(--text); }
+p { margin-bottom: 14px; }
+ul, ol { padding-left: 24px; margin-bottom: 14px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 600; }
+em { font-style: italic; color: var(--text-muted); }
+
+/* === BLÖCKE === */
+.glossar, .merksatz, .aufgabe, .experiment, .discovery {
+  border-left: 4px solid;
+  padding: 16px 20px;
+  margin: 20px 0;
+  border-radius: 0 8px 8px 0;
+}
+.glossar { background: var(--glossar-bg); border-color: var(--glossar-border); color: var(--glossar-text); }
+.merksatz { background: var(--merksatz-bg); border-color: var(--merksatz-border); color: var(--merksatz-text); }
+.aufgabe { background: var(--aufgabe-bg); border-color: var(--aufgabe-border); color: var(--aufgabe-text); }
+.experiment { background: var(--experiment-bg); border-color: var(--experiment-border); color: var(--experiment-text); }
+.discovery { background: var(--discovery-bg); border-color: var(--discovery-border); color: var(--discovery-text); }
+.glossar-label, .merksatz-label, .aufgabe-label, .experiment-label, .discovery-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  display: block;
+}
+.glossar-label { color: var(--glossar-label); }
+.merksatz-label { color: var(--merksatz-label); }
+.aufgabe-label { color: var(--aufgabe-label); }
+.experiment-label { color: var(--experiment-label); }
+.discovery-label { color: var(--discovery-label); }
+.glossar-term { font-weight: 700; font-size: 1.02rem; margin-bottom: 4px; }
+
+.lernziele {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 18px 22px;
+  border-radius: var(--radius);
+  margin: 0 0 28px;
+}
+.lernziele h3 {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+.lernziele ul { margin: 0; padding-left: 20px; }
+.lernziele li { font-size: 0.92rem; margin-bottom: 4px; }
+
+/* === TABELLEN === */
+.data-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 0.9rem; }
+.data-table th, .data-table td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+.data-table th { background: var(--bg-alt); font-weight: 600; font-size: 0.82rem; }
+.data-table tr:last-child td { border-bottom: none; }
+
+/* === TASK CARDS === */
+.task-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 18px 0 28px; }
+.task-card { padding: 16px 18px; border-radius: 8px; border: 1px solid; transition: transform 0.15s, box-shadow 0.15s; cursor: pointer; }
+.task-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.task-card.forms { background: var(--forms-bg); border-color: var(--forms-border); }
+.task-card.onenote { background: var(--onenote-bg); border-color: var(--onenote-border); }
+.task-card.teams { background: var(--teams-bg); border-color: var(--teams-border); }
+.task-card-icon { font-size: 22px; margin-bottom: 6px; }
+.task-card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 3px; }
+.task-card.forms .task-card-title { color: var(--forms-text); }
+.task-card.onenote .task-card-title { color: var(--onenote-text); }
+.task-card.teams .task-card-title { color: var(--teams-text); }
+.task-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; }
+.task-hint { display: none; margin-top: 10px; padding: 10px 14px; background: rgba(168,144,200,0.1); border-radius: 6px; font-size: 0.82rem; color: var(--onenote-text); line-height: 1.5; }
+.task-hint.show { display: block; }
+
+/* === BRIDGE-BOX === */
+.bridge-box {
+  margin: 36px 0;
+  padding: 16px 20px;
+  background: #faf5ee;
+  border-left: 4px solid #d4a574;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.92rem;
+  color: var(--discovery-text);
+}
+.bridge-box strong { color: var(--accent-strong); }
+
+/* === SUMMARY CARDS === */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+.summary-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.summary-card h4 {
+  font-family: var(--sans);
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+  margin: 0 0 6px;
+}
+.summary-card p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--text);
+}
+.summary-card .phase-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--accent-light);
+  color: var(--accent-strong);
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+
+/* === BINDUNGSTYP-KARTEN === */
+.bindung-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.bindung-card {
+  border-radius: 10px;
+  padding: 18px 18px 16px;
+  border: 1px solid;
+  border-left-width: 4px;
+}
+.bindung-card.ionisch { background: var(--ionisch-bg); border-color: var(--ionisch-border); color: var(--ionisch-text); }
+.bindung-card.metall { background: var(--metall-bg); border-color: var(--metall-border); color: var(--metall-text); }
+.bindung-card.kovalent { background: var(--kovalent-bg); border-color: var(--kovalent-border); color: var(--kovalent-text); }
+.bindung-card h4 {
+  margin-top: 0;
+  margin-bottom: 4px;
+  font-size: 1.02rem;
+  color: inherit;
+}
+.bindung-card .bindung-sub {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+.bindung-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  background: white;
+  border-radius: 6px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+.bindung-card p { font-size: 0.85rem; line-height: 1.55; margin-bottom: 6px; color: inherit; }
+.bindung-card .beispiel {
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  background: rgba(255,255,255,0.5);
+  padding: 6px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+/* === MINT BILD-FIGURE === */
+.mint-figure {
+  margin: 22px 0;
+  text-align: center;
+}
+.mint-figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: white;
+  padding: 6px;
+}
+.mint-figure figcaption {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* === STOFF-GALERIE (Lektion 12.1) === */
+.stoff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0 24px;
+}
+.stoff-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+}
+.stoff-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+.stoff-card .stoff-label {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  padding: 10px 8px 8px;
+}
+.stoff-card .stoff-formel {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding: 0 8px 10px;
+}
+
+/* === ENTSCHEIDUNGS-TOOL === */
+.bindung-tool {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin: 24px 0;
+}
+.bindung-tool h4 {
+  margin-top: 0;
+  font-size: 1.02rem;
+}
+.bindung-tool .tool-sub {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.tool-question {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--border);
+}
+.tool-question:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+.tool-prompt {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 0.94rem;
+}
+.tool-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.tool-btn {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  padding: 7px 14px;
+  background: white;
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-weight: 500;
+}
+.tool-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.tool-btn.selected-correct {
+  background: var(--correct-bg);
+  border-color: var(--correct-border);
+  color: var(--correct-text);
+}
+.tool-btn.selected-wrong {
+  background: var(--wrong-bg);
+  border-color: var(--wrong-border);
+  color: var(--wrong-text);
+}
+.tool-feedback {
+  display: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.tool-feedback.show { display: block; }
+.tool-feedback.correct { background: var(--correct-bg); color: var(--correct-text); border-left: 3px solid var(--correct-border); }
+.tool-feedback.wrong { background: var(--wrong-bg); color: var(--wrong-text); border-left: 3px solid var(--wrong-border); }
+
+/* === MODELLVERGLEICH === */
+.modell-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0 24px;
+}
+.modell-step {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 14px 12px;
+  position: relative;
+}
+.modell-step .jahr {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text-light);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.modell-step h4 {
+  margin: 4px 0 8px;
+  font-size: 1rem;
+  color: var(--accent-strong);
+}
+.modell-step .modell-kern {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.modell-step .modell-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.modell-step .tag {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  background: var(--accent-light);
+  color: var(--accent-strong);
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+.modell-step .tag.grenze { background: #fdeae3; color: #8a3618; }
+
+/* === FOOTER NOTE / QUELLE === */
+.quelle-box {
+  margin-top: 28px;
+  padding: 12px 16px;
+  background: var(--bg-alt);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .content { padding: 32px 18px 80px; }
+  .task-links { grid-template-columns: 1fr; }
+  .bindung-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .modell-grid { grid-template-columns: 1fr 1fr; }
+  .stoff-grid { grid-template-columns: 1fr; }
+}
+@media print {
+  .sidebar, .progress-bar, .task-links, .bindung-tool { display: none; }
+  .content { max-width: 100%; padding: 20px; }
+  body { font-size: 11pt; }
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+section { animation: fadeUp 0.4s ease-out both; }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ======== SIDEBAR ======== -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    Thema 4 · Atombau
+    <small>Chemie GLF · 1. Gymnasium · Va</small>
+    <a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a>
+  </div>
+
+  <div class="sidebar-phase">Phase 1 · Lektionen 1–3</div>
+  <a href="atombau.html#L1" class="nav-item done"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
+  <a href="atombau.html#L2" class="nav-item done"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
+  <a href="atombau.html#L3" class="nav-item done"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
+
+  <div class="sidebar-phase">Phase 2 · Lektionen 4–7</div>
+  <a href="atombau-phase2.html#L4" class="nav-item done"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr)</a>
+  <a href="atombau-phase2.html#L5" class="nav-item done"><span class="nav-dot"></span>L5 – Orbitalmodell</a>
+  <a href="atombau-phase2.html#L6" class="nav-item done"><span class="nav-dot"></span>L6 – Elektronenkonfiguration</a>
+  <a href="atombau-phase2.html#L7" class="nav-item done"><span class="nav-dot"></span>L7 – Flammenfärbung</a>
+
+  <div class="sidebar-phase">Phase 3 · Lektionen 8–10</div>
+  <a href="atombau-phase3.html#L8" class="nav-item done"><span class="nav-dot"></span>L8 – Das Periodensystem</a>
+  <a href="atombau-phase3.html#L9" class="nav-item done"><span class="nav-dot"></span>L9 – Trends im PSE</a>
+  <a href="atombau-phase3.html#L10" class="nav-item done"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis</a>
+
+  <div class="sidebar-phase">Phase 4 · Lektionen 11–12</div>
+  <a href="#L11" class="nav-item active"><span class="nav-dot"></span>L11 – Repetition &amp; Synthese</a>
+  <a href="#L12" class="nav-item"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen</a>
+  <a href="#abschluss" class="nav-item"><span class="nav-dot"></span>Abschluss</a>
+</nav>
+
+<!-- ======== MAIN ======== -->
+<div class="main-wrap">
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<main class="content">
+
+<div class="hero-inline">
+  <div class="phase-badge">Phase 4 · Lektionen 11–12</div>
+  <h1>Vertiefung und Ausblick</h1>
+  <p class="subtitle">Repetition der Phasen 1–3 und ein erster Blick auf die chemische Bindung</p>
+</div>
+
+<!-- ============================================================ -->
+<!--                  LEKTION 11 – REPETITION                      -->
+<!-- ============================================================ -->
+<section id="L11">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 11</div>
+    <h2>Repetition und Synthese</h2>
+  </div>
+
+  <div class="lernziele">
+    <h3>Lernziele</h3>
+    <ul>
+      <li>Sie können die zentralen Konzepte aus den Phasen 1–3 in eigenen Worten erklären.</li>
+      <li>Sie können das Coulomb-Gesetz verwenden, um den Atombau, die Trends im PSE und die Bindungstendenz zu begründen.</li>
+      <li>Sie können die vier Atommodelle (Dalton → Rutherford → Bohr → Orbitalmodell) ordnen und ihre Stärken und Grenzen nennen.</li>
+      <li>Sie können gemischte Aufgaben aus dem ganzen Thema selbständig lösen.</li>
+    </ul>
+  </div>
+
+  <p>Bevor wir uns in Lektion 12 mit der chemischen Bindung beschäftigen, halten wir kurz inne und schauen, was Sie aus den ersten drei Phasen mitnehmen sollten. Die folgenden acht Konzepte bilden das Fundament für alles, was in der Chemie noch kommt — vom Periodensystem über Reaktionen bis hin zur organischen Chemie.</p>
+
+  <h3>11.1 Die zentralen Konzepte auf einen Blick</h3>
+
+  <div class="summary-grid">
+
+    <div class="summary-card">
+      <span class="phase-tag">Phase 1</span>
+      <h4>Kern-Hülle-Modell</h4>
+      <p>Das Atom besteht aus einem winzigen, positiv geladenen <strong>Kern</strong> und einer fast leeren <strong>Hülle</strong> mit Elektronen. Belegt durch den Rutherford-Streuversuch.</p>
+    </div>
+
+    <div class="summary-card">
+      <span class="phase-tag">durchzieht alles</span>
+      <h4>Coulomb-Gesetz</h4>
+      <p>Anziehung zwischen Ladungen: <em>je grösser die Ladungen, je kleiner der Abstand, desto stärker die Kraft.</em> Erklärt Atomradius, Ionisierungsenergie, Elektronegativität und am Schluss auch die chemische Bindung.</p>
+    </div>
+
+    <div class="summary-card">
+      <span class="phase-tag">Phase 1</span>
+      <h4>Elementarteilchen &amp; Isotope</h4>
+      <p>Protonenzahl bestimmt das <strong>Element</strong>, Neutronenzahl variiert (<strong>Isotope</strong>), Elektronen machen das Atom neutral. Nuklidsymbol: <span style="font-family:var(--mono)">ᴬ<sub>Z</sub>X</span>.</p>
+    </div>
+
+    <div class="summary-card">
+      <span class="phase-tag">Phase 2</span>
+      <h4>Schalenmodell (Bohr)</h4>
+      <p>Elektronen besetzen Schalen K, L, M, N mit definierten Energieniveaus (max. <span style="font-family:var(--mono)">2n²</span> e⁻). Erklärt Ionisierungsenergie-Stufen und Flammenfärbung.</p>
+    </div>
+
+    <div class="summary-card">
+      <span class="phase-tag">Phase 2</span>
+      <h4>Orbitalmodell</h4>
+      <p>Innerhalb der Schalen gibt es Unterschalen <strong>s, p, d, f</strong>. Orbitale sind Aufenthaltsräume für max. 2 e⁻ (Pauli, Hund, Aufbauprinzip).</p>
+    </div>
+
+    <div class="summary-card">
+      <span class="phase-tag">Phase 2</span>
+      <h4>Elektronenkonfiguration</h4>
+      <p>Verteilung der Elektronen auf die Orbitale, z. B. Na: <span style="font-family:var(--mono)">1s² 2s² 2p⁶ 3s¹</span>. Die Auffüllreihenfolge erklärt den Aufbau des Periodensystems.</p>
+    </div>
+
+    <div class="summary-card">
+      <span class="phase-tag">Phase 3</span>
+      <h4>PSE &amp; Trends</h4>
+      <p>Periode = Schalenzahl, Hauptgruppe = Valenzelektronen. <strong>Atomradius</strong> ↓ rechts, ↑ unten; <strong>Ionisierungsenergie</strong> und <strong>Elektronegativität</strong> verhalten sich umgekehrt.</p>
+    </div>
+
+    <div class="summary-card">
+      <span class="phase-tag">Phase 3</span>
+      <h4>Valenzelektronen &amp; Lewis</h4>
+      <p>Die äusseren Elektronen bestimmen das chemische Verhalten. <strong>sp³-Hybridisierung</strong> liefert 4 gleichwertige Plätze → Lewis-Punkte ums Symbol. Atome streben Edelgaskonfiguration an.</p>
+    </div>
+
+  </div>
+
+  <h3>11.2 Das Coulomb-Gesetz — der rote Faden</h3>
+
+  <table class="data-table" style="max-width:540px;">
+    <thead><tr><th colspan="2">Coulomb-Gesetz</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center; font-family:var(--serif); padding:18px 16px; width:45%; vertical-align:middle;"><span style="font-size:1.5rem;"><em>F</em> = <em>k</em> · </span><span style="display:inline-block; text-align:center; vertical-align:middle; font-size:1.2rem; line-height:1.3;"><span style="display:block; padding:0 4px;"><em>Q</em><sub>1</sub> · <em>Q</em><sub>2</sub></span><span style="display:block; border-top:2px solid currentColor; padding:2px 4px 0;"><em>r</em><sup>2</sup></span></span></td>
+        <td style="font-size:0.88rem; line-height:1.9; padding:14px 16px;">
+          <strong>F:</strong> elektrostatische Kraft<br>
+          <strong>Q<sub>1</sub>, Q<sub>2</sub>:</strong> Ladungen der Körper<br>
+          <strong>r:</strong> Abstand zwischen den Körpern<br>
+          <strong>k:</strong> Konstante (abhängig vom Medium: Vakuum, Luft, Wasser, …)
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Das Coulomb-Gesetz ist die einzige «physikalische» Formel, die wir im Atombau wirklich brauchen — und sie erklärt erstaunlich viel:</p>
+
+  <table class="data-table">
+    <thead><tr><th>Phänomen</th><th>Coulomb-Erklärung</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Atomradius</strong> nimmt nach rechts ab</td>
+        <td>Mehr Protonen → höhere Kernladung → stärkere Anziehung der Elektronen → kleinerer Radius.</td>
+      </tr>
+      <tr>
+        <td><strong>Atomradius</strong> nimmt nach unten zu</td>
+        <td>Neue Schale → grösserer Abstand <em>r</em> → schwächere Anziehung → grösserer Radius.</td>
+      </tr>
+      <tr>
+        <td><strong>Ionisierungsenergie</strong></td>
+        <td>Je stärker die Anziehung Kern–Elektron, desto mehr Energie nötig, um es zu entfernen.</td>
+      </tr>
+      <tr>
+        <td><strong>Elektronegativität</strong></td>
+        <td>Mass dafür, wie stark ein Atom in einer Bindung die gemeinsamen Elektronen anzieht — das Coulomb-Gesetz in Aktion.</td>
+      </tr>
+      <tr>
+        <td><strong>Chemische Bindung</strong> (Lektion 12)</td>
+        <td>Alle drei Bindungstypen beruhen auf Coulomb-Anziehung — nur die geometrische Anordnung der Ladungen unterscheidet sich.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz</div>
+    <p>Wenn Sie sich <em>eine</em> Idee aus dem ganzen Thema Atombau merken können, dann diese: <strong>Chemie ist im Kern Coulomb-Anziehung zwischen positiven und negativen Ladungen.</strong> Alle anderen Konzepte (Schalen, Orbitale, EN, Bindungstypen) sind Werkzeuge, um diese Anziehung greifbar zu machen.</p>
+  </div>
+
+  <h3>11.3 Modellvergleich</h3>
+  <p>Im Verlauf der Geschichte hat sich unser Bild vom Atom mehrfach verändert — immer dann, wenn ein Modell ein neues Experiment nicht mehr erklären konnte. Hier die vier wichtigsten Stationen:</p>
+
+  <div class="modell-grid">
+
+    <div class="modell-step">
+      <span class="jahr">1808</span>
+      <h4>Dalton</h4>
+      <div class="modell-kern">Atome sind unteilbare, kugelige Bausteine. Jedes Element hat seine eigene Atomsorte.</div>
+      <div class="modell-tags">
+        <span class="tag">Massenerhaltung</span>
+        <span class="tag grenze">keine innere Struktur</span>
+      </div>
+    </div>
+
+    <div class="modell-step">
+      <span class="jahr">1911</span>
+      <h4>Rutherford</h4>
+      <div class="modell-kern">Kern-Hülle-Modell: kleiner positiver Kern, fast leere Hülle mit Elektronen.</div>
+      <div class="modell-tags">
+        <span class="tag">Streuversuch</span>
+        <span class="tag grenze">keine Elektronen-Anordnung</span>
+      </div>
+    </div>
+
+    <div class="modell-step">
+      <span class="jahr">1913</span>
+      <h4>Bohr</h4>
+      <div class="modell-kern">Elektronen auf festen Schalen mit definierten Energien. Quantensprünge erklären Spektrallinien.</div>
+      <div class="modell-tags">
+        <span class="tag">Flammenfärbung</span>
+        <span class="tag grenze">scheitert ab Helium</span>
+      </div>
+    </div>
+
+    <div class="modell-step">
+      <span class="jahr">ab 1926</span>
+      <h4>Orbitalmodell</h4>
+      <div class="modell-kern">Elektronen als Aufenthaltswahrscheinlichkeit in Orbitalen (s, p, d, f). Quantenmechanisch begründet.</div>
+      <div class="modell-tags">
+        <span class="tag">alle Elemente</span>
+        <span class="tag grenze">anschaulich schwierig</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="discovery"><div class="discovery-label">Wichtig</div>
+    <p>Jedes Modell hat seine Berechtigung und wir verwenden unterschiedliche Modelle, um unterschiedliche Phänomene zu beschreiben. Modelle sind <em>Werkzeuge</em>, keine Abbilder der Wirklichkeit.</p>
+  </div>
+
+  <h3>11.4 Repetitionsaufgaben über das ganze Thema</h3>
+
+  <p>Die folgenden 10 Aufgaben decken den Stoff der Phasen 1–3 in gemischter Form ab. Sie finden Sie im Klassennotizbuch. Lösen Sie zuerst selbständig — die Lösungen werden in der Lektion besprochen.</p>
+
+  <div class="task-links" style="grid-template-columns: 1fr;">
+    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
+      <div class="task-card-icon">&#128221;</div>
+      <div class="task-card-title">Repetitionsaufgaben 11.1 – 11.10</div>
+      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
+      <div class="task-hint">Die 10 Aufgaben (gemischt über Phasen 1–3) finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau – Repetition Phase 4</strong>.</div>
+    </div>
+  </div>
+
+  <div class="bridge-box">
+    <strong>Brücke zu Lektion 12:</strong> Sie haben jetzt das ganze Werkzeug zusammen — Schalen, Orbitale, Valenzelektronen, Edelgasregel und Elektronegativität. Damit beantworten wir nun die zentrale Frage der Chemie: <em>Wie und warum verbinden sich Atome zu Stoffen?</em>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!--                  LEKTION 12 – BINDUNGSTYPEN                   -->
+<!-- ============================================================ -->
+<section id="L12">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 12</div>
+    <h2>Ausblick: Die drei Bindungstypen</h2>
+  </div>
+
+  <div class="lernziele">
+    <h3>Lernziele</h3>
+    <ul>
+      <li>Sie können die drei Bindungstypen (ionisch, metallisch, kovalent) benennen und ihre Voraussetzungen unterscheiden.</li>
+      <li>Sie können anhand der Elektronegativität entscheiden, welcher Bindungstyp zwischen zwei Elementen vorliegt.</li>
+      <li>Sie können für die drei Prototypen NaCl, Cu und H₂O je ein einfaches Modellbild beschreiben.</li>
+    </ul>
+  </div>
+
+  <h3>12.1 Wieso überhaupt eine Bindung?</h3>
+
+  <p>Schauen Sie sich diese drei Stoffe an. Sie sehen alle drei kristallin und klar aus — und doch verhalten sie sich völlig unterschiedlich:</p>
+
+  <div class="stoff-grid">
+    <div class="stoff-card">
+      <img src="img/wasser.png" alt="Wassereiskristall">
+      <div class="stoff-label">Wasser (Eis)</div>
+      <div class="stoff-formel">H₂O</div>
+    </div>
+    <div class="stoff-card">
+      <img src="img/nacl.png" alt="Natriumchlorid-Kristall">
+      <div class="stoff-label">Natriumchlorid</div>
+      <div class="stoff-formel">NaCl</div>
+    </div>
+    <div class="stoff-card">
+      <img src="img/diamant.png" alt="Diamant">
+      <div class="stoff-label">Diamant</div>
+      <div class="stoff-formel">C</div>
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Stoff</th><th>Wasser (Eis)</th><th>Natriumchlorid</th><th>Diamant</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Formel</td><td>H₂O</td><td>NaCl</td><td>C</td></tr>
+      <tr><td>Schmelztemperatur</td><td>0 °C</td><td>801 °C</td><td>ca. 4 000 °C</td></tr>
+    </tbody>
+  </table>
+
+  <p>Wie kann es sein, dass so ähnlich aussehende Stoffe so unterschiedliche Eigenschaften haben? Die Antwort liegt auf der Ebene der <strong>Bindungen</strong> zwischen den Teilchen. Genau dort steigen wir jetzt ein.</p>
+
+  <div class="merksatz"><div class="merksatz-label">Die Grundidee</div>
+    <p>Atome gehen Bindungen ein, weil sie damit eine <strong>edelgasähnliche Elektronenkonfiguration</strong> erreichen — also einen Zustand niedriger Energie. Die Edelgasregel, die Sie aus Phase 3 kennen, ist der Antrieb hinter <em>jeder</em> chemischen Bindung.</p>
+  </div>
+
+  <h3>12.2 Elektronegativität entscheidet</h3>
+
+  <p>Ob zwischen zwei Atomen eine ionische, metallische oder kovalente Bindung entsteht, hängt von ihrer <strong>Elektronegativität (EN)</strong> ab. Erinnern Sie sich:</p>
+
+  <ul>
+    <li><strong>Metalle</strong> haben tiefe EN-Werte (typisch &lt; 2,0) → «Elektronen<em>opfer</em>», geben Elektronen leicht ab.</li>
+    <li><strong>Nichtmetalle</strong> haben hohe EN-Werte (typisch &gt; 2,0) → «Elektronen<em>räuber</em>», ziehen Elektronen stark an.</li>
+  </ul>
+
+  <p>Aus diesen zwei Gruppen lassen sich drei Kombinationen bilden — und genau diese drei Kombinationen ergeben die drei Bindungstypen:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr><th></th><th>Nichtmetall (Räuber)</th><th>Metall (Opfer)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th style="background:var(--bg-alt); text-align:left;">Nichtmetall (Räuber)</th>
+        <td style="background:var(--kovalent-bg); color:var(--kovalent-text); font-weight:600;">kovalente Bindung</td>
+        <td style="background:var(--ionisch-bg); color:var(--ionisch-text); font-weight:600;">ionische Bindung</td>
+      </tr>
+      <tr>
+        <th style="background:var(--bg-alt); text-align:left;">Metall (Opfer)</th>
+        <td style="background:var(--ionisch-bg); color:var(--ionisch-text); font-weight:600;">ionische Bindung</td>
+        <td style="background:var(--metall-bg); color:var(--metall-text); font-weight:600;">metallische Bindung</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>12.3 Die drei Bindungstypen im Überblick</h3>
+
+  <div class="bindung-grid">
+
+    <div class="bindung-card ionisch">
+      <div class="bindung-sub">Metall + Nichtmetall</div>
+      <h4>Ionische Bindung</h4>
+      <img src="img/mint-ionengitter.jpeg" alt="Ionengitter aus NaCl">
+      <p>Das Nichtmetall <strong>entreisst</strong> dem Metall seine Valenzelektronen. Es entstehen <strong>Kationen</strong> (+) und <strong>Anionen</strong> (−), die sich gegenseitig anziehen und im <strong>Ionengitter</strong> anordnen.</p>
+      <span class="beispiel">Prototyp: NaCl</span>
+    </div>
+
+    <div class="bindung-card metall">
+      <div class="bindung-sub">Metall + Metall</div>
+      <h4>Metallische Bindung</h4>
+      <img src="img/mint-metallbindung.jpeg" alt="Modell der metallischen Bindung">
+      <p>Beide Atome geben Valenzelektronen ab. Es bleiben positive <strong>Atomrümpfe</strong> übrig, eingebettet in ein <strong>Elektronengas</strong> aus frei beweglichen Elektronen. Diese halten das ganze Metallgitter zusammen.</p>
+      <span class="beispiel">Prototyp: Cu, Fe, Al</span>
+    </div>
+
+    <div class="bindung-card kovalent">
+      <div class="bindung-sub">Nichtmetall + Nichtmetall</div>
+      <h4>Kovalente Bindung</h4>
+      <img src="img/mint-cl2-molekuel.jpeg" alt="Cl2-Molekül als Beispiel einer kovalenten Bindung">
+      <p>Treffen zwei oder mehrere Elektronenräuber aufeinander, so können keine Elektronen abgegeben werden, sie müssen diese vielmehr untereinander <strong>aufteilen</strong>. Verbinden sich beispielsweise zwei Chloratome miteinander, so ziehen beide Atomkerne die Valenzelektronen beider Atome an. Diese Anziehung der Valenzelektronen durch beide Kerne führt dazu, dass die Atome in einem kleinen Abstand zueinander bleiben. Diese Art chemischer Bindung wird als <strong>kovalente Bindung</strong> bezeichnet [lat. <em>co(n)</em> = mit, <em>valentia</em> = Kraft, Stärke].</p>
+      <span class="beispiel">Prototyp: H₂O, CO₂, O₂</span>
+    </div>
+
+  </div>
+
+  <h3>12.4 Übersichtstabelle</h3>
+
+  <p>Die folgende Tabelle aus dem MINT-Skript fasst die drei Bindungsarten kompakt zusammen:</p>
+
+  <figure class="mint-figure">
+    <img src="img/mint-tabelle-bindungsarten.jpeg" alt="Übersichtstabelle der drei Bindungsarten (ionisch, metallisch, kovalent)">
+    <figcaption>Tabelle 1: Die drei Bindungsarten. Quelle: Zwyssig &amp; Lipscher, MINT-Lernzentrum ETH Zürich.</figcaption>
+  </figure>
+
+  <h3>12.5 Welche Bindung liegt vor? — Interaktiv</h3>
+  <p>Wenden Sie das Gelernte an. Klicken Sie auf die Antwort, die Sie für richtig halten — Sie erhalten direkt Feedback.</p>
+
+  <div class="bindung-tool">
+    <h4>Bestimmen Sie den Bindungstyp</h4>
+    <p class="tool-sub">Tipp: Schauen Sie zuerst, welche <em>Art</em> von Elementen beteiligt sind (Metall / Nichtmetall).</p>
+
+    <div class="tool-question">
+      <div class="tool-prompt"><span style="color:var(--accent-strong); font-family:var(--mono); margin-right:6px;">1.</span> Magnesium (Mg) und Sauerstoff (O)</div>
+      <div class="tool-options">
+        <button class="tool-btn" data-correct="true" onclick="toolAnswer(this, 'ion')">ionisch</button>
+        <button class="tool-btn" data-correct="false" onclick="toolAnswer(this, 'met')">metallisch</button>
+        <button class="tool-btn" data-correct="false" onclick="toolAnswer(this, 'kov')">kovalent</button>
+      </div>
+      <div class="tool-feedback correct">Richtig! Mg ist ein Metall (EN ≈ 1,2), O ein Nichtmetall (EN ≈ 3,5) → grosse EN-Differenz → Elektronen-Übertragung → <strong>ionische Bindung</strong> (Mg²⁺ und O²⁻ im Gitter, MgO).</div>
+      <div class="tool-feedback wrong">Schauen Sie nochmals: Was für ein Element ist Mg, was für eines ist O? Welche Kombination ergibt welchen Bindungstyp?</div>
+    </div>
+
+    <div class="tool-question">
+      <div class="tool-prompt"><span style="color:var(--accent-strong); font-family:var(--mono); margin-right:6px;">2.</span> Wasserstoff (H) und Chlor (Cl)</div>
+      <div class="tool-options">
+        <button class="tool-btn" data-correct="false" onclick="toolAnswer(this, 'ion')">ionisch</button>
+        <button class="tool-btn" data-correct="false" onclick="toolAnswer(this, 'met')">metallisch</button>
+        <button class="tool-btn" data-correct="true" onclick="toolAnswer(this, 'kov')">kovalent</button>
+      </div>
+      <div class="tool-feedback correct">Richtig! H und Cl sind beide Nichtmetalle (EN-Werte 2,1 bzw. 3,0). Sie teilen sich ein gemeinsames Elektronenpaar → <strong>kovalente Bindung</strong> (HCl-Molekül).</div>
+      <div class="tool-feedback wrong">Beachten Sie: Beide Atome sind Nichtmetalle. Welcher Bindungstyp entsteht zwischen zwei Nichtmetallen?</div>
+    </div>
+
+    <div class="tool-question">
+      <div class="tool-prompt"><span style="color:var(--accent-strong); font-family:var(--mono); margin-right:6px;">3.</span> Eisen (Fe) und Eisen (Fe)</div>
+      <div class="tool-options">
+        <button class="tool-btn" data-correct="false" onclick="toolAnswer(this, 'ion')">ionisch</button>
+        <button class="tool-btn" data-correct="true" onclick="toolAnswer(this, 'met')">metallisch</button>
+        <button class="tool-btn" data-correct="false" onclick="toolAnswer(this, 'kov')">kovalent</button>
+      </div>
+      <div class="tool-feedback correct">Richtig! Zwei Metallatome unter sich (Fe hat EN ≈ 1,8). Beide geben Valenzelektronen ab → Atomrümpfe + Elektronengas → <strong>metallische Bindung</strong>.</div>
+      <div class="tool-feedback wrong">Hinweis: Eisen ist ein Metall. Was passiert, wenn nur Metallatome aufeinandertreffen?</div>
+    </div>
+
+    <div class="tool-question">
+      <div class="tool-prompt"><span style="color:var(--accent-strong); font-family:var(--mono); margin-right:6px;">4.</span> Kalium (K) und Brom (Br)</div>
+      <div class="tool-options">
+        <button class="tool-btn" data-correct="true" onclick="toolAnswer(this, 'ion')">ionisch</button>
+        <button class="tool-btn" data-correct="false" onclick="toolAnswer(this, 'met')">metallisch</button>
+        <button class="tool-btn" data-correct="false" onclick="toolAnswer(this, 'kov')">kovalent</button>
+      </div>
+      <div class="tool-feedback correct">Richtig! K ist ein Metall (EN ≈ 0,8), Br ein Nichtmetall (EN ≈ 2,8). EN-Differenz ist sehr gross → klare <strong>ionische Bindung</strong> (K⁺ und Br⁻ → KBr).</div>
+      <div class="tool-feedback wrong">Welche Hauptgruppen sind K und Br? Welches Element gibt ab, welches nimmt auf?</div>
+    </div>
+
+    <div class="tool-question">
+      <div class="tool-prompt"><span style="color:var(--accent-strong); font-family:var(--mono); margin-right:6px;">5.</span> Stickstoff (N) und Stickstoff (N)</div>
+      <div class="tool-options">
+        <button class="tool-btn" data-correct="false" onclick="toolAnswer(this, 'ion')">ionisch</button>
+        <button class="tool-btn" data-correct="false" onclick="toolAnswer(this, 'met')">metallisch</button>
+        <button class="tool-btn" data-correct="true" onclick="toolAnswer(this, 'kov')">kovalent</button>
+      </div>
+      <div class="tool-feedback correct">Richtig! Zwei Nichtmetallatome unter sich → sie teilen Elektronenpaare → <strong>kovalente Bindung</strong>. Hier sogar eine Dreifachbindung: N≡N (Luftstickstoff N₂).</div>
+      <div class="tool-feedback wrong">Was sind zwei gleiche Nichtmetallatome füreinander? Räuber gegen Räuber — wer gewinnt?</div>
+    </div>
+
+  </div>
+
+
+  <div class="quelle-box">
+    <strong>Quellennachweis Abbildungen Lektion 12:</strong> Ionengitter (Abb. 2), Modell der metallischen Bindung (Abb. 3) und Chlormolekül (Abb. 4) entnommen aus: Zwyssig, A. &amp; Lipscher, J.: <em>I. Einführung in die drei Bindungsarten</em>. MINT-Lernzentrum, ETH Zürich. Mit freundlicher Genehmigung zur Nutzung im Unterricht.
+  </div>
+
+</section>
+
+
+<!-- ============================================================ -->
+<!--                  ABSCHLUSS                                    -->
+<!-- ============================================================ -->
+<section id="abschluss">
+  <div class="lesson-header" style="border-bottom-color: #d4a574;">
+    <div class="lesson-number" style="color:#a89060;">Abschluss</div>
+    <h2>Wie geht es weiter?</h2>
+  </div>
+
+  <p>Mit der chemischen Bindung verlassen wir die Welt der einzelnen Atome und betreten die <strong>Stoffchemie</strong>. Ab jetzt geht es um <em>echte</em> Stoffe — wie sie aufgebaut sind, wie sie miteinander reagieren, welche Eigenschaften daraus entstehen.</p>
+
+  <div class="bridge-box">
+    <strong>Ausblick:</strong> In den nächsten Themen (chemische Bindungen, Aufbau und Eigenschaften und Chemische Reaktionen) bauen wir konsequent auf dem Atombau auf. Sie werden sehen: Was wir hier zu Schalen, Valenzelektronen, EN und Bindungen gelernt haben, kommt in nahezu jeder Stunde wieder vor. Das Atom ist die <em>Sprache</em> der Chemie.
+  </div>
+
+  <p style="text-align:center; color:var(--text-muted); margin-top:32px; font-size:0.9rem;">
+    <strong>Damit ist das Thema Atombau abgeschlossen.</strong><br>
+    <span style="font-size:0.82rem;">Vielen Dank für Ihre Aufmerksamkeit und Ihr Engagement.</span>
+  </p>
+</section>
+
+</main>
+</div>
+</div>
+
+<script>
+// === Progress bar ===
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const pct = el.scrollHeight > el.clientHeight
+    ? (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100
+    : 0;
+  const fill = document.getElementById('progressFill');
+  if (fill) fill.style.width = pct + '%';
+});
+
+// === Sidebar Active State beim Scrollen ===
+const sections = document.querySelectorAll('section[id]');
+const navItems = document.querySelectorAll('.sidebar a.nav-item');
+window.addEventListener('scroll', () => {
+  const scrollY = window.pageYOffset;
+  sections.forEach(section => {
+    const top = section.offsetTop - 100;
+    const height = section.offsetHeight;
+    const id = section.getAttribute('id');
+    if (scrollY >= top && scrollY < top + height) {
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        const href = item.getAttribute('href');
+        if (href === '#' + id) item.classList.add('active');
+      });
+    }
+  });
+});
+
+// === Entscheidungs-Tool: Antwort-Logik ===
+function toolAnswer(btn, choice) {
+  const question = btn.closest('.tool-question');
+  if (question.dataset.locked === 'true') return;
+
+  const allBtns = question.querySelectorAll('.tool-btn');
+  const feedbacks = question.querySelectorAll('.tool-feedback');
+  const isCorrect = btn.dataset.correct === 'true';
+
+  // Buttons stylen
+  allBtns.forEach(b => {
+    b.classList.remove('selected-correct', 'selected-wrong');
+    if (b === btn) {
+      b.classList.add(isCorrect ? 'selected-correct' : 'selected-wrong');
+    }
+  });
+
+  // Feedback anzeigen
+  feedbacks.forEach(f => f.classList.remove('show'));
+  const fbClass = isCorrect ? 'correct' : 'wrong';
+  question.querySelector('.tool-feedback.' + fbClass).classList.add('show');
+
+  // Bei richtig: sperren
+  if (isCorrect) {
+    question.dataset.locked = 'true';
+    allBtns.forEach(b => { if (b !== btn) b.style.opacity = '0.45'; });
+  }
+}
+</script>
+</body>
+</html>
