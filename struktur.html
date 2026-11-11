@@ -127,6 +127,14 @@ details.loesung.locked summary::before { content: '🔒 '; }
 .gate { margin-top: 14px; background: rgba(255,255,255,0.75); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
 .gate-title { font-family: var(--mono); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
 .gate-row { display: grid; grid-template-columns: minmax(120px, 1fr) minmax(140px, 1.3fr) 24px; gap: 8px; align-items: center; margin-bottom: 6px; font-size: 0.88rem; }
+.in-wrap { display: flex; gap: 6px; min-width: 0; }
+.in-wrap input { flex: 1; }
+.sub-btn { font-family: var(--sans); font-size: 0.85rem; font-weight: 700; padding: 0 9px; border: 1.5px solid var(--border); border-radius: 6px; background: white; color: var(--text-muted); cursor: pointer; white-space: nowrap; }
+.sub-btn:hover { border-color: var(--accent); }
+.sub-btn.on { background: var(--accent); border-color: var(--accent); color: white; }
+.tr-inrow { display: flex; justify-content: center; gap: 8px; }
+.tr-inrow .tr-input { max-width: 320px; }
+.tr-inrow .sub-btn { font-size: 1rem; padding: 0 12px; }
 .gate-row input { font-family: var(--sans); font-size: 0.92rem; padding: 6px 9px; border: 1.5px solid var(--border); border-radius: 6px; background: white; min-width: 0; }
 .gate-row input.ok { border-color: var(--correct-border); background: var(--correct-bg); }
 .gate-row input.bad { border-color: var(--wrong-border); background: var(--wrong-bg); }
@@ -1104,7 +1112,7 @@ section { animation: fadeUp 0.4s ease-out both; }
   </div>
 
   <h3>4.3 Formel-Trainer</h3>
-  <p>Jetzt geht es ums Üben. Der Trainer stellt Ihnen beliebig viele Aufgaben in beide Richtungen. Beginnen Sie mit Stufe 1 und steigern Sie sich. Tippen Sie Formeln einfach mit normalen Zahlen ein (z.&nbsp;B. <span class="f" style="font-family:var(--mono);">Ca(NO3)2</span>) – die Tiefstellung erfolgt automatisch.</p>
+  <p>Jetzt geht es ums Üben. Der Trainer stellt Ihnen beliebig viele Aufgaben in beide Richtungen. Beginnen Sie mit Stufe 1 und steigern Sie sich. Tippen Sie Formeln mit normalen Zahlen ein (z.&nbsp;B. <span class="f" style="font-family:var(--mono);">Ca(NO3)2</span>) oder schalten Sie mit dem Knopf <strong>X<sub>2</sub></strong> das Tiefstellen ein. Beides wird richtig erkannt.</p>
 
   <div class="widget">
     <div class="widget-header"><span class="widget-title">Formel-Trainer</span><span class="widget-badge">UNBEGRENZT ÜBEN</span></div>
@@ -1113,7 +1121,7 @@ section { animation: fadeUp 0.4s ease-out both; }
       <div class="tr-card">
         <div class="tr-dir" id="trDir"></div>
         <div class="tr-task" id="trTask"></div>
-        <input class="tr-input" id="trInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ihre Antwort">
+        <div class="tr-inrow"><input class="tr-input" id="trInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ihre Antwort"></div>
         <div class="tr-preview" id="trPreview"></div>
         <div class="tr-fb" id="trFb"></div>
         <div class="tr-actions">
@@ -1413,6 +1421,38 @@ document.querySelectorAll('.lbk').forEach(box => {
   render();
 });
 
+/* ===================== Knopf zum Tiefstellen von Zahlen ===================== */
+const SUB = '₀₁₂₃₄₅₆₇₈₉';
+const toSub = t => t.replace(/[0-9]/g, d => SUB[d]);
+function addSubButton(inp) {
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'sub-btn';
+  btn.title = 'Zahlen tiefstellen (ein/aus). Markierte Zahlen werden direkt tiefgestellt.';
+  btn.setAttribute('aria-pressed', 'false');
+  btn.innerHTML = 'X<sub>2</sub>';
+  inp.insertAdjacentElement('afterend', btn);
+  // Auswahl merken, bevor der Klick den Fokus vom Feld nimmt
+  btn.addEventListener('mousedown', e => e.preventDefault());
+  btn.addEventListener('click', () => {
+    const a = inp.selectionStart, b = inp.selectionEnd;
+    if (a !== b && /[0-9]/.test(inp.value.slice(a, b))) {
+      inp.setRangeText(toSub(inp.value.slice(a, b)), a, b, 'end');
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+    } else {
+      btn.classList.toggle('on');
+      btn.setAttribute('aria-pressed', btn.classList.contains('on'));
+    }
+    inp.focus();
+  });
+  inp.addEventListener('beforeinput', e => {
+    if (!btn.classList.contains('on') || e.inputType !== 'insertText' || !e.data || !/[0-9]/.test(e.data)) return;
+    e.preventDefault();
+    inp.setRangeText(toSub(e.data), inp.selectionStart, inp.selectionEnd, 'end');
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  return btn;
+}
+
 /* ===================== Lösungen erst nach Eigenleistung ===================== */
 const MOL = (formula, name, alt) => ({ formula, name, alt: alt || [], type: 'mol' });
 const ION = (c, a) => ionicCompound(CATIONS[c], ANIONS[a]);
@@ -1474,7 +1514,7 @@ document.querySelectorAll('.gate').forEach(g => {
     return;
   }
   g.innerHTML = `<div class="gate-title">Zuerst selbst lösen – bei richtiger Eingabe wird die Lösung freigeschaltet</div>
-    ${fields.map((f, i) => `<div class="gate-row"><span>${f.label}</span><input data-i="${i}" type="text" autocomplete="off" spellcheck="false" placeholder="${f.kind === 'formula' ? 'Formel, z. B. Al2O3' : f.kind === 'name' ? 'Name' : ''}"><span class="mark"></span></div>`).join('')}
+    ${fields.map((f, i) => `<div class="gate-row"><span>${f.label}</span><span class="in-wrap"><input data-i="${i}" data-kind="${f.kind}" type="text" autocomplete="off" spellcheck="false" placeholder="${f.kind === 'formula' ? 'Formel, z. B. Al₂O₃' : f.kind === 'name' ? 'Name' : ''}"></span><span class="mark"></span></div>`).join('')}
     ${cfg.text ? `<div class="gate-label">${cfg.text.label} <em>(freiwillig, wird nicht geprüft)</em></div><textarea></textarea>` : ''}
     <div class="gate-actions"><button class="btn primary">Prüfen</button><span class="gate-msg"></span></div>`;
   det.querySelector('summary').addEventListener('click', e => { if (det.classList.contains('locked')) { e.preventDefault(); g.querySelector('.gate-msg').className = 'gate-msg bad'; g.querySelector('.gate-msg').innerHTML = 'Die Lösung ist noch gesperrt. Füllen Sie zuerst die Felder oben richtig aus.'; } });
@@ -1484,8 +1524,9 @@ document.querySelectorAll('.gate').forEach(g => {
     g.querySelectorAll('input').forEach(inp => {
       const r = checkField(fields[inp.dataset.i], inp.value);
       inp.classList.toggle('ok', r.ok); inp.classList.toggle('bad', !r.ok && inp.value.trim() !== '');
-      inp.nextElementSibling.textContent = r.ok ? '✓' : (inp.value.trim() ? '✗' : '');
-      inp.nextElementSibling.style.color = r.ok ? 'var(--correct-text)' : 'var(--wrong-text)';
+      const mark = inp.closest('.gate-row').querySelector('.mark');
+      mark.textContent = r.ok ? '✓' : (inp.value.trim() ? '✗' : '');
+      mark.style.color = r.ok ? 'var(--correct-text)' : 'var(--wrong-text)';
       if (!r.ok && !firstErr) firstErr = fields[inp.dataset.i].label.replace(/<[^>]+>/g, '') + ': ' + (r.msg || 'noch nicht richtig.');
     });
     if (firstErr) { msg.className = 'gate-msg bad'; msg.innerHTML = firstErr; return; }
@@ -1496,6 +1537,7 @@ document.querySelectorAll('.gate').forEach(g => {
   }
   g.querySelector('.btn').onclick = check;
   g.querySelectorAll('input').forEach(inp => inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); check(); } }));
+  g.querySelectorAll('input[data-kind="formula"]').forEach(addSubButton);
   // gespeicherte Eingaben wiederherstellen
   const gs = store['gate:' + g.dataset.gate] = store['gate:' + g.dataset.gate] || { vals: [], text: '', done: false };
   g.querySelectorAll('input').forEach(inp => {
@@ -1890,6 +1932,7 @@ const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
   function saveTrainer() { store.trainer = { level, right, total, streak }; saveStore(); }
   function showStats() { $('trRight').textContent = right; $('trTotal').textContent = total; $('trStreak').textContent = streak; }
   const inp = $('trInput'), fb = $('trFb');
+  const trSub = addSubButton(inp);
   $('trLevels').innerHTML = LEVELS.map((l, i) => `<button class="tr-level${i === level ? ' active' : ''}" data-i="${i}">${l.l}</button>`).join('');
   $('trLevels').addEventListener('click', e => {
     const b = e.target.closest('.tr-level'); if (!b) return;
@@ -1903,10 +1946,12 @@ const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
     fb.className = 'tr-fb'; inp.value = ''; $('trPreview').innerHTML = '';
     if (task.dir === 'n2f') {
       $('trDir').textContent = 'Name → Formel';
+      trSub.style.display = '';
       $('trTask').textContent = cap(task.name);
-      inp.placeholder = 'Formel, z. B. Al2O3';
+      inp.placeholder = 'Formel, z. B. Al₂O₃';
     } else {
       $('trDir').textContent = 'Formel → Name';
+      trSub.style.display = 'none';
       $('trTask').innerHTML = fmtF(task.formula);
       inp.placeholder = 'Name, z. B. Aluminiumoxid';
     }
