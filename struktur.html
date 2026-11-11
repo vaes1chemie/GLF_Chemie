@@ -1822,13 +1822,13 @@ function renderToolQuestions(container, items, options) {
       q.querySelector('.tool-feedback.' + (correct ? 'correct' : 'wrong')).classList.add('show');
       if (correct) {
         q.dataset.locked = '1'; q.querySelectorAll('.tool-btn').forEach(b => { if (b !== btn) b.style.opacity = '0.45'; });
-        store.tool = store.tool || {}; store.tool[container.id + ':' + i] = btn.dataset.v; saveStore();
+        store.tool = store.tool || {}; store.tool[container.id + ':' + items[i].p.replace(/<[^>]+>/g, '')] = btn.dataset.v; saveStore();
         const nm = q.querySelector('.tq-name'); if (nm) nm.hidden = false;
       }
     });
     // Namensschritt
     const nm = q.querySelector('.tq-name'); if (!nm) return;
-    const it = items[i], key = container.id + ':' + i, inp = nm.querySelector('input'), fb = nm.querySelector('.tq-fb'), solve = nm.querySelector('.tq-solve');
+    const it = items[i], key = container.id + ':' + items[i].p.replace(/<[^>]+>/g, ''), inp = nm.querySelector('input'), fb = nm.querySelector('.tq-fb'), solve = nm.querySelector('.tq-solve');
     store.toolName = store.toolName || {};
     const st = store.toolName[key] = store.toolName[key] || { val: '', tried: false, solved: false };
     const cap1 = t => t.charAt(0).toUpperCase() + t.slice(1);
@@ -1858,7 +1858,7 @@ function renderToolQuestions(container, items, options) {
   });
   // gelöste Fragen wiederherstellen
   container.querySelectorAll('.tool-question').forEach((q, i) => {
-    const v = (store.tool || {})[container.id + ':' + i];
+    const v = (store.tool || {})[container.id + ':' + items[i].p.replace(/<[^>]+>/g, '')];
     if (v) { const b = q.querySelector('.tool-btn[data-v="' + v + '"]'); if (b) b.click(); }
   });
 }
@@ -1874,8 +1874,6 @@ renderToolQuestions(document.getElementById('classify'), [
     ok: 'Richtig! Ein Kupfer-Ion und das Sulfat-Ion <span class="f">SO<sub>4</sub><sup>2−</sup></span>.', no: 'Cu ist ein Metall. Welches Anion steckt in <span class="f">SO<sub>4</sub></span>?' },
   { p: '<span class="f">SiO<sub>2</sub></span>', a: 'mol', comp: () => MOL('SiO2', 'Siliciumdioxid', ['siliziumdioxid']), info: 'Das ist Quarz, der Hauptbestandteil von Sand',
     ok: 'Richtig! Silicium ist ein Halbmetall und bildet mit Sauerstoff kovalente Bindungen.', no: 'Silicium steht in Gruppe 14 – es gibt keine Elektronen ab. Welche Bindung entsteht mit Sauerstoff?' },
-  { p: '<span class="f">H<sub>2</sub>SO<sub>4</sub></span> (reine Säure)', a: 'mol', comp: () => MOL('H2SO4', 'Schwefelsäure'), info: 'Für diesen Stoff verwendet man den Trivialnamen',
-    ok: 'Richtig – eine Falle! Die reine Säure besteht nur aus Nichtmetallen und bildet Moleküle. Sulfat-Ionen entstehen erst, wenn man sie in Wasser löst (Thema Säuren).', no: 'Schauen Sie genau hin: Ist hier ein Metall oder ein Ammonium-Ion beteiligt?' },
   { p: '<span class="f">KOH</span>', a: 'mi', comp: () => ION('K', 'OH'),
     ok: 'Richtig! <span class="f">K<sup>+</sup></span> und das Hydroxid-Ion <span class="f">OH<sup>−</sup></span>.', no: 'K ist ein Metall. Welches Anion bilden O und H gemeinsam?' }
 ], [
