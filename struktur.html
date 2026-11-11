@@ -240,6 +240,8 @@ details.loesung.locked summary::before { content: '🔒 '; }
 .lbk-btns { display: flex; gap: 6px; margin-top: 10px; }
 .lbk-btn, .btn { font-family: var(--sans); font-size: 0.85rem; font-weight: 600; padding: 6px 12px; border: 1.5px solid var(--border); border-radius: 6px; background: white; cursor: pointer; transition: all 0.15s; color: var(--text); }
 .lbk-btn:hover, .btn:hover { border-color: var(--accent); background: var(--accent-light); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn:disabled:hover { border-color: var(--border); background: white; }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
 .btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
 .lbk-stage { min-height: 96px; background: white; border: 1px dashed var(--border); border-radius: 8px; padding: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; }
@@ -1029,7 +1031,7 @@ section { animation: fadeUp 0.4s ease-out both; }
       <div class="prefix-grid" id="prefixGrid"></div>
       <div class="widget-actions">
         <button class="btn primary" onclick="checkPrefixes()">Prüfen</button>
-        <button class="btn" onclick="showPrefixes()">Lösung zeigen</button>
+        <button class="btn" id="prefixSolve" onclick="showPrefixes()" disabled title="Ab 7 richtigen Zahlwörtern verfügbar">🔒 Lösung zeigen</button>
         <span class="widget-msg" id="prefixMsg"></span>
       </div>
     </div>
@@ -1116,7 +1118,7 @@ section { animation: fadeUp 0.4s ease-out both; }
   </ul></div>
 
   <h3>4.1 Der Entscheidungsbaum</h3>
-  <p>Die meisten Fehler passieren nicht, weil man eine Regel nicht kennt, sondern weil man die <em>falsche</em> Regel anwendet. Stellen Sie sich deshalb immer zuerst die Frage: <strong>Welche Elemente sind beteiligt?</strong></p>
+  <p>Die meisten Fehler passieren nicht, weil man eine Regel nicht kennt, sondern weil man die <em>falsche</em> Regel anwendet. Stellen Sie sich deshalb immer zuerst die Frage: <strong>Welche Elemente sind beteiligt?</strong> Habe ich eine Molekülverbindung oder eine Ionenverbindung, die ich benennen soll?</p>
 
   <div class="widget">
     <div class="widget-header"><span class="widget-title">Welche Regel gilt?</span><span class="widget-badge">ÜBERSICHT</span></div>
@@ -1757,7 +1759,8 @@ const PREFIXES = [['mono'],['di'],['tri'],['tetra'],['penta'],['hexa'],['hepta']
 document.querySelectorAll('#prefixGrid input').forEach(inp => {
   store.prefix = store.prefix || [];
   inp.value = store.prefix[inp.dataset.i] || '';
-  inp.addEventListener('input', () => { store.prefix[inp.dataset.i] = inp.value; saveStore(); });
+  inp.addEventListener('input', () => { store.prefix[inp.dataset.i] = inp.value; saveStore(); inp.classList.remove('ok', 'bad'); });
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') checkPrefixes(); });
 });
 if (store.prefixChecked) setTimeout(() => checkPrefixes(), 0);
 function checkPrefixes() {
@@ -1766,13 +1769,22 @@ function checkPrefixes() {
   document.querySelectorAll('#prefixGrid input').forEach(inp => {
     const v = inp.value.trim().toLowerCase().replace(/-/g, '');
     const good = PREFIXES[inp.dataset.i].includes(v);
-    inp.classList.toggle('ok', good); inp.classList.toggle('bad', !good && v !== '');
+    inp.classList.toggle('ok', good); inp.classList.toggle('bad', !good);
     if (good) ok++;
   });
-  document.getElementById('prefixMsg').textContent = ok === 10 ? 'Perfekt – alle 10 richtig!' : ok + ' von 10 richtig.';
+  const msg = document.getElementById('prefixMsg'), btn = document.getElementById('prefixSolve');
+  if (ok >= 7) { btn.disabled = false; btn.textContent = 'Lösung zeigen'; btn.title = ''; }
+  msg.textContent = ok === 10 ? 'Perfekt – alle 10 richtig!'
+    : ok + ' von 10 richtig. Verbessern Sie die rot markierten Felder und prüfen Sie nochmals.'
+      + (ok >= 7 ? ' Die Lösung ist jetzt freigeschaltet.' : ' Ab 7 richtigen können Sie die Lösung anzeigen.');
 }
 function showPrefixes() {
-  document.querySelectorAll('#prefixGrid input').forEach(inp => { inp.value = PREFIXES[inp.dataset.i][0]; inp.classList.add('ok'); inp.classList.remove('bad'); });
+  if (document.getElementById('prefixSolve').disabled) return;
+  document.querySelectorAll('#prefixGrid input').forEach(inp => {
+    inp.value = PREFIXES[inp.dataset.i][0]; inp.classList.add('ok'); inp.classList.remove('bad');
+    store.prefix[inp.dataset.i] = inp.value;
+  });
+  saveStore();
   document.getElementById('prefixMsg').textContent = '';
 }
 
