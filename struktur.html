@@ -1162,6 +1162,11 @@ section { animation: fadeUp 0.4s ease-out both; }
     <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0;">Dazu kommen die einatomigen Anionen Fluorid, Chlorid, Bromid, Iodid, Oxid, Sulfid, Nitrid, Phosphid und Hydrid (Tabelle in Abschnitt 1.3).</p>
   </div>
 
+  <div style="margin-top:28px; padding:14px 18px; background:var(--bg-alt); border-radius:8px; font-size:0.85rem; color:var(--text-muted); display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;">
+    <span>Ihre Eingaben auf dieser Seite werden nur in diesem Browser gespeichert – nicht auf einem Server.</span>
+    <button class="btn" onclick="resetFortschritt()">Meine Eingaben löschen</button>
+  </div>
+
   <p id="phase2-teaser" style="text-align:center; color:var(--text-muted); margin-top:44px; font-size:0.9rem;">
     <strong>Weiter geht's in Phase 2:</strong> Aufbau und Eigenschaften von Metallen und Legierungen
   </p>
@@ -1189,6 +1194,17 @@ section { animation: fadeUp 0.4s ease-out both; }
    Leer lassen = der Block wird nicht angezeigt.
    ================================================================ */
 const FORMS_URL = 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=rQuDwrIivEKqXe-HgrWYGz2j0qfMSOpEqRiOQYLBt2dUM0Q3UEdPWDNUS1YyUVFOTDkwTVRQRUJCUC4u';
+
+/* ===================== Fortschritt im Browser speichern ===================== */
+const STORE_KEY = 'glf-fortschritt-struktur-1';
+let store = {};
+try { store = JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { store = {}; }
+function saveStore() { try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
+function resetFortschritt() {
+  if (!confirm('Alle Ihre Eingaben auf dieser Seite löschen?')) return;
+  try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+  location.reload();
+}
 
 /* ===================== Allgemein ===================== */
 window.addEventListener('scroll', () => {
@@ -1218,6 +1234,8 @@ document.querySelectorAll('.option').forEach(o => {
 function selectOption(el) {
   const q = el.closest('.question');
   if (q.classList.contains('answered')) return;
+  const qi = [...document.querySelectorAll('.question')].indexOf(q);
+  store.quiz = store.quiz || {}; store.quiz[qi] = [...q.querySelectorAll('.option')].indexOf(el); saveStore();
   q.classList.add('answered');
   const options = q.querySelectorAll('.option');
   const feedbacks = q.querySelectorAll('.feedback');
@@ -1435,6 +1453,9 @@ document.querySelectorAll('.gate').forEach(g => {
     g.classList.add('notes');
     g.innerHTML = `<div class="gate-title">Ihre Notizen (freiwillig, wird nicht geprüft)</div><div class="gate-label">${cfg.text.label}</div><textarea></textarea>`;
     det.classList.remove('locked');
+    const ta = g.querySelector('textarea'), key = 'notiz:' + g.dataset.gate;
+    ta.value = store[key] || '';
+    ta.addEventListener('input', () => { store[key] = ta.value; saveStore(); });
     return;
   }
   g.innerHTML = `<div class="gate-title">Zuerst selbst lösen – bei richtiger Eingabe wird die Lösung freigeschaltet</div>
@@ -1454,11 +1475,21 @@ document.querySelectorAll('.gate').forEach(g => {
     });
     if (firstErr) { msg.className = 'gate-msg bad'; msg.innerHTML = firstErr; return; }
     det.classList.remove('locked'); g.classList.add('done');
+    gs.done = true; saveStore();
     msg.className = 'gate-msg ok'; msg.innerHTML = '✓ Alle Eingaben sind richtig – die Lösung ist jetzt freigeschaltet. Vergleichen Sie auch Ihre übrigen Antworten damit.';
     det.querySelector('summary').textContent = det.querySelector('summary').textContent.replace(/^🔒\s*/, '');
   }
   g.querySelector('.btn').onclick = check;
   g.querySelectorAll('input').forEach(inp => inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); check(); } }));
+  // gespeicherte Eingaben wiederherstellen
+  const gs = store['gate:' + g.dataset.gate] = store['gate:' + g.dataset.gate] || { vals: [], text: '', done: false };
+  g.querySelectorAll('input').forEach(inp => {
+    inp.value = gs.vals[inp.dataset.i] || '';
+    inp.addEventListener('input', () => { gs.vals[inp.dataset.i] = inp.value; saveStore(); });
+  });
+  const ta = g.querySelector('textarea');
+  if (ta) { ta.value = gs.text || ''; ta.addEventListener('input', () => { gs.text = ta.value; saveStore(); }); }
+  if (gs.done) check();
 });
 
 /* ===================== Molekülionen-Explorer (Lewis) ===================== */
@@ -1604,7 +1635,14 @@ const PREFIXES = [['mono'],['di'],['tri'],['tetra'],['penta'],['hexa'],['hepta']
   document.getElementById('prefixGrid').innerHTML = PREFIXES.map((p, i) =>
     `<div class="prefix-cell"><div class="num">${i + 1}</div><input data-i="${i}" type="text" autocomplete="off" spellcheck="false" aria-label="Zahlwort für ${i + 1}"></div>`).join('');
 })();
+document.querySelectorAll('#prefixGrid input').forEach(inp => {
+  store.prefix = store.prefix || [];
+  inp.value = store.prefix[inp.dataset.i] || '';
+  inp.addEventListener('input', () => { store.prefix[inp.dataset.i] = inp.value; saveStore(); });
+});
+if (store.prefixChecked) setTimeout(() => checkPrefixes(), 0);
 function checkPrefixes() {
+  store.prefixChecked = true; saveStore();
   let ok = 0;
   document.querySelectorAll('#prefixGrid input').forEach(inp => {
     const v = inp.value.trim().toLowerCase().replace(/-/g, '');
@@ -1637,8 +1675,16 @@ function renderToolQuestions(container, items, options) {
       btn.classList.add(correct ? 'selected-correct' : 'selected-wrong');
       q.querySelectorAll('.tool-feedback').forEach(f => f.classList.remove('show'));
       q.querySelector('.tool-feedback.' + (correct ? 'correct' : 'wrong')).classList.add('show');
-      if (correct) { q.dataset.locked = '1'; q.querySelectorAll('.tool-btn').forEach(b => { if (b !== btn) b.style.opacity = '0.45'; }); }
+      if (correct) {
+        q.dataset.locked = '1'; q.querySelectorAll('.tool-btn').forEach(b => { if (b !== btn) b.style.opacity = '0.45'; });
+        store.tool = store.tool || {}; store.tool[container.id + ':' + i] = btn.dataset.v; saveStore();
+      }
     });
+  });
+  // gelöste Fragen wiederherstellen
+  container.querySelectorAll('.tool-question').forEach((q, i) => {
+    const v = (store.tool || {})[container.id + ':' + i];
+    if (v) { const b = q.querySelector('.tool-btn[data-v="' + v + '"]'); if (b) b.click(); }
   });
 }
 
@@ -1823,13 +1869,16 @@ function explain(comp) {
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 
 (function initTrainer() {
-  let level = 0, task = null, answered = false, right = 0, total = 0, streak = 0, hintUsed = false;
+  const tr = store.trainer || {};
+  let level = tr.level || 0, task = null, answered = false, right = tr.right || 0, total = tr.total || 0, streak = tr.streak || 0, hintUsed = false;
   const $ = id => document.getElementById(id);
+  function saveTrainer() { store.trainer = { level, right, total, streak }; saveStore(); }
+  function showStats() { $('trRight').textContent = right; $('trTotal').textContent = total; $('trStreak').textContent = streak; }
   const inp = $('trInput'), fb = $('trFb');
-  $('trLevels').innerHTML = LEVELS.map((l, i) => `<button class="tr-level${i === 0 ? ' active' : ''}" data-i="${i}">${l.l}</button>`).join('');
+  $('trLevels').innerHTML = LEVELS.map((l, i) => `<button class="tr-level${i === level ? ' active' : ''}" data-i="${i}">${l.l}</button>`).join('');
   $('trLevels').addEventListener('click', e => {
     const b = e.target.closest('.tr-level'); if (!b) return;
-    level = +b.dataset.i;
+    level = +b.dataset.i; saveTrainer();
     document.querySelectorAll('.tr-level').forEach(x => x.classList.toggle('active', x === b));
     next();
   });
@@ -1862,14 +1911,14 @@ const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
       if (!answered) { total++; streak = 0; answered = true; }
       setFb('wrong', r.msg);
     }
-    $('trRight').textContent = right; $('trTotal').textContent = total; $('trStreak').textContent = streak;
+    showStats(); saveTrainer();
   }
   $('trCheck').onclick = check;
   inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); if (fb.classList.contains('correct')) next(); else check(); } });
   $('trNext').onclick = next;
   $('trSolve').onclick = () => {
     if (!task) return;
-    if (!answered) { total++; streak = 0; answered = true; $('trTotal').textContent = total; $('trStreak').textContent = streak; }
+    if (!answered) { total++; streak = 0; answered = true; showStats(); saveTrainer(); }
     setFb('info', 'Lösung: <strong>' + (task.dir === 'n2f' ? fmtF(task.formula) : cap(task.name)) + '</strong><br><span style="font-size:0.84rem;">' + explain(task) + '</span>');
   };
   $('trHint').onclick = () => {
@@ -1880,12 +1929,20 @@ const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
     else h = 'Ionenverbindung. Das Anion ist ' + ionHTML(task.a.s, task.a.q) + (task.c.t === 'u' ? '. Das Metall braucht eine römische Ziffer.' : '.');
     setFb('info', '💡 ' + h);
   };
+  showStats();
   next();
 })();
 
 /* ===================== Forms & Auto-Unlock ===================== */
 if (FORMS_URL) { document.getElementById('formsLink').href = FORMS_URL; document.getElementById('formsBlock').style.display = 'block'; }
 
+
+// Quizantworten wiederherstellen
+Object.entries(store.quiz || {}).forEach(([qi, oi]) => {
+  const q = document.querySelectorAll('.question')[qi];
+  const o = q && q.querySelectorAll('.option')[oi];
+  if (o) selectOption(o);
+});
 
 // Für automatisierte Tests
 window.__chem = { ionicCompound, CATIONS, ANIONS, checkFormula, checkName, makeTask, LEVELS, allowed, parseFormula, MOLECULES };
