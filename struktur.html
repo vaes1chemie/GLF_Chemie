@@ -163,6 +163,25 @@ details.loesung.locked summary::before { content: '🔒 '; }
 .ion-token:hover { opacity:0.7; }
 .lbk-result .kgv { display: block; font-size: 0.84rem; margin-top: 4px; }
 
+/* Stoffkarten 1.5 */
+.stoff-reveal { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0 6px; }
+.sr-card { font-family: var(--sans); text-align: center; background: white; border: 1.5px solid var(--border); border-radius: 12px; padding: 0; cursor: pointer; overflow: hidden; color: var(--text); transition: border-color 0.15s, box-shadow 0.15s; }
+.sr-card:hover { border-color: var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.sr-front { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 190px; padding: 18px; }
+.sr-formel { font-size: 2.4rem; font-weight: 700; }
+.sr-frage { font-size: 0.9rem; color: var(--text-muted); }
+.sr-tipp { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.sr-back { display: none; flex-direction: column; align-items: stretch; text-align: left; }
+.sr-back img { width: 100%; height: 170px; object-fit: cover; display: block; background: var(--bg-alt); }
+.sr-name { font-family: var(--serif); font-size: 1.35rem; padding: 12px 16px 0; }
+.sr-ionen { padding: 2px 16px 0; font-size: 0.95rem; color: var(--accent-strong); font-weight: 600; }
+.sr-text { padding: 6px 16px 16px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+.sr-card.open { cursor: default; border-color: var(--accent); }
+.sr-card.open .sr-front { display: none; }
+.sr-card.open .sr-back { display: flex; animation: pop 0.25s ease-out; }
+.bildnachweis { font-size: 0.72rem; color: var(--text-light); margin: 0 0 18px; }
+.gefahr { display: inline-block; margin-top: 4px; font-size: 0.8rem; color: var(--wrong-text); font-weight: 600; }
+
 /* === TABLES === */
 .data-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.9rem; }
 .data-table th { background: #2f5e5b; color: white; font-weight: 600; padding: 9px 13px; text-align: left; }
@@ -376,6 +395,7 @@ details.loesung.locked summary::before { content: '🔒 '; }
   .content { padding: 32px 16px 80px; }
 }
 @media (max-width: 680px) {
+  .stoff-reveal { grid-template-columns: 1fr; }
   .gate-row { grid-template-columns: 1fr 24px; }
   .gate-row > span:first-child { grid-column: 1 / -1; }
   .flip { height: 240px; }
@@ -594,17 +614,48 @@ section { animation: fadeUp 0.4s ease-out both; }
     </ul>
   </div>
 
-  <h3>1.5 Wenn ein Metall verschiedene Ladungen haben kann</h3>
-  <p>Eisen rostet. Rost besteht zu einem grossen Teil aus <span class="f">Fe<sub>2</sub>O<sub>3</sub></span>. Es gibt aber auch ein schwarzes Eisenoxid mit der Formel <span class="f">FeO</span>. Beide Stoffe mit «Eisenoxid» zu benennen, wäre also nicht eindeutig.</p>
-  <p>Das Problem tritt bei den <strong>Nebengruppenmetallen</strong> auf (z.&nbsp;B. Eisen, Kupfer, Chrom): Sie können Ionen mit unterschiedlichen Ladungen bilden, z.&nbsp;B. <span class="f">Fe<sup>2+</sup></span> und <span class="f">Fe<sup>3+</sup></span>. Welche Ladung in einer Verbindung vorliegt, lässt sich deshalb nicht aus dem Periodensystem ablesen. Deshalb schreibt man die <strong>Ladung des Metall-Ions als römische Ziffer</strong> in Klammern hinter den Metallnamen:</p>
+  <h3>1.5 Eisenoxid – aber welches?</h3>
+  <p>Eisen und Sauerstoff bilden nicht nur ein Oxid. Hier sehen Sie die Formeln von zwei Eisenoxiden. Bestimmen Sie zuerst die Ladung des Eisen-Ions in jedem Stoff – klicken Sie dann auf die Karte.</p>
+
+  <div class="stoff-reveal">
+    <button class="sr-card" type="button" aria-expanded="false">
+      <span class="sr-front">
+        <span class="sr-formel">FeO</span>
+        <span class="sr-frage">Welche Ladung hat das Eisen-Ion?</span>
+        <span class="sr-tipp">Überlegen – dann klicken ↻</span>
+      </span>
+      <span class="sr-back">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Iron%28II%29_oxide.jpg/960px-Iron%28II%29_oxide.jpg" alt="Schwarzes Pulver von Eisen(II)-oxid" loading="lazy">
+        <span class="sr-name">Eisen(II)-oxid</span>
+        <span class="sr-ionen"><span class="f">Fe<sup>2+</sup></span> + <span class="f">O<sup>2−</sup></span></span>
+        <span class="sr-text">Schwarzes Pulver. In der Natur selten (Mineral Wüstit), an der Luft reagiert es weiter mit Sauerstoff.</span>
+      </span>
+    </button>
+    <button class="sr-card" type="button" aria-expanded="false">
+      <span class="sr-front">
+        <span class="sr-formel">Fe<sub>2</sub>O<sub>3</sub></span>
+        <span class="sr-frage">Welche Ladung hat das Eisen-Ion?</span>
+        <span class="sr-tipp">Überlegen – dann klicken ↻</span>
+      </span>
+      <span class="sr-back">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Iron%28III%29-oxide-sample.jpg/960px-Iron%28III%29-oxide-sample.jpg" alt="Rotbraunes Pulver von Eisen(III)-oxid" loading="lazy">
+        <span class="sr-name">Eisen(III)-oxid</span>
+        <span class="sr-ionen">2 <span class="f">Fe<sup>3+</sup></span> + 3 <span class="f">O<sup>2−</sup></span></span>
+        <span class="sr-text">Rotbraunes Pulver. Hauptbestandteil von Rost und des Minerals Hämatit; als Farbpigment verwendet.</span>
+      </span>
+    </button>
+  </div>
+  <p class="bildnachweis">Fotos: Wikimedia Commons, gemeinfrei (Fuzic; Benjah-bmm27).</p>
+
+  <p>Beide Stoffe einfach «Eisenoxid» zu nennen, wäre nicht eindeutig. Das Problem tritt bei den <strong>Nebengruppenmetallen</strong> auf (z.&nbsp;B. Eisen, Kupfer, Mangan): Sie können Ionen mit unterschiedlichen Ladungen bilden, z.&nbsp;B. <span class="f">Fe<sup>2+</sup></span> und <span class="f">Fe<sup>3+</sup></span>. Welche Ladung in einer Verbindung vorliegt, lässt sich deshalb nicht aus dem Periodensystem ablesen. Man schreibt darum die <strong>Ladung des Metall-Ions als römische Ziffer</strong> in Klammern hinter den Metallnamen: <em>Eisen(II)-oxid</em> und <em>Eisen(III)-oxid</em>. Weitere Beispiele:</p>
 
   <div class="table-scroll"><table class="data-table">
-    <thead><tr><th>Formel</th><th>Ionen</th><th>Name</th><th>Aussehen</th></tr></thead>
+    <thead><tr><th>Formel</th><th>Ionen</th><th>Name</th><th>Aussehen</th><th>Hinweis</th></tr></thead>
     <tbody>
-      <tr><td><span class="f">FeO</span></td><td><span class="f">Fe<sup>2+</sup></span> + <span class="f">O<sup>2−</sup></span></td><td><strong>Eisen(II)-oxid</strong></td><td>schwarz</td></tr>
-      <tr><td><span class="f">Fe<sub>2</sub>O<sub>3</sub></span></td><td>2 <span class="f">Fe<sup>3+</sup></span> + 3 <span class="f">O<sup>2−</sup></span></td><td><strong>Eisen(III)-oxid</strong></td><td>rotbraun (Rost)</td></tr>
-      <tr><td><span class="f">CuCl</span></td><td><span class="f">Cu<sup>+</sup></span> + <span class="f">Cl<sup>−</sup></span></td><td><strong>Kupfer(I)-chlorid</strong></td><td>weiss</td></tr>
-      <tr><td><span class="f">CuCl<sub>2</sub></span></td><td><span class="f">Cu<sup>2+</sup></span> + 2 <span class="f">Cl<sup>−</sup></span></td><td><strong>Kupfer(II)-chlorid</strong></td><td>gelbbraun, gelöst blaugrün</td></tr>
+      <tr><td><span class="f">CuCl</span></td><td><span class="f">Cu<sup>+</sup></span> + <span class="f">Cl<sup>−</sup></span></td><td><strong>Kupfer(I)-chlorid</strong></td><td>weiss</td><td>Katalysator in der chemischen Industrie</td></tr>
+      <tr><td><span class="f">CuCl<sub>2</sub></span></td><td><span class="f">Cu<sup>2+</sup></span> + 2 <span class="f">Cl<sup>−</sup></span></td><td><strong>Kupfer(II)-chlorid</strong></td><td>gelbbraun, gelöst blaugrün</td><td>färbt eine Flamme blaugrün</td></tr>
+      <tr><td><span class="f">MnO<sub>2</sub></span></td><td><span class="f">Mn<sup>4+</sup></span> + 2 <span class="f">O<sup>2−</sup></span></td><td><strong>Mangan(IV)-oxid</strong></td><td>schwarzbraunes Pulver («Braunstein»)</td><td>in Alkali-Mangan-Batterien.<br><span class="gefahr">⚠ Achtung: gesundheitsschädlich beim Verschlucken und Einatmen</span></td></tr>
+      <tr><td><span class="f">KMnO<sub>4</sub></span></td><td><span class="f">K<sup>+</sup></span> + <span class="f">MnO<sub>4</sub><sup>−</sup></span></td><td><strong>Kaliumpermanganat</strong></td><td>dunkelviolette Kristalle, gelöst violett</td><td>Hier steckt Mangan in einem Molekülion, dem Permanganat-Ion.<br><span class="gefahr">⚠ Gefahr: brandfördernd, verursacht schwere Verätzungen, kann das ungeborene Kind schädigen, sehr giftig für Wasserorganismen</span></td></tr>
     </tbody>
   </table></div>
 
@@ -1112,7 +1163,7 @@ section { animation: fadeUp 0.4s ease-out both; }
   </div>
 
   <h3>4.3 Formel-Trainer</h3>
-  <p>Jetzt geht es ums Üben. Der Trainer stellt Ihnen beliebig viele Aufgaben in beide Richtungen. Beginnen Sie mit Stufe 1 und steigern Sie sich. Tippen Sie Formeln mit normalen Zahlen ein (z.&nbsp;B. <span class="f" style="font-family:var(--mono);">Ca(NO3)2</span>) oder schalten Sie mit dem Knopf <strong>X<sub>2</sub></strong> das Tiefstellen ein. Beides wird richtig erkannt.</p>
+  <p>Jetzt geht es ums Üben. Der Trainer stellt Ihnen beliebig viele Aufgaben in beide Richtungen. Beginnen Sie mit Stufe 1 und steigern Sie sich. Zahlen in Formeln müssen tiefgestellt sein: Schalten Sie dazu den Knopf <strong>X<sub>2</sub></strong> neben dem Eingabefeld ein, oder markieren Sie die Zahlen und klicken Sie auf X<sub>2</sub>.</p>
 
   <div class="widget">
     <div class="widget-header"><span class="widget-title">Formel-Trainer</span><span class="widget-badge">UNBEGRENZT ÜBEN</span></div>
@@ -1874,6 +1925,11 @@ function acceptedFormulas(comp) {
   return list;
 }
 function checkFormula(comp, ans) {
+  const r = checkFormulaCore(comp, ans);
+  if (r.ok && /[0-9]/.test(ans)) return { ok: false, msg: 'Die Formel stimmt – aber die Zahlen müssen tiefgestellt sein. Schalten Sie den Knopf <strong>X<sub>2</sub></strong> ein oder markieren Sie die Zahlen und klicken Sie auf X<sub>2</sub>.' };
+  return r;
+}
+function checkFormulaCore(comp, ans) {
   const a = normFormula(ans);
   if (!a) return { ok: false, msg: 'Bitte geben Sie eine Formel ein.' };
   if (acceptedFormulas(comp).includes(a)) return { ok: true };
@@ -1996,6 +2052,13 @@ const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 /* ===================== Forms & Auto-Unlock ===================== */
 if (FORMS_URL) { document.getElementById('formsLink').href = FORMS_URL; document.getElementById('formsBlock').style.display = 'block'; }
 
+
+// Stoffkarten 1.5 aufdecken
+document.querySelectorAll('.sr-card').forEach((c, i) => {
+  const open = () => { c.classList.add('open'); c.setAttribute('aria-expanded', 'true'); };
+  c.addEventListener('click', () => { open(); store.karten = store.karten || {}; store.karten[i] = 1; saveStore(); });
+  if ((store.karten || {})[i]) open();
+});
 
 // Quizantworten wiederherstellen
 Object.entries(store.quiz || {}).forEach(([qi, oi]) => {
