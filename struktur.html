@@ -1886,31 +1886,10 @@ const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 /* ===================== Forms & Auto-Unlock ===================== */
 if (FORMS_URL) { document.getElementById('formsLink').href = FORMS_URL; document.getElementById('formsBlock').style.display = 'block'; }
 
-(async function () {
-  const phases = [
-    { num: '2', file: 'struktur-phase2.html' },
-    { num: '3', file: 'struktur-phase3.html' },
-    { num: '4', file: 'struktur-phase4.html' }
-  ];
-  for (const phase of phases) {
-    try {
-      const res = await fetch(phase.file, { method: 'HEAD' });
-      if (res.ok) {
-        document.querySelectorAll('.nav-item[data-phase="' + phase.num + '"]').forEach(item => {
-          item.classList.remove('locked'); item.href = phase.file;
-          const lock = item.querySelector('.lock-icon'); if (lock) lock.remove();
-        });
-        if (phase.num === '2') {
-          const t = document.getElementById('phase2-teaser');
-          if (t) t.innerHTML = '<a href="' + phase.file + '" style="color:var(--accent); text-decoration:none; font-weight:600;">&rarr; <strong>Weiter zu Phase 2:</strong> Aufbau und Eigenschaften von Metallen und Legierungen</a>';
-        }
-      }
-    } catch (e) { /* gesperrt lassen */ }
-  }
-})();
 
 // Für automatisierte Tests
 window.__chem = { ionicCompound, CATIONS, ANIONS, checkFormula, checkName, makeTask, LEVELS, allowed, parseFormula, MOLECULES };
 </script>
+<script src="freigabe.js"></script>
 </body>
 </html>

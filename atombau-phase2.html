@@ -1060,36 +1060,7 @@ function newElement() {
   loadElement(next);
 }
 
-// === Auto-unlock: prüft, welche Phase-Dateien existieren ===
-(async function() {
-  const phases = [
-    { num: '3', file: 'atombau-phase3.html' },
-    { num: '4', file: 'atombau-phase4.html' }
-  ];
-  for (const phase of phases) {
-    try {
-      const res = await fetch(phase.file, { method: 'HEAD' });
-      if (res.ok) {
-        const items = document.querySelectorAll('.nav-item[data-phase="' + phase.num + '"]');
-        items.forEach(item => {
-          item.classList.remove('locked');
-          item.href = phase.file;
-          const lock = item.querySelector('.lock-icon');
-          if (lock) lock.remove();
-        });
-        // Teaser am Seitenende zu Link machen (nur Phase 3)
-        if (phase.num === '3') {
-          const teaser = document.getElementById('phase3-teaser');
-          if (teaser) {
-            teaser.innerHTML = '<a href="' + phase.file + '" style="color:var(--accent); text-decoration:none; font-weight:600;">&rarr; <strong>Weiter zu Phase 3:</strong> Valenzelektronen, Periodensystem und Ionenbildung</a>';
-          }
-        }
-      }
-    } catch (e) {
-      // Datei nicht erreichbar → gesperrt lassen
-    }
-  }
-})();
 </script>
+<script src="freigabe.js"></script>
 </body>
 </html>

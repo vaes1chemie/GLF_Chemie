@@ -1078,38 +1078,7 @@ function selectOption(el) {
   }
 }
 
-// Auto-unlock: prüft ob Phase-Dateien existieren und schaltet Sidebar-Links frei
-(async function() {
-  const phases = [
-    { num: '2', file: 'atombau-phase2.html' },
-    { num: '3', file: 'atombau-phase3.html' },
-    { num: '4', file: 'atombau-phase4.html' }
-  ];
-  for (const phase of phases) {
-    try {
-      const res = await fetch(phase.file, { method: 'HEAD' });
-      if (res.ok) {
-        // Phase-Datei existiert → alle zugehörigen Sidebar-Links freischalten
-        const items = document.querySelectorAll('.nav-item[data-phase="' + phase.num + '"]');
-        items.forEach(item => {
-          item.classList.remove('locked');
-          item.href = phase.file;
-          const lock = item.querySelector('.lock-icon');
-          if (lock) lock.remove();
-        });
-        // Phase-2-Teaser am Seitenende zu Link machen
-        if (phase.num === '2') {
-          const teaser = document.getElementById('phase2-teaser');
-          if (teaser) {
-            teaser.innerHTML = '<a href="' + phase.file + '" style="color:var(--accent); text-decoration:none; font-weight:600;">&rarr; <strong>Weiter zu Phase 2:</strong> Schalenmodell, Orbitalmodell, Elektronenkonfiguration und Flammenfärbung</a>';
-          }
-        }
-      }
-    } catch (e) {
-      // Datei nicht erreichbar → gesperrt lassen
-    }
-  }
-})();
 </script>
+<script src="freigabe.js"></script>
 </body>
 </html>
