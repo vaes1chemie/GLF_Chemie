@@ -76,8 +76,13 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); font
 .lernziele { background: var(--accent-light); border: 1px solid #bfdcd9; border-radius: var(--radius); padding: 22px 26px; margin: 24px 0; }
 .lernziele h3 { font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px; }
 .lernziele ul { list-style: none; padding: 0; margin: 0; }
-.lernziele li { padding: 3px 0 3px 22px; position: relative; font-size: 0.92rem; color: var(--accent-strong); }
-.lernziele li::before { content: '\2192'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.lernziele li { padding: 3px 0; font-size: 0.92rem; color: var(--accent-strong); }
+.lernziele label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.lernziele input[type=checkbox] { appearance: none; -webkit-appearance: none; flex-shrink: 0; width: 18px; height: 18px; margin-top: 3px; border: 2px solid var(--accent); border-radius: 4px; background: white; cursor: pointer; display: grid; place-content: center; }
+.lernziele input[type=checkbox]::after { content: '✓'; font-size: 13px; font-weight: 700; color: white; line-height: 1; }
+.lernziele input[type=checkbox]:checked { background: var(--accent); }
+.lernziele li.erreicht span { color: var(--text-muted); }
+.lernziele .lz-hinweis { font-size: 0.74rem; color: var(--text-light); margin: 8px 0 0; }
 h3 { font-family: var(--serif); font-size: 1.45rem; font-weight: 400; margin: 40px 0 14px; }
 h4 { font-size: 1.02rem; font-weight: 700; margin: 24px 0 10px; }
 p { margin-bottom: 16px; }
@@ -162,6 +167,10 @@ details.loesung.locked summary::before { content: '🔒 '; }
 .ion-token { cursor:pointer; font-family:var(--sans); }
 .ion-token:hover { opacity:0.7; }
 .lbk-result .kgv { display: block; font-size: 0.84rem; margin-top: 4px; }
+
+/* Notizfeld */
+.notiz-box { margin-top: 14px; background: rgba(255,255,255,0.75); border: 1px dashed var(--border); border-radius: 8px; padding: 10px 14px 12px; }
+.notiz-box textarea { width: 100%; min-height: 90px; font-family: var(--sans); font-size: 0.9rem; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 6px; resize: vertical; background: white; margin-top: 4px; }
 
 /* Stoffkarten 1.5 */
 .stoff-reveal { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0 6px; }
@@ -261,8 +270,8 @@ details.loesung.locked summary::before { content: '🔒 '; }
 .mi-panel svg { width: 100%; height: auto; display: block; }
 .mi-name { font-family: var(--serif); font-size: 1.5rem; line-height: 1.2; }
 .mi-formula { font-size: 1.15rem; font-weight: 700; color: var(--accent-strong); margin: 2px 0 10px; }
-.mi-row { font-size: 0.86rem; margin-bottom: 6px; line-height: 1.5; }
-.mi-row b { display: inline-block; min-width: 92px; color: var(--text-muted); font-weight: 600; }
+.mi-row { font-size: 0.86rem; margin-bottom: 6px; line-height: 1.5; display: grid; grid-template-columns: 92px 1fr; column-gap: 6px; }
+.mi-row b { color: var(--text-muted); font-weight: 600; }
 .mi-note { font-size: 0.74rem; color: var(--text-light); margin-top: 8px; font-style: italic; }
 
 /* === FLIP-KARTEN === */
@@ -760,7 +769,7 @@ section { animation: fadeUp 0.4s ease-out both; }
     </div></details>
   </div>
 
-  <p>Im Sulfat-Ion sind das Schwefelatom und die vier Sauerstoffatome durch <strong>kovalente Bindungen</strong> verknüpft. Der ganze Verband trägt zusätzlich zwei Elektronen und ist darum zweifach negativ geladen. In Natriumsulfat wirken also <strong>beide Bindungsarten</strong>: kovalente Bindungen <em>innerhalb</em> des Sulfat-Ions und ionische Bindungen <em>zwischen</em> den Natrium-Ionen und den Sulfat-Ionen.</p>
+  <p>Im Sulfat-Ion sind das Schwefelatom und die vier Sauerstoffatome durch <strong>kovalente Bindungen</strong> verknüpft. Der ganze Verband ist zweifach negativ. Das Sulfat-Ion hat also zwei Elektronen mehr als die Summe der Valenzelektronen der beteiligten Atome. In Natriumsulfat wirken also <strong>beide Bindungsarten</strong>: kovalente Bindungen <em>innerhalb</em> des Sulfat-Ions und ionische Bindungen <em>zwischen</em> den Natrium-Ionen und den Sulfat-Ionen.</p>
 
   <div class="glossar"><div class="glossar-label">Fachbegriff</div>
     <div class="glossar-term">Molekülion (zusammengesetztes Ion)</div>
@@ -791,6 +800,7 @@ section { animation: fadeUp 0.4s ease-out both; }
       <li><strong>Vorhersage:</strong> Das Sulfid-Ion <span class="f">S<sup>2−</sup></span> kann ebenfalls ein H aufnehmen. Wie heisst das entstehende Ion und welche Ladung hat es?</li>
     </ol>
     <div class="hint">Tipp zu Frage 2: Das H wird nicht als Atom, sondern als <span class="f">H<sup>+</sup></span> angelagert – also als Proton.</div>
+    <div class="notiz-box" data-key="muster" data-label="Ihre Notizen zu den Fragen 1–4"></div>
     <div class="gate" data-gate="muster"></div>
     <details class="loesung locked"><summary>Lösung</summary><div class="inner">
       <p>1. Alle enthalten <strong>Sauerstoff</strong>. Die Endung -at steht für sauerstoffhaltige Molekülionen.</p>
@@ -803,7 +813,7 @@ section { animation: fadeUp 0.4s ease-out both; }
   <div class="merksatz"><div class="merksatz-label">Merksatz – Namensmuster</div>
     <ul>
       <li><strong>-at</strong>: sauerstoffhaltiges Molekülion (Sulfat, Phosphat, Carbonat, Nitrat, Acetat).</li>
-      <li><strong>Hydrogen- / Dihydrogen-</strong>: ein bzw. zwei <span class="f">H<sup>+</sup></span> angelagert – die Ladung wird pro H um 1 weniger negativ.</li>
+      <li><strong>Hydrogen- / Dihydrogen-</strong>: ein bzw. zwei <span class="f">H<sup>+</sup></span> werden gebunden – die Ladung wird pro <span class="f">H<sup>+</sup></span> um 1 weniger negativ.</li>
       <li><strong>Ausnahmen</strong>, die man sich merken muss: Hydroxid <span class="f">OH<sup>−</sup></span> (endet auf -id, obwohl es zwei Atome hat), Ammonium <span class="f">NH<sub>4</sub><sup>+</sup></span> und Oxonium <span class="f">H<sub>3</sub>O<sup>+</sup></span> (positive Molekülionen).</li>
     </ul>
   </div>
@@ -1010,6 +1020,7 @@ section { animation: fadeUp 0.4s ease-out both; }
       <li>Vergleichen Sie CO, <span class="f">NCl<sub>3</sub></span> und <span class="f">N<sub>2</sub>O<sub>4</sub></span>: Wann steht beim ersten Element ein Zahlwort, wann nicht?</li>
       <li>Warum heisst es «Iodbromid» und nicht «Monoiodmonobromid»?</li>
     </ol>
+    <div class="notiz-box" data-key="namen" data-label="Ihre Notizen zu den Fragen 1–4"></div>
   </div>
 
   <div class="widget">
@@ -1523,7 +1534,7 @@ const GATES = {
   muster:     { fields: [
                   { label: 'Name des Ions aus S<sup>2−</sup> + H<sup>+</sup>', kind: 'text', accept: ['hydrogensulfid'], hint: 'Hydrogen- + Name des Sulfid-Ions.' },
                   { label: 'Ladung dieses Ions', kind: 'charge', answer: -1, hint: 'Ein H<sup>+</sup> bringt eine positive Ladung mit.' } ],
-                text: { label: 'Ihre Antworten zu den Fragen 1–3:', min: 40 } },
+                },
   etikett:    { fields: [
                   { label: '1. Calciumhydrogencarbonat', kind: 'formula', comp: () => ION('Ca', 'HCO3') },
                   { label: '2. Magnesiumsulfat', kind: 'formula', comp: () => ION('Mg', 'SO4') },
@@ -1719,9 +1730,9 @@ function lewisSVG(ion) {
     panel.innerHTML = lewisSVG(m) + `<div>
       <div class="mi-name">${m.n}</div>
       <div class="mi-formula">${ionHTML(m.f, m.q)}</div>
-      <div class="mi-row"><b>Ladung</b>${Math.abs(m.q) > 1 ? Math.abs(m.q) : ''}${m.q > 0 ? '+ (Kation)' : '− (Anion)'}</div>
-      <div class="mi-row"><b>Gestalt</b>${m.geo}</div>
-      <div class="mi-row"><b>Beispiel</b>${m.bsp}</div>
+      <div class="mi-row"><b>Ladung</b><span>${Math.abs(m.q) > 1 ? Math.abs(m.q) : ''}${m.q > 0 ? '+ (Kation)' : '− (Anion)'}</span></div>
+      <div class="mi-row"><b>Gestalt</b><span>${m.geo}</span></div>
+      <div class="mi-row"><b>Beispiel</b><span>${m.bsp}</span></div>
     </div>`;
   }
   chips.addEventListener('click', e => { const b = e.target.closest('.mi-chip'); if (b) show(+b.dataset.i); });
@@ -2052,6 +2063,32 @@ const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 /* ===================== Forms & Auto-Unlock ===================== */
 if (FORMS_URL) { document.getElementById('formsLink').href = FORMS_URL; document.getElementById('formsBlock').style.display = 'block'; }
 
+
+// Lernziele als Checkliste
+document.querySelectorAll('section[id] .lernziele').forEach(box => {
+  const sec = box.closest('section').id;
+  box.querySelectorAll('li').forEach((li, i) => {
+    const key = sec + ':' + i;
+    li.innerHTML = `<label><input type="checkbox"><span>${li.innerHTML}</span></label>`;
+    const cb = li.querySelector('input');
+    cb.checked = !!(store.lernziele || {})[key];
+    li.classList.toggle('erreicht', cb.checked);
+    cb.addEventListener('change', () => {
+      store.lernziele = store.lernziele || {}; store.lernziele[key] = cb.checked; saveStore();
+      li.classList.toggle('erreicht', cb.checked);
+    });
+  });
+  box.insertAdjacentHTML('beforeend', '<p class="lz-hinweis">Haken Sie ab, was Sie sicher können. Ihre Auswahl wird in diesem Browser gespeichert.</p>');
+});
+
+// Notizfelder
+document.querySelectorAll('.notiz-box').forEach(nb => {
+  const key = 'notiz:' + nb.dataset.key;
+  nb.innerHTML = `<div class="gate-title">${nb.dataset.label} (freiwillig, wird nicht geprüft)</div><textarea></textarea>`;
+  const ta = nb.querySelector('textarea');
+  ta.value = store[key] || ((store['gate:' + nb.dataset.key] || {}).text || '');
+  ta.addEventListener('input', () => { store[key] = ta.value; saveStore(); });
+});
 
 // Stoffkarten 1.5 aufdecken
 document.querySelectorAll('.sr-card').forEach((c, i) => {
