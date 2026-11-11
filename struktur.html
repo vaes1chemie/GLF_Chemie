@@ -150,6 +150,9 @@ details.loesung.locked summary::before { content: '🔒 '; }
 .lbk-side.a .lbk-chip:hover { border-color: var(--anion); }
 .lbk-side.k .lbk-chip.active { background: var(--kation-bg); border-color: var(--kation); color: var(--kation); }
 .lbk-side.a .lbk-chip.active { background: var(--anion-bg); border-color: var(--anion); color: var(--anion); }
+.lbk-hint { font-size:0.78rem; color:var(--text-light); text-align:center; margin-top:6px; }
+.ion-token { cursor:pointer; font-family:var(--sans); }
+.ion-token:hover { opacity:0.7; }
 .lbk-result .kgv { display: block; font-size: 0.84rem; margin-top: 4px; }
 
 /* === TABLES === */
@@ -555,7 +558,7 @@ section { animation: fadeUp 0.4s ease-out both; }
     <div class="widget-body">
       <div class="lbk" data-set="mono"></div>
     </div>
-    <div class="widget-caption">Wählen Sie ein Kation und ein Anion. Fügen Sie Ionen hinzu, bis die Gesamtladung null ist.</div>
+    <div class="widget-caption">Klicken Sie so lange auf Kationen und Anionen, bis die Gesamtladung null ist.</div>
   </div>
 
   <div class="discovery"><div class="discovery-label">Entdeckungsauftrag</div>
@@ -1341,60 +1344,72 @@ document.querySelectorAll('.lbk').forEach(box => {
   const set = LBK_SETS[box.dataset.set];
   box.innerHTML = `
     <div class="lbk-controls">
-      <div class="lbk-side k"><label>Kation wählen</label><div class="lbk-chips selK">${set.cat.map((k, i) => `<button class="lbk-chip${i === 0 ? ' active' : ''}" data-k="${k}">${chipHTML(CATIONS[k], catName(k))}</button>`).join('')}</div>
-        <div class="lbk-btns"><button class="lbk-btn addK">+ Kation</button><button class="lbk-btn remK">−</button></div></div>
-      <div class="lbk-side a"><label>Anion wählen</label><div class="lbk-chips selA">${set.an.map((k, i) => `<button class="lbk-chip${i === 0 ? ' active' : ''}" data-k="${k}">${chipHTML(ANIONS[k], anName(k))}</button>`).join('')}</div>
-        <div class="lbk-btns"><button class="lbk-btn addA">+ Anion</button><button class="lbk-btn remA">−</button></div></div>
+      <div class="lbk-side k"><label>Kationen – klicken zum Hinzufügen</label><div class="lbk-chips selK">${set.cat.map(k => `<button class="lbk-chip" data-k="${k}">${chipHTML(CATIONS[k], catName(k))}</button>`).join('')}</div></div>
+      <div class="lbk-side a"><label>Anionen – klicken zum Hinzufügen</label><div class="lbk-chips selA">${set.an.map(k => `<button class="lbk-chip" data-k="${k}">${chipHTML(ANIONS[k], anName(k))}</button>`).join('')}</div></div>
     </div>
     <div class="lbk-stage"></div>
+    <div class="lbk-hint">Jeder Klick auf ein Ion fügt eines hinzu. Ein Klick auf ein Ion im Feld entfernt es wieder.</div>
     <div class="lbk-meter"><div class="lbk-meter-bar"><div class="lbk-meter-fill"></div><div class="lbk-meter-mid"></div></div>
       <div class="lbk-meter-label"><span>negativ</span><span>neutral</span><span>positiv</span></div></div>
     <div class="lbk-sum"></div>
     <div class="lbk-result"></div>
     <div class="widget-actions" style="justify-content:center;"><button class="btn reset">Neu beginnen</button></div>`;
-  let nc = 0, na = 0, ck = set.cat[0], ak = set.an[0];
+  const MAX = 6;
+  let nc = 0, na = 0, ck = null, ak = null;
   const selK = box.querySelector('.selK'), selA = box.querySelector('.selA');
   const stage = box.querySelector('.lbk-stage'), fill = box.querySelector('.lbk-meter-fill');
   const sum = box.querySelector('.lbk-sum'), res = box.querySelector('.lbk-result');
+  const minus = x => String(x).replace('-', '−');
   function render() {
-    const c = CATIONS[ck], a = ANIONS[ak];
+    const c = ck ? CATIONS[ck] : null, a = ak ? ANIONS[ak] : null;
+    selK.querySelectorAll('.lbk-chip').forEach(x => x.classList.toggle('active', nc > 0 && x.dataset.k === ck));
+    selA.querySelectorAll('.lbk-chip').forEach(x => x.classList.toggle('active', na > 0 && x.dataset.k === ak));
     let html = '';
-    for (let i = 0; i < nc; i++) html += `<span class="ion-token k">${ionHTML(c.s, c.q)}</span>`;
-    for (let i = 0; i < na; i++) html += `<span class="ion-token a">${ionHTML(a.s, a.q)}</span>`;
-    stage.innerHTML = html || '<span class="empty">Noch keine Ionen – fügen Sie Kationen und Anionen hinzu.</span>';
-    const total = nc * c.q + na * a.q;
+    for (let i = 0; i < nc; i++) html += `<button class="ion-token k" data-t="k" title="Entfernen">${ionHTML(c.s, c.q)}</button>`;
+    for (let i = 0; i < na; i++) html += `<button class="ion-token a" data-t="a" title="Entfernen">${ionHTML(a.s, a.q)}</button>`;
+    stage.innerHTML = html || '<span class="empty">Noch keine Ionen – klicken Sie oben auf ein Kation und ein Anion.</span>';
+    const pos = nc ? nc * c.q : 0, neg = na ? na * a.q : 0, total = pos + neg;
     const scale = Math.min(Math.abs(total) / 8, 1) * 50;
     fill.style.left = total >= 0 ? '50%' : (50 - scale) + '%';
     fill.style.width = scale + '%';
     fill.style.background = total > 0 ? 'var(--kation)' : 'var(--anion)';
-    sum.innerHTML = (nc || na) ? `Gesamtladung: ${nc} · (${c.q > 0 ? '+' : ''}${c.q}) + ${na} · (${String(a.q).replace('-', '−')}) = <strong>${total > 0 ? '+' : ''}${String(total).replace('-', '−')}</strong>` : '';
-    res.className = 'lbk-result';
+    const parts = [];
+    if (nc) parts.push(`${nc} · (+${c.q})`);
+    if (na) parts.push(`${na} · (${minus(a.q)})`);
+    sum.innerHTML = parts.length ? `Gesamtladung: ${parts.join(' + ')} = <strong>${total > 0 ? '+' : ''}${minus(total)}</strong>` : '';
+    res.className = 'lbk-result'; res.innerHTML = '';
     if (nc > 0 && na > 0 && total === 0) {
       const comp = ionicCompound(c, a);
       if (gcd(nc, na) > 1) {
         res.className = 'lbk-result show warn';
-        res.innerHTML = `Neutral – aber nicht das <strong>kleinste</strong> ganzzahlige Verhältnis. Kürzen Sie!`;
+        res.innerHTML = `Neutral – aber nicht das <strong>kleinste</strong> ganzzahlige Verhältnis. Entfernen Sie Ionen, bis es nicht mehr kleiner geht!`;
       } else {
         res.className = 'lbk-result show ok';
         const kgv = c.q * -a.q / gcd(c.q, -a.q);
         res.innerHTML = `✓ Ladung ausgeglichen!<span class="big">${fmtF(comp.formula)}</span>${comp.name.charAt(0).toUpperCase() + comp.name.slice(1)}<span class="kgv">kgV der Ladungen ${c.q} und ${-a.q} = ${kgv} → ${kgv} : ${c.q} = ${nc} Kation${nc > 1 ? 'en' : ''}, ${kgv} : ${-a.q} = ${na} Anion${na > 1 ? 'en' : ''}</span>`;
       }
+    } else if ((nc >= MAX && total > 0) || (na >= MAX && total < 0)) {
+      res.className = 'lbk-result show warn';
+      res.innerHTML = 'Das geht so nicht auf. Klicken Sie auf «Neu beginnen» und versuchen Sie es nochmals.';
     }
   }
-  box.querySelector('.addK').onclick = () => { if (nc < 6) nc++; render(); };
-  box.querySelector('.remK').onclick = () => { if (nc > 0) nc--; render(); };
-  box.querySelector('.addA').onclick = () => { if (na < 6) na++; render(); };
-  box.querySelector('.remA').onclick = () => { if (na > 0) na--; render(); };
-  box.querySelector('.reset').onclick = () => { nc = 0; na = 0; render(); };
-  function pick(container, setter) {
-    container.addEventListener('click', e => {
-      const b = e.target.closest('.lbk-chip'); if (!b) return;
-      container.querySelectorAll('.lbk-chip').forEach(x => x.classList.toggle('active', x === b));
-      setter(b.dataset.k); nc = 0; na = 0; render();
-    });
-  }
-  pick(selK, k => { ck = k; });
-  pick(selA, k => { ak = k; });
+  // Klick auf ein Kation: hinzufügen (ein anderes Kation ersetzt die bisherigen, die Anionen bleiben)
+  selK.addEventListener('click', e => {
+    const b = e.target.closest('.lbk-chip'); if (!b) return;
+    if (b.dataset.k !== ck) { ck = b.dataset.k; nc = 1; } else if (nc < MAX) nc++;
+    render();
+  });
+  selA.addEventListener('click', e => {
+    const b = e.target.closest('.lbk-chip'); if (!b) return;
+    if (b.dataset.k !== ak) { ak = b.dataset.k; na = 1; } else if (na < MAX) na++;
+    render();
+  });
+  stage.addEventListener('click', e => {
+    const t = e.target.closest('.ion-token'); if (!t) return;
+    if (t.dataset.t === 'k') nc--; else na--;
+    render();
+  });
+  box.querySelector('.reset').onclick = () => { nc = 0; na = 0; ck = null; ak = null; render(); };
   render();
 });
 
