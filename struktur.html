@@ -168,6 +168,15 @@ details.loesung.locked summary::before { content: '🔒 '; }
 .ion-token:hover { opacity:0.7; }
 .lbk-result .kgv { display: block; font-size: 0.84rem; margin-top: 4px; }
 
+/* Zuordnen: Namensschritt */
+.tq-name { margin-top: 10px; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
+.tq-name-label { font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+.tq-name-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.tq-name-row input { flex: 1; min-width: 160px; font-family: var(--sans); font-size: 0.92rem; padding: 6px 9px; border: 1.5px solid var(--border); border-radius: 6px; background: white; }
+.tq-name-row input.ok { border-color: var(--correct-border); background: var(--correct-bg); }
+.tq-name-row input.bad { border-color: var(--wrong-border); background: var(--wrong-bg); }
+.tq-fb { margin-top: 8px; }
+
 /* Notizfeld */
 .notiz-box { margin-top: 14px; background: rgba(255,255,255,0.75); border: 1px dashed var(--border); border-radius: 8px; padding: 10px 14px 12px; }
 .notiz-box textarea { width: 100%; min-height: 90px; font-family: var(--sans); font-size: 0.9rem; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 6px; resize: vertical; background: white; margin-top: 4px; }
@@ -1163,7 +1172,7 @@ section { animation: fadeUp 0.4s ease-out both; }
   <div class="widget">
     <div class="widget-header"><span class="widget-title">Zuordnen: Welcher Verbindungstyp?</span><span class="widget-badge">INTERAKTIV</span></div>
     <div class="widget-body" id="classify"></div>
-    <div class="widget-caption">Bei einer falschen Antwort dürfen Sie es nochmals versuchen.</div>
+    <div class="widget-caption">Zuerst den Verbindungstyp wählen – bei falscher Wahl dürfen Sie es nochmals versuchen. Danach den Namen eingeben.</div>
   </div>
 
   <h3>4.2 Fehlerdetektiv</h3>
@@ -1796,6 +1805,11 @@ function renderToolQuestions(container, items, options) {
       <div class="tool-options">${options.map(o => `<button class="tool-btn" data-v="${o.v}">${o.l}</button>`).join('')}</div>
       <div class="tool-feedback correct">${it.ok}</div>
       <div class="tool-feedback wrong">${it.no}</div>
+      ${it.comp ? `<div class="tq-name" hidden>
+        <div class="tq-name-label">Und jetzt: Wie heisst die Verbindung?</div>
+        <div class="tq-name-row"><input type="text" autocomplete="off" spellcheck="false" placeholder="Name"><button class="btn primary tq-check">Prüfen</button><button class="btn tq-solve" hidden>Lösung zeigen</button></div>
+        <div class="tool-feedback tq-fb"></div>
+      </div>` : ''}
     </div>`).join('');
   container.querySelectorAll('.tool-question').forEach((q, i) => {
     q.addEventListener('click', e => {
@@ -1809,8 +1823,38 @@ function renderToolQuestions(container, items, options) {
       if (correct) {
         q.dataset.locked = '1'; q.querySelectorAll('.tool-btn').forEach(b => { if (b !== btn) b.style.opacity = '0.45'; });
         store.tool = store.tool || {}; store.tool[container.id + ':' + i] = btn.dataset.v; saveStore();
+        const nm = q.querySelector('.tq-name'); if (nm) nm.hidden = false;
       }
     });
+    // Namensschritt
+    const nm = q.querySelector('.tq-name'); if (!nm) return;
+    const it = items[i], key = container.id + ':' + i, inp = nm.querySelector('input'), fb = nm.querySelector('.tq-fb'), solve = nm.querySelector('.tq-solve');
+    store.toolName = store.toolName || {};
+    const st = store.toolName[key] = store.toolName[key] || { val: '', tried: false, solved: false };
+    const cap1 = t => t.charAt(0).toUpperCase() + t.slice(1);
+    function checkNm() {
+      const r = checkName(it.comp(), inp.value);
+      if (!inp.value.trim()) { fb.className = 'tool-feedback tq-fb show wrong'; fb.innerHTML = 'Bitte geben Sie zuerst einen Namen ein.'; return; }
+      st.tried = true;
+      if (r.ok) {
+        fb.className = 'tool-feedback tq-fb show correct'; fb.innerHTML = '✓ Richtig: <strong>' + cap1(it.comp().name) + '</strong>' + (it.info ? '. ' + it.info : '') + (r.msg ? ' ' + r.msg : '');
+        inp.classList.add('ok'); inp.classList.remove('bad'); solve.hidden = true; st.solved = true;
+      } else {
+        fb.className = 'tool-feedback tq-fb show wrong'; fb.innerHTML = '✗ ' + r.msg + ' Verbessern Sie Ihre Eingabe oder lassen Sie sich die Lösung anzeigen.';
+        inp.classList.add('bad'); inp.classList.remove('ok'); solve.hidden = false;
+      }
+      saveStore();
+    }
+    nm.querySelector('.tq-check').onclick = checkNm;
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') checkNm(); });
+    inp.addEventListener('input', () => { st.val = inp.value; inp.classList.remove('ok', 'bad'); saveStore(); });
+    solve.onclick = () => {
+      fb.className = 'tool-feedback tq-fb show correct';
+      fb.innerHTML = 'Lösung: <strong>' + cap1(it.comp().name) + '</strong>' + (it.info ? '. ' + it.info : '');
+      solve.hidden = true;
+    };
+    inp.value = st.val || '';
+    if (st.tried && inp.value) setTimeout(checkNm, 0);
   });
   // gelöste Fragen wiederherstellen
   container.querySelectorAll('.tool-question').forEach((q, i) => {
@@ -1820,13 +1864,20 @@ function renderToolQuestions(container, items, options) {
 }
 
 renderToolQuestions(document.getElementById('classify'), [
-  { p: '<span class="f">Mg<sub>3</sub>N<sub>2</sub></span>', a: 'ion', ok: 'Richtig! Metall + Nichtmetall, nur einatomige Ionen: <span class="f">Mg<sup>2+</sup></span> und <span class="f">N<sup>3−</sup></span> → Magnesiumnitrid.', no: 'Mg ist ein Metall, N ein Nichtmetall. Ist <span class="f">N<sup>3−</sup></span> ein Molekülion?' },
-  { p: '<span class="f">PCl<sub>5</sub></span>', a: 'mol', ok: 'Richtig! Nur Nichtmetalle → Phosphorpentachlorid.', no: 'Sind P und Cl Metalle oder Nichtmetalle?' },
-  { p: '<span class="f">NH<sub>4</sub>Cl</span>', a: 'mi', ok: 'Richtig – die Ausnahme! Nur Nichtmetalle, aber mit dem Ammonium-Ion → Ionenverbindung: Ammoniumchlorid.', no: 'Achtung, Ausnahme: Erkennen Sie in der Formel ein bekanntes Molekülion?' },
-  { p: '<span class="f">CuSO<sub>4</sub></span>', a: 'mi', ok: 'Richtig! <span class="f">Cu<sup>2+</sup></span> und das Sulfat-Ion → Kupfer(II)-sulfat.', no: 'Cu ist ein Metall. Welches Anion steckt in <span class="f">SO<sub>4</sub></span>?' },
-  { p: '<span class="f">SiO<sub>2</sub></span>', a: 'mol', ok: 'Richtig! Silicium ist ein Halbmetall und bildet mit Sauerstoff kovalente Bindungen → Siliciumdioxid (Quarz, Sand).', no: 'Silicium steht in Gruppe 14 – es gibt keine Elektronen ab. Welche Bindung entsteht mit Sauerstoff?' },
-  { p: '<span class="f">H<sub>2</sub>SO<sub>4</sub></span> (reine Schwefelsäure)', a: 'mol', ok: 'Richtig – eine Falle! Reine Schwefelsäure besteht nur aus Nichtmetallen und bildet Moleküle. Sulfat-Ionen entstehen erst, wenn man sie in Wasser löst (Thema Säuren).', no: 'Schauen Sie genau hin: Ist hier ein Metall oder ein Ammonium-Ion beteiligt?' },
-  { p: '<span class="f">KOH</span>', a: 'mi', ok: 'Richtig! <span class="f">K<sup>+</sup></span> und das Hydroxid-Ion <span class="f">OH<sup>−</sup></span> → Kaliumhydroxid.', no: 'K ist ein Metall. Welches Anion bilden O und H gemeinsam?' }
+  { p: '<span class="f">Mg<sub>3</sub>N<sub>2</sub></span>', a: 'ion', comp: () => ION('Mg', 'N'),
+    ok: 'Richtig! Metall + Nichtmetall, nur einatomige Ionen: <span class="f">Mg<sup>2+</sup></span> und <span class="f">N<sup>3−</sup></span>.', no: 'Mg ist ein Metall, N ein Nichtmetall. Ist <span class="f">N<sup>3−</sup></span> ein Molekülion?' },
+  { p: '<span class="f">PCl<sub>5</sub></span>', a: 'mol', comp: () => MOL('PCl5', 'Phosphorpentachlorid'),
+    ok: 'Richtig! Nur Nichtmetalle → Molekülverbindung mit Zahlwörtern.', no: 'Sind P und Cl Metalle oder Nichtmetalle?' },
+  { p: '<span class="f">NH<sub>4</sub>Cl</span>', a: 'mi', comp: () => ION('NH4', 'Cl'),
+    ok: 'Richtig – die Ausnahme! Nur Nichtmetalle, aber mit dem Ammonium-Ion → Ionenverbindung.', no: 'Achtung, Ausnahme: Erkennen Sie in der Formel ein bekanntes Molekülion?' },
+  { p: '<span class="f">CuSO<sub>4</sub></span>', a: 'mi', comp: () => ION('Cu2', 'SO4'),
+    ok: 'Richtig! Ein Kupfer-Ion und das Sulfat-Ion <span class="f">SO<sub>4</sub><sup>2−</sup></span>.', no: 'Cu ist ein Metall. Welches Anion steckt in <span class="f">SO<sub>4</sub></span>?' },
+  { p: '<span class="f">SiO<sub>2</sub></span>', a: 'mol', comp: () => MOL('SiO2', 'Siliciumdioxid', ['siliziumdioxid']), info: 'Das ist Quarz, der Hauptbestandteil von Sand',
+    ok: 'Richtig! Silicium ist ein Halbmetall und bildet mit Sauerstoff kovalente Bindungen.', no: 'Silicium steht in Gruppe 14 – es gibt keine Elektronen ab. Welche Bindung entsteht mit Sauerstoff?' },
+  { p: '<span class="f">H<sub>2</sub>SO<sub>4</sub></span> (reine Säure)', a: 'mol', comp: () => MOL('H2SO4', 'Schwefelsäure'), info: 'Für diesen Stoff verwendet man den Trivialnamen',
+    ok: 'Richtig – eine Falle! Die reine Säure besteht nur aus Nichtmetallen und bildet Moleküle. Sulfat-Ionen entstehen erst, wenn man sie in Wasser löst (Thema Säuren).', no: 'Schauen Sie genau hin: Ist hier ein Metall oder ein Ammonium-Ion beteiligt?' },
+  { p: '<span class="f">KOH</span>', a: 'mi', comp: () => ION('K', 'OH'),
+    ok: 'Richtig! <span class="f">K<sup>+</sup></span> und das Hydroxid-Ion <span class="f">OH<sup>−</sup></span>.', no: 'K ist ein Metall. Welches Anion bilden O und H gemeinsam?' }
 ], [
   { v: 'ion', l: 'Ionenverbindung (einatomige Ionen)' },
   { v: 'mi', l: 'Ionenverbindung mit Molekülion' },
