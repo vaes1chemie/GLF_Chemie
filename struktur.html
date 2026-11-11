@@ -180,7 +180,6 @@ details.loesung.locked summary::before { content: '🔒 '; }
 .sr-card.open .sr-front { display: none; }
 .sr-card.open .sr-back { display: flex; animation: pop 0.25s ease-out; }
 .bildnachweis { font-size: 0.72rem; color: var(--text-light); margin: 0 0 18px; }
-.gefahr { display: inline-block; margin-top: 4px; font-size: 0.8rem; color: var(--wrong-text); font-weight: 600; }
 
 /* === TABLES === */
 .data-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.9rem; }
@@ -647,20 +646,21 @@ section { animation: fadeUp 0.4s ease-out both; }
   </div>
   <p class="bildnachweis">Fotos: Wikimedia Commons, gemeinfrei (Fuzic; Benjah-bmm27).</p>
 
-  <p>Beide Stoffe einfach «Eisenoxid» zu nennen, wäre nicht eindeutig. Das Problem tritt bei den <strong>Nebengruppenmetallen</strong> auf (z.&nbsp;B. Eisen, Kupfer, Mangan): Sie können Ionen mit unterschiedlichen Ladungen bilden, z.&nbsp;B. <span class="f">Fe<sup>2+</sup></span> und <span class="f">Fe<sup>3+</sup></span>. Welche Ladung in einer Verbindung vorliegt, lässt sich deshalb nicht aus dem Periodensystem ablesen. Man schreibt darum die <strong>Ladung des Metall-Ions als römische Ziffer</strong> in Klammern hinter den Metallnamen: <em>Eisen(II)-oxid</em> und <em>Eisen(III)-oxid</em>. Weitere Beispiele:</p>
+  <p>Beide Stoffe einfach «Eisenoxid» zu nennen, wäre nicht eindeutig. Das Problem tritt bei den <strong>Nebengruppenmetallen</strong> auf (z.&nbsp;B. Eisen, Kupfer, Chrom): Sie können Ionen mit unterschiedlichen Ladungen bilden, z.&nbsp;B. <span class="f">Fe<sup>2+</sup></span> und <span class="f">Fe<sup>3+</sup></span>. Welche Ladung in einer Verbindung vorliegt, lässt sich deshalb nicht aus dem Periodensystem ablesen. Man schreibt darum die <strong>Ladung des Metall-Ions als römische Ziffer</strong> in Klammern hinter den Metallnamen:</p>
 
   <div class="table-scroll"><table class="data-table">
-    <thead><tr><th>Formel</th><th>Ionen</th><th>Name</th><th>Aussehen</th><th>Hinweis</th></tr></thead>
+    <thead><tr><th>Formel</th><th>Ionen</th><th>Name</th><th>Aussehen</th></tr></thead>
     <tbody>
-      <tr><td><span class="f">CuCl</span></td><td><span class="f">Cu<sup>+</sup></span> + <span class="f">Cl<sup>−</sup></span></td><td><strong>Kupfer(I)-chlorid</strong></td><td>weiss</td><td>Katalysator in der chemischen Industrie</td></tr>
-      <tr><td><span class="f">CuCl<sub>2</sub></span></td><td><span class="f">Cu<sup>2+</sup></span> + 2 <span class="f">Cl<sup>−</sup></span></td><td><strong>Kupfer(II)-chlorid</strong></td><td>gelbbraun, gelöst blaugrün</td><td>färbt eine Flamme blaugrün</td></tr>
-      <tr><td><span class="f">MnO<sub>2</sub></span></td><td><span class="f">Mn<sup>4+</sup></span> + 2 <span class="f">O<sup>2−</sup></span></td><td><strong>Mangan(IV)-oxid</strong></td><td>schwarzbraunes Pulver («Braunstein»)</td><td>in Alkali-Mangan-Batterien.<br><span class="gefahr">⚠ Achtung: gesundheitsschädlich beim Verschlucken und Einatmen</span></td></tr>
-      <tr><td><span class="f">KMnO<sub>4</sub></span></td><td><span class="f">K<sup>+</sup></span> + <span class="f">MnO<sub>4</sub><sup>−</sup></span></td><td><strong>Kaliumpermanganat</strong></td><td>dunkelviolette Kristalle, gelöst violett</td><td>Hier steckt Mangan in einem Molekülion, dem Permanganat-Ion.<br><span class="gefahr">⚠ Gefahr: brandfördernd, verursacht schwere Verätzungen, kann das ungeborene Kind schädigen, sehr giftig für Wasserorganismen</span></td></tr>
+      <tr><td><span class="f">FeO</span></td><td><span class="f">Fe<sup>2+</sup></span> + <span class="f">O<sup>2−</sup></span></td><td><strong>Eisen(II)-oxid</strong></td><td>schwarz</td></tr>
+      <tr><td><span class="f">Fe<sub>2</sub>O<sub>3</sub></span></td><td>2 <span class="f">Fe<sup>3+</sup></span> + 3 <span class="f">O<sup>2−</sup></span></td><td><strong>Eisen(III)-oxid</strong></td><td>rotbraun (Rost)</td></tr>
+      <tr><td><span class="f">CuCl</span></td><td><span class="f">Cu<sup>+</sup></span> + <span class="f">Cl<sup>−</sup></span></td><td><strong>Kupfer(I)-chlorid</strong></td><td>weiss</td></tr>
+      <tr><td><span class="f">CuCl<sub>2</sub></span></td><td><span class="f">Cu<sup>2+</sup></span> + 2 <span class="f">Cl<sup>−</sup></span></td><td><strong>Kupfer(II)-chlorid</strong></td><td>gelbbraun, gelöst blaugrün</td></tr>
     </tbody>
   </table></div>
 
   <div class="merksatz"><div class="merksatz-label">Merksatz – römische Ziffern</div>
-    <p>Bei Metallen der <strong>Gruppen 3–12</strong> und bei Metallen der <strong>Gruppen 13–16 ab Periode 4</strong> (z.&nbsp;B. Gallium, Zinn, Blei) wird die Ladung des Metall-Ions als römische Ziffer angegeben: <em>Eisen(III)-chlorid</em>, <em>Blei(II)-oxid</em>. Bei Hauptgruppenmetallen wie Natrium, Calcium oder Aluminium ist die Ladung eindeutig – dort steht <strong>keine</strong> Ziffer.</p>
+    <p>Bei den <strong>Nebengruppenmetallen (Gruppen 3–12)</strong> und bei Metallen der <strong>Gruppen 13–16 ab Periode 4</strong> (z.&nbsp;B. Gallium, Zinn, Blei) wird die Ladung des Metall-Ions als römische Ziffer angegeben: <em>Eisen(III)-chlorid</em>, <em>Blei(II)-oxid</em>.</p>
+    <p>Bei Hauptgruppenmetallen wie Natrium, Calcium oder Aluminium ist die Ladung eindeutig – dort steht <strong>keine</strong> Ziffer.</p>
   </div>
 
   <div class="aufgabe"><div class="aufgabe-label">Kurz überlegen – rückwärts rechnen</div>
