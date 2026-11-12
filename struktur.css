@@ -513,3 +513,10 @@ section { animation: fadeUp 0.4s ease-out both; }
 .lsp-frage span { font-weight: 600; margin-right: 4px; }
 .lsp-frage .btn.lsp-ok { background: #e5f4e4; border-color: #3f9a4f; }
 .lsp-frage .btn.lsp-falsch { background: #fbebeb; border-color: #c05050; }
+
+/* Van-der-Waals-Simulation (Phase 3) */
+.vdw-meter { display: flex; align-items: center; gap: 10px; margin: 8px auto 0; max-width: 560px; font-size: 0.85rem; color: var(--text-muted); }
+.vdw-meter span { flex: 0 0 150px; }
+.vdw-bar { flex: 1; height: 12px; background: var(--bg-alt); border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+.vdw-bar div { height: 100%; width: 0; background: #4a7ab5; transition: width 0.08s linear; }
+#vdwMittel { background: #2b7f7a; }
