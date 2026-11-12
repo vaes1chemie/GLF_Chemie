@@ -9,10 +9,10 @@ window.THEMEN = [
       { nr: 3, datei: 'atombau-phase3.html', titel: 'Periodensystem, Valenzelektronen, Lewis' },
       { nr: 4, datei: 'atombau-phase4.html', titel: 'Repetition und Ausblick Bindungstypen' } ] },
   { id: 'struktur', titel: 'Struktur & Eigenschaften', farbe: '#2b7f7a',
-    text: 'Nomenklatur und Molekülionen, Metalle, Ionenverbindungen und Coulomb-Gesetz, zwischenmolekulare Kräfte.',
+    text: 'Nomenklatur, Metalle und Salze, Coulomb-Gesetz, zwischenmolekulare Kräfte, Lösen und Mischen.',
     phasen: [
       { nr: 1, datei: 'struktur.html',        titel: 'Nomenklatur: Ionen- und Molekülverbindungen' },
-      { nr: 2, datei: 'struktur-phase2.html', titel: 'Metalle und Legierungen' },
-      { nr: 3, datei: 'struktur-phase3.html', titel: 'Ionenverbindungen und Coulomb-Gesetz' },
-      { nr: 4, datei: 'struktur-phase4.html', titel: 'Zwischenmolekulare Kräfte' } ] }
+      { nr: 2, datei: 'struktur-phase2.html', titel: 'Gitterstoffe: Metalle und Salze' },
+      { nr: 3, datei: 'struktur-phase3.html', titel: 'Moleküle und zwischenmolekulare Kräfte' },
+      { nr: 4, datei: 'struktur-phase4.html', titel: 'Lösen und Mischen' } ] }
 ];

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Struktur & Eigenschaften – Phase 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="struktur.css">
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar">
+  <div class="sidebar-brand"><a href="index.html" style="text-decoration:none; color:inherit;">Struktur &amp; Eigenschaften</a><small>Chemie GLF · 2. Gymnasium · Va</small><a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a></div>
+  <div class="sidebar-phase">Phase 1 · Nomenklatur</div>
+  <a href="struktur.html#L1" class="nav-item"><span class="nav-dot"></span>L1 – Ionenverbindungen</a>
+  <a href="struktur.html#L2" class="nav-item"><span class="nav-dot"></span>L2 – Molekülionen</a>
+  <a href="struktur.html#L3" class="nav-item"><span class="nav-dot"></span>L3 – Molekülverbindungen</a>
+  <a href="struktur.html#L4" class="nav-item"><span class="nav-dot"></span>L4 – Training</a>
+  <div class="sidebar-phase">Phase 2 · Gitterstoffe</div>
+  <a href="struktur-phase2.html#L5" class="nav-item"><span class="nav-dot"></span>L5 – Metalle und Leitfähigkeit</a>
+  <a href="struktur-phase2.html#L6" class="nav-item"><span class="nav-dot"></span>L6 – Salze: Ionengitter</a>
+  <a href="struktur-phase2.html#L7" class="nav-item"><span class="nav-dot"></span>L7 – Metall gegen Salz</a>
+  <div class="sidebar-phase">Phase 3 · Moleküle</div>
+  <a href="#L8" class="nav-item"><span class="nav-dot"></span>L8 – Polarität und ZMK</a>
+  <a href="#L9" class="nav-item"><span class="nav-dot"></span>L9 – Siedepunkte, Wasser, Kohlenstoff</a>
+  <a href="#zusammenfassung" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+  <div class="sidebar-phase">Phase 4 · Lösen und Mischen</div>
+  <a href="struktur-phase4.html#L10" class="nav-item"><span class="nav-dot"></span>L10 – Salze und Moleküle lösen</a>
+  <a href="struktur-phase4.html#L11" class="nav-item"><span class="nav-dot"></span>L11 – Transfer und Abschluss</a>
+</nav>
+
+<div class="main-wrap">
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<main class="content">
+<div class="hero-inline">
+  <div class="phase-badge">Phase 3 · Lektionen 8–9 · Moleküle</div>
+  <h1>Was hält Moleküle zusammen?</h1>
+  <p class="subtitle">Polare Bindungen, Dipole und zwischenmolekulare Kräfte – und warum Wasser bei Raumtemperatur flüssig ist</p>
+  <div class="dl-plan">
+    <div class="dl-card">
+      <div class="dl-tag">Doppellektion 4 · L8 · Labor</div>
+      <div class="dl-title">Polarität und zwischenmolekulare Kräfte</div>
+      <div class="dl-desc">Ein abgelenkter Wasserstrahl, Verdunstungskälte im Labor und die drei zwischenmolekularen Kräfte hier auf der Website.</div>
+    </div>
+    <div class="dl-card">
+      <div class="dl-tag">Doppellektion 5 · L9</div>
+      <div class="dl-title">Siedepunkte, Wasser, Kohlenstoff</div>
+      <div class="dl-desc">Siedepunkte vorhersagen, die Besonderheiten von Wasser – und warum eine Bleistiftmine den Strom leitet.</div>
+    </div>
+  </div>
+</div>
+
+<div class="discovery"><div class="discovery-label">Der rote Faden</div>
+  <h4>Warum hat ein Stoff die Eigenschaften, die er hat?</h4>
+  <p style="margin-bottom:0;">In Phase 2 waren die Teilchen geladen (Ionen, Atomrümpfe und Elektronen) und zogen sich im ganzen Gitter stark an. Jetzt geht es um Stoffe aus <strong>Molekülen</strong>. Die Atome im Molekül sind durch Elektronenpaarbindungen fest verbunden. Beim Schmelzen und Sieden bleiben die Moleküle aber ganz – überwunden werden nur die <strong>Anziehungskräfte zwischen den Molekülen</strong>. Diese sind viel schwächer. Aber woher kommen sie, wenn Moleküle doch ungeladen sind?</p>
+</div>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 8                             -->
+<!-- ============================================================ -->
+<section id="L8">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 08</div>
+    <h2>Polarität und zwischenmolekulare Kräfte</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können mit der Elektronegativitätsdifferenz entscheiden, ob eine Bindung unpolar, polar oder ionisch ist.</li>
+    <li>Sie können anhand der Molekülgeometrie entscheiden, ob ein Molekül ein Dipol ist.</li>
+    <li>Sie kennen die drei zwischenmolekularen Kräfte (Van-der-Waals-Kräfte, Dipolkräfte, Wasserstoffbrücken) und können sie einem Stoff zuordnen.</li>
+    <li>Sie können erklären, warum ein Stoff mit schwachen zwischenmolekularen Kräften schneller verdunstet.</li>
+  </ul></div>
+
+  <h3>8.1 Aufhänger: Ein Wasserstrahl lässt sich ablenken <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <p>Ihre Lehrperson reibt einen Kunststoffstab an einem Tuch. Der Stab ist danach elektrisch geladen. Sie hält ihn neben einen dünnen Wasserstrahl aus einer Bürette – und danach neben einen Strahl aus Heptan (ein Bestandteil von Benzin).</p>
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Ihre Vorhersage: Was passiert mit dem Wasserstrahl?</span><span class="widget-badge">VORHERSAGE</span></div>
+    <div class="widget-body">
+      <div class="predict" data-key="strahl">
+        <div class="tool-options">
+          <button class="tool-btn" data-v="an">Er wird zum Stab hin abgelenkt.</button>
+          <button class="tool-btn" data-v="ab">Er wird vom Stab weggedrückt.</button>
+          <button class="tool-btn" data-v="nichts">Nichts – Wasser ist ja nicht geladen.</button>
+        </div>
+      </div>
+    </div>
+    <div class="widget-caption">Die Erklärung erarbeiten Sie in 8.4.</div>
+  </div>
+
+  <h3>8.2 Labor: Verdunstungskälte <span class="tag-gemeinsam">Halbklasse</span></h3>
+  <div class="lab-box"><div class="experiment-label">Labor</div>
+    <p>Die eine Hälfte der Klasse misst im Labor, wie stark verschiedene Flüssigkeiten beim Verdunsten abkühlen. Die andere Hälfte arbeitet hier 8.3 bis 8.5 durch – nach 35 Minuten wird gewechselt. Die Versuchsanleitung erhalten Sie im Labor.</p>
+  </div>
+  <h4>Nach dem Labor</h4>
+  <div class="notiz-box" data-key="verdunstung" data-label="Ihre Messwerte (tiefste Temperatur pro Flüssigkeit)"></div>
+  <div class="aufgabe"><div class="aufgabe-label">Auswerten</div>
+    <div id="verdFragen"></div>
+  </div>
+
+  <h3>8.3 Elektronegativität und polare Bindung <span class="tag-selbst">selbstständig</span></h3>
+  <p>Die <strong>Elektronegativität (EN)</strong> gibt an, wie stark ein Atom in einer Bindung die Bindungselektronen zu sich zieht. Sind zwei verschiedene Atome verbunden, zieht das Atom mit der höheren EN das gemeinsame Elektronenpaar stärker an. Es erhält eine negative <strong>Teilladung δ−</strong>, sein Partner eine positive Teilladung <strong>δ+</strong>. Die Bindung ist <strong>polar</strong>.</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">EN-Rechner: Welche Art von Bindung?</span><span class="widget-badge">RECHNER</span></div>
+    <div class="widget-body">
+      <div class="cr-grid">
+        <div><label for="enA">Atom 1</label><select id="enA"></select></div>
+        <div><label for="enB">Atom 2</label><select id="enB"></select></div>
+      </div>
+      <svg id="enSvg" class="mol-svg" viewBox="0 0 400 150"></svg>
+      <div class="cr-out" id="enOut"></div>
+    </div>
+    <div class="widget-caption">EN-Werte nach Pauling (gerundet). Grenzen: ΔEN unter 0.5 unpolar, 0.5 bis 1.7 polar, über 1.7 ionisch. Die Grenzen sind fliessend.</div>
+  </div>
+  <div class="aufgabe"><div class="aufgabe-label">Bindungen einordnen</div>
+    <div id="enFragen"></div>
+  </div>
+
+  <h3>8.4 Polare Bindungen – aber ist das Molekül ein Dipol? <span class="tag-selbst">selbstständig</span></h3>
+  <p>Ein Molekül ist ein <strong>Dipol</strong>, wenn es eine positive und eine negative Seite hat. Dafür braucht es polare Bindungen – aber das genügt nicht: Die Teilladungen dürfen sich wegen der <strong>räumlichen Gestalt</strong> nicht gegenseitig aufheben. Fallen der Schwerpunkt der positiven und der Schwerpunkt der negativen Teilladungen zusammen, ist das Molekül kein Dipol.</p>
+  <p>Überlegen Sie bei jeder Karte: Ist das Molekül ein Dipol? Klicken Sie dann.</p>
+  <div class="stoff-reveal">
+    <button class="sr-card" type="button" data-key="d-co2"><span class="sr-front"><span class="sr-formel">CO<sub>2</sub></span><span class="sr-frage">Linear gebaut, zwei polare C=O-Bindungen. Dipol?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><svg class="mol-svg" viewBox="0 0 300 110" data-mol="co2"></svg><span class="sr-name">Kein Dipol</span><span class="sr-text">Die beiden Teilladungen δ− an den O-Atomen liegen genau gegenüber. Ihr Schwerpunkt fällt mit dem δ+ am C-Atom zusammen.</span></span></button>
+    <button class="sr-card" type="button" data-key="d-h2o"><span class="sr-front"><span class="sr-formel">H<sub>2</sub>O</span><span class="sr-frage">Gewinkelt gebaut, zwei polare O–H-Bindungen. Dipol?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><svg class="mol-svg" viewBox="0 0 300 110" data-mol="h2o"></svg><span class="sr-name">Dipol</span><span class="sr-text">Die H-Atome (δ+) liegen beide auf einer Seite, das O-Atom (δ−) auf der anderen. Wasser hat einen positiven und einen negativen Pol.</span></span></button>
+    <button class="sr-card" type="button" data-key="d-ccl4"><span class="sr-front"><span class="sr-formel">CCl<sub>4</sub></span><span class="sr-frage">Tetraedrisch gebaut, vier polare C–Cl-Bindungen. Dipol?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><svg class="mol-svg" viewBox="0 0 300 110" data-mol="ccl4"></svg><span class="sr-name">Kein Dipol</span><span class="sr-text">Die vier Cl-Atome sitzen symmetrisch an den Ecken eines Tetraeders. Die Teilladungen heben sich auf.</span></span></button>
+    <button class="sr-card" type="button" data-key="d-ch3cl"><span class="sr-front"><span class="sr-formel">CH<sub>3</sub>Cl</span><span class="sr-frage">Tetraedrisch, aber ein Cl und drei H. Dipol?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><svg class="mol-svg" viewBox="0 0 300 110" data-mol="ch3cl"></svg><span class="sr-name">Dipol</span><span class="sr-text">Nur eine Ecke trägt ein stark elektronegatives Cl-Atom. Die Symmetrie ist gebrochen – das Molekül hat eine negative Seite.</span></span></button>
+  </div>
+
+  <div class="aufgabe"><div class="aufgabe-label">Zurück zum Wasserstrahl</div>
+    <div class="predict-echo" data-key="strahl"></div>
+    <p>Erklären Sie mit dem Begriff «Dipol», warum der Wasserstrahl zum geladenen Stab hin abgelenkt wird und der Heptan-Strahl nicht.</p>
+    <details class="loesung"><summary>Lösung</summary><div class="inner">
+      <p style="margin-bottom:0;">Wassermoleküle sind Dipole. In der Nähe des geladenen Stabs drehen sie sich so, dass ihr entgegengesetzt geladenes Ende zum Stab zeigt. Dieses Ende ist näher am Stab und wird stärker angezogen, als das andere Ende abgestossen wird – der Strahl wird zum Stab hin gezogen (egal, ob der Stab positiv oder negativ geladen ist). Heptan-Moleküle bestehen nur aus C und H (ΔEN 0.4) und sind keine Dipole: Der Strahl wird kaum abgelenkt.</p>
+    </div></details>
+  </div>
+
+  <h3>8.5 Die drei zwischenmolekularen Kräfte <span class="tag-selbst">selbstständig</span></h3>
+  <div class="table-scroll"><table class="data-table">
+    <tr><th>Kraft</th><th>Wie entsteht sie?</th><th>Wo wirkt sie?</th></tr>
+    <tr><td><strong>Van-der-Waals-Kräfte</strong></td><td>Die Elektronen bewegen sich ständig. Kurzzeitig ist die Ladung ungleich verteilt: ein kurzlebiger Dipol. Er erzeugt im Nachbarmolekül ebenfalls einen Dipol – die beiden ziehen sich an.</td><td>In <strong>allen</strong> Stoffen aus Molekülen (und in Edelgasen). Stärker bei mehr Elektronen und grösserer Oberfläche.</td></tr>
+    <tr><td><strong>Dipolkräfte</strong></td><td>Der positive Pol eines Dipolmoleküls zieht den negativen Pol eines Nachbarmoleküls an – wie bei Magneten.</td><td>Nur zwischen Molekülen, die <strong>Dipole</strong> sind.</td></tr>
+    <tr><td><strong>Wasserstoffbrücken</strong></td><td>Ein H-Atom, das an <strong>N, O oder F</strong> gebunden ist, ist stark positiv teilgeladen (aktive Stelle). Es bildet eine «Brücke» zu einem freien Elektronenpaar an N, O oder F eines Nachbarmoleküls (passive Stelle).</td><td>Nur wenn H an N, O oder F gebunden ist. Die stärkste der drei Kräfte.</td></tr>
+  </table></div>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Wasserstoffbrücken zwischen Wassermolekülen</span><span class="widget-badge">MODELL</span></div>
+    <div class="widget-body"><svg id="hbSvg" viewBox="0 -15 520 255" style="width:100%; height:auto; display:block;"></svg></div>
+    <div class="widget-caption">Gestrichelt: Wasserstoffbrücken von einem H-Atom (δ+) zu einem freien Elektronenpaar am O-Atom (δ−) des Nachbarmoleküls.</div>
+  </div>
+
+  <p>Prüfen Sie für jeden Stoff, welche Kräfte zwischen seinen Molekülen wirken.</p>
+  <div class="check-table" data-key="zmk">
+    <div class="table-scroll"><table class="data-table">
+      <tr><th>Stoff</th><th>Van der Waals</th><th>Dipolkräfte</th><th>H-Brücken</th></tr>
+      <tr><td><span class="f">H<sub>2</sub></span></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="nein"><option>ja</option><option>nein</option></select></td><td><select data-answer="nein"><option>ja</option><option>nein</option></select></td></tr>
+      <tr><td><span class="f">HCl</span></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="nein"><option>ja</option><option>nein</option></select></td></tr>
+      <tr><td><span class="f">H<sub>2</sub>O</span></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td></tr>
+      <tr><td><span class="f">CH<sub>4</sub></span></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="nein"><option>ja</option><option>nein</option></select></td><td><select data-answer="nein"><option>ja</option><option>nein</option></select></td></tr>
+      <tr><td><span class="f">NH<sub>3</sub></span></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td></tr>
+      <tr><td><span class="f">CO<sub>2</sub></span></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="nein"><option>ja</option><option>nein</option></select></td><td><select data-answer="nein"><option>ja</option><option>nein</option></select></td></tr>
+      <tr><td><span class="f">CH<sub>3</sub>OH</span> (Methanol)</td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td></tr>
+      <tr><td><span class="f">CH<sub>3</sub>Cl</span></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="ja"><option>ja</option><option>nein</option></select></td><td><select data-answer="nein"><option>ja</option><option>nein</option></select></td></tr>
+    </table></div>
+    <div class="sim-controls"><button class="btn primary ct-check">Prüfen</button><button class="btn ct-solve" disabled>Lösung ab 17 richtigen</button><span class="ct-msg"></span></div>
+  </div>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Zwischenmolekulare Kräfte</div>
+    <ul>
+      <li><strong>Polare Bindung:</strong> ΔEN zwischen 0.5 und 1.7. <strong>Dipol:</strong> polare Bindungen <em>und</em> unsymmetrische Gestalt.</li>
+      <li><strong>Van-der-Waals-Kräfte</strong> wirken immer, werden stärker mit der Anzahl Elektronen und der Oberfläche.</li>
+      <li><strong>Dipolkräfte</strong> wirken zusätzlich zwischen Dipolmolekülen.</li>
+      <li><strong>Wasserstoffbrücken</strong> wirken zusätzlich, wenn H an N, O oder F gebunden ist – sie sind die stärksten zwischenmolekularen Kräfte.</li>
+      <li>Alle drei sind viel schwächer als Ionenbindung, Metallbindung oder Elektronenpaarbindung.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 8</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für Sie</div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Was wird überwunden, wenn Wasser siedet?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Die Bindungen zwischen O und H im Molekül</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Die Anziehungskräfte zwischen den Wassermolekülen</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Die Ionenbindungen im Wasser</div>
+      <div class="feedback correct">Richtig! Im Wasserdampf liegen weiterhin ganze <span class="f">H<sub>2</sub>O</span>-Moleküle vor.</div>
+      <div class="feedback wrong">Nicht ganz. Die Moleküle bleiben beim Sieden ganz – Wasserdampf besteht aus <span class="f">H<sub>2</sub>O</span>-Molekülen.</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Welches Molekül hat polare Bindungen, ist aber kein Dipol?</div>
+      <div class="option" data-correct="false"><span class="radio"></span><span class="f">HCl</span></div>
+      <div class="option" data-correct="true"><span class="radio"></span><span class="f">CO<sub>2</sub></span></div>
+      <div class="option" data-correct="false"><span class="radio"></span><span class="f">H<sub>2</sub>O</span></div>
+      <div class="option" data-correct="false"><span class="radio"></span><span class="f">Cl<sub>2</sub></span></div>
+      <div class="feedback correct">Richtig! Im linearen CO₂ heben sich die beiden polaren Bindungen auf.</div>
+      <div class="feedback wrong">Nicht ganz. Cl₂ hat gar keine polare Bindung; HCl und H₂O sind Dipole. Gesucht ist das symmetrische CO₂.</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">3</span>In welchem Stoff gibt es Wasserstoffbrücken?</div>
+      <div class="option" data-correct="false"><span class="radio"></span><span class="f">CH<sub>4</sub></span></div>
+      <div class="option" data-correct="false"><span class="radio"></span><span class="f">HCl</span></div>
+      <div class="option" data-correct="true"><span class="radio"></span><span class="f">HF</span></div>
+      <div class="option" data-correct="false"><span class="radio"></span><span class="f">H<sub>2</sub>S</span></div>
+      <div class="feedback correct">Richtig! H ist an F gebunden, und F hat freie Elektronenpaare.</div>
+      <div class="feedback wrong">Nicht ganz. H-Brücken gibt es nur, wenn H an N, O oder F gebunden ist.</div>
+    </div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 8</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128196;</div>
+      <div class="task-card-title">Auswertung Verdunstungskälte</div>
+      <div class="task-card-desc">Beantworten Sie die Auswertungsfragen auf dem Laborblatt (Hausaufgabe).</div>
+    </div>
+    <div class="task-card print">
+      <div class="task-card-icon">&#128214;</div>
+      <div class="task-card-title">Skript – für Schnelle</div>
+      <div class="task-card-desc">Aufgaben <span class="nrs">6-36, 6-42</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 9                             -->
+<!-- ============================================================ -->
+<section id="L9">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 09</div>
+    <h2>Siedepunkte, Wasser und Kohlenstoff</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können die Siedepunkte von zwei Stoffen mit einem Entscheidungsbaum vergleichen und begründen.</li>
+    <li>Sie können erklären, warum Wasser einen so hohen Siedepunkt hat und warum Eis auf Wasser schwimmt.</li>
+    <li>Sie können Diamant und Graphit als Atomgitter beschreiben und ihre Eigenschaften erklären.</li>
+    <li>Sie können die Vergleichstabelle um Molekülstoffe und Atomgitter ergänzen.</li>
+  </ul></div>
+
+  <h3>9.1 Aufhänger: Wasser und Schwefelwasserstoff <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <div class="discovery"><div class="discovery-label">Denken · Austauschen · Besprechen</div>
+    <p>Schwefel steht im Periodensystem direkt unter Sauerstoff. <span class="f">H<sub>2</sub>S</span> ist genau gleich gebaut wie <span class="f">H<sub>2</sub>O</span> – gewinkelt, mit zwei H-Atomen. Ein <span class="f">H<sub>2</sub>S</span>-Molekül ist sogar fast doppelt so schwer. Trotzdem ist Schwefelwasserstoff bei Raumtemperatur ein Gas (Siedepunkt −60 °C), Wasser siedet erst bei 100 °C.</p>
+    <ol>
+      <li>Welche zwischenmolekularen Kräfte wirken in den beiden Stoffen?</li>
+      <li>Welcher Unterschied erklärt die 160 °C Differenz?</li>
+    </ol>
+    <details class="loesung"><summary>Auflösung</summary><div class="inner">
+      <p style="margin-bottom:0;">In beiden wirken Van-der-Waals-Kräfte und Dipolkräfte. Nur im Wasser gibt es zusätzlich <strong>Wasserstoffbrücken</strong>: H ist an O gebunden. Schwefel ist zu wenig elektronegativ (EN 2.5) – das H-Atom im <span class="f">H<sub>2</sub>S</span> ist kaum positiv geladen.</p>
+    </div></details>
+  </div>
+
+  <h3>9.2 Die Siedepunkte der Wasserstoffverbindungen <span class="tag-selbst">selbstständig</span></h3>
+  <p>Das Diagramm zeigt die Siedepunkte der Wasserstoffverbindungen der Gruppen 14 bis 17. Innerhalb einer Gruppe nimmt die Anzahl Elektronen von oben nach unten zu.</p>
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Siedepunkte der Wasserstoffverbindungen</span><span class="widget-badge">DIAGRAMM</span></div>
+    <div class="widget-body">
+      <svg id="hydChart" class="chart-svg" viewBox="0 0 640 380"></svg>
+      <div class="legend" id="hydLegend"></div>
+      <div class="sim-controls"><button class="btn" id="hydTrend">Erwarteten Wert für Wasser zeigen</button></div>
+    </div>
+    <div class="widget-caption">Fahren Sie mit der Maus über einen Punkt oder tippen Sie ihn an, um Formel und Siedepunkt zu sehen.</div>
+  </div>
+  <div class="aufgabe"><div class="aufgabe-label">Diagramm lesen</div>
+    <div id="hydFragen"></div>
+  </div>
+
+  <h3>9.3 Entscheidungsbaum: Welcher Stoff siedet höher? <span class="tag-selbst">selbstständig</span></h3>
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Siedepunkte (und Schmelzpunkte) vergleichen</span><span class="widget-badge">ENTSCHEIDUNGSBAUM</span></div>
+    <div class="widget-body">
+      <ol style="margin-bottom:0;">
+        <li style="margin-bottom:10px;"><strong>Gitterstoff oder Molekülstoff?</strong> Metalle, Salze und Atomgitter (Diamant) haben starke Bindungen im ganzen Gitter → <strong>viel höhere</strong> Schmelz- und Siedepunkte als Stoffe aus Molekülen.</li>
+        <li style="margin-bottom:10px;"><strong>Zwei Molekülstoffe ähnlicher Grösse?</strong> Vergleichen Sie die Art der Kräfte: <strong>H-Brücken &gt; Dipolkräfte &gt; nur Van der Waals</strong>.</li>
+        <li style="margin-bottom:10px;"><strong>Gleiche Art von Kräften?</strong> Mehr Elektronen (grössere Masse) → stärkere Van-der-Waals-Kräfte → höherer Siedepunkt. Bei gleicher Masse: <strong>langgestreckt</strong> siedet höher als <strong>kugelig</strong> (grössere Berührungsfläche).</li>
+        <li><strong>Achtung:</strong> Ein viel grösseres Molekül kann allein durch Van-der-Waals-Kräfte stärker zusammenhalten als ein kleiner Dipol.</li>
+      </ol>
+    </div>
+  </div>
+  <p>Wenden Sie den Entscheidungsbaum an: Welcher Stoff hat den höheren Siedepunkt?</p>
+  <div class="aufgabe"><div class="aufgabe-label">Paare vergleichen</div>
+    <div id="sdpFragen"></div>
+  </div>
+
+  <h3>9.4 Wasser – ein besonderer Stoff <span class="tag-selbst">selbstständig</span></h3>
+  <p>Jedes Wassermolekül kann bis zu <strong>vier Wasserstoffbrücken</strong> bilden: zwei über seine H-Atome und zwei über die freien Elektronenpaare am O-Atom. Daraus folgen besondere Eigenschaften.</p>
+  <div class="stoff-reveal">
+    <button class="sr-card" type="button" data-key="w-sdp"><span class="sr-front"><span class="sr-formel" style="font-size:1.2rem;">100 °C</span><span class="sr-frage">Warum siedet Wasser so hoch, obwohl die Moleküle so klein sind?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Viele H-Brücken</span><span class="sr-text">Jedes Molekül ist über bis zu vier H-Brücken mit Nachbarn verbunden. Ohne H-Brücken würde Wasser etwa bei −90 °C sieden (siehe Diagramm in 9.2) – es gäbe auf der Erde kein flüssiges Wasser.</span></span></button>
+    <button class="sr-card" type="button" data-key="w-eis"><span class="sr-front"><span class="sr-formel" style="font-size:1.2rem;">Eis schwimmt</span><span class="sr-frage">Fast jeder Stoff ist fest dichter als flüssig. Warum ist es bei Wasser umgekehrt?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Offenes Gitter</span><span class="sr-text">Im Eis ordnen die H-Brücken die Moleküle in einem regelmässigen Gitter mit grossen Hohlräumen. Im flüssigen Wasser brechen Brücken auf, die Moleküle rücken näher zusammen. Eis ist darum weniger dicht (0.92 g/cm³) und schwimmt.</span></span></button>
+    <button class="sr-card" type="button" data-key="w-see"><span class="sr-front"><span class="sr-formel" style="font-size:1.2rem;">Der See im Winter</span><span class="sr-frage">Warum frieren Seen von oben nach unten zu – und warum ist das für Fische wichtig?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Eis isoliert</span><span class="sr-text">Das leichtere Eis bleibt oben und schützt das Wasser darunter vor weiterer Abkühlung. Am Grund bleibt Wasser von rund 4 °C – dort überwintern die Fische.</span></span></button>
+  </div>
+
+  <h3>9.5 Kohlenstoff: Diamant und Graphit <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <p>Erinnern Sie sich an den Leitfähigkeits-Parcours: Die Bleistiftmine hat den Strom geleitet, obwohl Kohlenstoff ein Nichtmetall ist. Diamant und Graphit bestehen beide nur aus Kohlenstoff-Atomen. Sie bilden keine einzelnen Moleküle, sondern ein riesiges Netz aus Elektronenpaarbindungen: ein <strong>Atomgitter</strong>.</p>
+  <div class="table-scroll"><table class="data-table">
+    <tr><th></th><th>Diamant</th><th>Graphit</th></tr>
+    <tr><td><strong>Aufbau</strong></td><td>Jedes C-Atom ist an <strong>4</strong> andere gebunden (tetraedrisch). Dreidimensionales Netz.</td><td>Jedes C-Atom ist an <strong>3</strong> andere gebunden. Ebene Sechseck-Schichten, die nur durch schwache Kräfte zusammenhalten.</td></tr>
+    <tr><td><strong>Härte</strong></td><td>härtester natürlicher Stoff</td><td>weich, die Schichten gleiten aufeinander (Bleistift!)</td></tr>
+    <tr><td><strong>Leitfähigkeit</strong></td><td>leitet nicht</td><td>leitet entlang der Schichten</td></tr>
+    <tr><td><strong>Schmelzpunkt</strong></td><td colspan="2" style="text-align:center;">beide extrem hoch (über 3500 °C)</td></tr>
+  </table></div>
+  <div class="aufgabe"><div class="aufgabe-label">Überlegen</div>
+    <div id="cFragen"></div>
+  </div>
+
+  <h3>9.6 Vergleichstabelle ergänzen <span class="tag-selbst">selbstständig</span></h3>
+  <p>Ergänzen Sie Ihre Vergleichstabelle aus Lektion 7 um zwei Spalten.</p>
+  <div class="check-table" data-key="vergleich-p3">
+    <div class="table-scroll"><table class="data-table">
+      <tr><th></th><th>Molekülstoff (z.&thinsp;B. Wasser, Zucker)</th><th>Atomgitter (z.&thinsp;B. Diamant)</th></tr>
+      <tr><td><strong>Teilchen</strong></td>
+        <td><select data-answer="mol"><option value="ion">Kationen + Anionen</option><option value="mol">Moleküle</option><option value="atom">Atome im Netz</option></select></td>
+        <td><select data-answer="atom"><option value="ion">Kationen + Anionen</option><option value="mol">Moleküle</option><option value="atom">Atome im Netz</option></select></td></tr>
+      <tr><td><strong>Was muss beim Schmelzen überwunden werden?</strong></td>
+        <td><select data-answer="zmk"><option value="ep">Elektronenpaarbindungen</option><option value="zmk">zwischenmolekulare Kräfte</option></select></td>
+        <td><select data-answer="ep"><option value="ep">Elektronenpaarbindungen</option><option value="zmk">zwischenmolekulare Kräfte</option></select></td></tr>
+      <tr><td><strong>Schmelzpunkt</strong></td>
+        <td><select data-answer="tief"><option value="tief">meist tief</option><option value="hoch">sehr hoch</option></select></td>
+        <td><select data-answer="hoch"><option value="tief">meist tief</option><option value="hoch">sehr hoch</option></select></td></tr>
+      <tr><td><strong>Leitfähigkeit fest</strong></td>
+        <td><select data-answer="nein"><option value="ja">leitet</option><option value="nein">leitet nicht</option></select></td>
+        <td><select data-answer="nein"><option value="ja">leitet</option><option value="nein">leitet nicht (Ausnahme Graphit)</option></select></td></tr>
+      <tr><td><strong>Leitfähigkeit flüssig</strong></td>
+        <td><select data-answer="nein"><option value="ja">leitet</option><option value="nein">leitet nicht</option></select></td>
+        <td>– (zersetzt sich oder schmilzt erst bei extrem hohen Temperaturen)</td></tr>
+    </table></div>
+    <div class="sim-controls"><button class="btn primary ct-check">Prüfen</button><button class="btn ct-solve" disabled>Lösung ab 7 richtigen</button><span class="ct-msg"></span></div>
+  </div>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Siedepunkte</div>
+    <ul>
+      <li>Gitterstoffe (Metalle, Salze, Atomgitter) schmelzen und sieden viel höher als Molekülstoffe.</li>
+      <li>Bei Molekülstoffen ähnlicher Grösse gilt: H-Brücken &gt; Dipolkräfte &gt; nur Van-der-Waals-Kräfte.</li>
+      <li>Bei gleicher Art von Kräften: mehr Elektronen und grössere Oberfläche → höherer Siedepunkt.</li>
+      <li>Wasser siedet dank vieler H-Brücken ungewöhnlich hoch; Eis ist weniger dicht als flüssiges Wasser.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 9</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für Sie</div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Warum siedet <span class="f">HF</span> (20 °C) viel höher als <span class="f">HCl</span> (−85 °C), obwohl HCl mehr Elektronen hat?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>HF ist eine Ionenverbindung.</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Zwischen HF-Molekülen gibt es Wasserstoffbrücken.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>HF hat stärkere Van-der-Waals-Kräfte.</div>
+      <div class="feedback correct">Richtig! H ist an F gebunden – das ermöglicht H-Brücken.</div>
+      <div class="feedback wrong">Nicht ganz. HCl hat mehr Elektronen, also stärkere Van-der-Waals-Kräfte. Entscheidend sind die H-Brücken im HF.</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Warum leitet Graphit den elektrischen Strom, Diamant aber nicht?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Graphit enthält Metall-Atome.</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Im Graphit ist jedes C-Atom nur an drei andere gebunden; das vierte Valenzelektron ist in der Schicht beweglich.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Graphit besteht aus Ionen.</div>
+      <div class="feedback correct">Richtig! Diese beweglichen Elektronen leiten den Strom entlang der Schichten.</div>
+      <div class="feedback wrong">Nicht ganz. Zählen Sie die Bindungen pro C-Atom: Diamant 4, Graphit 3. Was passiert mit dem vierten Valenzelektron?</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">3</span>n-Pentan siedet bei 36 °C, 2,2-Dimethylpropan (gleiche Summenformel <span class="f">C<sub>5</sub>H<sub>12</sub></span>) bei 10 °C. Warum?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>n-Pentan hat mehr Elektronen.</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Das langgestreckte n-Pentan hat eine grössere Berührungsfläche.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>n-Pentan bildet H-Brücken.</div>
+      <div class="feedback correct">Richtig! Die kugelige Form hat weniger Kontaktfläche – schwächere Van-der-Waals-Kräfte.</div>
+      <div class="feedback wrong">Nicht ganz. Beide haben gleich viele Elektronen und nur Van-der-Waals-Kräfte. Es kommt auf die Form an.</div>
+    </div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 9</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128214;</div>
+      <div class="task-card-title">Skript</div>
+      <div class="task-card-desc">Aufgaben <span class="nrs">6-38, 6-39, 6-43, 6-45, 6-46, 6-52</span> · für Schnelle: <span class="nrs">6-53, 6-55</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                     ZUSAMMENFASSUNG                          -->
+<!-- ============================================================ -->
+<section id="zusammenfassung">
+  <div class="lesson-header">
+    <div class="lesson-number">Zusammenfassung</div>
+    <h2>Phase 3 auf einen Blick</h2>
+  </div>
+  <div class="summary-grid">
+    <div class="summary-card"><h4>Polarität</h4><p>ΔEN &lt; 0.5 unpolar, 0.5–1.7 polar, &gt; 1.7 ionisch. <strong>Dipol</strong> = polare Bindungen + unsymmetrische Gestalt (<span class="f">H<sub>2</sub>O</span> ja, <span class="f">CO<sub>2</sub></span> nein).</p></div>
+    <div class="summary-card"><h4>Drei Kräfte</h4><p><strong>Van der Waals</strong> (immer), <strong>Dipolkräfte</strong> (Dipole), <strong>H-Brücken</strong> (H an N, O, F). Alle schwächer als echte Bindungen.</p></div>
+    <div class="summary-card"><h4>Siedepunkte</h4><p>Gitterstoff &gt; Molekülstoff. Ähnliche Grösse: H-Brücken &gt; Dipol &gt; vdW. Gleiche Kräfte: mehr Elektronen, grössere Oberfläche → höher.</p></div>
+    <div class="summary-card"><h4>Atomgitter</h4><p>Diamant (4 Bindungen, hart, nicht leitend) und Graphit (3 Bindungen, Schichten, leitend). Sehr hohe Schmelzpunkte.</p></div>
+  </div>
+
+  <p id="phase4-teaser" style="text-align:center; color:var(--text-muted); margin-top:44px; font-size:0.9rem;">
+    <strong>Weiter geht's in Phase 4:</strong> Lösen und Mischen
+  </p>
+
+  <div id="formsBlock" style="margin-top:40px; padding-top:28px; border-top: 1px solid var(--border); display:none;">
+    <h4 style="margin-top:0;">Lernkontrolle Phase 3</h4>
+    <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:14px;">Multiple-Choice zum Grundverständnis der gesamten Phase 3.</p>
+    <div class="task-links">
+      <a class="task-card forms" id="formsLink" href="#" target="_blank">
+        <div class="task-card-icon">&#128203;</div>
+        <div class="task-card-title">MC-Lernkontrolle: Phase 3 abschliessen</div>
+        <div class="task-card-desc">MS Forms · Multiple-Choice zu Lektion 8–9</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+  <div style="margin-top:28px; padding:14px 18px; background:var(--bg-alt); border-radius:8px; font-size:0.85rem; color:var(--text-muted); display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;">
+    <span>Ihre Eingaben auf dieser Seite werden nur in diesem Browser gespeichert – nicht auf einem Server.</span>
+    <button class="btn" onclick="resetFortschritt()">Meine Eingaben löschen</button>
+  </div>
+</main>
+</div>
+</div>
+
+<script>window.PAGE = { key: 'struktur-3', forms: '' };</script>
+<script src="phase-tools.js"></script>
+<script>
+/* ================= L8: Verdunstungskälte ================= */
+renderChoices('verdFragen', [
+  { p: 'Welche Flüssigkeit hat sich am stärksten abgekühlt?', a: 'aceton',
+    options: [{ v: 'wasser', l: 'Wasser' }, { v: 'ethanol', l: 'Ethanol' }, { v: 'aceton', l: 'Aceton' }, { v: 'heptan', l: 'Heptan' }],
+    ok: 'Richtig. Aceton verdunstet am schnellsten. Zum Verdunsten brauchen die Moleküle Energie – sie nehmen sie dem Sensor weg.',
+    no: 'Schauen Sie in Ihre Messwerte: Bei welcher Flüssigkeit sank die Temperatur am tiefsten?' },
+  { p: 'Welche Flüssigkeit hat sich am wenigsten abgekühlt?', a: 'wasser',
+    options: [{ v: 'wasser', l: 'Wasser' }, { v: 'ethanol', l: 'Ethanol' }, { v: 'aceton', l: 'Aceton' }, { v: 'heptan', l: 'Heptan' }],
+    ok: 'Richtig. Wasser verdunstet bei Raumtemperatur nur langsam. Seine Moleküle halten besonders stark zusammen – warum, sehen Sie in 8.5.',
+    no: 'Schauen Sie in Ihre Messwerte: Bei welcher Flüssigkeit änderte sich die Temperatur kaum?' },
+  { p: 'Was schliessen Sie daraus?', a: 'schwach',
+    options: [{ v: 'schwach', l: 'Je schwächer sich die Moleküle anziehen, desto schneller verdunstet der Stoff.' }, { v: 'stark', l: 'Je stärker sich die Moleküle anziehen, desto schneller verdunstet der Stoff.' }, { v: 'egal', l: 'Die Anziehung zwischen den Molekülen spielt keine Rolle.' }],
+    ok: 'Genau. Ein Molekül kann nur in die Luft entweichen, wenn es sich von seinen Nachbarn losreissen kann. Die Abkühlung ist also ein Mass für die Kräfte zwischen den Molekülen.',
+    no: 'Überlegen Sie: Was muss ein Molekül überwinden, um aus der Flüssigkeit in die Luft zu gelangen?' }
+]);
+
+/* ================= L8: EN-Rechner ================= */
+const EN = [['H', 2.1], ['C', 2.5], ['N', 3.0], ['O', 3.5], ['F', 4.0], ['Cl', 3.0], ['Br', 2.8], ['I', 2.5], ['S', 2.5], ['P', 2.1], ['Li', 1.0], ['Na', 0.9], ['K', 0.8], ['Mg', 1.2], ['Ca', 1.0]];
+(function () {
+  const sa = $id('enA'), sb = $id('enB'); if (!sa) return;
+  const opts = EN.map((e, i) => `<option value="${i}">${e[0]} (EN ${e[1].toFixed(1)})</option>`).join('');
+  sa.innerHTML = opts; sb.innerHTML = opts;
+  sa.value = (store.en || {}).a ?? 0; sb.value = (store.en || {}).b ?? 5;
+  function upd() {
+    const A = EN[sa.value], B = EN[sb.value];
+    store.en = { a: sa.value, b: sb.value }; saveStore();
+    const d = Math.abs(A[1] - B[1]), dd = Math.round(d * 10) / 10;
+    const art = dd < 0.5 ? 'unpolar' : dd <= 1.7 ? 'polar' : 'ionisch';
+    const neg = A[1] > B[1] ? 0 : A[1] < B[1] ? 1 : -1; // welches Atom ist elektronegativer
+    const shift = art === 'unpolar' ? 0 : Math.min(1, d / 2.2) * 55 * (neg === 0 ? -1 : 1);
+    const xa = 140, xb = 260, y = 75;
+    let s = '';
+    if (art === 'ionisch') {
+      const [cat, an] = neg === 0 ? [1, 0] : [0, 1];
+      s += `<circle cx="${[xa, xb][an]}" cy="${y}" r="46" fill="#4a7ab5" opacity="0.22"/>`;
+    } else {
+      s += `<ellipse cx="${200 + shift}" cy="${y}" rx="${100 - Math.abs(shift) * 0.4}" ry="40" fill="#4a7ab5" opacity="0.2"/>`;
+    }
+    [[xa, A, 0], [xb, B, 1]].forEach(([x, at, i]) => {
+      s += `<circle cx="${x}" cy="${y}" r="26" fill="white" stroke="#555" stroke-width="1.5"/><text x="${x}" y="${y + 7}" text-anchor="middle" font-size="20" font-weight="700" font-family="DM Sans, sans-serif">${at[0]}</text>`;
+      let lab = '';
+      if (art === 'polar') lab = neg === i ? 'δ−' : 'δ+';
+      if (art === 'ionisch') lab = neg === i ? '−' : '+';
+      if (lab) s += `<text x="${x}" y="${y - 38}" text-anchor="middle" font-size="18" font-weight="700" fill="${lab.includes('−') ? '#3d6fb0' : '#c05050'}" font-family="DM Sans, sans-serif">${lab}</text>`;
+    });
+    $id('enSvg').innerHTML = s;
+    const txt = { unpolar: 'Die Elektronen sind (fast) gleichmässig verteilt: <strong>unpolare Elektronenpaarbindung</strong>.', polar: 'Das Elektronenpaar ist zum elektronegativeren Atom verschoben: <strong>polare Elektronenpaarbindung</strong> mit Teilladungen δ+ und δ−.', ionisch: 'Das elektronegativere Atom zieht die Elektronen ganz zu sich: <strong>Ionenbindung</strong>.' };
+    $id('enOut').innerHTML = `ΔEN = |${A[1].toFixed(1)} − ${B[1].toFixed(1)}| = <strong>${dd.toFixed(1)}</strong> → ${txt[art]}`;
+  }
+  sa.addEventListener('change', upd); sb.addEventListener('change', upd); upd();
+})();
+
+const BINDOPT = [{ v: 'u', l: 'unpolar' }, { v: 'p', l: 'polar' }, { v: 'i', l: 'ionisch' }];
+renderChoices('enFragen', [
+  { p: 'C–H', a: 'u', ok: 'Richtig: ΔEN = 0.4. Darum sind Kohlenwasserstoffe wie Heptan unpolar.', no: 'Berechnen Sie ΔEN mit dem Rechner: 2.5 − 2.1.' },
+  { p: 'O–H', a: 'p', ok: 'Richtig: ΔEN = 1.4. Das O-Atom ist δ−, das H-Atom δ+.', no: 'Berechnen Sie ΔEN: 3.5 − 2.1.' },
+  { p: 'Na–Cl', a: 'i', ok: 'Richtig: ΔEN = 2.1. Natriumchlorid ist eine Ionenverbindung.', no: 'Berechnen Sie ΔEN: 3.0 − 0.9.' },
+  { p: 'Cl–Cl', a: 'u', ok: 'Richtig: zwei gleiche Atome, ΔEN = 0.', no: 'Zwei gleiche Atome ziehen gleich stark an den Elektronen.' },
+  { p: 'N–H', a: 'p', ok: 'Richtig: ΔEN = 0.9.', no: 'Berechnen Sie ΔEN: 3.0 − 2.1.' }
+], BINDOPT);
+
+/* ================= L8: Molekülskizzen auf den Karten ================= */
+(function () {
+  const atom = (x, y, s, col, r) => `<circle cx="${x}" cy="${y}" r="${r || 17}" fill="${col}" stroke="rgba(0,0,0,0.3)"/><text x="${x}" y="${y + 6}" text-anchor="middle" font-size="16" font-weight="700" font-family="DM Sans, sans-serif" fill="${col === '#ffffff' ? '#333' : 'white'}">${s}</text>`;
+  const line = (x1, y1, x2, y2, dbl) => dbl ? `<line x1="${x1}" y1="${y1 - 4}" x2="${x2}" y2="${y2 - 4}" stroke="#555" stroke-width="2.5"/><line x1="${x1}" y1="${y1 + 4}" x2="${x2}" y2="${y2 + 4}" stroke="#555" stroke-width="2.5"/>` : `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#555" stroke-width="2.5"/>`;
+  const d = (x, y, t) => `<text x="${x}" y="${y}" text-anchor="middle" font-size="14" font-weight="700" font-family="DM Sans, sans-serif" fill="${t.includes('−') ? '#3d6fb0' : '#c05050'}">${t}</text>`;
+  const O = '#d0574a', C = '#555555', H = '#ffffff', CL = '#3f9a4f';
+  const M = {
+    co2: line(80, 55, 150, 55, 1) + line(150, 55, 220, 55, 1) + atom(80, 55, 'O', O) + atom(150, 55, 'C', C) + atom(220, 55, 'O', O) + d(80, 28, 'δ−') + d(150, 28, 'δ+') + d(220, 28, 'δ−'),
+    h2o: line(150, 40, 105, 78) + line(150, 40, 195, 78) + atom(150, 40, 'O', O) + atom(105, 78, 'H', H, 13) + atom(195, 78, 'H', H, 13) + d(150, 16, 'δ−') + d(80, 96, 'δ+') + d(220, 96, 'δ+') + '<path d="M150 100 L150 70" stroke="#999" stroke-dasharray="3 3"/>',
+    ccl4: line(150, 55, 150, 15) + line(150, 55, 95, 80) + line(150, 55, 205, 80) + line(150, 55, 150, 95) + atom(150, 15, 'Cl', CL, 15) + atom(95, 80, 'Cl', CL, 15) + atom(205, 80, 'Cl', CL, 15) + atom(150, 95, 'Cl', CL, 15) + atom(150, 55, 'C', C, 15),
+    ch3cl: line(150, 55, 150, 15) + line(150, 55, 98, 80) + line(150, 55, 202, 80) + line(150, 55, 150, 95) + atom(150, 15, 'Cl', CL, 15) + atom(98, 80, 'H', H, 11) + atom(202, 80, 'H', H, 11) + atom(150, 97, 'H', H, 11) + atom(150, 55, 'C', C, 15) + d(190, 18, 'δ−') + d(225, 100, 'δ+')
+  };
+  document.querySelectorAll('svg[data-mol]').forEach(s => { s.innerHTML = M[s.dataset.mol]; });
+})();
+
+/* ================= L8: Wasserstoffbrücken-Skizze ================= */
+(function () {
+  const svg = $id('hbSvg'); if (!svg) return;
+  const mol = [{ x: 90, y: 110 }, { x: 190, y: 34 }, { x: 190, y: 192 }, { x: 330, y: 110 }, { x: 460, y: 60 }];
+  const don = [[0, 1], [0, 2], [1, 3], [2, 3], [3, 4]];
+  const ang = mol.map(() => []);
+  don.forEach(([a, b]) => ang[a].push(Math.atan2(mol[b].y - mol[a].y, mol[b].x - mol[a].x)));
+  const HOH = 104.5 * Math.PI / 180;
+  ang.forEach((l, i) => { if (l.length === 0) l.push(Math.PI * 0.75); if (l.length === 1) l.push(l[0] + (i === 2 || i === 3 ? HOH : -HOH)); });
+  let s = '';
+  const R = 34;
+  don.forEach(([a, b], k) => {
+    const idx = ang[a].indexOf(Math.atan2(mol[b].y - mol[a].y, mol[b].x - mol[a].x));
+    const t = ang[a][idx];
+    const hx = mol[a].x + R * Math.cos(t), hy = mol[a].y + R * Math.sin(t);
+    const L = Math.hypot(mol[b].x - hx, mol[b].y - hy);
+    const ex = mol[b].x - (mol[b].x - hx) / L * 22, ey = mol[b].y - (mol[b].y - hy) / L * 22;
+    const sx = hx + (mol[b].x - hx) / L * 13, sy = hy + (mol[b].y - hy) / L * 13;
+    s += `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="#4a7ab5" stroke-width="2.5" stroke-dasharray="5 5"/>`;
+  });
+  mol.forEach((m, i) => {
+    ang[i].forEach(t => { s += `<line x1="${m.x}" y1="${m.y}" x2="${m.x + R * Math.cos(t)}" y2="${m.y + R * Math.sin(t)}" stroke="#555" stroke-width="3"/>`; });
+  });
+  mol.forEach((m, i) => {
+    s += `<circle cx="${m.x}" cy="${m.y}" r="20" fill="#d0574a"/><text x="${m.x}" y="${m.y + 6}" text-anchor="middle" font-size="16" font-weight="700" fill="white" font-family="DM Sans, sans-serif">O</text>`;
+    ang[i].forEach(t => { const x = m.x + R * Math.cos(t), y = m.y + R * Math.sin(t); s += `<circle cx="${x}" cy="${y}" r="12" fill="white" stroke="#888"/><text x="${x}" y="${y + 5}" text-anchor="middle" font-size="13" font-weight="700" fill="#333" font-family="DM Sans, sans-serif">H</text>`; });
+  });
+  svg.innerHTML = s;
+})();
+
+/* ================= L9: Siedepunkte der Hydride ================= */
+const HYD = [
+  { g: 'Gruppe 14', c: '#7a7a7a', d: [['CH₄', -161], ['SiH₄', -112], ['GeH₄', -88], ['SnH₄', -52]] },
+  { g: 'Gruppe 15', c: '#4a7ab5', d: [['NH₃', -33], ['PH₃', -88], ['AsH₃', -62], ['SbH₃', -17]] },
+  { g: 'Gruppe 16', c: '#c0503f', d: [['H₂O', 100], ['H₂S', -60], ['H₂Se', -41], ['H₂Te', -2]] },
+  { g: 'Gruppe 17', c: '#3f9a4f', d: [['HF', 20], ['HCl', -85], ['HBr', -67], ['HI', -35]] }
+];
+(function () {
+  const svg = $id('hydChart'); if (!svg) return;
+  const L = 70, R = 610, T = 30, B = 330, ymin = -180, ymax = 120;
+  const X = p => L + (p - 2) / 3 * (R - L - 40) + 20, Y = v => B - (v - ymin) / (ymax - ymin) * (B - T);
+  let s = '';
+  for (let v = ymin; v <= ymax; v += 30) s += `<line x1="${L}" x2="${R}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v === 0 ? '#bbb' : '#eee'}"/><text x="${L - 8}" y="${Y(v) + 4}" text-anchor="end" font-size="12" fill="#888" font-family="DM Sans, sans-serif">${v}</text>`;
+  for (let p = 2; p <= 5; p++) s += `<text x="${X(p)}" y="${B + 22}" text-anchor="middle" font-size="12" fill="#666" font-family="DM Sans, sans-serif">Periode ${p}</text>`;
+  s += `<text x="18" y="${(T + B) / 2}" transform="rotate(-90 18 ${(T + B) / 2})" text-anchor="middle" font-size="12" fill="#666" font-family="DM Sans, sans-serif">Siedepunkt in °C</text>`;
+  s += '<g id="hydTrendLine"></g>';
+  HYD.forEach(h => {
+    s += `<polyline fill="none" stroke="${h.c}" stroke-width="2.5" points="${h.d.map((q, i) => X(i + 2) + ',' + Y(q[1])).join(' ')}"/>`;
+    h.d.forEach((q, i) => { s += `<circle class="hyd-pt" cx="${X(i + 2)}" cy="${Y(q[1])}" r="7" fill="${h.c}" stroke="white" stroke-width="2" style="cursor:pointer" data-t="${q[0]}: ${q[1]} °C"><title>${q[0]}: ${q[1]} °C</title></circle>`; });
+  });
+  s += `<text id="hydTip" x="${R - 6}" y="${T + 4}" text-anchor="end" font-size="15" font-weight="700" fill="#333" font-family="DM Sans, sans-serif"></text>`;
+  svg.innerHTML = s;
+  $id('hydLegend').innerHTML = HYD.map(h => `<span style="--c:${h.c}">${h.g}</span>`).join('');
+  svg.querySelectorAll('.hyd-pt').forEach(c => { const show = () => { $id('hydTip').textContent = c.dataset.t; }; c.addEventListener('pointerenter', show); c.addEventListener('click', show); });
+  // linearer Trend aus H2S, H2Se, H2Te → erwarteter Wert für H2O
+  const ys = HYD[2].d.slice(1).map(q => q[1]), my = ys.reduce((a, b) => a + b) / 3, k = ((ys[2] - ys[0]) / 2), y2 = my - 2 * k;
+  $id('hydTrend').addEventListener('click', e => {
+    const g = $id('hydTrendLine');
+    if (g.innerHTML) { g.innerHTML = ''; e.target.textContent = 'Erwarteten Wert für Wasser zeigen'; return; }
+    g.innerHTML = `<line x1="${X(2)}" y1="${Y(y2)}" x2="${X(5)}" y2="${Y(my + k)}" stroke="#c0503f" stroke-width="2" stroke-dasharray="6 5" opacity="0.7"/><circle cx="${X(2)}" cy="${Y(y2)}" r="7" fill="none" stroke="#c0503f" stroke-width="2.5" stroke-dasharray="3 3"/><text x="${X(2) + 14}" y="${Y(y2) + 5}" font-size="13" fill="#c0503f" font-family="DM Sans, sans-serif">erwartet: ca. ${Math.round(y2 / 10) * 10} °C</text>`;
+    e.target.textContent = 'Trendlinie ausblenden';
+  });
+})();
+
+renderChoices('hydFragen', [
+  { p: 'In Gruppe 14 (CH₄ bis SnH₄) steigt der Siedepunkt von oben nach unten. Warum?', a: 'vdw',
+    options: [{ v: 'vdw', l: 'Mehr Elektronen → stärkere Van-der-Waals-Kräfte' }, { v: 'hb', l: 'Mehr H-Brücken' }, { v: 'dip', l: 'Die Moleküle werden stärkere Dipole' }],
+    ok: 'Richtig. Die Moleküle der Gruppe 14 sind tetraedrisch und keine Dipole – es wirken nur Van-der-Waals-Kräfte.',
+    no: 'CH₄ und seine «Verwandten» sind symmetrisch gebaut. Welche Kraft wirkt dann als einzige?' },
+  { p: 'Welche drei Stoffe fallen aus der Reihe?', a: 'nof',
+    options: [{ v: 'nof', l: 'NH₃, H₂O und HF' }, { v: 'p3', l: 'PH₃, H₂S und HCl' }, { v: 'p5', l: 'SbH₃, H₂Te und HI' }],
+    ok: 'Richtig. Bei NH₃, H₂O und HF ist H an N, O oder F gebunden. Die Wasserstoffbrücken heben ihre Siedepunkte weit über den Trend.',
+    no: 'Suchen Sie die Punkte, die nicht in den steigenden Trend passen – sie liegen alle in Periode 2.' },
+  { p: 'Klicken Sie auf «Erwarteten Wert für Wasser zeigen». Wie viel höher siedet Wasser wegen der H-Brücken?', a: '190',
+    options: [{ v: '20', l: 'etwa 20 °C' }, { v: '90', l: 'etwa 90 °C' }, { v: '190', l: 'etwa 190 °C' }],
+    ok: 'Richtig. Ohne H-Brücken wäre Wasser bei Raumtemperatur ein Gas. Das ist Aufgabe 6-37 im Skript.',
+    no: 'Lesen Sie den erwarteten Wert ab und vergleichen Sie mit 100 °C.' }
+]);
+
+renderChoices('sdpFragen', [
+  { p: 'Argon oder Xenon?', a: 'b', options: [{ v: 'a', l: 'Ar' }, { v: 'b', l: 'Xe' }],
+    ok: 'Richtig: Xe −108 °C, Ar −186 °C. Nur Van-der-Waals-Kräfte; Xenon hat viel mehr Elektronen.', no: 'Beide haben nur Van-der-Waals-Kräfte (Schritt 3). Wer hat mehr Elektronen?' },
+  { p: 'Ethanol <span class="f">C<sub>2</sub>H<sub>5</sub>OH</span> oder Dimethylether <span class="f">CH<sub>3</sub>OCH<sub>3</sub></span>? (gleiche Summenformel)', a: 'a', options: [{ v: 'a', l: 'Ethanol' }, { v: 'b', l: 'Dimethylether' }],
+    ok: 'Richtig: Ethanol 78 °C, Dimethylether −24 °C. Nur im Ethanol ist ein H-Atom an O gebunden – H-Brücken.', no: 'Im Dimethylether sind alle H-Atome an C gebunden. Welcher Stoff kann H-Brücken bilden?' },
+  { p: '<span class="f">NH<sub>3</sub></span> oder <span class="f">PH<sub>3</sub></span>?', a: 'a', options: [{ v: 'a', l: 'NH₃' }, { v: 'b', l: 'PH₃' }],
+    ok: 'Richtig: NH₃ −33 °C, PH₃ −88 °C. H-Brücken im Ammoniak.', no: 'PH₃ hat zwar mehr Elektronen, aber nur NH₃ hat H an N gebunden.' },
+  { p: '<span class="f">HCl</span> oder <span class="f">Br<sub>2</sub></span>?', a: 'b', options: [{ v: 'a', l: 'HCl' }, { v: 'b', l: 'Br₂' }],
+    ok: 'Richtig: Br₂ 59 °C, HCl −85 °C. Das Br₂-Molekül hat 70 Elektronen, HCl nur 18. Die starken Van-der-Waals-Kräfte überwiegen die Dipolkräfte im HCl – die «Achtung»-Regel.', no: 'HCl ist zwar ein Dipol, aber die Moleküle sind sehr unterschiedlich gross. Zählen Sie die Elektronen.' },
+  { p: '<span class="f">NaCl</span> oder <span class="f">H<sub>2</sub>O</span>?', a: 'a', options: [{ v: 'a', l: 'NaCl' }, { v: 'b', l: 'H₂O' }],
+    ok: 'Richtig: NaCl siedet bei 1465 °C. Ein Salz ist ein Gitterstoff – Schritt 1.', no: 'Schritt 1: Gitterstoff oder Molekülstoff?' },
+  { p: '<span class="f">CH<sub>4</sub></span> oder <span class="f">C<sub>3</sub>H<sub>8</sub></span> (Propan)?', a: 'b', options: [{ v: 'a', l: 'CH₄' }, { v: 'b', l: 'C₃H₈' }],
+    ok: 'Richtig: Propan −42 °C, Methan −161 °C. Grösseres Molekül, mehr Elektronen, grössere Oberfläche.', no: 'Beide haben nur Van-der-Waals-Kräfte. Welches Molekül ist grösser?' }
+]);
+
+renderChoices('cFragen', [
+  { p: 'Warum ist Graphit so weich, dass ein Bleistift auf Papier eine Spur hinterlässt?', a: 's',
+    options: [{ v: 's', l: 'Die Schichten halten nur schwach zusammen und gleiten aufeinander.' }, { v: 'b', l: 'Die Bindungen in den Schichten sind schwach.' }, { v: 'm', l: 'Graphit ist ein Metall.' }],
+    ok: 'Richtig. Innerhalb der Schicht sind die Bindungen sehr stark, zwischen den Schichten wirken nur schwache Kräfte. Beim Schreiben bleiben Schichten am Papier hängen.',
+    no: 'Unterscheiden Sie: Bindungen innerhalb einer Schicht und Kräfte zwischen den Schichten.' },
+  { p: 'Warum ist Diamant so hart?', a: 'n',
+    options: [{ v: 'n', l: 'Jedes C-Atom ist über vier starke Bindungen mit dem ganzen Netz verbunden.' }, { v: 'z', l: 'Zwischen den Diamant-Molekülen wirken starke H-Brücken.' }, { v: 'i', l: 'Diamant besteht aus Ionen.' }],
+    ok: 'Richtig. Es gibt keine «Schwachstelle»: Um den Diamanten zu ritzen, müsste man Elektronenpaarbindungen brechen.',
+    no: 'Diamant hat keine einzelnen Moleküle – der ganze Kristall ist ein einziges Netz aus Bindungen.' }
+]);
+
+</script>
+<script src="freigabe.js"></script>
+</body>
+</html>

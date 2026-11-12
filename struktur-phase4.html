@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Struktur & Eigenschaften – Phase 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="struktur.css">
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar">
+  <div class="sidebar-brand"><a href="index.html" style="text-decoration:none; color:inherit;">Struktur &amp; Eigenschaften</a><small>Chemie GLF · 2. Gymnasium · Va</small><a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a></div>
+  <div class="sidebar-phase">Phase 1 · Nomenklatur</div>
+  <a href="struktur.html#L1" class="nav-item"><span class="nav-dot"></span>L1 – Ionenverbindungen</a>
+  <a href="struktur.html#L2" class="nav-item"><span class="nav-dot"></span>L2 – Molekülionen</a>
+  <a href="struktur.html#L3" class="nav-item"><span class="nav-dot"></span>L3 – Molekülverbindungen</a>
+  <a href="struktur.html#L4" class="nav-item"><span class="nav-dot"></span>L4 – Training</a>
+  <div class="sidebar-phase">Phase 2 · Gitterstoffe</div>
+  <a href="struktur-phase2.html#L5" class="nav-item"><span class="nav-dot"></span>L5 – Metalle und Leitfähigkeit</a>
+  <a href="struktur-phase2.html#L6" class="nav-item"><span class="nav-dot"></span>L6 – Salze: Ionengitter</a>
+  <a href="struktur-phase2.html#L7" class="nav-item"><span class="nav-dot"></span>L7 – Metall gegen Salz</a>
+  <div class="sidebar-phase">Phase 3 · Moleküle</div>
+  <a href="struktur-phase3.html#L8" class="nav-item"><span class="nav-dot"></span>L8 – Polarität und ZMK</a>
+  <a href="struktur-phase3.html#L9" class="nav-item"><span class="nav-dot"></span>L9 – Siedepunkte, Wasser, Kohlenstoff</a>
+  <div class="sidebar-phase">Phase 4 · Lösen und Mischen</div>
+  <a href="#L10" class="nav-item"><span class="nav-dot"></span>L10 – Salze und Moleküle lösen</a>
+  <a href="#L11" class="nav-item"><span class="nav-dot"></span>L11 – Transfer und Abschluss</a>
+  <a href="#zusammenfassung" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+</nav>
+
+<div class="main-wrap">
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<main class="content">
+<div class="hero-inline">
+  <div class="phase-badge">Phase 4 · Lektionen 10–11 · Lösen und Mischen</div>
+  <h1>Was löst sich worin?</h1>
+  <p class="subtitle">Salze in Wasser, schwerlösliche Salze, mischbare und nicht mischbare Flüssigkeiten – und die Antwort auf die Leitfrage</p>
+  <div class="dl-plan">
+    <div class="dl-card">
+      <div class="dl-tag">Doppellektion 6 · L10 · Labor</div>
+      <div class="dl-title">Salze und Moleküle lösen</div>
+      <div class="dl-desc">Ionen im Mineralwasser nachweisen, Flüssigkeiten mischen – und warum man Bariumsulfat trinken darf.</div>
+    </div>
+    <div class="dl-card">
+      <div class="dl-tag">Doppellektion 7 · L11</div>
+      <div class="dl-title">Transfer und Abschluss</div>
+      <div class="dl-desc">Ein Gemisch, das sich auf Salz hin trennt, Alkohole, Vitamine – und die vollständige Vergleichstabelle.</div>
+    </div>
+  </div>
+</div>
+
+<div class="discovery"><div class="discovery-label">Der rote Faden</div>
+  <h4>Lösen = alte Anziehungen gegen neue Anziehungen</h4>
+  <p style="margin-bottom:0;">Damit sich ein Stoff in einem anderen löst, müssen die Teilchen beider Stoffe ihre bisherigen Nachbarn loslassen (<strong>alte Anziehungen</strong>) und sich miteinander mischen (<strong>neue Anziehungen</strong>). Das klappt nur, wenn die neuen Anziehungen <strong>ähnlich stark</strong> sind wie die alten. Mit diesem einen Gedanken erklären Sie alles in dieser Phase.</p>
+</div>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 10                            -->
+<!-- ============================================================ -->
+<section id="L10">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 10</div>
+    <h2>Salze und Moleküle lösen</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können beschreiben, wie sich ein Salz in Wasser löst (Hydrathülle), und die Lösungsgleichung aufschreiben.</li>
+    <li>Sie können erklären, warum manche Salze schwerlöslich sind, und mit Löslichkeitsregeln voraussagen, ob beim Mischen zweier Lösungen ein Niederschlag entsteht.</li>
+    <li>Sie können eine Fällungsreaktion als Ionengleichung aufschreiben.</li>
+    <li>Sie können mit der Regel «Gleiches löst sich in Gleichem» voraussagen, ob zwei Flüssigkeiten mischbar sind.</li>
+  </ul></div>
+
+  <h3>10.1 Aufhänger: Gift trinken beim Röntgen? <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <div class="discovery"><div class="discovery-label">Denken · Austauschen</div>
+    <p>Barium-Ionen <span class="f">Ba<sup>2+</sup></span> sind giftig: Schon wenige Gramm Bariumchlorid können tödlich sein. Trotzdem trinken Patientinnen und Patienten vor einer Röntgenuntersuchung von Magen und Darm einen Brei aus <strong>Bariumsulfat</strong> – etwa 200 Gramm. Barium hält Röntgenstrahlen gut zurück, so werden Magen und Darm im Bild sichtbar.</p>
+    <p style="margin-bottom:0;">Wie kann das gut gehen? Notieren Sie eine Vermutung. Die Auflösung finden Sie in 10.4.</p>
+    <div class="notiz-box" data-key="barium-vermutung" data-label="Ihre Vermutung"></div>
+  </div>
+
+  <h3>10.2 Labor: Mineralwasser-Detektive und Mischbarkeit <span class="tag-gemeinsam">Halbklasse</span></h3>
+  <div class="lab-box"><div class="experiment-label">Labor</div>
+    <p>Die eine Hälfte der Klasse weist im Labor Ionen in Mineralwasser nach und testet, welche Flüssigkeiten sich mischen. Die andere Hälfte arbeitet hier 10.3 bis 10.5 durch – nach 35 Minuten wird gewechselt. Die Versuchsanleitung erhalten Sie im Labor.</p>
+  </div>
+  <h4>Nach dem Labor</h4>
+  <div class="notiz-box" data-key="detektive" data-label="Ihre Ergebnisse: Welche Ionen haben Sie in welchem Mineralwasser nachgewiesen?"></div>
+  <div class="aufgabe"><div class="aufgabe-label">Auswerten</div>
+    <div id="nachweisFragen"></div>
+  </div>
+
+  <h3>10.3 Wie löst sich ein Salz in Wasser? <span class="tag-selbst">selbstständig</span></h3>
+  <p>Gibt man einen Salzkristall in Wasser, lagern sich die Wassermoleküle an die Ionen an der Oberfläche des Kristalls an. Die Wassermoleküle sind Dipole: Sie richten ihre negative Seite (O-Atom) zum Kation und ihre positive Seite (H-Atome) zum Anion. Nach und nach lösen sie die Ionen aus dem Gitter. Jedes gelöste Ion ist dann von einer <strong>Hydrathülle</strong> aus Wassermolekülen umgeben.</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Hydratisierte Ionen</span><span class="widget-badge">MODELL</span></div>
+    <div class="widget-body">
+      <svg id="hydratSvg" viewBox="0 0 520 230" style="width:100%; height:auto; display:block;"></svg>
+    </div>
+    <div class="widget-caption">Links ein Natrium-Ion, rechts ein Chlorid-Ion, jeweils mit Hydrathülle (vereinfacht, in einer Ebene gezeichnet).</div>
+  </div>
+  <div class="aufgabe"><div class="aufgabe-label">Modell lesen</div>
+    <div id="hydratFragen"></div>
+  </div>
+
+  <p>In der Lösungsgleichung kennzeichnet <strong>(s)</strong> einen Feststoff (<em>solid</em>) und <strong>(aq)</strong> ein hydratisiertes, in Wasser gelöstes Teilchen (<em>aqua</em>):</p>
+  <div style="text-align:center; font-size:1.1rem; margin:14px 0 20px;"><span class="f">NaCl(s)</span> &nbsp;→&nbsp; <span class="f">Na<sup>+</sup>(aq)</span> + <span class="f">Cl<sup>−</sup>(aq)</span></div>
+  <div class="glossar"><div class="glossar-label">Alte gegen neue Anziehungen</div>
+    <p style="margin-bottom:0;"><strong>Alt:</strong> Ionen im Gitter ziehen sich an, Wassermoleküle halten über H-Brücken zusammen. <strong>Neu:</strong> Ionen ziehen die Dipole des Wassers an (Hydrathülle). Bei Kochsalz sind alte und neue Anziehungen ähnlich stark – es löst sich gut. Beim Lösen wird übrigens kaum Wärme frei; Kochsalzlösung wird sogar minimal kälter.</p>
+  </div>
+
+  <h3>10.4 Schwerlösliche Salze und Fällung <span class="tag-selbst">selbstständig</span></h3>
+  <p>Nicht jedes Salz löst sich gut. Ziehen sich die Ionen im Gitter sehr stark an – zum Beispiel weil beide zweifach geladen sind –, kann die Hydrathülle sie nicht losreissen. Das Salz ist <strong>schwerlöslich</strong>. Für die häufigsten Ionen gelten diese Regeln:</p>
+  <div class="table-scroll"><table class="data-table">
+    <tr><th>Ionen</th><th>Löslichkeit</th><th>Ausnahmen</th></tr>
+    <tr><td><span class="f">Na<sup>+</sup></span>, <span class="f">K<sup>+</sup></span>, <span class="f">NH<sub>4</sub><sup>+</sup></span></td><td>alle löslich</td><td>–</td></tr>
+    <tr><td>Nitrate <span class="f">NO<sub>3</sub><sup>−</sup></span></td><td>alle löslich</td><td>–</td></tr>
+    <tr><td>Chloride <span class="f">Cl<sup>−</sup></span></td><td>meist löslich</td><td>schwerlöslich: <span class="f">AgCl</span>, <span class="f">PbCl<sub>2</sub></span></td></tr>
+    <tr><td>Sulfate <span class="f">SO<sub>4</sub><sup>2−</sup></span></td><td>meist löslich</td><td>schwerlöslich: <span class="f">BaSO<sub>4</sub></span>, <span class="f">PbSO<sub>4</sub></span>; wenig löslich: <span class="f">CaSO<sub>4</sub></span></td></tr>
+    <tr><td>Carbonate <span class="f">CO<sub>3</sub><sup>2−</sup></span></td><td>meist schwerlöslich</td><td>löslich mit <span class="f">Na<sup>+</sup></span>, <span class="f">K<sup>+</sup></span>, <span class="f">NH<sub>4</sub><sup>+</sup></span></td></tr>
+  </table></div>
+
+  <p>Mischt man zwei Salzlösungen, deren Ionen zusammen ein schwerlösliches Salz bilden, entsteht sofort ein fester <strong>Niederschlag</strong>. Das ist eine <strong>Fällungsreaktion</strong>. In der Ionengleichung schreibt man nur die Ionen auf, die reagieren:</p>
+  <div style="text-align:center; font-size:1.1rem; margin:14px 0 8px;"><span class="f">Ba<sup>2+</sup>(aq)</span> + <span class="f">SO<sub>4</sub><sup>2−</sup>(aq)</span> &nbsp;→&nbsp; <span class="f">BaSO<sub>4</sub>(s)</span></div>
+  <p style="text-align:center; font-size:0.86rem; color:var(--text-muted);">Die übrigen Ionen (zum Beispiel <span class="f">Na<sup>+</sup></span> und <span class="f">Cl<sup>−</sup></span>) bleiben gelöst und tauchen in der Ionengleichung nicht auf.</p>
+
+  <div class="aufgabe"><div class="aufgabe-label">Fällt etwas aus? Zwei Lösungen werden gemischt</div>
+    <div id="faellFragen"></div>
+  </div>
+
+  <div class="aufgabe"><div class="aufgabe-label">Zurück zum Röntgenbrei</div>
+    <p>Erklären Sie jetzt, warum man Bariumsulfat trinken darf, Bariumchlorid aber nicht.</p>
+    <details class="loesung"><summary>Lösung</summary><div class="inner">
+      <p style="margin-bottom:0;">Giftig sind die <strong>gelösten</strong> <span class="f">Ba<sup>2+</sup></span>-Ionen, denn nur sie gelangen ins Blut. Bariumchlorid ist löslich und gibt alle Barium-Ionen frei. Bariumsulfat ist schwerlöslich: Die zweifach geladenen Ionen halten im Gitter so stark zusammen, dass sich praktisch nichts löst. Der Brei wandert durch Magen und Darm und wird wieder ausgeschieden.</p>
+    </div></details>
+  </div>
+
+  <h3>10.5 Gleiches löst sich in Gleichem <span class="tag-selbst">selbstständig</span></h3>
+  <p>Auch bei Molekülstoffen entscheiden alte und neue Anziehungen:</p>
+  <ul>
+    <li><strong>Wasser und Ethanol</strong> mischen sich in jedem Verhältnis. Beide bilden H-Brücken – auch untereinander. Die neuen Anziehungen sind so stark wie die alten.</li>
+    <li><strong>Wasser und Heptan</strong> mischen sich nicht. Heptan kann keine H-Brücken bilden. Würde es sich zwischen die Wassermoleküle schieben, gingen H-Brücken verloren – ohne Ersatz. Die Wassermoleküle «halten zusammen» und drängen das Heptan hinaus.</li>
+  </ul>
+  <div class="merksatz"><div class="merksatz-label">Regel</div>
+    <p style="margin-bottom:0;"><strong>Gleiches löst sich in Gleichem.</strong> Polare Stoffe (mit Dipolkräften oder H-Brücken) mischen sich mit polaren, unpolare Stoffe mit unpolaren. Polare Stoffe nennt man auch <strong>hydrophil</strong> (wasserliebend), unpolare <strong>hydrophob</strong> (wasserfürchtend) oder <strong>lipophil</strong> (fettliebend).</p>
+  </div>
+  <div class="aufgabe"><div class="aufgabe-label">Mischbar oder nicht?</div>
+    <div id="mischFragen"></div>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 10</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für Sie</div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Warum leitet eine Kochsalzlösung den Strom?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Wasser ist ein guter Leiter.</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Die hydratisierten Ionen sind beweglich.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Beim Lösen entstehen freie Elektronen.</div>
+      <div class="feedback correct">Richtig! Die gelösten Ionen wandern zu den Polen – das ist der Strom.</div>
+      <div class="feedback wrong">Nicht ganz. Erinnern Sie sich an den Parcours: Destilliertes Wasser leitet nicht. Die Ladungsträger sind die gelösten Ionen.</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Welche Ionengleichung beschreibt die Fällung von Silberchlorid?</div>
+      <div class="option" data-correct="false"><span class="radio"></span><span class="f">AgNO<sub>3</sub> + NaCl → AgCl + NaNO<sub>3</sub></span></div>
+      <div class="option" data-correct="true"><span class="radio"></span><span class="f">Ag<sup>+</sup>(aq) + Cl<sup>−</sup>(aq) → AgCl(s)</span></div>
+      <div class="option" data-correct="false"><span class="radio"></span><span class="f">Na<sup>+</sup>(aq) + NO<sub>3</sub><sup>−</sup>(aq) → NaNO<sub>3</sub>(s)</span></div>
+      <div class="feedback correct">Richtig! Nur die Ionen, die den Niederschlag bilden, stehen in der Ionengleichung.</div>
+      <div class="feedback wrong">Nicht ganz. Die Ionengleichung enthält nur die reagierenden Ionen mit (aq) und den Niederschlag mit (s). Natriumnitrat bleibt gelöst.</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">3</span>Warum löst sich Fett nicht in Wasser?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Fett ist schwerer als Wasser.</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Fett ist unpolar und kann keine H-Brücken mit Wasser bilden.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Fett besteht aus Ionen.</div>
+      <div class="feedback correct">Richtig! Gleiches löst sich in Gleichem – Fett löst sich in unpolarem Heptan oder Benzin.</div>
+      <div class="feedback wrong">Nicht ganz. Fett schwimmt sogar auf Wasser. Entscheidend ist, dass Fett unpolar ist.</div>
+    </div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 10</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128196;</div>
+      <div class="task-card-title">Auswertung Labor</div>
+      <div class="task-card-desc">Beantworten Sie die Auswertungsfragen auf den Laborblättern (Hausaufgabe).</div>
+    </div>
+    <div class="task-card print">
+      <div class="task-card-icon">&#128214;</div>
+      <div class="task-card-title">Skript – für Schnelle</div>
+      <div class="task-card-desc">Aufgaben <span class="nrs">6-32, 6-35, 6-49</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 11                            -->
+<!-- ============================================================ -->
+<section id="L11">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 11</div>
+    <h2>Transfer und Abschluss</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können das Aussalzen eines Ethanol-Wasser-Gemischs mit alten und neuen Anziehungen erklären.</li>
+    <li>Sie können erklären, warum die Wasserlöslichkeit der Alkohole mit zunehmender Kettenlänge abnimmt.</li>
+    <li>Sie können aus der Struktur eines Moleküls ableiten, ob es wasser- oder fettlöslich ist (Vitamine).</li>
+    <li>Sie können für Metalle, Salze, Molekülstoffe und Atomgitter die Eigenschaften mit den Teilchen und ihren Anziehungen begründen.</li>
+  </ul></div>
+
+  <h3>11.1 Aussalzen: Ein Gemisch trennt sich <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <p>Wasser und Ethanol mischen sich in jedem Verhältnis. Gibt man aber viel Kaliumcarbonat <span class="f">K<sub>2</sub>CO<sub>3</sub></span> dazu und schüttelt, trennt sich das Gemisch in zwei Schichten. Zwei Farbstoffe, die unter UV-Licht leuchten, zeigen, wo sich was befindet.</p>
+  <div class="notiz-box" data-key="aussalzen" data-label="Ihre Beobachtungen"></div>
+  <div class="aufgabe"><div class="aufgabe-label">Deuten</div>
+    <div id="aussalzFragen"></div>
+  </div>
+
+  <h3>11.2 Die Alkohol-Reihe: Wo kippt die Mischbarkeit? <span class="tag-selbst">selbstständig</span></h3>
+  <p>Alkohole haben eine OH-Gruppe und eine Kette aus C- und H-Atomen. Die <strong>OH-Gruppe</strong> ist polar und bildet H-Brücken mit Wasser (hydrophil). Die <strong>Kohlenwasserstoff-Kette</strong> ist unpolar (hydrophob).</p>
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Löslichkeit der Alkohole in Wasser (20 °C)</span><span class="widget-badge">DATEN</span></div>
+    <div class="widget-body"><div id="alkBars"></div></div>
+    <div class="widget-caption">Grau: unpolare Kette (Anzahl C-Atome). Blau: polare OH-Gruppe. Werte gerundet.</div>
+  </div>
+  <div class="aufgabe"><div class="aufgabe-label">Erklären</div>
+    <div id="alkFragen"></div>
+  </div>
+
+  <h3>11.3 Vitamine: wasser- oder fettlöslich? <span class="tag-selbst">selbstständig</span></h3>
+  <p>Mit derselben Überlegung lässt sich vorhersagen, wie unser Körper mit Vitaminen umgeht. Überlegen Sie bei jeder Karte zuerst selbst.</p>
+  <div class="stoff-reveal">
+    <button class="sr-card" type="button" data-key="vit-c"><span class="sr-front"><span class="sr-formel">Vitamin C</span><span class="sr-frage">Kleines Molekül mit 6 C-Atomen und <strong>4 OH-Gruppen</strong>. Wasser- oder fettlöslich?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Wasserlöslich</span><span class="sr-text">Die vielen OH-Gruppen bilden H-Brücken mit Wasser. Vitamin C löst sich im Blut. Was der Körper nicht braucht, wird mit dem Urin ausgeschieden – man muss es regelmässig aufnehmen.</span></span></button>
+    <button class="sr-card" type="button" data-key="vit-a"><span class="sr-front"><span class="sr-formel">Vitamin A</span><span class="sr-frage">Grosses Molekül mit 20 C-Atomen und <strong>nur einer OH-Gruppe</strong>. Wasser- oder fettlöslich?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Fettlöslich</span><span class="sr-text">Der lange Kohlenwasserstoff-Teil überwiegt. Vitamin A wird im Fettgewebe und in der Leber gespeichert. Darum kann man es überdosieren – und Karottensalat braucht etwas Öl.</span></span></button>
+  </div>
+
+  <h3>11.4 Die grosse Vergleichstabelle <span class="tag-selbst">selbstständig</span></h3>
+  <p>Hier ist die Antwort auf die Leitfrage – für alle vier Stoffklassen. Füllen Sie die Tabelle aus und prüfen Sie. Sie ist die beste Vorbereitung auf die Prüfung.</p>
+  <div class="check-table" data-key="vergleich-gesamt">
+    <div class="table-scroll"><table class="data-table">
+      <tr><th></th><th>Metall</th><th>Salz</th><th>Molekülstoff</th><th>Atomgitter</th></tr>
+      <tr><td><strong>Teilchen</strong></td>
+        <td><select data-answer="r"><option value="r">Atomrümpfe + e⁻</option><option value="i">Ionen</option><option value="m">Moleküle</option><option value="a">Atome (Netz)</option></select></td>
+        <td><select data-answer="i"><option value="r">Atomrümpfe + e⁻</option><option value="i">Ionen</option><option value="m">Moleküle</option><option value="a">Atome (Netz)</option></select></td>
+        <td><select data-answer="m"><option value="r">Atomrümpfe + e⁻</option><option value="i">Ionen</option><option value="m">Moleküle</option><option value="a">Atome (Netz)</option></select></td>
+        <td><select data-answer="a"><option value="r">Atomrümpfe + e⁻</option><option value="i">Ionen</option><option value="m">Moleküle</option><option value="a">Atome (Netz)</option></select></td></tr>
+      <tr><td><strong>Schmelzpunkt</strong></td>
+        <td><select data-answer="h"><option value="t">meist tief</option><option value="h">meist hoch</option></select></td>
+        <td><select data-answer="h"><option value="t">meist tief</option><option value="h">meist hoch</option></select></td>
+        <td><select data-answer="t"><option value="t">meist tief</option><option value="h">meist hoch</option></select></td>
+        <td><select data-answer="h"><option value="t">meist tief</option><option value="h">meist hoch</option></select></td></tr>
+      <tr><td><strong>Leitfähigkeit fest</strong></td>
+        <td><select data-answer="j"><option value="j">leitet</option><option value="n">leitet nicht</option></select></td>
+        <td><select data-answer="n"><option value="j">leitet</option><option value="n">leitet nicht</option></select></td>
+        <td><select data-answer="n"><option value="j">leitet</option><option value="n">leitet nicht</option></select></td>
+        <td>leitet nicht<br><small>(Ausnahme Graphit)</small></td></tr>
+      <tr><td><strong>Leitfähigkeit geschmolzen oder gelöst</strong></td>
+        <td><select data-answer="j"><option value="j">leitet</option><option value="n">leitet nicht</option></select></td>
+        <td><select data-answer="j"><option value="j">leitet</option><option value="n">leitet nicht</option></select></td>
+        <td><select data-answer="n"><option value="j">leitet</option><option value="n">leitet nicht</option></select></td>
+        <td>–</td></tr>
+      <tr><td><strong>Löslichkeit in Wasser</strong></td>
+        <td><select data-answer="u"><option value="u">unlöslich</option><option value="o">oft löslich</option><option value="p">je nach Polarität</option></select></td>
+        <td><select data-answer="o"><option value="u">unlöslich</option><option value="o">oft löslich</option><option value="p">je nach Polarität</option></select></td>
+        <td><select data-answer="p"><option value="u">unlöslich</option><option value="o">oft löslich</option><option value="p">je nach Polarität</option></select></td>
+        <td><select data-answer="u"><option value="u">unlöslich</option><option value="o">oft löslich</option><option value="p">je nach Polarität</option></select></td></tr>
+      <tr><td><strong>Beispiel</strong></td><td>Kupfer, Eisen</td><td>Kochsalz, Kalk</td><td>Wasser, Zucker, Heptan</td><td>Diamant, Quarz</td></tr>
+    </table></div>
+    <div class="sim-controls"><button class="btn primary ct-check">Prüfen</button><button class="btn ct-solve" disabled>Lösung ab 13 richtigen</button><span class="ct-msg"></span></div>
+  </div>
+
+  <div class="merksatz"><div class="merksatz-label">Die Antwort auf die Leitfrage</div>
+    <p>Die Eigenschaften eines Stoffes folgen aus <strong>seinen Teilchen</strong> und <strong>der Stärke ihrer Anziehung</strong>:</p>
+    <ul>
+      <li><strong>Gitter aus geladenen Teilchen oder aus Atomen</strong> (Metall, Salz, Atomgitter): starke Anziehung im ganzen Gitter → hohe Schmelzpunkte.</li>
+      <li><strong>Moleküle:</strong> schwache Kräfte zwischen den Molekülen → tiefe Schmelz- und Siedepunkte.</li>
+      <li><strong>Leitfähigkeit:</strong> nur mit beweglichen Ladungsträgern (Elektronen oder Ionen).</li>
+      <li><strong>Lösen:</strong> nur wenn die neuen Anziehungen ähnlich stark sind wie die alten – Gleiches löst sich in Gleichem.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 11</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für Sie</div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Welcher Alkohol mischt sich am besten mit Heptan?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Methanol</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Ethanol</div>
+      <div class="option" data-correct="true"><span class="radio"></span>1-Hexanol</div>
+      <div class="feedback correct">Richtig! Die lange unpolare Kette passt gut zum unpolaren Heptan.</div>
+      <div class="feedback wrong">Nicht ganz. Heptan ist unpolar. Welcher Alkohol hat den grössten unpolaren Anteil?</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Ein unbekannter Stoff schmilzt bei 80 °C, leitet weder fest noch geschmolzen und löst sich nicht in Wasser, aber in Heptan. Was ist er am ehesten?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>ein Metall</div>
+      <div class="option" data-correct="false"><span class="radio"></span>ein Salz</div>
+      <div class="option" data-correct="true"><span class="radio"></span>ein unpolarer Molekülstoff</div>
+      <div class="option" data-correct="false"><span class="radio"></span>ein Atomgitter</div>
+      <div class="feedback correct">Richtig! Tiefer Schmelzpunkt → Moleküle; löslich in Heptan → unpolar. (Zum Beispiel Naphthalin, früher in Mottenkugeln.)</div>
+      <div class="feedback wrong">Nicht ganz. Der tiefe Schmelzpunkt schliesst alle Gitterstoffe aus.</div>
+    </div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 11</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128214;</div>
+      <div class="task-card-title">Skript</div>
+      <div class="task-card-desc">Aufgaben <span class="nrs">6-31, 6-33, 6-34, 6-47, 6-48, 6-50</span></div>
+    </div>
+    <div class="task-card print">
+      <div class="task-card-icon">&#129514;</div>
+      <div class="task-card-title">Zusatz für Schnelle</div>
+      <div class="task-card-desc">Experiment: Aluminium-Ionen in Deos nachweisen (Anleitung bei der Lehrperson)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                     ZUSAMMENFASSUNG                          -->
+<!-- ============================================================ -->
+<section id="zusammenfassung">
+  <div class="lesson-header">
+    <div class="lesson-number">Zusammenfassung</div>
+    <h2>Phase 4 auf einen Blick</h2>
+  </div>
+  <div class="summary-grid">
+    <div class="summary-card"><h4>Salze lösen</h4><p>Wasserdipole bilden eine <strong>Hydrathülle</strong> um die Ionen.<br><span class="f">NaCl(s) → Na<sup>+</sup>(aq) + Cl<sup>−</sup>(aq)</span></p></div>
+    <div class="summary-card"><h4>Fällung</h4><p>Ionen eines schwerlöslichen Salzes treffen sich → Niederschlag.<br><span class="f">Ba<sup>2+</sup>(aq) + SO<sub>4</sub><sup>2−</sup>(aq) → BaSO<sub>4</sub>(s)</span></p></div>
+    <div class="summary-card"><h4>Gleiches löst Gleiches</h4><p>Polar mischt sich mit polar (hydrophil), unpolar mit unpolar (lipophil). Lange Ketten machen Moleküle hydrophob.</p></div>
+    <div class="summary-card"><h4>Alt gegen neu</h4><p>Ein Stoff löst sich, wenn die neuen Anziehungen ähnlich stark sind wie die alten.</p></div>
+  </div>
+
+  <div id="formsBlock" style="margin-top:40px; padding-top:28px; border-top: 1px solid var(--border); display:none;">
+    <h4 style="margin-top:0;">Lernkontrolle Phase 4</h4>
+    <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:14px;">Multiple-Choice zum Grundverständnis der gesamten Phase 4.</p>
+    <div class="task-links">
+      <a class="task-card forms" id="formsLink" href="#" target="_blank">
+        <div class="task-card-icon">&#128203;</div>
+        <div class="task-card-title">MC-Lernkontrolle: Phase 4 abschliessen</div>
+        <div class="task-card-desc">MS Forms · Multiple-Choice zu Lektion 10–11</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+  <div style="margin-top:28px; padding:14px 18px; background:var(--bg-alt); border-radius:8px; font-size:0.85rem; color:var(--text-muted); display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;">
+    <span>Ihre Eingaben auf dieser Seite werden nur in diesem Browser gespeichert – nicht auf einem Server.</span>
+    <button class="btn" onclick="resetFortschritt()">Meine Eingaben löschen</button>
+  </div>
+</main>
+</div>
+</div>
+
+<script>window.PAGE = { key: 'struktur-4', forms: '' };</script>
+<script src="phase-tools.js"></script>
+<script>
+/* ================= L10: Nachweisreaktionen ================= */
+const IONOPT = [{ v: 'so4', l: 'Sulfat-Ionen' }, { v: 'cl', l: 'Chlorid-Ionen' }, { v: 'co3', l: '(Hydrogen-)Carbonat-Ionen' }, { v: 'na', l: 'Natrium-Ionen' }];
+renderChoices('nachweisFragen', [
+  { p: 'Mit Bariumchlorid-Lösung entsteht ein weisser Niederschlag. Welche Ionen haben Sie nachgewiesen?', a: 'so4',
+    ok: 'Richtig. Es fällt Bariumsulfat aus: <span class="f">Ba<sup>2+</sup>(aq) + SO<sub>4</sub><sup>2−</sup>(aq) → BaSO<sub>4</sub>(s)</span>.', no: 'Welches schwerlösliche Bariumsalz steht in der Tabelle in 10.4?' },
+  { p: 'Nach dem Ansäuern mit Salpetersäure entsteht mit Silbernitrat-Lösung ein weisser Niederschlag. Welche Ionen?', a: 'cl',
+    ok: 'Richtig. Es fällt Silberchlorid aus: <span class="f">Ag<sup>+</sup>(aq) + Cl<sup>−</sup>(aq) → AgCl(s)</span>.', no: 'Welches Silbersalz ist schwerlöslich?' },
+  { p: 'Beim Zugeben von Salzsäure schäumt die Probe, es entsteht Kohlenstoffdioxid. Welche Ionen?', a: 'co3',
+    ok: 'Richtig. Mit Säure entsteht aus Carbonat- und Hydrogencarbonat-Ionen <span class="f">CO<sub>2</sub></span>. Mineralwasser enthält vor allem Hydrogencarbonat.', no: 'Das Gas ist CO₂. Welches Ion enthält C und O?' }
+], IONOPT);
+
+/* ================= L10: Hydrathülle ================= */
+(function () {
+  const svg = $id('hydratSvg'); if (!svg) return;
+  const A = Math.PI / 180;
+  const txt = (x, y, t, fill, size) => `<text x="${x}" y="${y}" text-anchor="middle" font-size="${size || 13}" font-weight="700" fill="${fill}" font-family="DM Sans, sans-serif">${t}</text>`;
+  const water = (ox, oy, h1, h2) => `<line x1="${ox}" y1="${oy}" x2="${h1[0]}" y2="${h1[1]}" stroke="#555" stroke-width="2.5"/><line x1="${ox}" y1="${oy}" x2="${h2[0]}" y2="${h2[1]}" stroke="#555" stroke-width="2.5"/>`
+    + `<circle cx="${ox}" cy="${oy}" r="13" fill="#d0574a"/>${txt(ox, oy + 5, 'O', 'white')}`
+    + `<circle cx="${h1[0]}" cy="${h1[1]}" r="8" fill="white" stroke="#888"/><circle cx="${h2[0]}" cy="${h2[1]}" r="8" fill="white" stroke="#888"/>`;
+  let s = '';
+  // Kation: O zeigt zum Ion
+  const nx = 130, ny = 115;
+  for (let i = 0; i < 6; i++) {
+    const p = (i * 60 + 30) * A, ox = nx + 68 * Math.cos(p), oy = ny + 68 * Math.sin(p);
+    const h = q => [ox + 22 * Math.cos(p + q * A), oy + 22 * Math.sin(p + q * A)];
+    s += water(ox, oy, h(52), h(-52));
+  }
+  s += `<circle cx="${nx}" cy="${ny}" r="26" fill="#7d5ab5"/>${txt(nx, ny + 6, 'Na⁺', 'white', 15)}`;
+  // Anion: ein H zeigt zum Ion
+  const cx = 390, cy = 115;
+  for (let i = 0; i < 6; i++) {
+    const p = (i * 60) * A, ox = cx + 78 * Math.cos(p), oy = cy + 78 * Math.sin(p);
+    const h1 = [ox - 22 * Math.cos(p), oy - 22 * Math.sin(p)];
+    const q = p + Math.PI - 104.5 * A;
+    const h2 = [ox + 22 * Math.cos(q), oy + 22 * Math.sin(q)];
+    s += water(ox, oy, h1, h2);
+  }
+  s += `<circle cx="${cx}" cy="${cy}" r="34" fill="#3f9a4f"/>${txt(cx, cy + 6, 'Cl⁻', 'white', 15)}`;
+  svg.innerHTML = s;
+})();
+
+renderChoices('hydratFragen', [
+  { p: 'Welcher Teil der Wassermoleküle zeigt zum Natrium-Ion?', a: 'o',
+    options: [{ v: 'o', l: 'das O-Atom (δ−)' }, { v: 'h', l: 'die H-Atome (δ+)' }],
+    ok: 'Richtig. Das positive Ion zieht die negative Seite des Dipols an.', no: 'Na⁺ ist positiv. Welches Ende des Wasserdipols wird angezogen?' },
+  { p: 'Welcher Teil der Wassermoleküle zeigt zum Chlorid-Ion?', a: 'h',
+    options: [{ v: 'o', l: 'das O-Atom (δ−)' }, { v: 'h', l: 'ein H-Atom (δ+)' }],
+    ok: 'Richtig. Das negative Ion zieht die positiven H-Atome an.', no: 'Cl⁻ ist negativ. Welches Ende des Wasserdipols wird angezogen?' }
+]);
+
+/* ================= L10: Fällung ================= */
+const JN = [{ v: 'ja', l: 'Niederschlag' }, { v: 'nein', l: 'kein Niederschlag' }];
+renderChoices('faellFragen', [
+  { p: 'Bariumchlorid-Lösung + Natriumsulfat-Lösung', a: 'ja', ok: 'Richtig: <span class="f">BaSO<sub>4</sub></span> fällt aus. Natrium- und Chlorid-Ionen bleiben gelöst.', no: 'Welche Ionen treffen neu aufeinander? Schauen Sie bei den Sulfaten nach.' },
+  { p: 'Natriumchlorid-Lösung + Kaliumnitrat-Lösung', a: 'nein', ok: 'Richtig. Alle möglichen Kombinationen (NaNO₃, KCl) sind löslich – die Ionen bleiben einfach gemischt.', no: 'Natrium-, Kalium- und Nitratsalze sind alle löslich.' },
+  { p: 'Silbernitrat-Lösung + Natriumchlorid-Lösung', a: 'ja', ok: 'Richtig: <span class="f">AgCl</span> fällt aus. Das ist der Nachweis für Chlorid-Ionen.', no: 'Silber-Ionen treffen auf Chlorid-Ionen. Schauen Sie bei den Chloriden nach.' },
+  { p: 'Calciumchlorid-Lösung + Natriumcarbonat-Lösung', a: 'ja', ok: 'Richtig: <span class="f">CaCO<sub>3</sub></span> (Kalk) fällt aus. So entsteht Kalk in Wasserkochern.', no: 'Calcium-Ionen treffen auf Carbonat-Ionen. Schauen Sie bei den Carbonaten nach.' },
+  { p: 'Kaliumchlorid-Lösung + Natriumnitrat-Lösung', a: 'nein', ok: 'Richtig. NaCl und KNO₃ sind beide löslich.', no: 'Natrium-, Kalium- und Nitratsalze sind alle löslich.' }
+], JN);
+
+/* ================= L10: Mischbarkeit ================= */
+const MISCH = [{ v: 'ja', l: 'mischbar' }, { v: 'nein', l: 'nicht mischbar' }];
+renderChoices('mischFragen', [
+  { p: 'Wasser und Aceton', a: 'ja', ok: 'Richtig. Aceton ist polar, und Wasser kann H-Brücken zu seinem O-Atom bilden.', no: 'Aceton enthält eine polare C=O-Gruppe mit freien Elektronenpaaren am O.' },
+  { p: 'Wasser und Speiseöl', a: 'nein', ok: 'Richtig. Öl ist unpolar – die Wassermoleküle bleiben unter sich.', no: 'Öl besteht vor allem aus langen Kohlenwasserstoff-Ketten.' },
+  { p: 'Heptan und Speiseöl', a: 'ja', ok: 'Richtig. Beide unpolar, zwischen beiden wirken Van-der-Waals-Kräfte. Deshalb entfernt Benzin Fettflecken.', no: 'Beide Stoffe sind unpolar – Gleiches löst sich in Gleichem.' },
+  { p: 'Ethanol und Heptan', a: 'ja', ok: 'Richtig. Ethanol hat einen polaren Teil (OH) und einen unpolaren Teil (C₂H₅). Es mischt sich mit Wasser <em>und</em> mit Heptan.', no: 'Ethanol ist ein «Vermittler»: Es hat eine OH-Gruppe und eine kurze unpolare Kette.' }
+], MISCH);
+
+/* ================= L11: Aussalzen ================= */
+renderChoices('aussalzFragen', [
+  { p: 'Welche Schicht liegt oben?', a: 'e',
+    options: [{ v: 'e', l: 'die ethanolreiche Schicht' }, { v: 'w', l: 'die wasserreiche Schicht' }],
+    ok: 'Richtig. Ethanol hat eine kleinere Dichte (0.79 g/cm³) als Wasser.', no: 'Vergleichen Sie die Dichten: Ethanol 0.79 g/cm³, Wasser 1.00 g/cm³ – und die Salzlösung ist noch dichter.' },
+  { p: 'Wo befindet sich das gelöste Kaliumcarbonat?', a: 'w',
+    options: [{ v: 'e', l: 'in der Ethanolschicht' }, { v: 'w', l: 'in der Wasserschicht' }],
+    ok: 'Richtig. Die Ionen sind von Hydrathüllen aus Wassermolekülen umgeben.', no: 'Ionen werden von Dipolen umhüllt. Welches Lösungsmittel ist der stärkere Dipol und bildet die Hydrathüllen?' },
+  { p: 'Warum trennt sich das Gemisch?', a: 'h',
+    options: [{ v: 'h', l: 'Die Ionen binden sehr viele Wassermoleküle in Hydrathüllen. Für das Ethanol bleibt zu wenig «freies» Wasser.' }, { v: 'r', l: 'Kaliumcarbonat reagiert mit Ethanol zu einem neuen Stoff.' }, { v: 'd', l: 'Das Salz macht das Ethanol schwerer.' }],
+    ok: 'Genau. Die neuen Anziehungen Ion–Wasser sind stärker als Ethanol–Wasser. Das Wasser «entscheidet sich» für die Ionen.', no: 'Denken Sie an alte gegen neue Anziehungen: Wer zieht die Wassermoleküle stärker an – Ionen oder Ethanol-Moleküle?' }
+]);
+
+/* ================= L11: Alkohol-Reihe ================= */
+(function () {
+  const box = $id('alkBars'); if (!box) return;
+  const ALK = [['Methanol', 1, 'unbegrenzt mischbar'], ['Ethanol', 2, 'unbegrenzt mischbar'], ['1-Propanol', 3, 'unbegrenzt mischbar'], ['1-Butanol', 4, 'ca. 75 g/L'], ['1-Pentanol', 5, 'ca. 22 g/L'], ['1-Hexanol', 6, 'ca. 6 g/L']];
+  box.innerHTML = ALK.map(([n, c, l]) => {
+    let chain = '';
+    for (let i = 0; i < c; i++) chain += `<circle cx="${14 + i * 22}" cy="14" r="10" fill="#9a9a9a"/>`;
+    chain += `<circle cx="${14 + c * 22 + 4}" cy="14" r="12" fill="#4a7ab5"/><text x="${14 + c * 22 + 4}" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="white" font-family="DM Sans, sans-serif">OH</text>`;
+    const unb = l.startsWith('unbegrenzt');
+    return `<div style="display:flex; flex-wrap:wrap; column-gap:12px; row-gap:2px; align-items:center; padding:6px 0; border-bottom:1px dashed var(--border); font-size:0.88rem;"><strong style="width:90px;">${n}</strong><svg viewBox="0 0 170 28" style="width:170px; height:28px;">${chain}</svg><span style="color:${unb ? 'var(--correct-text)' : 'var(--text)'}; font-weight:${unb ? 600 : 400};">${l}</span></div>`;
+  }).join('');
+})();
+
+renderChoices('alkFragen', [
+  { p: 'Ab welchem Alkohol ist die Löslichkeit in Wasser begrenzt?', a: 'but',
+    options: [{ v: 'eth', l: 'Ethanol' }, { v: 'prop', l: '1-Propanol' }, { v: 'but', l: '1-Butanol' }, { v: 'hex', l: '1-Hexanol' }],
+    ok: 'Richtig. Ab vier C-Atomen kippt das Gleichgewicht: Der unpolare Teil wird zu gross.', no: 'Lesen Sie in der Tabelle ab, wo «unbegrenzt mischbar» aufhört.' },
+  { p: 'Warum nimmt die Wasserlöslichkeit mit der Kettenlänge ab?', a: 'k',
+    options: [{ v: 'k', l: 'Die unpolare Kette wird länger, der Anteil der OH-Gruppe kleiner.' }, { v: 'o', l: 'Längere Alkohole haben keine OH-Gruppe mehr.' }, { v: 's', l: 'Längere Alkohole sind schwerer als Wasser.' }],
+    ok: 'Richtig. Jedes Molekül hat nur eine OH-Gruppe, die H-Brücken bilden kann. Die immer längere Kette stört die H-Brücken des Wassers.', no: 'Alle Alkohole haben genau eine OH-Gruppe. Was ändert sich von Zeile zu Zeile?' }
+]);
+
+</script>
+<script src="freigabe.js"></script>
+</body>
+</html>

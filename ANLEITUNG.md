@@ -37,5 +37,9 @@ Achtung: Anführungszeichen und Kommas müssen stehen bleiben. Bei einem Tippfeh
 - Titel und Beschreibung stehen in `themen.js`.
 - Jede Inhaltsseite bindet am Ende `<script src="freigabe.js"></script>` ein.
 
+## Struktur & Eigenschaften, Phase 2–4
+- `struktur-phase2.html`, `-phase3.html`, `-phase4.html` teilen sich das Aussehen (`struktur.css`) und die Funktionen (`phase-tools.js`).
+- Link zur MS-Forms-Lernkontrolle: in der jeweiligen Seite ganz unten die Zeile `window.PAGE = { key: 'struktur-2', forms: '' };` suchen und den Link zwischen die leeren Anführungszeichen bei `forms` setzen. Leer = der Block bleibt unsichtbar.
+
 ## Hinweis
 GitHub Pages ist öffentlich. Gesperrte Phasen sind nur versteckt, nicht geschützt.

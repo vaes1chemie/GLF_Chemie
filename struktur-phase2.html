@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Struktur & Eigenschaften – Phase 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="struktur.css">
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar">
+  <div class="sidebar-brand"><a href="index.html" style="text-decoration:none; color:inherit;">Struktur &amp; Eigenschaften</a><small>Chemie GLF · 2. Gymnasium · Va</small><a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a></div>
+  <div class="sidebar-phase">Phase 1 · Nomenklatur</div>
+  <a href="struktur.html#L1" class="nav-item"><span class="nav-dot"></span>L1 – Ionenverbindungen</a>
+  <a href="struktur.html#L2" class="nav-item"><span class="nav-dot"></span>L2 – Molekülionen</a>
+  <a href="struktur.html#L3" class="nav-item"><span class="nav-dot"></span>L3 – Molekülverbindungen</a>
+  <a href="struktur.html#L4" class="nav-item"><span class="nav-dot"></span>L4 – Training</a>
+  <div class="sidebar-phase">Phase 2 · Gitterstoffe</div>
+  <a href="#L5" class="nav-item"><span class="nav-dot"></span>L5 – Metalle und Leitfähigkeit</a>
+  <a href="#L6" class="nav-item"><span class="nav-dot"></span>L6 – Salze: Ionengitter</a>
+  <a href="#L7" class="nav-item"><span class="nav-dot"></span>L7 – Metall gegen Salz</a>
+  <a href="#zusammenfassung" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+  <div class="sidebar-phase">Phase 3 · Moleküle</div>
+  <a href="struktur-phase3.html#L8" class="nav-item"><span class="nav-dot"></span>L8 – Polarität und ZMK</a>
+  <a href="struktur-phase3.html#L9" class="nav-item"><span class="nav-dot"></span>L9 – Siedepunkte, Wasser, Kohlenstoff</a>
+  <div class="sidebar-phase">Phase 4 · Lösen und Mischen</div>
+  <a href="struktur-phase4.html#L10" class="nav-item"><span class="nav-dot"></span>L10 – Salze und Moleküle lösen</a>
+  <a href="struktur-phase4.html#L11" class="nav-item"><span class="nav-dot"></span>L11 – Transfer und Abschluss</a>
+</nav>
+
+<div class="main-wrap">
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<main class="content">
+<div class="hero-inline">
+  <div class="phase-badge">Phase 2 · Lektionen 5–7 · Gitterstoffe</div>
+  <h1>Hart, aber verschieden</h1>
+  <p class="subtitle">Metalle und Salze: Warum leitet Kupfer den Strom, ein Salzkristall aber nicht? Warum wird Kupfer unter dem Hammer flach – und Salz zerspringt?</p>
+  <div class="dl-plan">
+    <div class="dl-card">
+      <div class="dl-tag">Doppellektion 1 · L5 · Labor</div>
+      <div class="dl-title">Wer leitet den Strom?</div>
+      <div class="dl-desc">Leitfähigkeits-Parcours im Labor, Metalle und Elektronengas hier auf der Website.</div>
+    </div>
+    <div class="dl-card">
+      <div class="dl-tag">Doppellektion 2 · L6</div>
+      <div class="dl-title">Salze: Ionengitter und Coulomb</div>
+      <div class="dl-desc">Aus zwei Gasen wird ein Feststoff. Wie stark ziehen sich Ionen an – und was folgt daraus?</div>
+    </div>
+    <div class="dl-card">
+      <div class="dl-tag">Doppellektion 3 · L7</div>
+      <div class="dl-title">Metall gegen Salz</div>
+      <div class="dl-desc">Hammer, Legierungen und ein Wärmekissen – und die Vergleichstabelle der beiden Gitterstoffe.</div>
+    </div>
+  </div>
+</div>
+
+<div class="discovery"><div class="discovery-label">Der rote Faden für Phase 2–4</div>
+  <h4>Warum hat ein Stoff die Eigenschaften, die er hat?</h4>
+  <p>Wir beantworten diese Frage immer mit denselben zwei Fragen:</p>
+  <ol>
+    <li><strong>Welche Teilchen</strong> hat der Stoff? (Atome, Ionen, Moleküle, Elektronen?)</li>
+    <li><strong>Wie stark ziehen sich diese Teilchen an?</strong> (Alles beruht auf der Anziehung zwischen positiven und negativen Ladungen.)</li>
+  </ol>
+  <p style="margin-bottom:0;">Daraus folgt fast alles: Schmelz- und Siedepunkt, Leitfähigkeit, Verformbarkeit, Löslichkeit. Am Ende von Phase 4 haben Sie eine Vergleichstabelle für alle Stoffklassen.</p>
+</div>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 5                             -->
+<!-- ============================================================ -->
+<section id="L5">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 05</div>
+    <h2>Wer leitet den Strom? – Metalle</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können erklären, warum ein Stoff nur dann Strom leitet, wenn er bewegliche Ladungsträger enthält.</li>
+    <li>Sie können den Aufbau eines Metalls mit dem Elektronengasmodell beschreiben.</li>
+    <li>Sie können die elektrische Leitfähigkeit, die Wärmeleitfähigkeit und den Glanz von Metallen mit dem Elektronengasmodell erklären.</li>
+    <li>Sie können begründen, warum die Leitfähigkeit eines Metalls beim Erwärmen abnimmt.</li>
+  </ul></div>
+
+  <h3>5.1 Aufhänger: Kupfer und Salz unter dem Hammer <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <p>Ein Stück Kupferblech und ein grosser Kochsalz-Kristall: Beide sind hart, beide sind Feststoffe mit hohem Schmelzpunkt. Was passiert, wenn man mit dem Hammer darauf schlägt?</p>
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Ihre Vorhersage</span><span class="widget-badge">VORHERSAGE</span></div>
+    <div class="widget-body">
+      <div class="predict" data-key="hammer">
+        <div class="tool-options">
+          <button class="tool-btn" data-v="a">Beide zerspringen.</button>
+          <button class="tool-btn" data-v="b">Beide werden flach.</button>
+          <button class="tool-btn" data-v="c">Kupfer wird flach, Salz zerspringt.</button>
+          <button class="tool-btn" data-v="d">Salz wird flach, Kupfer zerspringt.</button>
+        </div>
+      </div>
+    </div>
+    <div class="widget-caption">Ihre Vorhersage wird gespeichert. Die Auflösung folgt in Lektion 7.</div>
+  </div>
+
+  <h3>5.2 Labor: Leitfähigkeits-Parcours <span class="tag-gemeinsam">Halbklasse</span></h3>
+  <div class="lab-box"><div class="experiment-label">Labor</div>
+    <p>Die eine Hälfte der Klasse ist im Labor, die andere arbeitet hier auf der Website – nach 35 Minuten wird gewechselt. Die Versuchsanleitung erhalten Sie im Labor. Arbeiten Sie hier zuerst 5.3 und 5.4 durch, wenn Sie noch nicht im Labor waren, und füllen Sie danach die Tabelle «Nach dem Labor» aus.</p>
+  </div>
+
+  <h4>Nach dem Labor: Ihre Ergebnisse</h4>
+  <p>Tragen Sie ein, was Sie beobachtet haben, und überlegen Sie, welche Teilchen die Ladung transportieren. Prüfen Sie dann.</p>
+  <div class="check-table" data-key="parcours">
+    <div class="table-scroll"><table class="data-table">
+      <tr><th>Probe</th><th>Leitet?</th><th>Bewegliche Ladungsträger</th></tr>
+      <tr><td>Kupferdraht</td><td><select data-answer="ja"><option value="ja">ja</option><option value="nein">nein</option></select></td><td><select data-answer="e"><option value="e">Elektronen</option><option value="i">Ionen</option><option value="k">keine</option></select></td></tr>
+      <tr><td>Bleistiftmine (Graphit)</td><td><select data-answer="ja"><option value="ja">ja</option><option value="nein">nein</option></select></td><td><select data-answer="e"><option value="e">Elektronen</option><option value="i">Ionen</option><option value="k">keine</option></select></td></tr>
+      <tr><td>Kochsalz-Kristall</td><td><select data-answer="nein"><option value="ja">ja</option><option value="nein">nein</option></select></td><td><select data-answer="k"><option value="e">Elektronen</option><option value="i">Ionen</option><option value="k">keine</option></select></td></tr>
+      <tr><td>Zucker (fest)</td><td><select data-answer="nein"><option value="ja">ja</option><option value="nein">nein</option></select></td><td><select data-answer="k"><option value="e">Elektronen</option><option value="i">Ionen</option><option value="k">keine</option></select></td></tr>
+      <tr><td>Kochsalz-Lösung</td><td><select data-answer="ja"><option value="ja">ja</option><option value="nein">nein</option></select></td><td><select data-answer="i"><option value="e">Elektronen</option><option value="i">Ionen</option><option value="k">keine</option></select></td></tr>
+      <tr><td>Zucker-Lösung</td><td><select data-answer="nein"><option value="ja">ja</option><option value="nein">nein</option></select></td><td><select data-answer="k"><option value="e">Elektronen</option><option value="i">Ionen</option><option value="k">keine</option></select></td></tr>
+      <tr><td>Lithiumchlorid geschmolzen (Demo)</td><td><select data-answer="ja"><option value="ja">ja</option><option value="nein">nein</option></select></td><td><select data-answer="i"><option value="e">Elektronen</option><option value="i">Ionen</option><option value="k">keine</option></select></td></tr>
+    </table></div>
+    <div class="sim-controls"><button class="btn primary ct-check">Prüfen</button><button class="btn ct-solve" disabled>Lösung ab 10 richtigen</button><span class="ct-msg"></span></div>
+  </div>
+  <div class="aufgabe"><div class="aufgabe-label">Überlegen</div>
+    <p>Im Kochsalz-Kristall gibt es Ionen, also geladene Teilchen. Trotzdem leitet er nicht. In der Lösung und in der Schmelze leitet er. Was ist der entscheidende Unterschied?</p>
+    <details class="loesung"><summary>Lösung</summary><div class="inner">
+      <p style="margin-bottom:0;">Im Kristall sitzen die Ionen fest an ihren Plätzen. Geladene Teilchen allein genügen nicht – sie müssen sich <strong>bewegen</strong> können. In der Lösung und in der Schmelze sind die Ionen beweglich.</p>
+    </div></details>
+  </div>
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Elektrische Leitfähigkeit</div>
+    <p style="margin-bottom:0;">Ein Stoff leitet den elektrischen Strom nur, wenn er <strong>bewegliche Ladungsträger</strong> enthält. In Metallen (und Graphit) sind das <strong>Elektronen</strong>, in Salzlösungen und Salzschmelzen sind es <strong>Ionen</strong>.</p>
+  </div>
+
+  <h3>5.3 Das Elektronengasmodell <span class="tag-selbst">selbstständig</span></h3>
+  <p>Erinnern Sie sich an die metallische Bindung: Metallatome haben nur wenige Valenzelektronen und geben sie leicht ab. Im Metall gehören diese Valenzelektronen keinem einzelnen Atom mehr. Zurück bleiben positiv geladene <strong>Atomrümpfe</strong> (Metall-Kationen), die in einem regelmässigen <strong>Metallgitter</strong> angeordnet sind. Die abgegebenen Elektronen bewegen sich frei zwischen den Atomrümpfen – wie ein Gas. Dieses <strong>Elektronengas</strong> hält die positiven Atomrümpfe zusammen.</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Simulation: Elektronengas im Kupfer</span><span class="widget-badge">SIMULATION</span></div>
+    <div class="widget-body">
+      <canvas id="egas" class="sim-canvas" width="720" height="300"></canvas>
+      <div class="sim-controls">
+        <button class="btn primary" id="egasVolt">Spannung anlegen</button>
+        <button class="btn" id="egasHeat">Erhitzen</button>
+        <span class="sim-readout" id="egasRead">Keine Spannung · Raumtemperatur</span>
+      </div>
+      <div style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">Stromstärke (Elektronen, die pro Sekunde rechts ankommen)</div>
+      <div class="meter"><div id="egasMeter"></div></div>
+    </div>
+    <div class="widget-caption">Rot: Atomrümpfe (Cu<sup>+</sup>-Ionen, vereinfacht). Blau: Elektronen. Probieren Sie beide Knöpfe aus und beobachten Sie den Strommesser.</div>
+  </div>
+
+  <div class="aufgabe"><div class="aufgabe-label">Beobachten und erklären</div>
+    <div id="egasFragen"></div>
+  </div>
+
+  <h3>5.4 Typische Eigenschaften von Metallen <span class="tag-selbst">selbstständig</span></h3>
+  <p>Klicken Sie auf eine Karte, wenn Sie sich eine Erklärung überlegt haben.</p>
+  <div class="stoff-reveal">
+    <button class="sr-card" type="button" data-key="m-strom"><span class="sr-front"><span class="sr-formel" style="font-size:1.2rem;">Elektrischer Strom</span><span class="sr-frage">Warum leiten Metalle so gut?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Bewegliche Elektronen</span><span class="sr-text">Legt man eine Spannung an, wandern die frei beweglichen Elektronen zum Pluspol. Das ist der Strom.</span></span></button>
+    <button class="sr-card" type="button" data-key="m-waerme"><span class="sr-front"><span class="sr-formel" style="font-size:1.2rem;">Wärme</span><span class="sr-frage">Warum fühlt sich Metall kalt an und wird eine Pfanne schnell heiss?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Gute Wärmeleiter</span><span class="sr-text">Die beweglichen Elektronen geben Bewegungsenergie schnell weiter. Metall leitet die Wärme rasch von Ihrer Hand weg – darum fühlt es sich kalt an.</span></span></button>
+    <button class="sr-card" type="button" data-key="m-glanz"><span class="sr-front"><span class="sr-formel" style="font-size:1.2rem;">Glanz</span><span class="sr-frage">Warum glänzen Metalle?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Licht wird zurückgeworfen</span><span class="sr-text">Die beweglichen Elektronen nehmen Licht fast aller Farben auf und geben es sofort wieder ab. Die Oberfläche spiegelt.</span></span></button>
+  </div>
+
+  <h4>Hohe Schmelzpunkte</h4>
+  <p>Die Anziehung zwischen den positiven Atomrümpfen und dem Elektronengas ist stark: Die meisten Metalle sind bei Raumtemperatur fest (Ausnahme: Quecksilber). Je <strong>mehr Valenzelektronen</strong> ein Metallatom abgibt und je <strong>kleiner</strong> der Atomrumpf ist, desto stärker ist die Anziehung – und desto höher liegt der Schmelzpunkt.</p>
+  <div class="table-scroll"><table class="data-table">
+    <tr><th>Metall</th><th>Valenzelektronen</th><th>Schmelzpunkt</th></tr>
+    <tr><td>Natrium</td><td>1</td><td>98 °C</td></tr>
+    <tr><td>Magnesium</td><td>2</td><td>650 °C</td></tr>
+    <tr><td>Aluminium</td><td>3</td><td>660 °C</td></tr>
+    <tr><td>Eisen</td><td>(Übergangsmetall)</td><td>1538 °C</td></tr>
+    <tr><td>Wolfram</td><td>(Übergangsmetall)</td><td>3422 °C</td></tr>
+  </table></div>
+  <p style="font-size:0.88rem; color:var(--text-muted);">Wolfram hat von allen Metallen den höchsten Schmelzpunkt. Darum bestanden die Glühfäden alter Glühbirnen aus Wolfram.</p>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Metalle</div>
+    <ul>
+      <li><strong>Teilchen:</strong> positive Atomrümpfe im Metallgitter und frei bewegliche Elektronen (Elektronengas).</li>
+      <li><strong>Anziehung:</strong> zwischen den Atomrümpfen und dem Elektronengas – nicht zwischen einzelnen Atompaaren, sondern im ganzen Gitter.</li>
+      <li><strong>Folgen:</strong> elektrisch leitend (auch fest), gute Wärmeleiter, Glanz, meist hohe Schmelzpunkte.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 5</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für Sie</div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Welche Teilchen transportieren in einem Kupferdraht den Strom?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Kupfer-Ionen</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Elektronen</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Kupfer-Atome</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Protonen</div>
+      <div class="feedback correct">Richtig! Die Atomrümpfe bleiben an ihren Plätzen, nur die Elektronen des Elektronengases wandern.</div>
+      <div class="feedback wrong">Nicht ganz. Die Atomrümpfe sitzen fest im Gitter. Beweglich sind nur die Elektronen.</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Festes Kochsalz besteht aus Ionen. Warum leitet es trotzdem nicht?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Die Ionen sind nicht geladen.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Es gibt gleich viele positive und negative Ionen.</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Die Ionen sind im Gitter festgehalten und können nicht wandern.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Kochsalz enthält keine Elektronen.</div>
+      <div class="feedback correct">Genau. Erst in der Schmelze oder in der Lösung werden die Ionen beweglich.</div>
+      <div class="feedback wrong">Nicht ganz. Geladene Teilchen sind vorhanden – aber sie müssen sich auch bewegen können.</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">3</span>Was passiert mit der Leitfähigkeit eines Metalls, wenn man es erhitzt?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Sie steigt, weil sich die Elektronen schneller bewegen.</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Sie sinkt, weil die Atomrümpfe stärker schwingen und die Elektronen behindern.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Sie bleibt gleich.</div>
+      <div class="feedback correct">Richtig! Die stärker schwingenden Atomrümpfe stehen den Elektronen öfter im Weg – der Widerstand steigt.</div>
+      <div class="feedback wrong">Nicht ganz. Probieren Sie in der Simulation den Knopf «Erhitzen» aus und beobachten Sie den Strommesser.</div>
+    </div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 5</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128196;</div>
+      <div class="task-card-title">Auswertung Leitfähigkeits-Parcours</div>
+      <div class="task-card-desc">Beantworten Sie die Auswertungsfragen auf dem Laborblatt (Hausaufgabe).</div>
+    </div>
+    <div class="task-card print">
+      <div class="task-card-icon">&#128214;</div>
+      <div class="task-card-title">Skript – für Schnelle</div>
+      <div class="task-card-desc">Aufgaben <span class="nrs">6-19, 6-20, 6-23</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 6                             -->
+<!-- ============================================================ -->
+<section id="L6">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 06</div>
+    <h2>Salze: Ionengitter und Coulomb-Gesetz</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können den Aufbau eines Ionengitters am Beispiel von Natriumchlorid beschreiben und die Koordinationszahl bestimmen.</li>
+    <li>Sie können mit dem Coulomb-Gesetz begründen, wie die Anziehung zwischen Ionen von Ladung und Abstand abhängt.</li>
+    <li>Sie können Ionenverbindungen nach der Stärke der Ionenbindung (Gitterenergie) ordnen und damit Schmelzpunkte vergleichen.</li>
+    <li>Sie können erklären, in welchen Zuständen Salze den Strom leiten.</li>
+  </ul></div>
+
+  <h3>6.1 Aufhänger: Aus zwei Gasen wird ein Feststoff <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <p>Ihre Lehrperson stellt eine offene Flasche mit konzentrierter Salzsäure neben eine offene Flasche mit Ammoniak-Lösung. Aus beiden entweichen Gase: Chlorwasserstoff <span class="f">HCl</span> und Ammoniak <span class="f">NH<sub>3</sub></span>. Beide bestehen aus kleinen Molekülen.</p>
+  <div class="discovery"><div class="discovery-label">Beobachten · Vermuten · Besprechen</div>
+    <ol>
+      <li>Was beobachten Sie zwischen den beiden Flaschen?</li>
+      <li>Zwei Gase reagieren zu einem weissen Feststoff. Was muss sich an den Teilchen geändert haben, damit plötzlich ein Feststoff entsteht?</li>
+    </ol>
+    <details class="loesung"><summary>Auflösung</summary><div class="inner">
+      <p>Es entsteht weisser Rauch aus feinsten Kristallen von Ammoniumchlorid:</p>
+      <p style="text-align:center; font-size:1.05rem;"><span class="f">NH<sub>3</sub></span> + <span class="f">HCl</span> → <span class="f">NH<sub>4</sub>Cl</span> &nbsp;(<span class="f">NH<sub>4</sub><sup>+</sup></span> + <span class="f">Cl<sup>−</sup></span>)</p>
+      <p style="margin-bottom:0;">Das <span class="f">H<sup>+</sup></span> wechselt vom Chlorwasserstoff zum Ammoniak. Aus neutralen Molekülen werden <strong>Ionen</strong>: das Ammonium-Ion (ein Molekülion aus Phase 1) und das Chlorid-Ion. Zwischen Ionen wirkt eine viel stärkere Anziehung als zwischen den kleinen Molekülen – darum ist Ammoniumchlorid ein Feststoff.</p>
+    </div></details>
+  </div>
+
+  <h3>6.2 Das Coulomb-Gesetz <span class="tag-selbst">selbstständig</span></h3>
+  <p>Wie stark sich zwei geladene Teilchen anziehen, beschreibt das <strong>Coulomb-Gesetz</strong>:</p>
+  <div style="text-align:center; font-size:1.25rem; margin:18px 0; font-family:var(--serif);">F = k · <span style="display:inline-block; vertical-align:middle; text-align:center;"><span style="display:block; border-bottom:1.5px solid currentColor; padding:0 6px;">Q<sub>1</sub> · Q<sub>2</sub></span><span style="display:block; padding:0 6px;">r<sup>2</sup></span></span></div>
+  <ul>
+    <li><strong>F</strong>: Kraft zwischen den Ionen &nbsp;·&nbsp; <strong>k</strong>: eine Konstante</li>
+    <li><strong>Q<sub>1</sub>, Q<sub>2</sub></strong>: Ladungen der Ionen – je grösser die Ladungen, desto stärker die Anziehung</li>
+    <li><strong>r</strong>: Abstand der Ionen-Mittelpunkte (Summe der Ionenradien) – je grösser der Abstand, desto schwächer die Anziehung. Doppelter Abstand → nur noch ein Viertel der Kraft.</li>
+  </ul>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Coulomb-Rechner: Wie stark ziehen sich die Ionen an?</span><span class="widget-badge">RECHNER</span></div>
+    <div class="widget-body">
+      <div class="cr-grid">
+        <div><label for="crKat">Kation</label><select id="crKat"></select></div>
+        <div><label for="crAn">Anion</label><select id="crAn"></select></div>
+      </div>
+      <div class="cr-out" id="crOut"></div>
+      <div class="cr-bars" id="crBars"></div>
+    </div>
+    <div class="widget-caption">Relative Anziehungskraft zwischen einem Kation und einem Anion, bezogen auf Natriumchlorid (= 1). Ionenradien nach Shannon.</div>
+  </div>
+
+  <div class="aufgabe"><div class="aufgabe-label">Mit dem Rechner experimentieren</div>
+    <div id="crFragen"></div>
+  </div>
+
+  <h3>6.3 Das Natriumchlorid-Gitter <span class="tag-selbst">selbstständig</span></h3>
+  <p>In einem Salzkristall zieht jedes Ion nicht nur ein Gegen-Ion an, sondern alle Gegen-Ionen in seiner Umgebung. Die Ionen ordnen sich deshalb in einem regelmässigen, dreidimensionalen <strong>Ionengitter</strong> an: Jedes Ion ist von möglichst vielen Gegen-Ionen umgeben, gleich geladene Ionen sind möglichst weit voneinander entfernt.</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Natriumchlorid-Gitter (drehbar)</span><span class="widget-badge">3D-MODELL</span></div>
+    <div class="widget-body">
+      <canvas id="gitter" class="sim-canvas" width="600" height="420"></canvas>
+      <div class="sim-controls">
+        <button class="btn primary" id="gitterKZ">Nachbarn eines Ions zeigen</button>
+        <button class="btn" id="gitterDreh">Automatisch drehen</button>
+        <span class="sim-readout">Ziehen mit Maus oder Finger dreht das Gitter.</span>
+      </div>
+    </div>
+    <div class="widget-caption">Grün: Chlorid-Ionen (Radius 181 pm). Violett: Natrium-Ionen (Radius 102 pm). Die Ionen sind kleiner gezeichnet, damit man ins Gitter hineinsehen kann.</div>
+  </div>
+
+  <div class="glossar"><div class="glossar-label">Begriff</div>
+    <p style="margin-bottom:0;">Die <strong>Koordinationszahl (KZ)</strong> gibt an, wie viele nächste Nachbarn (Gegen-Ionen) ein Ion im Gitter hat. Zählen Sie im Modell: Welche KZ hat ein Natrium-Ion? Welche ein Chlorid-Ion?</p>
+  </div>
+  <div class="aufgabe"><div class="aufgabe-label">Koordinationszahl</div>
+    <div id="kzFragen"></div>
+  </div>
+
+  <h3>6.4 Gitterenergie und Schmelzpunkt <span class="tag-selbst">selbstständig</span></h3>
+  <p>Um ein Salz zu schmelzen, muss man die Ionen aus ihren festen Plätzen lösen. Je stärker die Ionen sich anziehen, desto mehr Energie braucht man dafür. Die Energie, die frei wird, wenn sich die Ionen zum Gitter zusammenlagern (und die man zum Zerlegen wieder aufwenden muss), heisst <strong>Gitterenergie</strong>.</p>
+  <p>Ordnen Sie die fünf Salze nach <strong>steigendem Schmelzpunkt</strong>. Nutzen Sie den Coulomb-Rechner: Ladungen zuerst vergleichen, dann die Abstände.</p>
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Reihenfolge: tiefster → höchster Schmelzpunkt</span><span class="widget-badge">ORDNEN</span></div>
+    <div class="widget-body">
+      <div class="order-task" data-key="smp-salze" data-order="kcl,nacl,naf,na2o,mgo"
+        data-ok="Richtig! KCl 770 °C &lt; NaCl 801 °C &lt; NaF 993 °C &lt; Na₂O 1132 °C &lt; MgO 2852 °C. Bei MgO sind beide Ionen zweifach geladen und klein – die Anziehung ist am stärksten."
+        data-no="Noch nicht. Tipp: Die Ladung hat den grössten Einfluss. Bei gleichen Ladungen entscheidet der Abstand – je kleiner die Ionen, desto stärker die Anziehung.">
+        <div class="ot-pool">
+          <button class="ot-item" data-v="mgo">MgO</button>
+          <button class="ot-item" data-v="nacl">NaCl</button>
+          <button class="ot-item" data-v="na2o">Na<sub>2</sub>O</button>
+          <button class="ot-item" data-v="kcl">KCl</button>
+          <button class="ot-item" data-v="naf">NaF</button>
+        </div>
+        <div class="ot-line"></div>
+        <div class="sim-controls"><button class="btn primary ot-check">Prüfen</button><button class="btn ot-reset">Neu beginnen</button><span class="ot-msg"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="merksatz"><div class="merksatz-label">Merksatz – Salze (Ionenverbindungen)</div>
+    <ul>
+      <li><strong>Teilchen:</strong> Kationen und Anionen, regelmässig im Ionengitter angeordnet. Im NaCl-Gitter hat jedes Ion die Koordinationszahl 6.</li>
+      <li><strong>Anziehung:</strong> zwischen entgegengesetzt geladenen Ionen in alle Richtungen (Coulomb-Gesetz). Sie ist umso stärker, je <strong>höher die Ladungen</strong> und je <strong>kleiner die Ionen</strong> sind.</li>
+      <li><strong>Folgen:</strong> hohe Schmelzpunkte; fest nicht leitend, geschmolzen und gelöst leitend (bewegliche Ionen).</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 6</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für Sie</div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Der Abstand zwischen zwei Ionen wird verdoppelt. Wie ändert sich die Anziehungskraft?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Sie halbiert sich.</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Sie wird viermal kleiner.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Sie verdoppelt sich.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Sie bleibt gleich.</div>
+      <div class="feedback correct">Richtig! Der Abstand steht im Quadrat im Nenner: 2² = 4.</div>
+      <div class="feedback wrong">Nicht ganz. Im Coulomb-Gesetz steht r² im Nenner. Doppelter Abstand → 2² = 4-mal kleinere Kraft.</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Welches Salz hat den höchsten Schmelzpunkt?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>KBr</div>
+      <div class="option" data-correct="false"><span class="radio"></span>NaCl</div>
+      <div class="option" data-correct="true"><span class="radio"></span>CaO</div>
+      <div class="option" data-correct="false"><span class="radio"></span>LiF</div>
+      <div class="feedback correct">Richtig! Im Calciumoxid sind beide Ionen zweifach geladen (Ca²⁺, O²⁻) – das schlägt jeden Vorteil durch kleine Radien. CaO schmilzt bei 2613 °C.</div>
+      <div class="feedback wrong">Nicht ganz. Vergleichen Sie zuerst die Ladungen: Nur in CaO sind beide Ionen zweifach geladen.</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">3</span>Was beschreibt die Koordinationszahl?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Die Ladung eines Ions</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Die Anzahl nächster Gegen-Ionen um ein Ion</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Die Anzahl Ionen in einer Formeleinheit</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Die Anzahl Elektronen, die ein Atom abgibt</div>
+      <div class="feedback correct">Richtig! Im NaCl-Gitter ist jedes Ion von 6 Gegen-Ionen umgeben.</div>
+      <div class="feedback wrong">Nicht ganz. Die KZ zählt die nächsten Nachbarn eines Ions im Gitter – im NaCl-Gitter sind es 6.</div>
+    </div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 6</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128214;</div>
+      <div class="task-card-title">Skript</div>
+      <div class="task-card-desc">Aufgaben <span class="nrs">6-24, 6-25, 6-27, 6-29</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                        LEKTION 7                             -->
+<!-- ============================================================ -->
+<section id="L7">
+  <div class="lesson-header">
+    <div class="lesson-number">Lektion 07</div>
+    <h2>Metall gegen Salz</h2>
+  </div>
+
+  <div class="lernziele"><h3>Lernziele</h3><ul>
+    <li>Sie können erklären, warum Metalle verformbar und Salze spröde sind.</li>
+    <li>Sie können beschreiben, was eine Legierung ist und warum sie andere Eigenschaften hat als das reine Metall.</li>
+    <li>Sie können beschreiben, wie ein Kristall aus einer Lösung wächst.</li>
+    <li>Sie können Metalle und Salze in einer Tabelle vergleichen und jede Eigenschaft mit den Teilchen begründen.</li>
+  </ul></div>
+
+  <h3>7.1 Auflösung: Kupfer und Salz unter dem Hammer <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <div class="predict-echo" data-key="hammer"></div>
+  <p>Das Kupferblech wird flach und biegt sich – das Salz zerspringt in Stücke. Beide Stoffe sind Gitter aus geladenen Teilchen. Woran liegt der Unterschied? Verschieben Sie in beiden Gittern die obere Schicht um eine Position.</p>
+
+  <div class="widget">
+    <div class="widget-header"><span class="widget-title">Schichten verschieben</span><span class="widget-badge">MODELL</span></div>
+    <div class="widget-body">
+      <div class="shift-wrap" id="shiftWrap">
+        <figure><figcaption>Metall</figcaption><svg id="shiftMetall" viewBox="0 0 300 170" style="width:100%; height:auto;"></svg><div class="verdict" id="vMetall"></div></figure>
+        <figure><figcaption>Salz</figcaption><svg id="shiftSalz" viewBox="0 0 300 170" style="width:100%; height:auto;"></svg><div class="verdict" id="vSalz"></div></figure>
+      </div>
+      <div class="sim-controls"><button class="btn primary" id="shiftBtn">Obere Schicht verschieben</button></div>
+    </div>
+    <div class="widget-caption">Ein Hammerschlag verschiebt Schichten im Gitter gegeneinander.</div>
+  </div>
+
+  <div class="aufgabe"><div class="aufgabe-label">Erklären</div>
+    <p>Erklären Sie in zwei Sätzen, warum Kupfer verformbar und Kochsalz spröde ist. Verwenden Sie die Begriffe «Elektronengas» und «gleich geladene Ionen».</p>
+    <div class="notiz-box" data-key="hammer-erklaerung" data-label="Ihre Erklärung"></div>
+    <details class="loesung"><summary>Musterlösung</summary><div class="inner">
+      <p><strong>Metall:</strong> Nach dem Verschieben sind die Atomrümpfe wieder vom Elektronengas umgeben. Die Anziehung bleibt erhalten, das Metall verformt sich, ohne zu brechen.</p>
+      <p style="margin-bottom:0;"><strong>Salz:</strong> Nach dem Verschieben um eine Position liegen gleich geladene Ionen direkt übereinander. Sie stossen sich ab – der Kristall bricht entlang dieser Ebene.</p>
+    </div></details>
+  </div>
+
+  <h3>7.2 Wärmeleitung und Schmelzsicherung <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <p>Ihre Lehrperson zeigt zwei kurze Demonstrationen: Auf Stäben aus verschiedenen Materialien wird die Wärmeleitung verglichen, und ein dünner Draht schmilzt durch, wenn zu viel Strom fliesst. Notieren Sie Ihre Beobachtungen.</p>
+  <div class="notiz-box" data-key="demos-l7" data-label="Beobachtungen Demos"></div>
+  <div class="aufgabe"><div class="aufgabe-label">Kurz überlegen</div>
+    <div id="demoFragen"></div>
+  </div>
+
+  <h3>7.3 Legierungen <span class="tag-selbst">selbstständig</span></h3>
+  <p>Reine Metalle sind oft zu weich. Mischt man ein Metall in der Schmelze mit einem anderen Element und lässt es erstarren, entsteht eine <strong>Legierung</strong>. Die fremden Atome sind unterschiedlich gross und stören die regelmässige Anordnung im Gitter. Die Schichten lassen sich dadurch schwerer gegeneinander verschieben – die Legierung ist <strong>härter</strong> als das reine Metall.</p>
+  <div class="table-scroll"><table class="data-table">
+    <tr><th>Legierung</th><th>Bestandteile</th><th>Verwendung</th></tr>
+    <tr><td>Bronze</td><td>Kupfer + Zinn</td><td>Glocken, Statuen, in der Bronzezeit Werkzeuge und Waffen</td></tr>
+    <tr><td>Messing</td><td>Kupfer + Zink</td><td>Wasserhähne, Musikinstrumente, Schrauben</td></tr>
+    <tr><td>Stahl</td><td>Eisen + wenig Kohlenstoff (oft + Chrom, Nickel)</td><td>Bauten, Werkzeuge, Besteck (rostfreier Stahl)</td></tr>
+    <tr><td>Lötzinn</td><td>Zinn + Silber + Kupfer</td><td>Elektronik: Bauteile verbinden</td></tr>
+  </table></div>
+  <div class="aufgabe"><div class="aufgabe-label">Kurz überlegen</div>
+    <p>Lötzinn schmilzt schon bei rund 220 °C, reines Zinn erst bei 232 °C. Legierungen schmelzen oft tiefer als ihre Bestandteile. Diskutieren Sie mit Ihrer Nachbarin oder Ihrem Nachbarn eine Erklärung mit dem Gittermodell – und überprüfen Sie Ihre Idee mit Aufgabe <span class="nrs">6-22</span>.</p>
+  </div>
+
+  <h3>7.4 Wie wächst ein Kristall? <span class="tag-gemeinsam">gemeinsam</span></h3>
+  <p>Ihre Lehrperson zeigt ein Wärmekissen. Es enthält eine <strong>übersättigte</strong> Natriumacetat-Lösung: Darin ist mehr Salz gelöst, als sich bei Raumtemperatur eigentlich lösen kann. Knickt man das Metallplättchen, beginnt die Lösung zu kristallisieren – und das Kissen wird warm.</p>
+  <div class="discovery"><div class="discovery-label">Beobachten · Erklären</div>
+    <ol>
+      <li>Beschreiben Sie, wie sich die Kristallisation im Kissen ausbreitet.</li>
+      <li>Das Kissen wird beim Kristallisieren warm. Woher kommt die Wärme? Denken Sie an die Gitterenergie aus Lektion 6.</li>
+    </ol>
+    <details class="loesung"><summary>Auflösung</summary><div class="inner">
+      <p>Am Plättchen entstehen winzige Kristallkeime. An ihnen lagern sich weitere Ionen aus der Lösung an, immer in der richtigen Ordnung: Na<sup>+</sup> neben Acetat-Ion, nie gleich geladene Ionen nebeneinander. Die Kristallisation breitet sich als Front durch das ganze Kissen aus.</p>
+      <p style="margin-bottom:0;">Wenn sich Ionen zum Gitter zusammenlagern, kommen sich entgegengesetzte Ladungen näher – dabei wird Energie frei. Das Kissen wird warm. Zum «Aufladen» kocht man es: Dann löst sich das Salz wieder auf und nimmt die Energie wieder auf.</p>
+    </div></details>
+  </div>
+
+  <h3>7.5 Vergleichstabelle: Metall und Salz <span class="tag-selbst">selbstständig</span></h3>
+  <p>Diese Tabelle wird in Phase 3 und 4 um Moleküle und Atomgitter ergänzt. Füllen Sie sie aus und prüfen Sie. Übertragen Sie die fertige Tabelle in Ihr Heft.</p>
+  <div class="check-table" data-key="vergleich-p2">
+    <div class="table-scroll"><table class="data-table">
+      <tr><th></th><th>Metall (z.&thinsp;B. Kupfer)</th><th>Salz (z.&thinsp;B. Kochsalz)</th></tr>
+      <tr><td><strong>Teilchen</strong></td>
+        <td><select data-answer="rumpf"><option value="rumpf">Atomrümpfe + Elektronengas</option><option value="ion">Kationen + Anionen</option><option value="mol">Moleküle</option></select></td>
+        <td><select data-answer="ion"><option value="rumpf">Atomrümpfe + Elektronengas</option><option value="ion">Kationen + Anionen</option><option value="mol">Moleküle</option></select></td></tr>
+      <tr><td><strong>Schmelzpunkt</strong></td>
+        <td><select data-answer="hoch"><option value="tief">meist tief</option><option value="hoch">meist hoch</option></select></td>
+        <td><select data-answer="hoch"><option value="tief">meist tief</option><option value="hoch">meist hoch</option></select></td></tr>
+      <tr><td><strong>Leitfähigkeit fest</strong></td>
+        <td><select data-answer="ja"><option value="ja">leitet</option><option value="nein">leitet nicht</option></select></td>
+        <td><select data-answer="nein"><option value="ja">leitet</option><option value="nein">leitet nicht</option></select></td></tr>
+      <tr><td><strong>Leitfähigkeit geschmolzen</strong></td>
+        <td><select data-answer="ja"><option value="ja">leitet</option><option value="nein">leitet nicht</option></select></td>
+        <td><select data-answer="ja"><option value="ja">leitet</option><option value="nein">leitet nicht</option></select></td></tr>
+      <tr><td><strong>Verhalten beim Hammerschlag</strong></td>
+        <td><select data-answer="verf"><option value="verf">verformbar</option><option value="sprod">spröde</option></select></td>
+        <td><select data-answer="sprod"><option value="verf">verformbar</option><option value="sprod">spröde</option></select></td></tr>
+    </table></div>
+    <div class="sim-controls"><button class="btn primary ct-check">Prüfen</button><button class="btn ct-solve" disabled>Lösung ab 7 richtigen</button><span class="ct-msg"></span></div>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Verständnischeck – Lektion 7</div></div>
+    <div class="quiz-sub">Sofortiges Feedback · keine Bewertung · nur für Sie</div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">1</span>Warum zerspringt ein Salzkristall, wenn man Schichten gegeneinander verschiebt?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Weil die Elektronen das Gitter verlassen.</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Weil gleich geladene Ionen nebeneinander zu liegen kommen und sich abstossen.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Weil die Ionen ihre Ladung verlieren.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Weil Salze einen tiefen Schmelzpunkt haben.</div>
+      <div class="feedback correct">Richtig! Plus neben Plus und Minus neben Minus – die Abstossung sprengt den Kristall.</div>
+      <div class="feedback wrong">Nicht ganz. Schauen Sie sich das Modell «Schichten verschieben» noch einmal an.</div>
+    </div>
+    <div class="question">
+      <div class="q-text"><span class="q-num">2</span>Warum ist Bronze härter als reines Kupfer?</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Bronze enthält mehr Elektronen.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Bronze ist eine Ionenverbindung.</div>
+      <div class="option" data-correct="true"><span class="radio"></span>Die grösseren Zinn-Atome stören das Gitter, die Schichten gleiten schlechter.</div>
+      <div class="option" data-correct="false"><span class="radio"></span>Bronze hat einen höheren Schmelzpunkt.</div>
+      <div class="feedback correct">Richtig! Fremdatome wirken wie Stolpersteine zwischen den Schichten.</div>
+      <div class="feedback wrong">Nicht ganz. Bronze ist ein Metall (Kupfer + Zinn). Die fremden Atome stören das regelmässige Gitter.</div>
+    </div>
+  </div>
+
+  <h4>Aufgaben zu Lektion 7</h4>
+  <div class="task-links">
+    <div class="task-card print">
+      <div class="task-card-icon">&#128214;</div>
+      <div class="task-card-title">Skript</div>
+      <div class="task-card-desc">Aufgaben <span class="nrs">6-16, 6-17, 6-22, 6-28, 6-30</span> · für Schnelle: <span class="nrs">6-18, 6-21</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--                     ZUSAMMENFASSUNG                          -->
+<!-- ============================================================ -->
+<section id="zusammenfassung">
+  <div class="lesson-header">
+    <div class="lesson-number">Zusammenfassung</div>
+    <h2>Phase 2 auf einen Blick</h2>
+  </div>
+  <div class="summary-grid">
+    <div class="summary-card"><h4>Leitfähigkeit</h4><p>Strom fliesst nur mit <strong>beweglichen Ladungsträgern</strong>: Elektronen (Metalle) oder Ionen (Salzschmelze, Salzlösung).</p></div>
+    <div class="summary-card"><h4>Metalle</h4><p>Atomrümpfe im Gitter + <strong>Elektronengas</strong>. Leitend, glänzend, gute Wärmeleiter, verformbar.</p></div>
+    <div class="summary-card"><h4>Salze</h4><p><strong>Ionengitter</strong> aus Kationen und Anionen (NaCl: KZ 6). Hohe Schmelzpunkte, spröde, nur geschmolzen oder gelöst leitend.</p></div>
+    <div class="summary-card"><h4>Coulomb-Gesetz</h4><p>F ~ Q<sub>1</sub>·Q<sub>2</sub> / r<sup>2</sup>. <strong>Grosse Ladungen</strong> und <strong>kleine Ionen</strong> → starke Anziehung → hoher Schmelzpunkt.</p></div>
+  </div>
+
+  <p id="phase3-teaser" style="text-align:center; color:var(--text-muted); margin-top:44px; font-size:0.9rem;">
+    <strong>Weiter geht's in Phase 3:</strong> Moleküle und zwischenmolekulare Kräfte
+  </p>
+
+  <div id="formsBlock" style="margin-top:40px; padding-top:28px; border-top: 1px solid var(--border); display:none;">
+    <h4 style="margin-top:0;">Lernkontrolle Phase 2</h4>
+    <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:14px;">Multiple-Choice zum Grundverständnis der gesamten Phase 2.</p>
+    <div class="task-links">
+      <a class="task-card forms" id="formsLink" href="#" target="_blank">
+        <div class="task-card-icon">&#128203;</div>
+        <div class="task-card-title">MC-Lernkontrolle: Phase 2 abschliessen</div>
+        <div class="task-card-desc">MS Forms · Multiple-Choice zu Lektion 5–7</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+  <div style="margin-top:28px; padding:14px 18px; background:var(--bg-alt); border-radius:8px; font-size:0.85rem; color:var(--text-muted); display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;">
+    <span>Ihre Eingaben auf dieser Seite werden nur in diesem Browser gespeichert – nicht auf einem Server.</span>
+    <button class="btn" onclick="resetFortschritt()">Meine Eingaben löschen</button>
+  </div>
+</main>
+</div>
+</div>
+
+<script>window.PAGE = { key: 'struktur-2', forms: '' };</script>
+<script src="phase-tools.js"></script>
+<script>
+/* ================= L5: Elektronengas-Simulation ================= */
+(function () {
+  const cv = $id('egas'); if (!cv) return;
+  const ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
+  const cols = 10, rows = 4, gx = W / cols, gy = H / rows;
+  const ions = [];
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) ions.push({ x: gx * (c + 0.5), y: gy * (r + 0.5), p: Math.random() * 6.28 });
+  const els = [];
+  for (let i = 0; i < 46; i++) { const a = Math.random() * 6.28; els.push({ x: Math.random() * W, y: Math.random() * H, vx: 1.6 * Math.cos(a), vy: 1.6 * Math.sin(a) }); }
+  let volt = false, hot = false, t = 0, net = [], level = 0;
+  const btnV = $id('egasVolt'), btnH = $id('egasHeat'), read = $id('egasRead'), meter = $id('egasMeter');
+  function label() {
+    btnV.textContent = volt ? 'Spannung ausschalten' : 'Spannung anlegen';
+    btnH.textContent = hot ? 'Abkühlen' : 'Erhitzen';
+    read.textContent = (volt ? 'Spannung an' : 'Keine Spannung') + ' · ' + (hot ? 'heiss' : 'Raumtemperatur');
+  }
+  btnV.addEventListener('click', () => { volt = !volt; label(); });
+  btnH.addEventListener('click', () => { hot = !hot; label(); });
+  label();
+  function frame() {
+    t++;
+    const p = hot ? 0.09 : 0.03, amp = hot ? 5 : 1.4, speed = hot ? 2.1 : 1.6;
+    let cross = 0;
+    els.forEach(e => {
+      if (Math.random() < p) { const a = Math.random() * 6.28; e.vx = speed * Math.cos(a); e.vy = speed * Math.sin(a); }
+      if (volt) e.vx += 0.05;
+      e.x += e.vx; e.y += e.vy;
+      if (e.y < 4) { e.y = 4; e.vy = Math.abs(e.vy); } if (e.y > H - 4) { e.y = H - 4; e.vy = -Math.abs(e.vy); }
+      if (e.x > W) { e.x -= W; cross++; } else if (e.x < 0) { e.x += W; cross--; }
+    });
+    net.push(cross); if (net.length > 120) net.shift();
+    const rate = net.reduce((a, b) => a + b, 0) / net.length * 60; // pro Sekunde
+    level += (Math.max(0, rate) / 7 * 100 - level) * 0.05;
+    meter.style.width = Math.min(100, level) + '%';
+    ctx.clearRect(0, 0, W, H);
+    if (volt) {
+      ctx.fillStyle = 'rgba(74,122,181,0.10)'; ctx.fillRect(0, 0, 18, H);
+      ctx.fillStyle = 'rgba(200,80,80,0.10)'; ctx.fillRect(W - 18, 0, 18, H);
+      ctx.font = 'bold 18px DM Sans, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillStyle = '#4a7ab5'; ctx.fillText('−', 9, H / 2 + 6);
+      ctx.fillStyle = '#c05050'; ctx.fillText('+', W - 9, H / 2 + 6);
+    }
+    ions.forEach(i => {
+      const x = i.x + amp * Math.sin(t * 0.3 + i.p), y = i.y + amp * Math.cos(t * 0.37 + i.p * 1.3);
+      ctx.beginPath(); ctx.arc(x, y, 17, 0, 6.28); ctx.fillStyle = '#e8a598'; ctx.fill();
+      ctx.strokeStyle = '#c0705f'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.fillStyle = '#7a3527'; ctx.font = 'bold 14px DM Sans, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('+', x, y + 5);
+    });
+    els.forEach(e => { ctx.beginPath(); ctx.arc(e.x, e.y, 4.5, 0, 6.28); ctx.fillStyle = '#3d6fb0'; ctx.fill(); });
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+renderChoices('egasFragen', [
+  { p: 'Ohne Spannung: Wie bewegen sich die Elektronen?', a: 'b',
+    options: [{ v: 'a', l: 'gar nicht' }, { v: 'b', l: 'ungeordnet in alle Richtungen' }, { v: 'c', l: 'alle in dieselbe Richtung' }],
+    ok: 'Richtig. Die Elektronen flitzen ungeordnet hin und her. Im Mittel wandern gleich viele nach links wie nach rechts – es fliesst kein Strom.',
+    no: 'Schauen Sie genau hin: Die Elektronen bewegen sich, aber ohne gemeinsame Richtung.' },
+  { p: 'Mit Spannung: Wohin wandern die Elektronen?', a: 'plus',
+    options: [{ v: 'minus', l: 'zum Minuspol' }, { v: 'plus', l: 'zum Pluspol' }, { v: 'keine', l: 'keine Richtung' }],
+    ok: 'Richtig. Die negativ geladenen Elektronen werden vom Pluspol angezogen. Diese gerichtete Bewegung ist der elektrische Strom.',
+    no: 'Nicht ganz. Elektronen sind negativ geladen – welcher Pol zieht sie an?' },
+  { p: 'Spannung an, dann erhitzen: Was passiert mit dem Strom?', a: 'sinkt',
+    options: [{ v: 'steigt', l: 'steigt' }, { v: 'sinkt', l: 'sinkt' }, { v: 'gleich', l: 'bleibt gleich' }],
+    ok: 'Richtig. Die Atomrümpfe schwingen stärker und stossen öfter mit den Elektronen zusammen. Der Widerstand eines Metalls steigt beim Erwärmen.',
+    no: 'Beobachten Sie den Strommesser beim Umschalten auf «heiss» einige Sekunden lang.' }
+]);
+
+/* ================= L6: Coulomb-Rechner ================= */
+const KAT = [['Li⁺', 1, 76], ['Na⁺', 1, 102], ['K⁺', 1, 138], ['Mg²⁺', 2, 72], ['Ca²⁺', 2, 100], ['Al³⁺', 3, 54]];
+const AN = [['F⁻', 1, 133], ['Cl⁻', 1, 181], ['Br⁻', 1, 196], ['O²⁻', 2, 140], ['S²⁻', 2, 184]];
+const SALZNAME = { 'Li⁺F⁻': 'LiF', 'Li⁺Cl⁻': 'LiCl', 'Li⁺Br⁻': 'LiBr', 'Li⁺O²⁻': 'Li₂O', 'Li⁺S²⁻': 'Li₂S', 'Na⁺F⁻': 'NaF', 'Na⁺Cl⁻': 'NaCl', 'Na⁺Br⁻': 'NaBr', 'Na⁺O²⁻': 'Na₂O', 'Na⁺S²⁻': 'Na₂S', 'K⁺F⁻': 'KF', 'K⁺Cl⁻': 'KCl', 'K⁺Br⁻': 'KBr', 'K⁺O²⁻': 'K₂O', 'K⁺S²⁻': 'K₂S', 'Mg²⁺F⁻': 'MgF₂', 'Mg²⁺Cl⁻': 'MgCl₂', 'Mg²⁺Br⁻': 'MgBr₂', 'Mg²⁺O²⁻': 'MgO', 'Mg²⁺S²⁻': 'MgS', 'Ca²⁺F⁻': 'CaF₂', 'Ca²⁺Cl⁻': 'CaCl₂', 'Ca²⁺Br⁻': 'CaBr₂', 'Ca²⁺O²⁻': 'CaO', 'Ca²⁺S²⁻': 'CaS', 'Al³⁺F⁻': 'AlF₃', 'Al³⁺Cl⁻': 'AlCl₃', 'Al³⁺Br⁻': 'AlBr₃', 'Al³⁺O²⁻': 'Al₂O₃', 'Al³⁺S²⁻': 'Al₂S₃' };
+function relKraft(k, a) { const d = k[2] + a[2]; return (k[1] * a[1] / (d * d)) / (1 / (283 * 283)); }
+(function () {
+  const sk = $id('crKat'), sa = $id('crAn'); if (!sk) return;
+  sk.innerHTML = KAT.map((k, i) => `<option value="${i}">${k[0]} (${k[2]} pm)</option>`).join('');
+  sa.innerHTML = AN.map((a, i) => `<option value="${i}">${a[0]} (${a[2]} pm)</option>`).join('');
+  sk.value = (store.cr || {}).k ?? 1; sa.value = (store.cr || {}).a ?? 1;
+  const REF = [[1, 1], [2, 1], [1, 0], [3, 3]]; // NaCl, KCl, NaF, MgO
+  function upd() {
+    const k = KAT[sk.value], a = AN[sa.value], d = k[2] + a[2], f = relKraft(k, a);
+    store.cr = { k: sk.value, a: sa.value }; saveStore();
+    $id('crOut').innerHTML = `<strong>${SALZNAME[k[0] + a[0]]}</strong> · Ladungen: ${k[1]} × ${a[1]} = <strong>${k[1] * a[1]}</strong> · Abstand r = ${k[2]} + ${a[2]} = <strong>${d} pm</strong><br>Relative Anziehungskraft (NaCl = 1): <strong style="font-size:1.15rem;">${f.toFixed(2)}</strong>`;
+    const list = REF.map(([ki, ai]) => [KAT[ki], AN[ai], false]);
+    list.push([k, a, true]);
+    const max = Math.max(...list.map(([kk, aa]) => relKraft(kk, aa)));
+    $id('crBars').innerHTML = list.map(([kk, aa, now]) => { const v = relKraft(kk, aa); return `<div class="cr-bar${now ? ' now' : ''}"><span>${now ? '▸ ' : ''}${SALZNAME[kk[0] + aa[0]]}</span><div class="b" style="width:${v / max * 100}%"></div><span>${v.toFixed(2)}</span></div>`; }).join('');
+  }
+  sk.addEventListener('change', upd); sa.addEventListener('change', upd); upd();
+})();
+
+renderChoices('crFragen', [
+  { p: 'Wählen Sie Na⁺ und nacheinander F⁻, Cl⁻ und Br⁻. Was passiert mit der Anziehungskraft?', a: 'sinkt',
+    options: [{ v: 'steigt', l: 'sie steigt' }, { v: 'sinkt', l: 'sie sinkt' }, { v: 'gleich', l: 'sie bleibt gleich' }],
+    ok: 'Richtig. Die Ladungen bleiben gleich, aber die Anionen werden grösser. Grösserer Abstand → schwächere Anziehung.',
+    no: 'Vergleichen Sie die Zahlen im Rechner. Die Ladungen ändern sich nicht – nur der Abstand.' },
+  { p: 'Vergleichen Sie Na⁺/F⁻ mit Na⁺/O²⁻. Die Abstände sind fast gleich. Wie viel stärker ist die Anziehung im Natriumoxid?', a: '2',
+    options: [{ v: '1', l: 'gleich stark' }, { v: '2', l: 'etwa 2-mal' }, { v: '4', l: 'etwa 4-mal' }],
+    ok: 'Richtig. Das Oxid-Ion ist doppelt so stark geladen – die Kraft verdoppelt sich.',
+    no: 'Schauen Sie auf das Produkt der Ladungen: 1 × 1 gegenüber 1 × 2.' },
+  { p: 'Vergleichen Sie Na⁺/F⁻ mit Mg²⁺/O²⁻. Wie viel stärker ist die Anziehung im Magnesiumoxid?', a: '5',
+    options: [{ v: '2', l: 'etwa 2-mal' }, { v: '5', l: 'etwa 5-mal' }, { v: '20', l: 'etwa 20-mal' }],
+    ok: 'Richtig. Das Ladungsprodukt ist 4-mal so gross, und die Ionen sind etwas kleiner. Darum schmilzt MgO erst bei 2852 °C, NaF schon bei 993 °C.',
+    no: 'Tipp: Ladungsprodukt 2 × 2 = 4, dazu ein etwas kleinerer Abstand. Lesen Sie den Wert im Rechner ab.' }
+]);
+
+/* ================= L6: NaCl-Gitter 3D ================= */
+(function () {
+  const cv = $id('gitter'); if (!cv) return;
+  const ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
+  const pts = [];
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (let k = -1; k <= 1; k++) pts.push({ x: i, y: j, z: k, na: (i + j + k) % 2 === 0 });
+  let yaw = 0.6, pitch = -0.45, kz = false, auto = false, drag = null;
+  const S = 115;
+  function proj(p) {
+    const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+    const x1 = p.x * cy - p.z * sy, z1 = p.x * sy + p.z * cy;
+    const y1 = p.y * cp - z1 * sp, z2 = p.y * sp + z1 * cp;
+    const f = 7 / (7 + z2);
+    return { X: W / 2 + x1 * S * f, Y: H / 2 + y1 * S * f, z: z2, f };
+  }
+  function isNb(p) { return Math.abs(p.x) + Math.abs(p.y) + Math.abs(p.z) === 1; }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const P = pts.map(p => Object.assign(proj(p), { p }));
+    ctx.lineWidth = 1.2;
+    pts.forEach((a, i) => pts.forEach((b, j) => {
+      if (j <= i || Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z) !== 1) return;
+      const hl = kz && ((a.x === 0 && a.y === 0 && a.z === 0) || (b.x === 0 && b.y === 0 && b.z === 0));
+      ctx.strokeStyle = hl ? 'rgba(40,40,40,0.8)' : 'rgba(150,150,150,' + (kz ? 0.15 : 0.45) + ')';
+      ctx.lineWidth = hl ? 2.2 : 1.2;
+      ctx.beginPath(); ctx.moveTo(P[i].X, P[i].Y); ctx.lineTo(P[j].X, P[j].Y); ctx.stroke();
+    }));
+    P.slice().sort((a, b) => b.z - a.z).forEach(q => {
+      const p = q.p, r = (p.na ? 15 : 25) * q.f;
+      const centre = p.x === 0 && p.y === 0 && p.z === 0;
+      const dim = kz && !centre && !isNb(p);
+      ctx.globalAlpha = dim ? 0.18 : 1;
+      const g = ctx.createRadialGradient(q.X - r / 3, q.Y - r / 3, r / 5, q.X, q.Y, r);
+      if (p.na) { g.addColorStop(0, '#d9c8f0'); g.addColorStop(1, '#7d5ab5'); } else { g.addColorStop(0, '#c9ecc9'); g.addColorStop(1, '#3f9a4f'); }
+      ctx.beginPath(); ctx.arc(q.X, q.Y, r, 0, 6.28); ctx.fillStyle = g; ctx.fill();
+      if (kz && centre) { ctx.strokeStyle = '#222'; ctx.lineWidth = 3; ctx.stroke(); }
+      ctx.fillStyle = 'white'; ctx.font = 'bold ' + Math.round(r * 0.7) + 'px DM Sans, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(p.na ? '+' : '−', q.X, q.Y + r * 0.25);
+      ctx.globalAlpha = 1;
+    });
+  }
+  function loop() { if (auto && !drag) { yaw += 0.008; draw(); } requestAnimationFrame(loop); }
+  const pos = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  cv.addEventListener('pointerdown', e => { drag = pos(e); cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove', e => { if (!drag) return; const [x, y] = pos(e); yaw += (x - drag[0]) * 0.01; pitch = Math.max(-1.4, Math.min(1.4, pitch + (y - drag[1]) * 0.01)); drag = [x, y]; draw(); });
+  cv.addEventListener('pointerup', () => drag = null);
+  cv.addEventListener('pointercancel', () => drag = null);
+  $id('gitterKZ').addEventListener('click', e => { kz = !kz; e.target.textContent = kz ? 'Ganzes Gitter zeigen' : 'Nachbarn eines Ions zeigen'; draw(); });
+  $id('gitterDreh').addEventListener('click', e => { auto = !auto; e.target.textContent = auto ? 'Drehen stoppen' : 'Automatisch drehen'; });
+  draw(); loop();
+})();
+
+renderChoices('kzFragen', [
+  { p: 'Klicken Sie auf «Nachbarn eines Ions zeigen». Wie viele Chlorid-Ionen umgeben das Natrium-Ion in der Mitte?', a: '6',
+    options: [{ v: '4', l: '4' }, { v: '6', l: '6' }, { v: '8', l: '8' }, { v: '12', l: '12' }],
+    ok: 'Richtig: oben, unten, links, rechts, vorne, hinten. Die sechs Chlorid-Ionen bilden ein Oktaeder um das Natrium-Ion.',
+    no: 'Drehen Sie das Gitter und zählen Sie die hervorgehobenen Nachbarn: oben, unten, links, rechts, vorne, hinten.' },
+  { p: 'Und wie viele Natrium-Ionen umgeben jedes Chlorid-Ion?', a: '6',
+    options: [{ v: '1', l: '1' }, { v: '3', l: '3' }, { v: '6', l: '6' }, { v: '8', l: '8' }],
+    ok: 'Richtig. Im NaCl-Gitter haben beide Ionensorten die KZ 6 – passend zum Verhältnis 1 : 1.',
+    no: 'Suchen Sie im Modell ein grünes Ion auf einer Würfelfläche: Wie viele violette Ionen hätte es im unendlich grossen Kristall um sich?' }
+]);
+
+/* ================= L7: Schichten verschieben ================= */
+(function () {
+  const sm = $id('shiftMetall'), ss = $id('shiftSalz'); if (!sm) return;
+  const D = 44, X0 = 40, YT = 52, YB = 118;
+  const ion = (x, y, pos, col) => `<circle cx="${x}" cy="${y}" r="17" fill="${col}" stroke="rgba(0,0,0,0.25)"/><text x="${x}" y="${y + 6}" text-anchor="middle" font-size="18" font-weight="700" fill="white" font-family="DM Sans, sans-serif">${pos ? '+' : '−'}</text>`;
+  let el = '';
+  for (let i = 0; i < 26; i++) el += `<circle cx="${12 + Math.random() * 276}" cy="${20 + Math.random() * 132}" r="3" fill="#3d6fb0" opacity="0.8"/>`;
+  let bot = '', top = '';
+  for (let i = 0; i < 6; i++) bot += ion(X0 + i * D, YB, true, '#c0705f');
+  for (let i = 0; i < 5; i++) top += ion(X0 + i * D, YT, true, '#c0705f');
+  sm.innerHTML = `<rect x="4" y="18" width="292" height="136" rx="10" fill="#e8eff7"/>${el}<g>${bot}</g><g class="shift-top" id="topMetall">${top}</g>`;
+  bot = ''; top = '';
+  for (let i = 0; i < 6; i++) bot += ion(X0 + i * D, YB, i % 2 === 0, i % 2 === 0 ? '#7d5ab5' : '#3f9a4f');
+  for (let i = 0; i < 5; i++) top += ion(X0 + i * D, YT, i % 2 === 1, i % 2 === 1 ? '#7d5ab5' : '#3f9a4f');
+  let warn = '';
+  for (let i = 1; i < 6; i++) warn += `<path d="M${X0 + i * D - 9} ${YT + 30} l9 -10 l9 10 M${X0 + i * D - 9} ${YB - 30} l9 10 l9 -10" stroke="#c03030" stroke-width="2.5" fill="none" class="warn"/>`;
+  ss.innerHTML = `<g>${bot}</g><g class="shift-top" id="topSalz">${top}</g>${warn}`;
+  let shifted = false;
+  const btn = $id('shiftBtn'), wrap = $id('shiftWrap');
+  btn.addEventListener('click', () => {
+    shifted = !shifted;
+    wrap.classList.toggle('shifted', shifted);
+    $id('topMetall').style.transform = shifted ? `translate(${D}px,0)` : '';
+    $id('topSalz').style.transform = shifted ? `translate(${D}px,0)` : '';
+    $id('vMetall').textContent = ''; $id('vSalz').textContent = '';
+    btn.textContent = shifted ? 'Zurücksetzen' : 'Obere Schicht verschieben';
+    if (shifted) setTimeout(() => {
+      if (!shifted) return;
+      $id('topSalz').style.transform = `translate(${D}px,-16px) rotate(-3deg)`;
+      $id('vMetall').innerHTML = '✓ Die Atomrümpfe sind weiterhin vom Elektronengas umgeben. Das Metall hält zusammen.';
+      $id('vSalz').innerHTML = '<span style="color:#c03030; font-weight:600;">✗ Gleich geladene Ionen liegen übereinander und stossen sich ab. Der Kristall bricht.</span>';
+    }, 1050);
+  });
+})();
+
+renderChoices('demoFragen', [
+  { p: 'Warum leiten Metalle die Wärme viel besser als Glas oder Holz?', a: 'e',
+    options: [{ v: 'e', l: 'Die beweglichen Elektronen geben die Energie schnell weiter.' }, { v: 's', l: 'Metalle sind schwerer.' }, { v: 'g', l: 'Metalle glänzen.' }],
+    ok: 'Richtig. Die Elektronen des Elektronengases transportieren nicht nur Ladung, sondern auch Bewegungsenergie.',
+    no: 'Denken Sie an das Elektronengas: Was können die beweglichen Elektronen ausser Ladung noch transportieren?' },
+  { p: 'Warum schmilzt der dünne Draht in einer Schmelzsicherung, wenn zu viel Strom fliesst?', a: 'w',
+    options: [{ v: 'w', l: 'Viele Elektronen stossen mit den Atomrümpfen zusammen, der Draht wird heiss.' }, { v: 'i', l: 'Die Atomrümpfe beginnen zu wandern.' }, { v: 'l', l: 'Der Draht verliert seine Elektronen.' }],
+    ok: 'Richtig. Jeder Zusammenstoss gibt Energie an die Atomrümpfe ab, sie schwingen stärker – der Draht wird heiss, bis er schmilzt und den Stromkreis unterbricht.',
+    no: 'Erinnern Sie sich an die Simulation in 5.3: Was passiert, wenn Elektronen mit den Atomrümpfen zusammenstossen?' }
+]);
+
+</script>
+<script src="freigabe.js"></script>
+</body>
+</html>
