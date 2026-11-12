@@ -234,8 +234,9 @@
     <button class="sr-card" type="button" data-key="vit-a"><span class="sr-front"><span class="sr-formel">Vitamin A</span><span class="sr-frage">Grosses Molekül mit 20 C-Atomen und <strong>nur einer OH-Gruppe</strong>. Wasser- oder fettlöslich?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Fettlöslich</span><span class="sr-text">Der lange Kohlenwasserstoff-Teil überwiegt. Vitamin A wird im Fettgewebe und in der Leber gespeichert. Darum kann man es überdosieren – und Karottensalat braucht etwas Öl.</span></span></button>
   </div>
 
-  <h3>11.4 Die grosse Vergleichstabelle <span class="tag-selbst">selbstständig</span></h3>
-  <p>Hier ist die Antwort auf die Leitfrage – für alle vier Stoffklassen. Füllen Sie die Tabelle aus und prüfen Sie. Sie ist die beste Vorbereitung auf die Prüfung.</p>
+  <h3 id="vergleich-gesamt">11.4 Die grosse Vergleichstabelle <span class="tag-selbst">selbstständig</span></h3>
+  <p>Hier ist die Antwort auf die Leitfrage – für alle vier Stoffklassen. Die Tabelle setzt Ihre Teiltabellen aus Lektion 7 (<a href="struktur-phase2.html#vergleich-p2">7.5</a>) und Lektion 9 (<a href="struktur-phase3.html#vergleich-p3">9.6</a>) zusammen. Neu ist die Zeile <strong>Löslichkeit in Wasser</strong>. Prüfen Sie am Schluss die ganze Tabelle – sie ist die beste Vorbereitung auf die Prüfung.</p>
+  <p class="ct-import" id="ctImport" style="font-size:0.88rem; color:var(--text-muted);"></p>
   <div class="check-table" data-key="vergleich-gesamt">
     <div class="table-scroll"><table class="data-table">
       <tr><th></th><th>Metall</th><th>Salz</th><th>Molekülstoff</th><th>Atomgitter</th></tr>
@@ -459,6 +460,31 @@ renderChoices('alkFragen', [
     options: [{ v: 'k', l: 'Die unpolare Kette wird länger, der Anteil der OH-Gruppe kleiner.' }, { v: 'o', l: 'Längere Alkohole haben keine OH-Gruppe mehr.' }, { v: 's', l: 'Längere Alkohole sind schwerer als Wasser.' }],
     ok: 'Richtig. Jedes Molekül hat nur eine OH-Gruppe, die H-Brücken bilden kann. Die immer längere Kette stört die H-Brücken des Wassers.', no: 'Alle Alkohole haben genau eine OH-Gruppe. Was ändert sich von Zeile zu Zeile?' }
 ]);
+
+/* ================= L11: Vergleichstabelle aus 7.5 und 9.6 übernehmen ================= */
+(function () {
+  const wrap = document.querySelector('.check-table[data-key="vergleich-gesamt"]'); if (!wrap) return;
+  const read = k => { try { return JSON.parse(localStorage.getItem('glf-fortschritt-' + k)) || {}; } catch (e) { return {}; } };
+  const p2 = ((read('struktur-2')['tabelle:vergleich-p2'] || {}).vals) || [];
+  const p3 = ((read('struktur-3')['tabelle:vergleich-p3'] || {}).vals) || [];
+  const T = { rumpf: 'r', ion: 'i', mol: 'm', atom: 'a', tief: 't', hoch: 'h', ja: 'j', nein: 'n' };
+  // Reihenfolge der Auswahlfelder in 11.4 (zeilenweise) → Quelle
+  const MAP = [[p2, 0], [p2, 1], [p3, 0], [p3, 1], [p2, 2], [p2, 3], [p3, 4], [p3, 5], [p2, 4], [p2, 5], [p3, 6], [p2, 6], [p2, 7], [p3, 8]];
+  const sels = [...wrap.querySelectorAll('select')];
+  let n = 0;
+  MAP.forEach(([src, i], k) => {
+    const v = T[src[i]];
+    if (v && sels[k] && !sels[k].value) { sels[k].value = v; n++; }
+  });
+  if (n) {
+    const st = store['tabelle:vergleich-gesamt'] = store['tabelle:vergleich-gesamt'] || {};
+    st.vals = sels.map(x => x.value); saveStore();
+  }
+  const filled = sels.filter(s => s.value).length;
+  $id('ctImport').textContent = n
+    ? n + ' Einträge aus 7.5 und 9.6 übernommen. Ergänzen Sie die fehlenden Felder und prüfen Sie dann.'
+    : (filled ? '' : 'Noch keine Einträge aus 7.5 und 9.6 gefunden – füllen Sie die Tabelle direkt hier aus.');
+})();
 
 </script>
 <script src="freigabe.js"></script>
