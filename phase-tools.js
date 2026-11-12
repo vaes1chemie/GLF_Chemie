@@ -211,3 +211,55 @@ window.addEventListener('DOMContentLoaded', () => {
     if (o && !q.classList.contains('answered')) selectOption(o);
   });
 });
+
+/* ---------- Zeichenfelder (mit Maus, Finger oder Stift) ---------- */
+document.querySelectorAll('.zeichen-box').forEach(zb => {
+  const key = 'zeichnung:' + zb.dataset.key;
+  zb.innerHTML = `<div class="gate-title">${zb.dataset.label || 'Ihre Zeichnung'}</div>
+    <canvas width="1000" height="460"></canvas>
+    <div class="zb-tools">
+      <button type="button" class="zb-farbe aktiv" data-c="#222222" title="Schwarz" style="--c:#222222"></button>
+      <button type="button" class="zb-farbe" data-c="#3d6fb0" title="Blau" style="--c:#3d6fb0"></button>
+      <button type="button" class="zb-farbe" data-c="#c05050" title="Rot" style="--c:#c05050"></button>
+      <button type="button" class="zb-farbe" data-c="#3f9a4f" title="Grün" style="--c:#3f9a4f"></button>
+      <button type="button" class="btn zb-radier">Radierer</button>
+      <button type="button" class="btn zb-undo">Rückgängig</button>
+      <button type="button" class="btn zb-clear">Alles löschen</button>
+    </div>`;
+  const cv = zb.querySelector('canvas'), ctx = cv.getContext('2d');
+  let farbe = '#222222', radier = false, zug = null;
+  const verlauf = [];
+  const speichern = () => { try { store[key] = cv.toDataURL('image/png'); saveStore(); } catch (e) {} };
+  const weiss = () => { ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = 'white'; ctx.fillRect(0, 0, cv.width, cv.height); };
+  weiss();
+  if (store[key]) { const img = new Image(); img.onload = () => ctx.drawImage(img, 0, 0); img.src = store[key]; }
+  const punkt = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; };
+  cv.addEventListener('pointerdown', e => {
+    e.preventDefault(); cv.setPointerCapture(e.pointerId);
+    verlauf.push(ctx.getImageData(0, 0, cv.width, cv.height)); if (verlauf.length > 20) verlauf.shift();
+    zug = punkt(e);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = radier ? 'white' : farbe;
+    ctx.lineWidth = radier ? 28 : (e.pointerType === 'pen' ? 2 + 4 * (e.pressure || 0.5) : 4);
+    ctx.beginPath(); ctx.moveTo(zug[0], zug[1]); ctx.lineTo(zug[0] + 0.1, zug[1] + 0.1); ctx.stroke();
+  });
+  cv.addEventListener('pointermove', e => {
+    if (!zug) return;
+    const p = punkt(e);
+    if (!radier && e.pointerType === 'pen') ctx.lineWidth = 2 + 4 * (e.pressure || 0.5);
+    ctx.beginPath(); ctx.moveTo(zug[0], zug[1]); ctx.lineTo(p[0], p[1]); ctx.stroke(); zug = p;
+  });
+  const ende = () => { if (zug) { zug = null; speichern(); } };
+  cv.addEventListener('pointerup', ende); cv.addEventListener('pointercancel', ende); cv.addEventListener('pointerleave', ende);
+  zb.querySelectorAll('.zb-farbe').forEach(b => b.addEventListener('click', () => {
+    farbe = b.dataset.c; radier = false;
+    zb.querySelectorAll('.zb-farbe, .zb-radier').forEach(x => x.classList.remove('aktiv')); b.classList.add('aktiv');
+  }));
+  zb.querySelector('.zb-radier').addEventListener('click', e => {
+    radier = true; zb.querySelectorAll('.zb-farbe').forEach(x => x.classList.remove('aktiv')); e.target.classList.add('aktiv');
+  });
+  zb.querySelector('.zb-undo').addEventListener('click', () => { if (verlauf.length) { ctx.putImageData(verlauf.pop(), 0, 0); speichern(); } });
+  zb.querySelector('.zb-clear').addEventListener('click', () => {
+    verlauf.push(ctx.getImageData(0, 0, cv.width, cv.height)); weiss(); delete store[key]; saveStore();
+  });
+});

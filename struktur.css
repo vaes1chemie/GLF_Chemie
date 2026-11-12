@@ -495,3 +495,21 @@ section { animation: fadeUp 0.4s ease-out both; }
 .exkurs .quellen { font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; }
 .cr-calc { font-size: 0.8rem; color: var(--text-muted); margin: -2px 0 8px 78px; }
 @media (max-width: 600px) { .cr-calc { margin-left: 0; } }
+
+/* Zeichenfeld */
+.zeichen-box { margin-top: 14px; background: rgba(255,255,255,0.75); border: 1px dashed var(--border); border-radius: 8px; padding: 10px 14px 12px; }
+.zeichen-box canvas { display: block; width: 100%; height: auto; aspect-ratio: 1000 / 460; background: white; border: 1.5px solid var(--border); border-radius: 6px; margin-top: 4px; touch-action: none; cursor: crosshair; }
+.zb-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+.zb-farbe { width: 26px; height: 26px; border-radius: 50%; border: 2px solid white; background: var(--c); box-shadow: 0 0 0 1.5px var(--border); cursor: pointer; padding: 0; }
+.zb-farbe.aktiv { box-shadow: 0 0 0 2.5px var(--text); }
+.zb-radier.aktiv { background: var(--bg-alt); border-color: var(--text); }
+
+/* Ladungsschwerpunkte (Phase 3) */
+.lsp-mols { flex-wrap: wrap; }
+.lsp-mols .tool-btn { flex: 0 0 auto; min-width: 72px; }
+.lsp-svg { width: 100%; max-width: 520px; height: auto; display: block; margin: 10px auto 0; }
+.lsp-name { text-align: center; font-size: 0.92rem; color: var(--text-muted); margin: 2px 0 10px; }
+.lsp-frage { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; margin-bottom: 10px; }
+.lsp-frage span { font-weight: 600; margin-right: 4px; }
+.lsp-frage .btn.lsp-ok { background: #e5f4e4; border-color: #3f9a4f; }
+.lsp-frage .btn.lsp-falsch { background: #fbebeb; border-color: #c05050; }
