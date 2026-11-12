@@ -95,7 +95,7 @@
     <div class="widget-header"><span class="widget-title">Ladungsschwerpunkte: Dipol oder nicht?</span><span class="widget-badge">MODELL</span></div>
     <div class="widget-body">
       <div class="tool-options lsp-mols" id="lspMols"></div>
-      <svg id="lspSvg" class="lsp-svg" viewBox="0 0 440 250"></svg>
+      <svg id="lspSvg" class="lsp-svg" viewBox="0 -20 440 290"></svg>
       <div class="lsp-name" id="lspName"></div>
       <div class="lsp-frage" id="lspFrage">
         <span>Ist das Molekül ein Dipol?</span>
@@ -105,7 +105,7 @@
       </div>
       <div class="cr-out" id="lspOut"></div>
     </div>
-    <div class="widget-caption">Vereinfachte räumliche Darstellung. Rot ⊕ = Schwerpunkt der positiven, blau ⊖ = Schwerpunkt der negativen Teilladungen. C–H-Bindungen (ΔEN 0.4) gelten als unpolar.</div>
+    <div class="widget-caption">Vereinfachte räumliche Darstellung. Striche am Atom = nichtbindende Elektronenpaare; sie bestimmen die räumliche Gestalt mit. Rot ⊕ = Schwerpunkt der positiven, blau ⊖ = Schwerpunkt der negativen Teilladungen. C–H-Bindungen (ΔEN 0.4) gelten als unpolar.</div>
   </div>
 
   <h3>11.3 Die drei zwischenmolekularen Kräfte <span class="tag-selbst">selbstständig</span></h3>
@@ -427,18 +427,35 @@ renderChoices('verdFragen', [
   // Atome: [Symbol, x, y, vorne?]  Bindungen: [i, j, Ordnung]  (vereinfachte räumliche Lage)
   const TET = [[0, -1], [-0.95, 0.25], [0.7, 0.2], [0.25, 0.55]];
   const MOLS = [
-    { id: 'hcl', f: 'HCl', n: 'Chlorwasserstoff', a: [['H', -0.65, 0], ['Cl', 0.65, 0]], b: [[0, 1, 1]], g: 'linear' },
-    { id: 'h2o', f: 'H₂O', n: 'Wasser', a: [['O', 0, -0.35], ['H', -0.8, 0.4], ['H', 0.8, 0.4]], b: [[0, 1, 1], [0, 2, 1]], g: 'gewinkelt' },
-    { id: 'co2', f: 'CO₂', n: 'Kohlenstoffdioxid', a: [['O', -1.25, 0], ['C', 0, 0], ['O', 1.25, 0]], b: [[0, 1, 2], [1, 2, 2]], g: 'linear' },
-    { id: 'nh3', f: 'NH₃', n: 'Ammoniak', a: [['N', 0, -0.45], ['H', -0.9, 0.3], ['H', 0.75, 0.25], ['H', 0.2, 0.62, 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1]], g: 'pyramidal' },
-    { id: 'so2', f: 'SO₂', n: 'Schwefeldioxid', a: [['S', 0, -0.35], ['O', -1.0, 0.4], ['O', 1.0, 0.4]], b: [[0, 1, 2], [0, 2, 2]], g: 'gewinkelt' },
-    { id: 'so3', f: 'SO₃', n: 'Schwefeltrioxid', a: [['S', 0, 0], ['O', 0, -1.1], ['O', -0.95, 0.55], ['O', 0.95, 0.55]], b: [[0, 1, 2], [0, 2, 2], [0, 3, 2]], g: 'trigonal-planar' },
-    { id: 'hcn', f: 'HCN', n: 'Blausäure', a: [['H', -1.45, 0], ['C', -0.35, 0], ['N', 0.85, 0]], b: [[0, 1, 1], [1, 2, 3]], g: 'linear' },
-    { id: 'ch3cl', f: 'CH₃Cl', n: 'Chlormethan', a: [['C', 0, 0], ['Cl', ...TET[0]], ['H', ...TET[1]], ['H', ...TET[2]], ['H', ...TET[3], 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1], [0, 4, 1]], g: 'tetraedrisch' },
-    { id: 'ch2cl2', f: 'CH₂Cl₂', n: 'Dichlormethan', a: [['C', 0, 0], ['Cl', ...TET[0]], ['Cl', ...TET[1]], ['H', ...TET[2]], ['H', ...TET[3], 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1], [0, 4, 1]], g: 'tetraedrisch' },
-    { id: 'ccl4', f: 'CCl₄', n: 'Tetrachlormethan', a: [['C', 0, 0], ['Cl', ...TET[0]], ['Cl', ...TET[1]], ['Cl', ...TET[2]], ['Cl', ...TET[3], 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1], [0, 4, 1]], g: 'tetraedrisch' }
+    { id: 'hcl', lp: [0,3], f: 'HCl', n: 'Chlorwasserstoff', a: [['H', -0.65, 0], ['Cl', 0.65, 0]], b: [[0, 1, 1]], g: 'linear' },
+    { id: 'h2o', lp: [2,0,0], f: 'H₂O', n: 'Wasser', a: [['O', 0, -0.35], ['H', -0.8, 0.4], ['H', 0.8, 0.4]], b: [[0, 1, 1], [0, 2, 1]], g: 'gewinkelt' },
+    { id: 'co2', lp: [2,0,2], f: 'CO₂', n: 'Kohlenstoffdioxid', a: [['O', -1.25, 0], ['C', 0, 0], ['O', 1.25, 0]], b: [[0, 1, 2], [1, 2, 2]], g: 'linear' },
+    { id: 'nh3', lp: [1,0,0,0], f: 'NH₃', n: 'Ammoniak', a: [['N', 0, -0.45], ['H', -0.9, 0.3], ['H', 0.75, 0.25], ['H', 0.2, 0.62, 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1]], g: 'pyramidal' },
+    { id: 'so2', lp: [1,2,2], f: 'SO₂', n: 'Schwefeldioxid', a: [['S', 0, -0.35], ['O', -1.0, 0.4], ['O', 1.0, 0.4]], b: [[0, 1, 2], [0, 2, 2]], g: 'gewinkelt' },
+    { id: 'so3', lp: [0,2,2,2], f: 'SO₃', n: 'Schwefeltrioxid', a: [['S', 0, 0], ['O', 0, -1.1], ['O', -0.95, 0.55], ['O', 0.95, 0.55]], b: [[0, 1, 2], [0, 2, 2], [0, 3, 2]], g: 'trigonal-planar' },
+    { id: 'hcn', lp: [0,0,1], f: 'HCN', n: 'Blausäure', a: [['H', -1.45, 0], ['C', -0.35, 0], ['N', 0.85, 0]], b: [[0, 1, 1], [1, 2, 3]], g: 'linear' },
+    { id: 'ch3cl', lp: [0,3,0,0,0], f: 'CH₃Cl', n: 'Chlormethan', a: [['C', 0, 0], ['Cl', ...TET[0]], ['H', ...TET[1]], ['H', ...TET[2]], ['H', ...TET[3], 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1], [0, 4, 1]], g: 'tetraedrisch' },
+    { id: 'ch2cl2', lp: [0,3,3,0,0], f: 'CH₂Cl₂', n: 'Dichlormethan', a: [['C', 0, 0], ['Cl', ...TET[0]], ['Cl', ...TET[1]], ['H', ...TET[2]], ['H', ...TET[3], 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1], [0, 4, 1]], g: 'tetraedrisch' },
+    { id: 'ccl4', lp: [0,3,3,3,3], f: 'CCl₄', n: 'Tetrachlormethan', a: [['C', 0, 0], ['Cl', ...TET[0]], ['Cl', ...TET[1]], ['Cl', ...TET[2]], ['Cl', ...TET[3], 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1], [0, 4, 1]], g: 'tetraedrisch' }
   ];
   const S = 80, CX = 220, CY = 128;
+  // Winkel (Bildschirmkoordinaten) der Bindungen eines Atoms
+  const bindWinkel = (m, k) => m.b.filter(b => b[0] === k || b[1] === k).map(b => {
+    const o = b[0] === k ? b[1] : b[0];
+    return Math.atan2(m.a[o][2] - m.a[k][2], m.a[o][1] - m.a[k][1]);
+  });
+  // n Richtungen gleichmässig in die grösste Lücke zwischen den belegten Richtungen legen
+  const inLuecke = (belegt, n, aussen) => {
+    if (!belegt.length) { const a0 = aussen ?? -Math.PI / 2; return Array.from({ length: n }, (_, i) => a0 + i * 2 * Math.PI / n); }
+    const w = belegt.map(a => (a + 2 * Math.PI) % (2 * Math.PI)).sort((x, y) => x - y);
+    let best = null;
+    w.forEach((a, i) => {
+      const b = i + 1 < w.length ? w[i + 1] : w[0] + 2 * Math.PI, gap = b - a, mitte = a + gap / 2;
+      const bonus = aussen === undefined ? 0 : Math.cos(mitte - aussen) * 0.01;
+      if (!best || gap + bonus > best.gap + best.bonus + 1e-6) best = { a, gap, bonus };
+    });
+    return Array.from({ length: n }, (_, i) => best.a + best.gap * (i + 1) / (n + 1));
+  };
   const P = (x, y) => [CX + x * S, CY + y * S];
   // Teilladungen aus den polaren Bindungen (ΔEN ≥ 0.5)
   MOLS.forEach(m => {
@@ -458,8 +475,11 @@ renderChoices('verdFragen', [
   });
   const txt = (x, y, t, o) => `<text x="${x}" y="${y}" text-anchor="middle" font-family="DM Sans, sans-serif" ${o || ''}>${t}</text>`;
   let cur = MOLS[0], gezeigt = false;
+  const RING = 33;
   function draw() {
     const m = cur; let s = '';
+    // Liegt auf diesem Atom ein Ladungsschwerpunkt? Dann Beschriftung ausserhalb des Rings
+    const amSchwerpunkt = (x, y) => gezeigt && m.plus && [m.plus, m.minus].some(c => { const [cx, cy] = P(...c); return Math.hypot(cx - x, cy - y) < 10; });
     // Bindungen
     m.b.forEach(([i, j, o]) => {
       const [x1, y1] = P(m.a[i][1], m.a[i][2]), [x2, y2] = P(m.a[j][1], m.a[j][2]);
@@ -478,13 +498,33 @@ renderChoices('verdFragen', [
       const [x, y] = P(at[1], at[2]), r = RAD[at[0]];
       s += `<circle cx="${x}" cy="${y}" r="${r}" fill="${COL[at[0]]}" stroke="rgba(0,0,0,0.35)" stroke-width="1.2"/>`;
       s += txt(x, y + 5.5, at[0], `font-size="${at[0].length > 1 ? 14 : 16}" font-weight="700" fill="${at[0] === 'H' ? '#333' : 'white'}"`);
+      const bw = bindWinkel(m, k);
+      const aussen = Math.hypot(at[1], at[2]) < 0.1 ? undefined : Math.atan2(at[2], at[1]);
+      const paare = m.lp[k] ? inLuecke(bw, m.lp[k], aussen) : [];
+      paare.forEach(w => {
+        const d = r + 6, cx = x + d * Math.cos(w), cy = y + d * Math.sin(w), px = -Math.sin(w) * 7, py = Math.cos(w) * 7;
+        s += `<line x1="${cx - px}" y1="${cy - py}" x2="${cx + px}" y2="${cy + py}" stroke="#333" stroke-width="2.6" stroke-linecap="round"/>`;
+      });
       const q = m.q[k];
       if (Math.abs(q) > 1e-9) {
-        // Beschriftung vom Molekülzentrum weg nach aussen
-        let dx = at[1], dy = at[2]; const l = Math.hypot(dx, dy);
-        if (l < 0.1) { dx = 0; dy = -1; } else { dx /= l; dy /= l; }
-        const lx = x + dx * (r + 15) + (Math.abs(dy) > 0.8 ? 18 : 0), ly = y + dy * (r + 13) + 5;
-        s += txt(lx, ly, q > 0 ? 'δ+' : 'δ−', `font-size="15" font-weight="700" fill="${q > 0 ? '#c05050' : '#3d6fb0'}"`);
+        // freie Richtung: unter den Lücken ab 50° die, die am ehesten nach aussen zeigt
+        const ziel = aussen ?? -Math.PI / 4, bel = bw.concat(paare).map(a => (a + 2 * Math.PI) % (2 * Math.PI)).sort((u, v) => u - v);
+        let w = ziel;
+        if (bel.length) {
+          let best = null;
+          bel.forEach((a, i) => {
+            const b2 = i + 1 < bel.length ? bel[i + 1] : bel[0] + 2 * Math.PI, gap = b2 - a;
+            if (gap < 0.87 && bel.length > 1) return;
+            const lo = a + 0.4, hi = b2 - 0.4;
+            const zz = ((ziel - lo) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) + lo;
+            const cand = zz <= hi ? zz : (Math.cos(ziel - lo) > Math.cos(ziel - hi) ? lo : hi);
+            const sc = Math.cos(cand - ziel);
+            if (!best || sc > best.sc) best = { cand, sc };
+          });
+          if (best) w = best.cand;
+        }
+        const d = amSchwerpunkt(x, y) ? RING + 12 : r + (paare.length ? 19 : 15);
+        s += txt(x + d * Math.cos(w), y + d * Math.sin(w) + 5, q > 0 ? 'δ+' : 'δ−', `font-size="15" font-weight="700" fill="${q > 0 ? '#c05050' : '#3d6fb0'}"`);
       }
     });
     if (gezeigt && m.plus && m.minus) {
@@ -498,7 +538,7 @@ renderChoices('verdFragen', [
         const v = w === undefined ? ang : w, bx = x + rr * Math.cos(v), by = y + rr * Math.sin(v);
         return `<circle cx="${bx}" cy="${by}" r="9" fill="${c}" stroke="white" stroke-width="1.5"/>` + txt(bx, by + 5, t, 'font-size="14" font-weight="700" fill="white"');
       };
-      const rM = m.dipol ? 25 : 29, rP = m.dipol ? 25 : 23;
+      const rM = m.dipol ? RING : RING + 4, rP = m.dipol ? RING : RING - 5;
       unter += ring(mx, my, '#3d6fb0', rM) + ring(px, py, '#c05050', rP);
       s += badge(mx, my, '#3d6fb0', '−', rM, -2.4) + badge(px, py, '#c05050', '+', rP, 0.7);
     }
