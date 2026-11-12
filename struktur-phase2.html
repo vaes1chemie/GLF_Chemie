@@ -720,7 +720,7 @@ renderChoices('crFragen', [
   const ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
   const pts = [];
   for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (let k = -1; k <= 1; k++) pts.push({ x: i, y: j, z: k, na: (i + j + k) % 2 === 0 });
-  let yaw = 0.6, pitch = -0.45, kz = false, auto = false, drag = null;
+  let yaw = -0.45, pitch = 0.22, kz = false, auto = false, drag = null;
   const S = 115;
   function proj(p) {
     const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
