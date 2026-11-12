@@ -70,10 +70,18 @@ fetch('freigabe.json', { cache: 'no-store' }).then(r => r.json()).then(cfg => {
     let irgendwasFrei = false;
     const rows = t.phasen.map(p => {
       const w = f[String(p.nr)];
-      const istDatum = typeof w === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(w);
-      const frei = w === 'frei' || w === true || (istDatum && heute() >= w);
-      if (frei) { irgendwasFrei = true; return `<a class="ph" href="../${p.datei}?k=${ordner}"><span class="nr">Phase ${p.nr}</span><span class="t">${p.titel}</span><span class="st frei">offen &rarr;</span></a>`; }
-      const st = istDatum ? `<span class="st bald">ab ${datumCH(w)}</span>` : `<span class="st zu">&#x1F512; gesperrt</span>`;
+      const istDatum = v => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v);
+      const offen = v => v === 'frei' || v === true || (istDatum(v) && heute() >= v);
+      // Wert pro Phase: "frei" / "gesperrt" / Datum – oder pro Doppellektion { "DL1": …, "DL2": … }
+      const teile = (w && typeof w === 'object') ? Object.values(w) : [w];
+      const nOffen = teile.filter(offen).length;
+      if (nOffen) {
+        irgendwasFrei = true;
+        const info = teile.length > 1 ? (nOffen === teile.length ? 'offen' : nOffen + ' von ' + teile.length + ' DL offen') : 'offen';
+        return `<a class="ph" href="../${p.datei}?k=${ordner}"><span class="nr">Phase ${p.nr}</span><span class="t">${p.titel}</span><span class="st frei">${info} &rarr;</span></a>`;
+      }
+      const daten = teile.filter(istDatum).sort();
+      const st = daten.length ? `<span class="st bald">ab ${datumCH(daten[0])}</span>` : `<span class="st zu">&#x1F512; gesperrt</span>`;
       return `<div class="ph zu"><span class="nr">Phase ${p.nr}</span><span class="t">${p.titel}</span>${st}</div>`;
     }).join('');
     return `<div class="card${irgendwasFrei ? '' : ' locked'}"><div class="num" style="color:${t.farbe}">Thema ${i + 1}</div><div class="title">${t.titel}</div><div class="desc">${t.text}</div><div class="phases">${rows}</div></div>`;

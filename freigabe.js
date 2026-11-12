@@ -43,12 +43,27 @@
 
   function anwenden(cfg) {
     const themen = (cfg && cfg.themen) || {};
-    const frei = (t, n) => istFrei((themen[t] || {})[String(n)]);
+    const wert = (t, n) => (themen[t] || {})[String(n)];
+    // Eine Phase ist offen, wenn sie als Ganzes frei ist oder mindestens eine ihrer Doppellektionen.
+    const frei = (t, n) => { const w = wert(t, n); return (w && typeof w === 'object') ? Object.values(w).some(istFrei) : istFrei(w); };
+    // Eine Doppellektion ist offen, wenn ihre Phase als Ganzes frei ist oder die DL selbst.
+    const dlFrei = (t, n, dl) => { const w = wert(t, n); return (w && typeof w === 'object') ? istFrei(w[dl]) : istFrei(w); };
+    const dlDatum = (t, n, dl) => { const w = wert(t, n); const v = (w && typeof w === 'object') ? w[dl] : w; return (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)) ? v : ''; };
 
     // Aktuelle Seite gesperrt?
     if (thema && !frei(thema, phase)) {
       overlay('Noch nicht freigeschaltet', 'Diese Phase ist für Ihre Klasse noch nicht freigegeben. Ihre Lehrperson schaltet sie frei, sobald Sie im Unterricht so weit sind.');
     }
+
+    // Abschnitte einzelner Doppellektionen auf dieser Seite
+    document.querySelectorAll('[data-dl]:not(.nav-item)').forEach(el => {
+      if (!thema || dlFrei(thema, phase, el.dataset.dl)) return;
+      const d = dlDatum(thema, phase, el.dataset.dl);
+      const hinweis = 'Diese Doppellektion ist noch nicht freigeschaltet' + (d ? ' – sie wird am ' + d.split('-').reverse().map(Number).join('.') + ' geöffnet.' : '.');
+      if (el.classList.contains('dl-card')) { el.classList.add('dl-zu'); el.insertAdjacentHTML('beforeend', '<div class="dl-lock">&#x1F512; noch gesperrt</div>'); return; }
+      [...el.children].forEach(c => { if (!c.classList.contains('lesson-header')) c.style.display = 'none'; });
+      el.insertAdjacentHTML('beforeend', '<div class="dl-gesperrt">&#x1F512; ' + hinweis + '</div>');
+    });
 
     // Links zur Themenübersicht → Seite der Klasse
     document.querySelectorAll('a[href="index.html"]').forEach(a => { a.href = klasse ? klasse + '/' : 'index.html'; });
@@ -56,15 +71,18 @@
     // Seitenleiste
     document.querySelectorAll('.sidebar .nav-item').forEach(item => {
       const href = item.getAttribute('href');
-      let t, n, ziel;
+      let t, n, ziel, fremd = true;
       if (href && FILE_RE.test(href.split('#')[0])) {
         const mm = href.split('#')[0].match(FILE_RE); t = mm[1]; n = mm[2] ? +mm[2] : 1; ziel = href;
       } else if (!href && item.dataset.phase) {
         t = thema; n = +item.dataset.phase; ziel = dateiFuer(t, n);
-      } else return; // Anker auf derselben Seite
-      if (frei(t, n)) {
+      } else if (href && href.startsWith('#')) {
+        t = thema; n = phase; ziel = href; fremd = false;
+      } else return;
+      const offen = item.dataset.dl ? dlFrei(t, n, item.dataset.dl) : frei(t, n);
+      if (offen) {
         item.classList.remove('locked');
-        item.setAttribute('href', mitKlasse(ziel));
+        if (fremd) item.setAttribute('href', mitKlasse(ziel));
         const lock = item.querySelector('.lock-icon'); if (lock) lock.remove();
       } else {
         item.classList.add('locked'); item.classList.remove('done', 'active');

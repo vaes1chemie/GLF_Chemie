@@ -22,6 +22,26 @@ Mögliche Werte pro Phase:
 - `"gesperrt"` – nicht sichtbar
 - `"2026-12-01"` – wird an diesem Tag automatisch freigeschaltet (Format JJJJ-MM-TT)
 
+### Pro Doppellektion freischalten (Struktur & Eigenschaften, Phase 2–4)
+Statt eines Werts für die ganze Phase kann man jede Doppellektion einzeln freigeben. Die Nummern entsprechen der Lektionsplanung:
+
+| Phase | Doppellektionen |
+|---|---|
+| 2 Gitterstoffe | `DL1` (L5–6, Labor) · `DL2` (L7 + L8) · `DL3` (L9 + L10) |
+| 3 Moleküle | `DL4` (L11–12, Labor) · `DL5` (L13 + L14) |
+| 4 Lösen und Mischen | `DL6` (L15–16, Labor) · `DL7` (L17 + L18) |
+
+```json
+"struktur": { "1": "frei",
+              "2": { "DL1": "frei", "DL2": "2026-12-01", "DL3": "gesperrt" },
+              "3": "gesperrt",
+              "4": "gesperrt" }
+```
+
+- Eine Phase ist sichtbar, sobald mindestens eine ihrer Doppellektionen frei ist. Gesperrte Doppellektionen erscheinen mit Schloss; ihr Inhalt ist ausgeblendet.
+- Die Zusammenfassung und die Lernkontrolle einer Phase gehören zur letzten Doppellektion der Phase.
+- `"2": "frei"` schaltet weiterhin die ganze Phase auf einmal frei.
+
 Auf github.com: Datei öffnen → Stift-Symbol → Wert ändern → «Commit changes». Nach 1–2 Minuten ist die Änderung online.
 Achtung: Anführungszeichen und Kommas müssen stehen bleiben. Bei einem Tippfehler zeigt die Klassenseite eine Fehlermeldung.
 
