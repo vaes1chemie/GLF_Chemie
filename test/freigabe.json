@@ -2,6 +2,9 @@
   "klasse": "TEST",
   "themen": {
     "atombau":  { "1": "frei", "2": "frei", "3": "frei", "4": "frei" },
-    "struktur": { "1": "frei", "2": "frei", "3": "frei", "4": "frei" }
+    "struktur": { "1": "frei",
+                  "2": { "DL1": "frei", "DL2": "frei", "DL3": "frei" },
+                  "3": { "DL4": "frei", "DL5": "frei" },
+                  "4": { "DL6": "frei", "DL7": "frei" } }
   }
 }

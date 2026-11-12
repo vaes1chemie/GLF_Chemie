@@ -36,6 +36,9 @@ a.ph:hover { background:var(--bg-alt); }
 .st.frei { background:#eef6f0; color:#2d5a37; }
 .st.bald { background:#fdf5ee; color:#8a5a2b; }
 .st.zu { background:var(--bg-alt); color:var(--light); }
+.dls { display:flex; flex-wrap:wrap; gap:6px; padding:0 10px 8px 72px; }
+.dl { font-size:0.66rem; font-weight:600; padding:1px 8px; border-radius:100px; }
+.dl.frei { background:#eef6f0; color:#2d5a37; } .dl.bald { background:#fdf5ee; color:#8a5a2b; } .dl.zu { background:var(--bg-alt); color:var(--light); }
 .ph.zu { color:var(--light); }
 .note { text-align:center; margin-top:48px; padding-top:24px; border-top:1px solid var(--border); font-size:0.82rem; color:var(--light); line-height:1.6; }
 .err { background:#fceaea; border:1px solid #e07070; color:#7a2020; border-radius:10px; padding:16px 18px; }
@@ -75,14 +78,17 @@ fetch('freigabe.json', { cache: 'no-store' }).then(r => r.json()).then(cfg => {
       // Wert pro Phase: "frei" / "gesperrt" / Datum – oder pro Doppellektion { "DL1": …, "DL2": … }
       const teile = (w && typeof w === 'object') ? Object.values(w) : [w];
       const nOffen = teile.filter(offen).length;
+      // Bei Freigabe pro Doppellektion: jede DL einzeln anzeigen
+      const dlZeile = (w && typeof w === 'object') ? '<div class="dls">' + Object.entries(w).map(([dl, v]) =>
+        offen(v) ? `<span class="dl frei">${dl} offen</span>` : istDatum(v) ? `<span class="dl bald">${dl} ab ${datumCH(v)}</span>` : `<span class="dl zu">${dl} &#x1F512;</span>`).join('') + '</div>' : '';
       if (nOffen) {
         irgendwasFrei = true;
         const info = teile.length > 1 ? (nOffen === teile.length ? 'offen' : nOffen + ' von ' + teile.length + ' DL offen') : 'offen';
-        return `<a class="ph" href="../${p.datei}?k=${ordner}"><span class="nr">Phase ${p.nr}</span><span class="t">${p.titel}</span><span class="st frei">${info} &rarr;</span></a>`;
+        return `<a class="ph" href="../${p.datei}?k=${ordner}"><span class="nr">Phase ${p.nr}</span><span class="t">${p.titel}</span><span class="st frei">${info} &rarr;</span></a>${dlZeile}`;
       }
       const daten = teile.filter(istDatum).sort();
       const st = daten.length ? `<span class="st bald">ab ${datumCH(daten[0])}</span>` : `<span class="st zu">&#x1F512; gesperrt</span>`;
-      return `<div class="ph zu"><span class="nr">Phase ${p.nr}</span><span class="t">${p.titel}</span>${st}</div>`;
+      return `<div class="ph zu"><span class="nr">Phase ${p.nr}</span><span class="t">${p.titel}</span>${st}</div>${dlZeile}`;
     }).join('');
     return `<div class="card${irgendwasFrei ? '' : ' locked'}"><div class="num" style="color:${t.farbe}">Thema ${i + 1}</div><div class="title">${t.titel}</div><div class="desc">${t.text}</div><div class="phases">${rows}</div></div>`;
   }).join('');

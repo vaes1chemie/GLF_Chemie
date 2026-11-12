@@ -481,12 +481,15 @@ section { animation: fadeUp 0.4s ease-out both; }
 .dl-gesperrt { margin: 18px 0 8px; padding: 18px 20px; background: var(--bg-alt); border: 1px dashed var(--border); border-radius: 10px; color: var(--text-muted); font-size: 0.95rem; }
 .dl-card.dl-zu { opacity: 0.6; }
 .dl-lock { margin-top: 8px; font-size: 0.75rem; font-weight: 600; color: var(--text-light); }
-.roter-faden { margin: 22px 0 32px; padding: 18px 22px 16px; border: 2px solid #c0392b; border-radius: 12px; background: #fdf3f1; }
-.roter-faden .rf-label { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #c0392b; margin-bottom: 4px; }
-.roter-faden h4 { margin: 4px 0 10px; color: #7a2a20; font-size: 1.15rem; }
-.roter-faden p, .roter-faden li { color: #4a2a24; }
+.roter-faden { margin: 22px 0 32px; padding: 18px 22px 14px; border-left: 4px solid rgba(122, 27, 34, 0.75); border-radius: 0 12px 12px 0; background: rgba(122, 27, 34, 0.09); overflow: hidden; }
+.roter-faden .rf-label { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #7a1b22; margin-bottom: 4px; }
+.roter-faden h4 { margin: 4px 0 10px; color: #5e1419; font-size: 1.15rem; }
+.roter-faden p, .roter-faden li { color: #3d1f1f; }
 .roter-faden ol { padding-left: 20px; }
-.rf-svg { width: 100%; height: auto; display: block; margin: 4px 0 6px; }
+.rf-foto { float: right; width: 170px; aspect-ratio: 3 / 4; object-fit: cover; object-position: 30% 50%; border-radius: 10px; margin: 0 0 10px 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+.roter-faden .rf-credit { clear: both; font-size: 0.7rem; color: #8a6a6a; margin: 6px 0 0; }
+.roter-faden .rf-credit a { color: inherit; font-weight: 500; }
+@media (max-width: 600px) { .rf-foto { width: 110px; } }
 .exkurs { margin: 26px 0; padding: 18px 22px; border: 1px solid #c9a227; border-radius: 12px; background: #fffaf0; }
 .exkurs .exkurs-label { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #9a7a10; }
 .exkurs h4 { margin-top: 4px; }

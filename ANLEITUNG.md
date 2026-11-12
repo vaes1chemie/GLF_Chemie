@@ -41,6 +41,7 @@ Statt eines Werts für die ganze Phase kann man jede Doppellektion einzeln freig
 - Eine Phase ist sichtbar, sobald mindestens eine ihrer Doppellektionen frei ist. Gesperrte Doppellektionen erscheinen mit Schloss; ihr Inhalt ist ausgeblendet.
 - Die Zusammenfassung und die Lernkontrolle einer Phase gehören zur letzten Doppellektion der Phase.
 - `"2": "frei"` schaltet weiterhin die ganze Phase auf einmal frei.
+- Die Klassen-Startseite zeigt bei jeder Phase die einzelnen Doppellektionen mit ihrem Status.
 
 Auf github.com: Datei öffnen → Stift-Symbol → Wert ändern → «Commit changes». Nach 1–2 Minuten ist die Änderung online.
 Achtung: Anführungszeichen und Kommas müssen stehen bleiben. Bei einem Tippfehler zeigt die Klassenseite eine Fehlermeldung.
