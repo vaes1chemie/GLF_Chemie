@@ -76,7 +76,7 @@ document.querySelectorAll('section[id] .lernziele').forEach(box => {
 /* ---------- Notizfelder ---------- */
 document.querySelectorAll('.notiz-box').forEach(nb => {
   const key = 'notiz:' + nb.dataset.key;
-  nb.innerHTML = `<div class="gate-title">${nb.dataset.label || 'Ihre Notizen'} (freiwillig, wird nicht geprüft)</div><textarea></textarea>`;
+  nb.innerHTML = `<div class="gate-title">${nb.dataset.label || 'Ihre Notizen'}</div><textarea></textarea>`;
   const ta = nb.querySelector('textarea');
   ta.value = store[key] || '';
   ta.addEventListener('input', () => { store[key] = ta.value; saveStore(); });
