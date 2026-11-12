@@ -491,3 +491,5 @@ section { animation: fadeUp 0.4s ease-out both; }
 .exkurs .exkurs-label { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #9a7a10; }
 .exkurs h4 { margin-top: 4px; }
 .exkurs .quellen { font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; }
+.cr-calc { font-size: 0.8rem; color: var(--text-muted); margin: -2px 0 8px 78px; }
+@media (max-width: 600px) { .cr-calc { margin-left: 0; } }

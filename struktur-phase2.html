@@ -284,7 +284,7 @@
       <div class="cr-out" id="crOut"></div>
       <div class="cr-bars" id="crBars"></div>
     </div>
-    <div class="widget-caption">Relative Anziehungskraft zwischen einem Kation und einem Anion, bezogen auf Natriumchlorid (= 1). Ionenradien nach Shannon.</div>
+    <div class="widget-caption">Wählen Sie ein Kation und ein Anion. Die Anziehungskraft wird mit Natriumchlorid verglichen (NaCl = 1). Ionenradien nach Shannon.</div>
   </div>
 
   <div class="aufgabe"><div class="aufgabe-label">Mit dem Rechner experimentieren</div>
@@ -665,15 +665,21 @@ function relKraft(k, a) { const d = k[2] + a[2]; return (k[1] * a[1] / (d * d)) 
   sk.innerHTML = KAT.map((k, i) => `<option value="${i}">${k[0]} (${k[2]} pm)</option>`).join('');
   sa.innerHTML = AN.map((a, i) => `<option value="${i}">${a[0]} (${a[2]} pm)</option>`).join('');
   sk.value = (store.cr || {}).k ?? 1; sa.value = (store.cr || {}).a ?? 1;
-  const REF = [[1, 1], [2, 1], [1, 0], [3, 3]]; // NaCl, KCl, NaF, MgO
+  function zeile(k, a, ref) {
+    const d = k[2] + a[2], f = relKraft(k, a), name = SALZNAME[k[0] + a[0]];
+    const rechnung = ref
+      ? `Q<sub>1</sub> · Q<sub>2</sub> / r<sup>2</sup> = 1 · 1 / 283<sup>2</sup> (r = 102 pm + 181 pm) → wird gleich <strong>1</strong> gesetzt`
+      : `(${k[1]} · ${a[1]} / ${d}<sup>2</sup>) : (1 · 1 / 283<sup>2</sup>) = ${k[1] * a[1]} · (283 / ${d})<sup>2</sup> = <strong>${f.toFixed(2)}</strong>`;
+    return { f, html: `<div class="cr-bar${ref ? '' : ' now'}"><span>${name}${ref ? ' (Ref.)' : ''}</span><div class="b" style="width:WIDTH%"></div><span>${f.toFixed(2)}</span></div><div class="cr-calc">${rechnung}</div>` };
+  }
   function upd() {
-    const k = KAT[sk.value], a = AN[sa.value], d = k[2] + a[2], f = relKraft(k, a);
+    const k = KAT[sk.value], a = AN[sa.value], d = k[2] + a[2];
     store.cr = { k: sk.value, a: sa.value }; saveStore();
-    $id('crOut').innerHTML = `<strong>${SALZNAME[k[0] + a[0]]}</strong> · Ladungen: ${k[1]} × ${a[1]} = <strong>${k[1] * a[1]}</strong> · Abstand r = ${k[2]} + ${a[2]} = <strong>${d} pm</strong><br>Relative Anziehungskraft (NaCl = 1): <strong style="font-size:1.15rem;">${f.toFixed(2)}</strong>`;
-    const list = REF.map(([ki, ai]) => [KAT[ki], AN[ai], false]);
-    list.push([k, a, true]);
-    const max = Math.max(...list.map(([kk, aa]) => relKraft(kk, aa)));
-    $id('crBars').innerHTML = list.map(([kk, aa, now]) => { const v = relKraft(kk, aa); return `<div class="cr-bar${now ? ' now' : ''}"><span>${now ? '▸ ' : ''}${SALZNAME[kk[0] + aa[0]]}</span><div class="b" style="width:${v / max * 100}%"></div><span>${v.toFixed(2)}</span></div>`; }).join('');
+    $id('crOut').innerHTML = `<strong>${SALZNAME[k[0] + a[0]]}</strong> · Ladungen Q<sub>1</sub> · Q<sub>2</sub> = ${k[1]} · ${a[1]} = <strong>${k[1] * a[1]}</strong> · Abstand r = ${k[2]} pm + ${a[2]} pm = <strong>${d} pm</strong>`;
+    const z = [zeile(KAT[1], AN[1], true)];
+    if (!(k === KAT[1] && a === AN[1])) z.push(zeile(k, a, false));
+    const max = Math.max(...z.map(x => x.f));
+    $id('crBars').innerHTML = z.map(x => x.html.replace('WIDTH', (x.f / max * 100).toFixed(1))).join('');
   }
   sk.addEventListener('change', upd); sa.addEventListener('change', upd); upd();
 })();
