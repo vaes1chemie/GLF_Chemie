@@ -1,7 +1,7 @@
 {
   "klasse": "TEST",
   "themen": {
-    "atombau":  { "1": "frei", "2": "frei", "3": "gesperrt", "4": "gesperrt" },
+    "atombau":  { "1": "frei", "2": "frei", "3": "frei", "4": "frei" },
     "struktur": { "1": "frei", "2": "frei", "3": "frei", "4": "frei" }
   }
 }
