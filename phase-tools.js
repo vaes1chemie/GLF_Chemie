@@ -94,11 +94,16 @@ document.querySelectorAll('.sr-card').forEach((c, i) => {
 document.querySelectorAll('.predict').forEach(p => {
   const key = 'vorhersage:' + p.dataset.key;
   const btns = p.querySelectorAll('.tool-btn');
+  p.id = p.id || 'vorhersage-' + p.dataset.key;
+  // Abschnittsnummer der Vorhersage (z. B. «5.1») aus dem vorangehenden Titel
+  let h = p.closest('.widget') || p; while (h && h.tagName !== 'H3') h = h.previousElementSibling;
+  const nr = h ? (h.textContent.match(/^\s*(\d+\.\d+)/) || [])[1] : '';
+  const link = '<a href="#' + p.id + '">Zur Vorhersage' + (nr ? ' in ' + nr : '') + ' &uarr;</a>';
   const show = v => {
     btns.forEach(b => b.classList.toggle('chosen', b.dataset.v === v));
     document.querySelectorAll('.predict-echo[data-key="' + p.dataset.key + '"]').forEach(e => {
       const b = [...btns].find(x => x.dataset.v === v);
-      e.innerHTML = b ? 'Ihre Vorhersage war: <strong>' + b.textContent + '</strong>' : 'Sie haben noch keine Vorhersage gemacht.';
+      e.innerHTML = (b ? 'Ihre Vorhersage war: <strong>' + b.textContent + '</strong>' : 'Sie haben noch keine Vorhersage gemacht.') + ' · ' + link;
     });
   };
   btns.forEach(b => b.addEventListener('click', () => { store[key] = b.dataset.v; saveStore(); show(b.dataset.v); }));
