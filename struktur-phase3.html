@@ -6,7 +6,7 @@
 <title>Struktur & Eigenschaften – Phase 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="struktur.css?v=20261113b">
+<link rel="stylesheet" href="struktur.css?v=20261113d">
 </head>
 <body>
 <div class="layout">
@@ -324,27 +324,26 @@
   <p>Jedes Wassermolekül kann bis zu <strong>vier Wasserstoffbrücken</strong> bilden: zwei über seine H-Atome und zwei über die freien Elektronenpaare am O-Atom. Daraus folgen besondere Eigenschaften.</p>
   <div class="stoff-reveal">
     <button class="sr-card" type="button" data-key="w-sdp"><span class="sr-front"><span class="sr-formel" style="font-size:1.2rem;">100 °C</span><span class="sr-frage">Warum siedet Wasser so hoch, obwohl die Moleküle so klein sind?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Viele H-Brücken</span><span class="sr-text">Jedes Molekül ist über bis zu vier H-Brücken mit Nachbarn verbunden. Ohne H-Brücken würde Wasser etwa bei −90 °C sieden (siehe Diagramm in 13.2) – es gäbe auf der Erde kein flüssiges Wasser.</span></span></button>
-    <button class="sr-card" type="button" data-key="w-eis"><span class="sr-front"><span class="sr-formel" style="font-size:1.2rem;">Eis schwimmt</span><span class="sr-frage">Fast jeder Stoff ist fest dichter als flüssig. Warum ist es bei Wasser umgekehrt?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Offenes, hexagonales Gitter</span><span class="sr-text">Im Eis bildet jedes Wassermolekül vier H-Brücken zu seinen Nachbarn. Die Moleküle ordnen sich dabei tetraedrisch an – so entstehen Sechsecke mit grossen <strong>hexagonalen Hohlräumen</strong> (siehe Abbildung unten). Im flüssigen Wasser brechen Brücken auf, die Moleküle rücken näher zusammen. Eis ist darum weniger dicht (0.92 g/cm³) und schwimmt.</span></span></button>
+    <button class="sr-card sr-gross" type="button" data-key="w-eis"><span class="sr-front"><span class="sr-formel" style="font-size:1.2rem;">Eis schwimmt</span><span class="sr-frage">Fast jeder Stoff ist fest dichter als flüssig. Warum ist es bei Wasser umgekehrt?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Offenes, hexagonales Gitter</span><span class="sr-text">Im Eis bildet jedes Wassermolekül vier H-Brücken zu seinen Nachbarn. Die Moleküle ordnen sich dabei tetraedrisch an – so entstehen Sechsecke mit grossen <strong>hexagonalen Hohlräumen</strong>. Im flüssigen Wasser brechen Brücken auf, die Moleküle rücken näher zusammen. Eis ist darum weniger dicht (0.92 g/cm³) und schwimmt.</span><img class="sr-bild" src="eis-struktur.png" alt="Struktur von Eis: rote O-Atome, weisse H-Atome, gestrichelte Wasserstoffbrücken, sechseckige Hohlräume" loading="lazy"><span class="sr-legende">Rot: O, weiss: H, gestrichelt: H-Brücken. Von vorne sieht man die sechseckigen Hohlräume.</span></span></button>
     <button class="sr-card" type="button" data-key="w-see"><span class="sr-front"><span class="sr-formel" style="font-size:1.2rem;">Der See im Winter</span><span class="sr-frage">Warum frieren Seen von oben nach unten zu – und warum ist das für Fische wichtig?</span><span class="sr-tipp">Überlegen – dann klicken ↻</span></span><span class="sr-back"><span class="sr-name">Eis isoliert</span><span class="sr-text">Das leichtere Eis bleibt oben und schützt das Wasser darunter vor weiterer Abkühlung. Am Grund bleibt Wasser von rund 4 °C – dort überwintern die Fische.</span></span></button>
   </div>
 
-  <figure class="bild-figur">
-    <img src="eis-struktur.png" alt="Struktur von Eis: rote O-Atome und weisse H-Atome, verbunden durch gestrichelte Wasserstoffbrücken; sechseckige Hohlräume" loading="lazy">
-    <figcaption>Struktur von Eis: Jedes O-Atom (rot) ist über zwei Elektronenpaarbindungen und zwei Wasserstoffbrücken (gestrichelt) mit vier Nachbarn verbunden. Von vorne gesehen erkennt man die sechseckigen (hexagonalen) Hohlräume.</figcaption>
-  </figure>
 
-  <div class="exkurs"><div class="exkurs-label">Exkurs · Für alle, die schon fertig sind</div>
-    <h4>Warum haben Schneeflocken sechs Arme?</h4>
+  <details class="exkurs exkurs-klapp"><summary><span class="exkurs-label">Exkurs · Für alle, die schon fertig sind</span><span class="exkurs-titel">Warum haben Schneeflocken sechs Arme?</span></summary>
+    <figure class="video-figur">
+      <video controls playsinline preload="metadata" poster="schneeflocke-poster.jpg"><source src="schneeflocke.mp4" type="video/mp4">Ihr Browser kann dieses Video nicht abspielen.</video>
+      <figcaption>Ein Eiskristall wächst unter dem Mikroskop zu einer Schneeflocke.</figcaption>
+    </figure>
     <p>Schneeflocken wachsen in der Wolke direkt aus Wasserdampf: Wassermoleküle lagern sich an einem winzigen Eiskristall an – immer im hexagonalen Muster des Eisgitters. Darum ist jeder Schneekristall sechseckig. An den sechs Ecken ragt der Kristall am weitesten in die feuchte Luft hinaus; dort treffen am meisten Wassermoleküle auf, die Ecken wachsen schneller und werden zu Armen. Aus den Armen sprossen wieder Seitenäste.</p>
     <p>Alle sechs Arme erleben auf ihrem Weg durch die Wolke dieselbe Temperatur und Feuchtigkeit – deshalb wachsen sie fast gleich. Da aber jede Flocke einen anderen Weg nimmt, gleicht keine der anderen. Ob Plättchen, Sternchen oder Nadeln entstehen, hängt von der Temperatur und der Luftfeuchtigkeit ab: Die schönsten Sterne wachsen bei rund −15 °C und hoher Feuchtigkeit.</p>
     <p>Viele Fotos und Erklärungen finden Sie auf <a href="https://www.snowcrystals.com" target="_blank" rel="noopener">snowcrystals.com</a> (Kenneth Libbrecht, Caltech, englisch).</p>
     <ol>
-      <li>Warum ist eine Schneeflocke sechseckig und nicht zum Beispiel viereckig? Verwenden Sie die Abbildung des Eisgitters.</li>
+      <li>Warum ist eine Schneeflocke sechseckig und nicht zum Beispiel viereckig? Verwenden Sie die Abbildung des Eisgitters auf der Karte «Eis schwimmt».</li>
       <li>Warum wachsen gerade die Ecken zu langen Armen aus?</li>
       <li>Warum sind die sechs Arme einer Flocke fast gleich, aber zwei Flocken nie gleich?</li>
     </ol>
     <div class="notiz-box" data-key="schneeflocken" data-label="Ihre Antworten"></div>
-  </div>
+  </details>
 
   <h3>14.2 Kohlenstoff: Graphit, Diamant und Fulleren <span class="tag-selbst">selbstständig</span></h3>
   <p>Erinnern Sie sich an den Leitfähigkeits-Parcours: Die Bleistiftmine (Graphit) hat den Strom geleitet, obwohl Kohlenstoff ein Nichtmetall ist. Kohlenstoff kommt in verschiedenen Formen vor. Graphit und Diamant sind <strong>Atomgitter</strong>: Die C-Atome bilden ein riesiges Netz aus Elektronenpaarbindungen, es gibt keine einzelnen Moleküle. Das erst 1985 entdeckte <strong>Fulleren</strong> dagegen besteht aus einzelnen, fussballförmigen C<sub>60</sub>-Molekülen. Alle drei Formen haben verschiedene Eigenschaften – und werden entsprechend verwendet.</p>
@@ -499,7 +498,7 @@
 </div>
 
 <script>window.PAGE = { key: 'struktur-3', forms: 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=rQuDwrIivEKqXe-HgrWYGz2j0qfMSOpEqRiOQYLBt2dUQVkxN0lFQlNXUlJGVUlGR1NLSVVDVDNPUS4u' };</script>
-<script src="phase-tools.js?v=20261113b"></script>
+<script src="phase-tools.js?v=20261113d"></script>
 <script>
 /* ================= L8: Verdunstungskälte ================= */
 renderChoices('verdFragen', [

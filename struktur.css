@@ -536,3 +536,21 @@ section { animation: fadeUp 0.4s ease-out both; }
 .bild-figur { margin: 22px auto; max-width: 340px; text-align: center; }
 .bild-figur img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); background: white; }
 .bild-figur figcaption { font-size: 0.82rem; color: var(--text-muted); margin-top: 8px; text-align: left; }
+
+/* Grosse Aufdeckkarte (doppelte Höhe) mit Bild */
+.sr-card.sr-gross { grid-column: 2; grid-row: span 2; }
+.sr-back img.sr-bild { display: none; width: 100%; max-width: 270px; height: auto; object-fit: contain; align-self: center; margin: 4px auto 4px; border-radius: 8px; background: white; }
+.sr-card.open .sr-back img.sr-bild { display: block; }
+.sr-legende { font-size: 0.74rem; color: var(--text-muted); padding: 0 14px; text-align: center; }
+@media (max-width: 760px) { .sr-card.sr-gross { grid-column: auto; grid-row: auto; } }
+
+/* Aufklappbarer Exkurs mit Video */
+.exkurs-klapp > summary { cursor: pointer; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.exkurs-klapp > summary::-webkit-details-marker { display: none; }
+.exkurs-klapp .exkurs-titel { font-family: var(--serif, inherit); font-size: 1.1rem; font-weight: 600; color: var(--text); }
+.exkurs-klapp .exkurs-titel::before { content: '▸ '; color: #9a7a10; }
+.exkurs-klapp[open] .exkurs-titel::before { content: '▾ '; }
+.exkurs-klapp[open] > summary { margin-bottom: 12px; }
+.video-figur { margin: 6px auto 16px; max-width: 520px; }
+.video-figur video { width: 100%; height: auto; border-radius: 8px; background: #000; display: block; }
+.video-figur figcaption { font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; }
