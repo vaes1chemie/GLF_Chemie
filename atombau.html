@@ -396,89 +396,149 @@ section { animation: fadeUp 0.4s ease-out both; }
   <h4>Simulation: Coulomb-Gesetz ausprobieren</h4>
   <p>Verändern Sie die Ladungen und den Abstand mit den Reglern. Beobachten Sie, wie sich die Anziehungskraft im Vergleich zum Ausgangszustand verändert.</p>
 
-  <div class="sim-container">
+  <div class="sim-container" id="coulombSim">
     <div class="sim-header">
       <span class="sim-title">Coulomb-Gesetz: Kraft zwischen zwei Ladungen</span>
       <span class="sim-badge">INTERAKTIV</span>
     </div>
-    <div style="background:#faf9f7; padding:1.25rem 1.25rem 0.75rem;">
+    <div style="background:#faf9f7; padding:1.25rem 1.25rem 0.9rem;">
       <style>
-        .clmb-controls { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 1rem; }
-        .clmb-cg { flex: 1; min-width: 130px; }
+        .clmb-controls { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 0.6rem; }
+        .clmb-cg { flex: 1; min-width: 150px; }
         .clmb-cg label { font-size: 12px; color: #5f5e5a; display: block; margin-bottom: 3px; font-family: var(--sans); }
         .clmb-cg .clmb-row { display: flex; align-items: center; gap: 6px; }
         .clmb-cg input[type=range] { flex: 1; }
-        .clmb-cg .clmb-val { font-size: 14px; font-weight: 600; min-width: 24px; text-align: right; font-family: var(--mono); }
-        .clmb-factor { background: #f3f1ee; border-radius: 10px; padding: 14px; text-align: center; margin-bottom: 1rem; }
-        .clmb-factor .clmb-flabel { font-size: 12px; color: #6b6560; margin: 0 0 6px; }
-        .clmb-fval { font-size: 26px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .clmb-frac { display: inline-flex; flex-direction: column; align-items: center; font-size: 20px; font-weight: 500; line-height: 1.1; }
-        .clmb-frac .clmb-num { padding-bottom: 2px; }
-        .clmb-frac .clmb-bar { width: 100%; height: 2px; background: #1a1a1a; margin: 1px 0; }
-        .clmb-frac .clmb-den { padding-top: 2px; }
+        .clmb-cg .clmb-val { font-size: 15px; font-weight: 700; min-width: 30px; text-align: right; font-family: var(--mono); }
+        .clmb-unten { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(260px, 1.3fr); gap: 14px; margin-top: 6px; }
+        .clmb-karte { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+        .clmb-karte h5 { margin: 0 0 6px; font-size: 12px; font-weight: 600; color: #6b6560; text-transform: uppercase; letter-spacing: .05em; font-family: var(--sans); }
+        .clmb-rechnung { font-size: 15px; line-height: 2.1; text-align: center; }
+        .clmb-fr { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; line-height: 1.15; margin: 0 3px; }
+        .clmb-fr > span:first-child { border-bottom: 1.5px solid #1a1a1a; padding: 0 4px 1px; }
+        .clmb-gross { font-size: 30px; font-weight: 700; display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 4px; }
+        .clmb-gross .clmb-fr { font-size: 20px; }
+        .clmb-hin { font-size: 12.5px; color: #6b6560; text-align: center; margin-top: 4px; min-height: 1.3em; }
+        @media (max-width: 640px) { .clmb-unten { grid-template-columns: 1fr; } }
       </style>
       <div class="clmb-controls">
-        <div class="clmb-cg">
-          <label>Ladung Q₁ (negativ)</label>
-          <div class="clmb-row"><input type="range" min="1" max="10" value="1" step="1" id="clmb-q1"><span class="clmb-val" id="clmb-q1v">−1</span></div>
+        <div class="clmb-cg"><label>Ladung Q₁ (negativ)</label>
+          <div class="clmb-row"><input type="range" min="1" max="10" value="1" step="1" id="clmb-q1"><span class="clmb-val" id="clmb-q1v" style="color:#c0392b">−1</span></div></div>
+        <div class="clmb-cg"><label>Ladung Q₂ (positiv)</label>
+          <div class="clmb-row"><input type="range" min="1" max="10" value="1" step="1" id="clmb-q2"><span class="clmb-val" id="clmb-q2v" style="color:#2563eb">+1</span></div></div>
+        <div class="clmb-cg"><label>Abstand r</label>
+          <div class="clmb-row"><input type="range" min="0" max="12" value="3" step="1" id="clmb-dist"><span class="clmb-val" id="clmb-dv">1</span></div></div>
+      </div>
+      <svg id="clmb-scene" viewBox="0 0 700 250" style="width:100%;display:block;"></svg>
+      <div class="clmb-unten">
+        <div class="clmb-karte">
+          <h5>Kraft im Vergleich zum Ausgangszustand</h5>
+          <div class="clmb-rechnung" id="clmb-rechnung"></div>
+          <div class="clmb-gross" id="clmb-factor"></div>
+          <div class="clmb-hin" id="clmb-hin"></div>
         </div>
-        <div class="clmb-cg">
-          <label>Ladung Q₂ (positiv)</label>
-          <div class="clmb-row"><input type="range" min="1" max="10" value="1" step="1" id="clmb-q2"><span class="clmb-val" id="clmb-q2v">+1</span></div>
-        </div>
-        <div class="clmb-cg">
-          <label>Abstand r</label>
-          <div class="clmb-row"><input type="range" min="0" max="12" value="3" step="1" id="clmb-dist"><span class="clmb-val" id="clmb-dv">1</span></div>
+        <div class="clmb-karte">
+          <h5>Kraft in Abhängigkeit vom Abstand</h5>
+          <svg id="clmb-graph" viewBox="0 0 340 190" style="width:100%;display:block;"></svg>
         </div>
       </div>
-      <div class="clmb-factor">
-        <p class="clmb-flabel">Anziehungskraft im Vergleich zum Ausgangszustand (Q₁=1, Q₂=1, r=1)</p>
-        <div class="clmb-fval" id="clmb-factor"></div>
-      </div>
-      <svg id="clmb-scene" viewBox="0 0 700 110" style="width:100%;display:block;">
-        <line id="clmb-conn" x1="180" y1="55" x2="520" y2="55" stroke="rgba(0,0,0,0.15)" stroke-width="1" stroke-dasharray="6,4"/>
-        <circle id="clmb-c1" cx="180" cy="55" r="24" fill="#E24B4A" opacity="0.85"/>
-        <text id="clmb-c1t" x="180" y="60" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">−Q₁</text>
-        <circle id="clmb-c2" cx="520" cy="55" r="24" fill="#378ADD" opacity="0.85"/>
-        <text id="clmb-c2t" x="520" y="60" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">+Q₂</text>
-        <text id="clmb-ftxt" x="350" y="105" text-anchor="middle" fill="#6b6560" font-size="13"></text>
-      </svg>
     </div>
-    <div class="sim-caption">Verändern Sie Ladungen und Abstand — der Faktor zeigt die resultierende Kraft relativ zum Ausgangszustand.</div>
+    <div class="sim-caption">Ausgangszustand: Q₁ = 1, Q₂ = 1, r = 1 (Kraft = 1×). Die Pfeile zeigen die Kraft auf jede Kugel – beide Kugeln werden gleich stark angezogen.</div>
   </div>
 
   <script>
   (function(){
+    const NS='http://www.w3.org/2000/svg';
     const rSteps=[1/4,1/3,1/2,1,2,3,4,5,6,7,8,9,10];
     const rLabels=['¼','⅓','½','1','2','3','4','5','6','7','8','9','10'];
-    const q1El=document.getElementById('clmb-q1'),q2El=document.getElementById('clmb-q2'),dEl=document.getElementById('clmb-dist');
-    const q1v=document.getElementById('clmb-q1v'),q2v=document.getElementById('clmb-q2v'),dv=document.getElementById('clmb-dv');
-    const factorEl=document.getElementById('clmb-factor'),ftxt=document.getElementById('clmb-ftxt');
-    const c1=document.getElementById('clmb-c1'),c1t=document.getElementById('clmb-c1t');
-    const c2=document.getElementById('clmb-c2'),c2t=document.getElementById('clmb-c2t');
-    const conn=document.getElementById('clmb-conn');
-    function gcd(a,b){return b?gcd(b,a%b):a;}
-    function getFrac(q1,q2,rIdx){
-      const r=rSteps[rIdx];let num=q1*q2,den=1;
-      if(r===0.25){num*=16;}else if(r===1/3){num*=9;}else if(r===0.5){num*=4;}else if(r>=1){den=Math.round(r)*Math.round(r);}
-      const g=gcd(Math.abs(num),Math.abs(den));return{n:num/g,d:den/g};
+    const $=id=>document.getElementById(id);
+    const q1El=$('clmb-q1'),q2El=$('clmb-q2'),dEl=$('clmb-dist');
+    const scene=$('clmb-scene'),graph=$('clmb-graph');
+    const mk=(p,t,a,txt)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;p.appendChild(e);return e;};
+    const gcd=(a,b)=>b?gcd(b,a%b):a;
+    function frac(q1,q2,r){ // Kraft als gekürzter Bruch
+      let n=q1*q2,d=1;
+      if(r<1){n*=Math.round(1/r)**2;} else {d=Math.round(r)**2;}
+      const g=gcd(n,d);return{n:n/g,d:d/g};
     }
-    function renderFactor(n,d){
-      if(d===1)return'<span style="font-size:26px;font-weight:500">'+n+'×</span>';
-      return'<span class="clmb-frac"><span class="clmb-num">'+n+'</span><span class="clmb-bar"></span><span class="clmb-den">'+d+'</span></span><span style="font-size:20px;font-weight:500;margin-left:2px">×</span>';
+    const bruch=(n,d)=>d===1?String(n):'<span class="clmb-fr"><span>'+n+'</span><span>'+d+'</span></span>';
+    const rTxt=r=>r<1?'<span class="clmb-fr"><span>1</span><span>'+Math.round(1/r)+'</span></span>':String(r);
+    // Szene: Defs
+    const defs=mk(scene,'defs',{});
+    const grad=(id,c1,c2)=>{const g=mk(defs,'radialGradient',{id,cx:'35%',cy:'30%',r:'75%'});mk(g,'stop',{offset:'0%','stop-color':c1});mk(g,'stop',{offset:'100%','stop-color':c2});};
+    grad('clmbRot','#ff9b8f','#c0392b');grad('clmbBlau','#93c5fd','#1d4ed8');
+    const pf=mk(defs,'marker',{id:'clmbPf',viewBox:'0 0 10 10',refX:'7',refY:'5',markerWidth:'4',markerHeight:'4',orient:'auto-start-reverse'});
+    mk(pf,'path',{d:'M0,0 L10,5 L0,10 z',fill:'#e67e22'});
+    const gFeld=mk(scene,'g',{}),gMass=mk(scene,'g',{}),gPf=mk(scene,'g',{}),gK=mk(scene,'g',{});
+    const CY=105;
+    function szene(q1,q2,r,F){
+      [gFeld,gMass,gPf,gK].forEach(g=>g.innerHTML='');
+      const R1=14+3.2*Math.sqrt(q1)*2.2,R2=14+3.2*Math.sqrt(q2)*2.2;
+      const dist=Math.max(R1+R2+6, 70+r*44);
+      const x1=350-dist/2,x2=350+dist/2;
+      // Feldlinien (Anzahl wächst mit den Ladungen)
+      const n=Math.min(14,2+Math.round((q1+q2)/1.5));
+      for(let i=0;i<n;i++){
+        const t=(i/(n-1))*2-1, h=t*(30+dist*0.35);
+        const a=Math.PI/2*t*0.85;
+        const sx=x1+R1*Math.cos(a),sy=CY-R1*Math.sin(a)*1,ex=x2-R2*Math.cos(a),ey=CY-R2*Math.sin(a);
+        mk(gFeld,'path',{d:`M${sx},${sy} C${x1+dist*0.33},${CY-h} ${x2-dist*0.33},${CY-h} ${ex},${ey}`,fill:'none',stroke:'#94a3b8','stroke-width':1.2,opacity:0.45});
+      }
+      // Abstandsmass
+      const yM=CY+Math.max(R1,R2)+44;
+      mk(gMass,'line',{x1,y1:yM-8,x2:x1,y2:yM+8,stroke:'#6b6560'});mk(gMass,'line',{x1:x2,y1:yM-8,x2:x2,y2:yM+8,stroke:'#6b6560'});
+      mk(gMass,'line',{x1,y1:yM,x2,y2:yM,stroke:'#6b6560','stroke-width':1.2});
+      mk(gMass,'text',{x:(x1+x2)/2,y:yM+22,'text-anchor':'middle','font-size':14,fill:'#3d3a36','font-family':'DM Sans'},'r = '+rLabels[rSteps.indexOf(r)]);
+      // Kraftpfeile (Länge proportional zur Kraft, ab 240 px abgeschnitten)
+      const L=Math.min(240,Math.max(4,F*36)), zuLang=F*36>240;
+      [[x1,1,CY-R1-18],[x2,-1,CY+R2+18]].forEach(([x,s,y])=>{
+        mk(gPf,'line',{x1:x,y1:y,x2:x+s*L,y2:y,stroke:'#e67e22','stroke-width':6,'stroke-linecap':'round','marker-end':'url(#clmbPf)'});
+        if(zuLang) mk(gPf,'text',{x:x+s*(L-26),y:y-9,'text-anchor':'middle','font-size':13,fill:'#e67e22','font-weight':700,'font-family':'DM Sans'},'≫ zu lang');
+        mk(gPf,'text',{x:x-s*12,y:y+4,'text-anchor':'middle','font-size':13,fill:'#b45309','font-weight':700,'font-family':'DM Sans'},'F');
+      });
+      // Kugeln mit Ladungszeichen
+      [[x1,R1,q1,'url(#clmbRot)','−'],[x2,R2,q2,'url(#clmbBlau)','+']].forEach(([x,R,q,f,z])=>{
+        mk(gK,'circle',{cx:x,cy:CY,r:R,fill:f,stroke:'white','stroke-width':2});
+        for(let k=0;k<q;k++){const w=2*Math.PI*k/q-Math.PI/2, rr=q===1?0:R*0.55;
+          mk(gK,'text',{x:x+rr*Math.cos(w),y:CY+rr*Math.sin(w)+5,'text-anchor':'middle','font-size':q>6?12:15,'font-weight':700,fill:'white','font-family':'DM Sans'},z);}
+      });
     }
+    // Diagramm F(r)
+    function diagramm(q1,q2,r){
+      graph.innerHTML='';
+      const X0=40,Y0=160,W=285,H=140, rMax=10, yMax=Math.max(4,q1*q2*1.3);
+      const px=rr=>X0+W*rr/rMax, py=f=>Y0-H*Math.min(f,yMax*1.08)/yMax;
+      mk(graph,'line',{x1:X0,y1:Y0,x2:X0+W,y2:Y0,stroke:'#999'});mk(graph,'line',{x1:X0,y1:Y0,x2:X0,y2:Y0-H-6,stroke:'#999'});
+      [0,2,4,6,8,10].forEach(v=>mk(graph,'text',{x:px(v),y:Y0+14,'text-anchor':'middle','font-size':10,fill:'#6b6560','font-family':'DM Sans'},v));
+      mk(graph,'text',{x:X0+W,y:Y0+28,'text-anchor':'end','font-size':11,fill:'#6b6560','font-family':'DM Sans'},'Abstand r');
+      mk(graph,'text',{x:X0-6,y:Y0-H-10,'text-anchor':'start','font-size':11,fill:'#6b6560','font-family':'DM Sans'},'Kraft F');
+      const kurve=(k,farbe,breite,dash)=>{let d='';for(let rr=0.22;rr<=rMax;rr+=0.04){d+=(d?'L':'M')+px(rr).toFixed(1)+','+py(k/(rr*rr)).toFixed(1);}mk(graph,'path',{d,fill:'none',stroke:farbe,'stroke-width':breite,'stroke-dasharray':dash||''});};
+      const clip=mk(mk(graph,'defs',{}),'clipPath',{id:'clmbClip'});mk(clip,'rect',{x:X0,y:Y0-H-8,width:W,height:H+8});
+      const g=mk(graph,'g',{'clip-path':'url(#clmbClip)'});
+      const kurveIn=(k,farbe,breite,dash)=>{let d='';for(let rr=0.22;rr<=rMax;rr+=0.04){d+=(d?'L':'M')+px(rr).toFixed(1)+','+py(k/(rr*rr)).toFixed(1);}mk(g,'path',{d,fill:'none',stroke:farbe,'stroke-width':breite,'stroke-dasharray':dash||''});};
+      if(q1*q2!==1) kurveIn(1,'#b8b2aa',1.5,'5 4');
+      kurveIn(q1*q2,'#e67e22',2.5);
+      const F=q1*q2/(r*r), yy=py(F), ausserhalb=F>yMax*1.08;
+      mk(graph,'line',{x1:px(r),y1:Y0,x2:px(r),y2:Math.max(yy,Y0-H-6),stroke:'#e67e22','stroke-dasharray':'3 3'});
+      if(!ausserhalb) mk(graph,'circle',{cx:px(r),cy:yy,r:6,fill:'#e67e22',stroke:'white','stroke-width':2});
+      else mk(graph,'text',{x:px(r)+6,y:Y0-H+4,'font-size':11,fill:'#e67e22','font-weight':700,'font-family':'DM Sans'},'↑ sehr gross');
+      if(q1*q2!==1) mk(graph,'text',{x:X0+W,y:Y0-H+4,'text-anchor':'end','font-size':10,fill:'#9c9891','font-family':'DM Sans'},'gestrichelt: Q₁ = Q₂ = 1');
+    }
+    let vorher=null;
     function update(){
-      const q1=+q1El.value,q2=+q2El.value,rIdx=+dEl.value;const r=rSteps[rIdx];
-      q1v.textContent='−'+q1;q2v.textContent='+'+q2;dv.textContent=rLabels[rIdx];
-      const f=getFrac(q1,q2,rIdx);factorEl.innerHTML=renderFactor(f.n,f.d);
-      const x1=180;const t=(r-0.25)/(10-0.25);const x2=x1+56+t*340;const mid=(x1+x2)/2;
-      c1.setAttribute('cx',x1);c1t.setAttribute('x',x1);
-      c2.setAttribute('cx',x2);c2t.setAttribute('x',x2);
-      conn.setAttribute('x1',x1);conn.setAttribute('x2',x2);
-      ftxt.setAttribute('x',mid);ftxt.textContent='r = '+rLabels[rIdx];
+      const q1=+q1El.value,q2=+q2El.value,r=rSteps[+dEl.value];
+      $('clmb-q1v').textContent='−'+q1;$('clmb-q2v').textContent='+'+q2;$('clmb-dv').textContent=rLabels[+dEl.value];
+      const f=frac(q1,q2,r),F=q1*q2/(r*r);
+      $('clmb-rechnung').innerHTML='F ~ '+bruch('Q₁ · Q₂','r²')+' = '+bruch(q1+' · '+q2,'('+(r<1?'1/'+Math.round(1/r):r)+')²')+' = '+bruch(q1*q2,r<1?'1/'+Math.round(1/r)**2:r*r);
+      $('clmb-factor').innerHTML=bruch(f.n,f.d)+'<span>×</span>';
+      const hin=$('clmb-hin');
+      if(vorher){const v=vorher.q1*vorher.q2/(vorher.r*vorher.r), fak=F/v;
+        if(Math.abs(fak-1)>1e-9){const t=fak>1?'grösser':'kleiner';const z=fak>1?fak:1/fak;
+          hin.textContent='Die Kraft ist jetzt '+(Number.isInteger(Math.round(z*100)/100)?Math.round(z):z.toFixed(2).replace('.',','))+'-mal '+t+' als vorher.';}}
+      vorher={q1,q2,r};
+      szene(q1,q2,r,F);diagramm(q1,q2,r);
     }
     dEl.setAttribute('max',rSteps.length-1);
-    q1El.addEventListener('input',update);q2El.addEventListener('input',update);dEl.addEventListener('input',update);
+    [q1El,q2El,dEl].forEach(e=>e.addEventListener('input',update));
     update();
   })();
   </script>
