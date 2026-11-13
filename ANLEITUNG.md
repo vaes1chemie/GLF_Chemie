@@ -22,7 +22,7 @@ Mögliche Werte pro Phase:
 - `"gesperrt"` – nicht sichtbar
 - `"2026-12-01"` – wird an diesem Tag automatisch freigeschaltet (Format JJJJ-MM-TT)
 
-### Pro Doppellektion freischalten (Struktur & Eigenschaften, Phase 2–4)
+### Pro Doppellektion freischalten
 Statt eines Werts für die ganze Phase kann man jede Doppellektion einzeln freigeben. Die Nummern entsprechen der Lektionsplanung:
 
 | Phase | Doppellektionen |
@@ -30,6 +30,20 @@ Statt eines Werts für die ganze Phase kann man jede Doppellektion einzeln freig
 | 2 Gitterstoffe | `DL3` (L5–6, Labor) · `DL4` (L7 + L8) · `DL5` (L9 + L10) |
 | 3 Moleküle | `DL6` (L11–12, Labor) · `DL7` (L13 + L14) |
 | 4 Lösen und Mischen | `DL8` (L15–16, Labor) · `DL9` (L17 + L18) |
+
+**Atombau** (jede Lektion ist eine Einzellektion, zwei bilden eine Doppellektion):
+
+| Phase | Doppellektionen |
+|---|---|
+| 1 Ladungen, Rutherford, Isotope | `DL1` (L1 + L2) · `DL2` (L3 + Zusammenfassung) |
+| 2 Schalen, Orbitale, Flammenfärbung | `DL3` (L4 + L5) · `DL4` (L6 + L7) |
+| 3 PSE, Trends, Lewis | `DL5` (L8 + L9) · `DL6` (L10 + Zusammenfassung) |
+| 4 Repetition und Ausblick | `DL7` (L11 + L12) |
+
+```json
+"atombau": { "1": { "DL1": "frei", "DL2": "2026-12-01" },
+             "2": "gesperrt", "3": "gesperrt", "4": "gesperrt" }
+```
 
 ```json
 "struktur": { "1": "frei",

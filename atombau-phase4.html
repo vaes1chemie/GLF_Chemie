@@ -524,6 +524,7 @@ em { font-style: italic; color: var(--text-muted); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 section { animation: fadeUp 0.4s ease-out both; }
 </style>
+<link rel="stylesheet" href="werkzeuge.css?v=20261113a">
 </head>
 <body>
 
@@ -537,26 +538,26 @@ section { animation: fadeUp 0.4s ease-out both; }
     <a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a>
   </div>
 
-  <div class="sidebar-phase">Phase 1 · Lektionen 1–3</div>
-  <a href="atombau.html#L1" class="nav-item done"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
-  <a href="atombau.html#L2" class="nav-item done"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
-  <a href="atombau.html#L3" class="nav-item done"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
+  <div class="sidebar-phase">Phase 1 · Lektionen 1–3 · DL 1–2</div>
+  <a href="atombau.html#L1" data-dl="DL1" class="nav-item done"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
+  <a href="atombau.html#L2" data-dl="DL1" class="nav-item done"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
+  <a href="atombau.html#L3" data-dl="DL2" class="nav-item done"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
 
-  <div class="sidebar-phase">Phase 2 · Lektionen 4–7</div>
-  <a href="atombau-phase2.html#L4" class="nav-item done"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr)</a>
-  <a href="atombau-phase2.html#L5" class="nav-item done"><span class="nav-dot"></span>L5 – Orbitalmodell</a>
-  <a href="atombau-phase2.html#L6" class="nav-item done"><span class="nav-dot"></span>L6 – Elektronenkonfiguration</a>
-  <a href="atombau-phase2.html#L7" class="nav-item done"><span class="nav-dot"></span>L7 – Flammenfärbung</a>
+  <div class="sidebar-phase">Phase 2 · Lektionen 4–7 · DL 3–4</div>
+  <a href="atombau-phase2.html#L4" data-dl="DL3" class="nav-item done"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr)</a>
+  <a href="atombau-phase2.html#L5" data-dl="DL3" class="nav-item done"><span class="nav-dot"></span>L5 – Orbitalmodell</a>
+  <a href="atombau-phase2.html#L6" data-dl="DL4" class="nav-item done"><span class="nav-dot"></span>L6 – Elektronenkonfiguration</a>
+  <a href="atombau-phase2.html#L7" data-dl="DL4" class="nav-item done"><span class="nav-dot"></span>L7 – Flammenfärbung</a>
 
-  <div class="sidebar-phase">Phase 3 · Lektionen 8–10</div>
-  <a href="atombau-phase3.html#L8" class="nav-item done"><span class="nav-dot"></span>L8 – Das Periodensystem</a>
-  <a href="atombau-phase3.html#L9" class="nav-item done"><span class="nav-dot"></span>L9 – Trends im PSE</a>
-  <a href="atombau-phase3.html#L10" class="nav-item done"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis</a>
+  <div class="sidebar-phase">Phase 3 · Lektionen 8–10 · DL 5–6</div>
+  <a href="atombau-phase3.html#L8" data-dl="DL5" class="nav-item done"><span class="nav-dot"></span>L8 – Das Periodensystem</a>
+  <a href="atombau-phase3.html#L9" data-dl="DL5" class="nav-item done"><span class="nav-dot"></span>L9 – Trends im PSE</a>
+  <a href="atombau-phase3.html#L10" data-dl="DL6" class="nav-item done"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis</a>
 
-  <div class="sidebar-phase">Phase 4 · Lektionen 11–12</div>
-  <a href="#L11" class="nav-item active"><span class="nav-dot"></span>L11 – Repetition &amp; Synthese</a>
-  <a href="#L12" class="nav-item"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen</a>
-  <a href="#abschluss" class="nav-item"><span class="nav-dot"></span>Abschluss</a>
+  <div class="sidebar-phase">Phase 4 · Lektionen 11–12 · DL 7</div>
+  <a href="#L11" data-dl="DL7" class="nav-item active"><span class="nav-dot"></span>L11 – Repetition &amp; Synthese</a>
+  <a href="#L12" data-dl="DL7" class="nav-item"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen</a>
+  <a href="#abschluss" data-dl="DL7" class="nav-item"><span class="nav-dot"></span>Abschluss</a>
 </nav>
 
 <!-- ======== MAIN ======== -->
@@ -566,7 +567,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 <main class="content">
 
 <div class="hero-inline">
-  <div class="phase-badge">Phase 4 · Lektionen 11–12</div>
+  <div class="phase-badge">Phase 4 · Lektionen 11–12 · DL 7</div>
   <h1>Vertiefung und Ausblick</h1>
   <p class="subtitle">Repetition der Phasen 1–3 und ein erster Blick auf die chemische Bindung</p>
 </div>
@@ -574,9 +575,9 @@ section { animation: fadeUp 0.4s ease-out both; }
 <!-- ============================================================ -->
 <!--                  LEKTION 11 – REPETITION                      -->
 <!-- ============================================================ -->
-<section id="L11">
+<section id="L11" data-dl="DL7">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 11</div>
+    <div class="lesson-number">Lektion 11<span class="dl-tag">Doppellektion 7</span></div>
     <h2>Repetition und Synthese</h2>
   </div>
 
@@ -594,56 +595,16 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <h3>11.1 Die zentralen Konzepte auf einen Blick</h3>
 
-  <div class="summary-grid">
-
-    <div class="summary-card">
-      <span class="phase-tag">Phase 1</span>
-      <h4>Kern-Hülle-Modell</h4>
-      <p>Das Atom besteht aus einem winzigen, positiv geladenen <strong>Kern</strong> und einer fast leeren <strong>Hülle</strong> mit Elektronen. Belegt durch den Rutherford-Streuversuch.</p>
-    </div>
-
-    <div class="summary-card">
-      <span class="phase-tag">durchzieht alles</span>
-      <h4>Coulomb-Gesetz</h4>
-      <p>Anziehung zwischen Ladungen: <em>je grösser die Ladungen, je kleiner der Abstand, desto stärker die Kraft.</em> Erklärt Atomradius, Ionisierungsenergie, Elektronegativität und am Schluss auch die chemische Bindung.</p>
-    </div>
-
-    <div class="summary-card">
-      <span class="phase-tag">Phase 1</span>
-      <h4>Elementarteilchen &amp; Isotope</h4>
-      <p>Protonenzahl bestimmt das <strong>Element</strong>, Neutronenzahl variiert (<strong>Isotope</strong>), Elektronen machen das Atom neutral. Nuklidsymbol: <span style="font-family:var(--mono)">ᴬ<sub>Z</sub>X</span>.</p>
-    </div>
-
-    <div class="summary-card">
-      <span class="phase-tag">Phase 2</span>
-      <h4>Schalenmodell (Bohr)</h4>
-      <p>Elektronen besetzen Schalen K, L, M, N mit definierten Energieniveaus (max. <span style="font-family:var(--mono)">2n²</span> e⁻). Erklärt Ionisierungsenergie-Stufen und Flammenfärbung.</p>
-    </div>
-
-    <div class="summary-card">
-      <span class="phase-tag">Phase 2</span>
-      <h4>Orbitalmodell</h4>
-      <p>Innerhalb der Schalen gibt es Unterschalen <strong>s, p, d, f</strong>. Orbitale sind Aufenthaltsräume für max. 2 e⁻ (Pauli, Hund, Aufbauprinzip).</p>
-    </div>
-
-    <div class="summary-card">
-      <span class="phase-tag">Phase 2</span>
-      <h4>Elektronenkonfiguration</h4>
-      <p>Verteilung der Elektronen auf die Orbitale, z. B. Na: <span style="font-family:var(--mono)">1s² 2s² 2p⁶ 3s¹</span>. Die Auffüllreihenfolge erklärt den Aufbau des Periodensystems.</p>
-    </div>
-
-    <div class="summary-card">
-      <span class="phase-tag">Phase 3</span>
-      <h4>PSE &amp; Trends</h4>
-      <p>Periode = Schalenzahl, Hauptgruppe = Valenzelektronen. <strong>Atomradius</strong> ↓ rechts, ↑ unten; <strong>Ionisierungsenergie</strong> und <strong>Elektronegativität</strong> verhalten sich umgekehrt.</p>
-    </div>
-
-    <div class="summary-card">
-      <span class="phase-tag">Phase 3</span>
-      <h4>Valenzelektronen &amp; Lewis</h4>
-      <p>Die äusseren Elektronen bestimmen das chemische Verhalten. <strong>sp³-Hybridisierung</strong> liefert 4 gleichwertige Plätze → Lewis-Punkte ums Symbol. Atome streben Edelgaskonfiguration an.</p>
-    </div>
-
+  <p>Testen Sie sich selbst: Erklären Sie zuerst jedes Konzept in eigenen Worten – laut oder für Ihre Nachbarin, Ihren Nachbarn. Drehen Sie die Karte erst dann um.</p>
+  <div class="stoff-reveal">
+    <button class="sr-card" data-key="k-kernhllemode"><div class="sr-front"><div class="sr-tipp">Phase 1</div><div class="sr-formel" style="font-size:1.25rem">Kern-Hülle-Modell</div><div class="sr-frage">Erst erklären, dann umdrehen</div></div><div class="sr-back"><strong>Kern-Hülle-Modell</strong>Das Atom besteht aus einem winzigen, positiv geladenen <strong>Kern</strong> und einer fast leeren <strong>Hülle</strong> mit Elektronen. Belegt durch den Rutherford-Streuversuch.</div></button>
+    <button class="sr-card" data-key="k-coulombgeset"><div class="sr-front"><div class="sr-tipp">durchzieht alles</div><div class="sr-formel" style="font-size:1.25rem">Coulomb-Gesetz</div><div class="sr-frage">Erst erklären, dann umdrehen</div></div><div class="sr-back"><strong>Coulomb-Gesetz</strong>Anziehung zwischen Ladungen: <em>je grösser die Ladungen, je kleiner der Abstand, desto stärker die Kraft.</em> Erklärt Atomradius, Ionisierungsenergie, Elektronegativität und am Schluss auch die chemische Bindung.</div></button>
+    <button class="sr-card" data-key="k-elementartei"><div class="sr-front"><div class="sr-tipp">Phase 1</div><div class="sr-formel" style="font-size:1.25rem">Elementarteilchen &amp; Isotope</div><div class="sr-frage">Erst erklären, dann umdrehen</div></div><div class="sr-back"><strong>Elementarteilchen &amp; Isotope</strong>Protonenzahl bestimmt das <strong>Element</strong>, Neutronenzahl variiert (<strong>Isotope</strong>), Elektronen machen das Atom neutral. Nuklidsymbol: <span style="font-family:var(--mono)">ᴬ<sub>Z</sub>X</span>.</div></button>
+    <button class="sr-card" data-key="k-schalenmodel"><div class="sr-front"><div class="sr-tipp">Phase 2</div><div class="sr-formel" style="font-size:1.25rem">Schalenmodell (Bohr)</div><div class="sr-frage">Erst erklären, dann umdrehen</div></div><div class="sr-back"><strong>Schalenmodell (Bohr)</strong>Elektronen besetzen Schalen K, L, M, N mit definierten Energieniveaus (max. <span style="font-family:var(--mono)">2n²</span> e⁻). Erklärt Ionisierungsenergie-Stufen und Flammenfärbung.</div></button>
+    <button class="sr-card" data-key="k-orbitalmodel"><div class="sr-front"><div class="sr-tipp">Phase 2</div><div class="sr-formel" style="font-size:1.25rem">Orbitalmodell</div><div class="sr-frage">Erst erklären, dann umdrehen</div></div><div class="sr-back"><strong>Orbitalmodell</strong>Innerhalb der Schalen gibt es Unterschalen <strong>s, p, d, f</strong>. Orbitale sind Aufenthaltsräume für max. 2 e⁻ (Pauli, Hund, Aufbauprinzip).</div></button>
+    <button class="sr-card" data-key="k-elektronenko"><div class="sr-front"><div class="sr-tipp">Phase 2</div><div class="sr-formel" style="font-size:1.25rem">Elektronen&shy;konfiguration</div><div class="sr-frage">Erst erklären, dann umdrehen</div></div><div class="sr-back"><strong>Elektronenkonfiguration</strong>Verteilung der Elektronen auf die Orbitale, z. B. Na: <span style="font-family:var(--mono)">1s² 2s² 2p⁶ 3s¹</span>. Die Auffüllreihenfolge erklärt den Aufbau des Periodensystems.</div></button>
+    <button class="sr-card" data-key="k-pseamptrends"><div class="sr-front"><div class="sr-tipp">Phase 3</div><div class="sr-formel" style="font-size:1.25rem">PSE &amp; Trends</div><div class="sr-frage">Erst erklären, dann umdrehen</div></div><div class="sr-back"><strong>PSE &amp; Trends</strong>Periode = Schalenzahl, Hauptgruppe = Valenzelektronen. <strong>Atomradius</strong> ↓ rechts, ↑ unten; <strong>Ionisierungsenergie</strong> und <strong>Elektronegativität</strong> verhalten sich umgekehrt.</div></button>
+    <button class="sr-card" data-key="k-valenzelektr"><div class="sr-front"><div class="sr-tipp">Phase 3</div><div class="sr-formel" style="font-size:1.25rem">Valenzelektronen &amp; Lewis</div><div class="sr-frage">Erst erklären, dann umdrehen</div></div><div class="sr-back"><strong>Valenzelektronen &amp; Lewis</strong>Die äusseren Elektronen bestimmen das chemische Verhalten. <strong>sp³-Hybridisierung</strong> liefert 4 gleichwertige Plätze → Lewis-Punkte ums Symbol. Atome streben Edelgaskonfiguration an.</div></button>
   </div>
 
   <h3>11.2 Das Coulomb-Gesetz — der rote Faden</h3>
@@ -696,7 +657,13 @@ section { animation: fadeUp 0.4s ease-out both; }
   </div>
 
   <h3>11.3 Modellvergleich</h3>
-  <p>Im Verlauf der Geschichte hat sich unser Bild vom Atom mehrfach verändert — immer dann, wenn ein Modell ein neues Experiment nicht mehr erklären konnte. Hier die vier wichtigsten Stationen:</p>
+  <p>Jedes Atommodell entstand, weil ein Experiment mit dem alten Modell nicht mehr erklärt werden konnte. Ordnen Sie zu: Welches Modell kann die Beobachtung <strong>als erstes</strong> erklären?</p>
+  <div class="wz-box" id="modellZuordnung">
+    <div class="wz-scroll"><table class="wz-table"><tr><th style="text-align:left">Beobachtung</th><th style="width:170px">Modell</th></tr><tr><td style="text-align:left">Bei chemischen Reaktionen bleibt die Masse erhalten.</td><td><select data-a="Dalton"><option value="">– wählen –</option><option>Dalton</option><option>Rutherford</option><option>Bohr</option><option>Orbitalmodell</option></select></td></tr><tr><td style="text-align:left">Aus erhitztem Metall treten negativ geladene Teilchen aus (glühelektrischer Effekt).</td><td><select data-a="Rutherford"><option value="">– wählen –</option><option>Dalton</option><option>Rutherford</option><option>Bohr</option><option>Orbitalmodell</option></select></td></tr><tr><td style="text-align:left">Wenige α-Teilchen prallen von einer Goldfolie zurück.</td><td><select data-a="Rutherford"><option value="">– wählen –</option><option>Dalton</option><option>Rutherford</option><option>Bohr</option><option>Orbitalmodell</option></select></td></tr><tr><td style="text-align:left">Die Ionisierungsenergien zeigen grosse Sprünge.</td><td><select data-a="Bohr"><option value="">– wählen –</option><option>Dalton</option><option>Rutherford</option><option>Bohr</option><option>Orbitalmodell</option></select></td></tr><tr><td style="text-align:left">Angeregter Wasserstoff sendet nur ganz bestimmte Farben aus.</td><td><select data-a="Bohr"><option value="">– wählen –</option><option>Dalton</option><option>Rutherford</option><option>Bohr</option><option>Orbitalmodell</option></select></td></tr><tr><td style="text-align:left">Die Hauptschalen bestehen aus Unterschalen s, p, d mit unterschiedlicher Form.</td><td><select data-a="Orbitalmodell"><option value="">– wählen –</option><option>Dalton</option><option>Rutherford</option><option>Bohr</option><option>Orbitalmodell</option></select></td></tr></table></div>
+    <div style="display:flex;gap:8px;margin-top:12px;"><button class="wz-btn primaer" id="mzCheck">Prüfen</button></div>
+    <div class="wz-msg" id="mzMsg"></div>
+  </div>
+  <p>Hier die vier Stationen im Überblick:</p>
 
   <div class="modell-grid">
 
@@ -746,18 +713,23 @@ section { animation: fadeUp 0.4s ease-out both; }
     <p>Jedes Modell hat seine Berechtigung und wir verwenden unterschiedliche Modelle, um unterschiedliche Phänomene zu beschreiben. Modelle sind <em>Werkzeuge</em>, keine Abbilder der Wirklichkeit.</p>
   </div>
 
-  <h3>11.4 Repetitionsaufgaben über das ganze Thema</h3>
-
-  <p>Die folgenden 10 Aufgaben decken den Stoff der Phasen 1–3 in gemischter Form ab. Sie finden Sie im Klassennotizbuch. Lösen Sie zuerst selbständig — die Lösungen werden in der Lektion besprochen.</p>
-
-  <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">&#128221;</div>
-      <div class="task-card-title">Repetitionsaufgaben 11.1 – 11.10</div>
-      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
-      <div class="task-hint">Die 10 Aufgaben (gemischt über Phasen 1–3) finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau – Repetition Phase 4</strong>.</div>
-    </div>
+  <h3>11.4 Escape-Room: Eingeschlossen im Labor</h3>
+  <div class="experiment" style="margin-bottom:10px;"><div class="experiment-label">Die Geschichte</div>
+    <p>Manchester, 1911. Sie haben im Labor von Ernest Rutherford die Zeit vergessen. Als Sie gehen wollen, ist die Tür verriegelt. Am Schloss hängt ein Zettel: <em>«Nur wer den Atombau versteht, findet das Lösungswort.»</em> Im Labor sind sieben Kästchen versteckt. Jedes öffnet sich mit einer Zahl – und in jedem liegt ein Buchstabe.</p>
   </div>
+  <div id="escape"></div>
+  <div class="wz-box" id="escTuer" style="display:none;">
+    <div class="wz-kopf"><span class="wz-name">🚪 Die Tür: Lösungswort eingeben</span></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;"><input id="escWort" style="font-family:var(--mono);font-size:1.1rem;padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;text-transform:uppercase;max-width:220px;"><button class="wz-btn primaer" id="escOeffnen">Tür öffnen</button></div>
+    <div class="wz-msg" id="escTuerMsg"></div>
+  </div>
+
+  <h3>11.5 Repetitionsaufgaben über das ganze Thema</h3>
+
+  <p>Die folgenden 10 Aufgaben decken den Stoff der Phasen 1–3 in gemischter Form ab. Sie finden sie im ausgedruckten Aufgabendossier. Lösen Sie zuerst selbständig — die Lösungen werden in der Lektion besprochen.</p>
+
+  <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Repetitionsaufgaben 11.1 – 11.10</div><div class="dh-text">Im ausgedruckten Aufgabendossier Atombau, Phase 4.</div></div></div>
+
 
   <div class="bridge-box">
     <strong>Brücke zu Lektion 12:</strong> Sie haben jetzt das ganze Werkzeug zusammen — Schalen, Orbitale, Valenzelektronen, Edelgasregel und Elektronegativität. Damit beantworten wir nun die zentrale Frage der Chemie: <em>Wie und warum verbinden sich Atome zu Stoffen?</em>
@@ -768,9 +740,9 @@ section { animation: fadeUp 0.4s ease-out both; }
 <!-- ============================================================ -->
 <!--                  LEKTION 12 – BINDUNGSTYPEN                   -->
 <!-- ============================================================ -->
-<section id="L12">
+<section id="L12" data-dl="DL7">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 12</div>
+    <div class="lesson-number">Lektion 12<span class="dl-tag">Doppellektion 7</span></div>
     <h2>Ausblick: Die drei Bindungstypen</h2>
   </div>
 
@@ -852,44 +824,14 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <h3>12.3 Die drei Bindungstypen im Überblick</h3>
 
-  <div class="bindung-grid">
-
-    <div class="bindung-card ionisch">
-      <div class="bindung-sub">Metall + Nichtmetall</div>
-      <h4>Ionische Bindung</h4>
-      <img src="mint-ionengitter.jpeg" alt="Ionengitter aus NaCl">
-      <p>Das Nichtmetall <strong>entreisst</strong> dem Metall seine Valenzelektronen. Es entstehen <strong>Kationen</strong> (+) und <strong>Anionen</strong> (−), die sich gegenseitig anziehen und im <strong>Ionengitter</strong> anordnen.</p>
-      <span class="beispiel">Prototyp: NaCl</span>
-    </div>
-
-    <div class="bindung-card metall">
-      <div class="bindung-sub">Metall + Metall</div>
-      <h4>Metallische Bindung</h4>
-      <img src="mint-metallbindung.jpeg" alt="Modell der metallischen Bindung">
-      <p>Beide Atome geben Valenzelektronen ab. Es bleiben positive <strong>Atomrümpfe</strong> übrig, eingebettet in ein <strong>Elektronengas</strong> aus frei beweglichen Elektronen. Diese halten das ganze Metallgitter zusammen.</p>
-      <span class="beispiel">Prototyp: Cu, Fe, Al</span>
-    </div>
-
-    <div class="bindung-card kovalent">
-      <div class="bindung-sub">Nichtmetall + Nichtmetall</div>
-      <h4>Kovalente Bindung</h4>
-      <img src="mint-cl2-molekuel.jpeg" alt="Cl2-Molekül als Beispiel einer kovalenten Bindung">
-      <p>Treffen zwei oder mehrere Elektronenräuber aufeinander, so können keine Elektronen abgegeben werden, sie müssen diese vielmehr untereinander <strong>aufteilen</strong>. Verbinden sich beispielsweise zwei Chloratome miteinander, so ziehen beide Atomkerne die Valenzelektronen beider Atome an. Diese Anziehung der Valenzelektronen durch beide Kerne führt dazu, dass die Atome in einem kleinen Abstand zueinander bleiben. Diese Art chemischer Bindung wird als <strong>kovalente Bindung</strong> bezeichnet [lat. <em>co(n)</em> = mit, <em>valentia</em> = Kraft, Stärke].</p>
-      <span class="beispiel">Prototyp: H₂O, CO₂, O₂</span>
-    </div>
-
-  </div>
-
-  <h3>12.4 Übersichtstabelle</h3>
-
-  <p>Die folgende Tabelle aus dem MINT-Skript fasst die drei Bindungsarten kompakt zusammen:</p>
+  <p>Die folgende Tabelle aus dem MINT-Skript stellt die drei Bindungstypen nebeneinander. In Kapitel 5 schauen wir uns jeden Bindungstyp genauer an.</p>
 
   <figure class="mint-figure">
     <img src="mint-tabelle-bindungsarten.jpeg" alt="Übersichtstabelle der drei Bindungsarten (ionisch, metallisch, kovalent)">
     <figcaption>Tabelle 1: Die drei Bindungsarten. Quelle: Zwyssig &amp; Lipscher, MINT-Lernzentrum ETH Zürich.</figcaption>
   </figure>
 
-  <h3>12.5 Welche Bindung liegt vor? — Interaktiv</h3>
+  <h3>12.4 Welche Bindung liegt vor? — Interaktiv</h3>
   <p>Wenden Sie das Gelernte an. Klicken Sie auf die Antwort, die Sie für richtig halten — Sie erhalten direkt Feedback.</p>
 
   <div class="bindung-tool">
@@ -964,7 +906,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 <!-- ============================================================ -->
 <!--                  ABSCHLUSS                                    -->
 <!-- ============================================================ -->
-<section id="abschluss">
+<section id="abschluss" data-dl="DL7">
   <div class="lesson-header" style="border-bottom-color: #d4a574;">
     <div class="lesson-number" style="color:#a89060;">Abschluss</div>
     <h2>Wie geht es weiter?</h2>
@@ -983,6 +925,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 </section>
 
 </main>
+<script src="werkzeuge.js?v=20261113a"></script>
 </div>
 </div>
 
@@ -1044,6 +987,60 @@ function toolAnswer(btn, choice) {
     allBtns.forEach(b => { if (b !== btn) b.style.opacity = '0.45'; });
   }
 }
+</script>
+<script>
+/* ===== Modellvergleich ===== */
+(function () {
+  const box = document.getElementById('modellZuordnung'); if (!box) return;
+  const sels = [...box.querySelectorAll('select')];
+  sels.forEach((s, i) => { s.value = WZ.store['mz' + i] || ''; s.style.maxWidth = '160px'; s.onchange = () => { WZ.store['mz' + i] = s.value; WZ.save(); s.className = ''; }; });
+  document.getElementById('mzCheck').onclick = () => {
+    let ok = 0; sels.forEach(s => { const g = s.value === s.dataset.a; s.className = g ? 'ok' : 'bad'; if (g) ok++; });
+    const m = document.getElementById('mzMsg'); m.className = 'wz-msg ' + (ok === sels.length ? 'ok' : 'bad');
+    m.textContent = ok === sels.length ? '✓ Alles richtig! Jedes neue Experiment brachte ein neues Modell hervor.' : ok + ' von ' + sels.length + ' richtig. Überlegen Sie bei den rot markierten: Welches Modell kennt dafür als erstes die nötigen Bausteine?';
+  };
+})();
+
+/* ===== Escape-Room ===== */
+(function () {
+  const wrap = document.getElementById('escape'); if (!wrap) return;
+  const R = [
+    { b: 'C', t: 'Kästchen 1 · auf dem Schreibtisch', q: 'Auf dem Deckel steht das Nuklidsymbol <sup>35</sup><sub style="margin-left:-0.5em">17</sub>Cl. Wie viele Neutronen hat dieses Atom?', a: 18, tipp: 'Neutronen = Massenzahl − Ordnungszahl.' },
+    { b: 'O', t: 'Kästchen 2 · neben der Goldfolie', q: 'Zwei Ladungen ziehen sich an. Der Abstand zwischen ihnen wird verdreifacht. Die Kraft sinkt auf 1/x. Wie gross ist x?', a: 9, tipp: 'Im Coulomb-Gesetz steht r² im Nenner.' },
+    { b: 'U', t: 'Kästchen 3 · im Regal', q: 'Wie viele Elektronen hat ein Magnesium-Ion Mg²⁺?', a: 10, tipp: 'Magnesium hat 12 Elektronen und gibt zwei ab.' },
+    { b: 'L', t: 'Kästchen 4 · unter dem Bunsenbrenner', q: 'Wie viele Elektronen passen höchstens in die M-Schale (3. Hauptschale)?', a: 18, tipp: '2n²' },
+    { b: 'O', t: 'Kästchen 5 · hinter dem Spektroskop', q: 'Zeichnen Sie Sauerstoff in der Kästchenschreibweise. Wie viele Elektronen sind ungepaart?', a: 2, tipp: '2p⁴: Hund\'sche Regel – zuerst einzeln besetzen.' },
+    { b: 'M', t: 'Kästchen 6 · im Abzug', q: 'Ein Atom hat die Elektronenkonfiguration 1s² 2s² 2p⁶ 3s² 3p⁴. Wie lautet seine Ordnungszahl?', a: 16, tipp: 'Zählen Sie alle Hochzahlen zusammen.' },
+    { b: 'B', t: 'Kästchen 7 · im Mantel von Rutherford', q: 'Wie viele einzelne Punkte (ungepaarte Elektronen) hat das Lewis-Symbol von Stickstoff?', a: 3, tipp: '5 Valenzelektronen: zuerst vier Seiten einzeln, dann ein Paar.' } ];
+  const st = WZ.store.escape = WZ.store.escape || {};
+  function render() {
+    wrap.innerHTML = '';
+    let frei = true;
+    R.forEach((r, i) => {
+      const geloest = !!st[i];
+      const d = document.createElement('div');
+      d.className = 'wz-box'; d.style.opacity = frei || geloest ? 1 : 0.45;
+      d.innerHTML = '<div class="wz-kopf"><span class="wz-name">' + (geloest ? '🔓 ' : '🔒 ') + r.t + '</span>' + (geloest ? '<span class="wz-badge" style="font-size:0.9rem">Buchstabe: ' + r.b + '</span>' : '') + '</div>'
+        + (frei || geloest ? '<p style="margin:0 0 8px">' + r.q + '</p>' + (geloest ? '' : '<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><input inputmode="numeric" style="width:90px;font-size:1rem;padding:5px 8px;border:1.5px solid var(--border);border-radius:6px"><button class="wz-btn primaer">Öffnen</button><button class="wz-btn">Tipp</button></div><div class="wz-msg"></div>') : '<p class="wz-hinweis" style="margin:0">Öffnen Sie zuerst das vorherige Kästchen.</p>');
+      wrap.appendChild(d);
+      if ((frei) && !geloest) {
+        const [inp] = d.querySelectorAll('input'), [b1, b2] = d.querySelectorAll('button'), msg = d.querySelector('.wz-msg');
+        const pruef = () => { if (+inp.value === r.a) { st[i] = 1; WZ.save(); render(); } else { msg.className = 'wz-msg bad'; msg.textContent = 'Das Schloss klemmt. Versuchen Sie es nochmals.'; } };
+        b1.onclick = pruef; inp.onkeydown = e => { if (e.key === 'Enter') pruef(); };
+        b2.onclick = () => { msg.className = 'wz-msg'; msg.textContent = 'Tipp: ' + r.tipp; };
+      }
+      if (!geloest) frei = false;
+    });
+    const alle = R.every((r, i) => st[i]);
+    document.getElementById('escTuer').style.display = alle ? 'block' : 'none';
+  }
+  document.getElementById('escOeffnen').onclick = () => {
+    const w = document.getElementById('escWort').value.trim().toUpperCase(), m = document.getElementById('escTuerMsg');
+    if (w === 'COULOMB') { m.className = 'wz-msg ok'; m.innerHTML = '🎉 <strong>Die Tür springt auf – Sie sind frei!</strong> Kein Zufall: Das Coulomb-Gesetz ist der rote Faden durch den ganzen Atombau (siehe 11.2).'; WZ.store.escapeFertig = 1; WZ.save(); }
+    else { m.className = 'wz-msg bad'; m.textContent = 'Die Tür bleibt zu. Bringen Sie die sieben Buchstaben in die richtige Reihenfolge – es ist ein Name aus dem Atombau.'; }
+  };
+  render();
+})();
 </script>
 <script src="freigabe.js"></script>
 </body>

@@ -253,7 +253,9 @@ a { color: var(--accent); font-weight: 600; }
 }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 section { animation: fadeUp 0.4s ease-out both; }
+.ie-grid{ } @media (max-width:640px){ .ie-grid{grid-template-columns:1fr !important;} }
 </style>
+<link rel="stylesheet" href="werkzeuge.css?v=20261113a">
 </head>
 <body>
 <div class="layout">
@@ -262,29 +264,29 @@ section { animation: fadeUp 0.4s ease-out both; }
 <nav class="sidebar">
   <div class="sidebar-brand"><a href="index.html" style="text-decoration:none; color:inherit;">Atombau</a><small>Chemie GLF · 1. Gymnasium · Va</small><a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a></div>
 
-  <div class="sidebar-phase">Phase 1 · Lektionen 1–3</div>
-  <a href="atombau.html#L1" class="nav-item"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
-  <a href="atombau.html#L2" class="nav-item"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
-  <a href="atombau.html#L3" class="nav-item"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
-  <a href="atombau.html#zusammenfassung" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+  <div class="sidebar-phase">Phase 1 · Lektionen 1–3 · DL 1–2</div>
+  <a href="atombau.html#L1" data-dl="DL1" class="nav-item"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
+  <a href="atombau.html#L2" data-dl="DL1" class="nav-item"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
+  <a href="atombau.html#L3" data-dl="DL2" class="nav-item"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
+  <a href="atombau.html#zusammenfassung" data-dl="DL2" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
 
-  <div class="sidebar-phase">Phase 2 · Lektionen 4–7</div>
-  <a href="#L4" class="nav-item active"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr)</a>
-  <a href="#L5" class="nav-item"><span class="nav-dot"></span>L5 – Orbitalmodell</a>
-  <a href="#L6" class="nav-item"><span class="nav-dot"></span>L6 – Elektronenkonfiguration</a>
-  <a href="#L7" class="nav-item"><span class="nav-dot"></span>L7 – Flammenfärbung</a>
-  <a href="#zusammenfassung2" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+  <div class="sidebar-phase">Phase 2 · Lektionen 4–7 · DL 3–4</div>
+  <a href="#L4" data-dl="DL3" class="nav-item active"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr)</a>
+  <a href="#L5" data-dl="DL3" class="nav-item"><span class="nav-dot"></span>L5 – Orbitalmodell</a>
+  <a href="#L6" data-dl="DL4" class="nav-item"><span class="nav-dot"></span>L6 – Elektronenkonfiguration</a>
+  <a href="#L7" data-dl="DL4" class="nav-item"><span class="nav-dot"></span>L7 – Flammenfärbung</a>
+  <a href="#zusammenfassung2" data-dl="DL4" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
 
-  <div class="sidebar-phase">Phase 3 · Lektionen 8–10</div>
-  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L8 – Das Periodensystem <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L9 – Trends im PSE <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>Zusammenfassung <span class="lock-icon">&#x1F512;</span></a>
+  <div class="sidebar-phase">Phase 3 · Lektionen 8–10 · DL 5–6</div>
+  <a data-dl="DL5" class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L8 – Das Periodensystem <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL5" class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L9 – Trends im PSE <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL6" class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL6" class="nav-item locked" data-phase="3"><span class="nav-dot"></span>Zusammenfassung <span class="lock-icon">&#x1F512;</span></a>
 
-  <div class="sidebar-phase">Phase 4 · Lektionen 11–12</div>
-  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L11 – Repetition <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>Abschluss <span class="lock-icon">&#x1F512;</span></a>
+  <div class="sidebar-phase">Phase 4 · Lektionen 11–12 · DL 7</div>
+  <a data-dl="DL7" class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L11 – Repetition <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL7" class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL7" class="nav-item locked" data-phase="4"><span class="nav-dot"></span>Abschluss <span class="lock-icon">&#x1F512;</span></a>
 
 </nav>
 
@@ -295,7 +297,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 <main class="content">
 
 <div class="hero-inline">
-  <div class="phase-badge">Phase 2 · Lektionen 4–7</div>
+  <div class="phase-badge">Phase 2 · Lektionen 4–7 · DL 3–4</div>
   <h1>Die Elektronenhülle verstehen</h1>
   <p class="subtitle">Vom Schalenmodell über Orbitale bis zur Elektronenkonfiguration</p>
 </div>
@@ -303,9 +305,9 @@ section { animation: fadeUp 0.4s ease-out both; }
 <!-- ============================================================ -->
 <!--                        LEKTION 4                              -->
 <!-- ============================================================ -->
-<section id="L4">
+<section id="L4" data-dl="DL3">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 04</div>
+    <div class="lesson-number">Lektion 04<span class="dl-tag">Doppellektion 3</span></div>
     <h2>Aufbau der Elektronenhülle</h2>
   </div>
 
@@ -318,7 +320,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <h3>4.1 Das Problem mit Rutherford</h3>
   <p>Am Ende von Phase 1 haben wir das <strong>Kern-Hülle-Modell</strong> von Rutherford kennengelernt: Ein winziger, positiver Kern wird von Elektronen in einer grossen, fast leeren Hülle umkreist. Doch dieses Modell hat ein schwerwiegendes Problem:</p>
-  <p>Nach den Gesetzen der klassischen Physik müssten die kreisenden Elektronen ständig Energie abstrahlen und dabei immer langsamer werden — wie ein Satellit, der in die Atmosphäre eintritt. Die Konsequenz: <strong>Die Elektronen müssten auf einer Spiralbahn in den Kern stürzen.</strong> Das Atom wäre in Bruchteilen einer Sekunde zusammengestürzt. Offensichtlich passiert das nicht — sonst gäbe es keine Materie!</p>
+  <p>Nach den Gesetzen der klassischen Physik sendet ein geladenes Teilchen, das sich auf einer Kreisbahn bewegt, ständig Strahlung aus und verliert dabei Energie. Die kreisenden Elektronen kämen dem Kern deshalb immer näher. Die Konsequenz: <strong>Die Elektronen müssten auf einer Spiralbahn in den Kern stürzen.</strong> Das Atom wäre in Bruchteilen einer Sekunde zusammengestürzt. Offensichtlich passiert das nicht — sonst gäbe es keine Materie!</p>
   <p>Wie sind also die Elektronen in der Hülle verteilt? Und warum stürzen sie nicht in den Kern?</p>
 
   <h3>4.2 Ionisierungsenergien verraten den Aufbau der Atomhülle</h3>
@@ -329,29 +331,41 @@ section { animation: fadeUp 0.4s ease-out both; }
     <p>Die Energie, die benötigt wird, um ein Elektron aus der Hülle eines Atoms zu entfernen. Je näher das Elektron am Kern liegt, desto grösser ist die benötigte Energie.</p>
   </div>
 
-  <p>Betrachten Sie die folgende Tabelle: Sie zeigt die <strong>13 Ionisierungsenergien von Aluminium</strong> (für 6·10²³ Atome). Das 1. Elektron ist am leichtesten zu entfernen, das 13. am schwersten.</p>
+  <p>Man kann die Elektronen eines Atoms <strong>eines nach dem anderen</strong> entfernen und jedes Mal messen, wie viel Energie dafür nötig ist. Das erste Elektron ist am leichtesten zu entfernen, das letzte am schwersten.</p>
 
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Elektron</th><th>1.</th><th>2.</th><th>3.</th><th>4.</th><th>5.</th><th>6.</th><th>7.</th><th>8.</th><th>9.</th><th>10.</th><th>11.</th><th>12.</th><th>13.</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>IE [MJ]</strong></td><td>0.6</td><td>1.8</td><td>2.8</td><td>11.6</td><td>14.9</td><td>18.4</td><td>23.3</td><td>27.5</td><td>31.7</td><td>38.5</td><td>42.7</td><td>201</td><td>222</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="aufgabe"><div class="aufgabe-label">Aufgabe</div>
-    <p><strong>a)</strong> Zeichnen Sie ein Balkendiagramm der Ionisierungsenergien (x-Achse: Elektronen 1–13, y-Achse: Energie in MJ).<br>
-    <strong>b)</strong> Was fällt Ihnen an den Sprüngen im Diagramm auf?<br>
-    <strong>c)</strong> Wie würde das Diagramm aussehen, wenn das Rutherford-Modell vollständig richtig wäre (d.h. alle Elektronen gleichmässig um den Kern verteilt)?<br>
-    <strong>d)</strong> Wie kommen die Sprünge im Atom zustande? (Denken Sie an das Coulomb-Gesetz.)</p>
+  <div class="predict" data-key="ie">
+    <div class="pr-frage">Vorhersage: Wie sieht das Diagramm der 13 Ionisierungsenergien von Aluminium aus?</div>
+    <div class="pr-opts">
+      <button class="tool-btn" data-v="a">Alle Balken ungefähr gleich hoch</button>
+      <button class="tool-btn" data-v="b">Gleichmässig ansteigend</button>
+      <button class="tool-btn" data-v="c">Ansteigend, mit einzelnen grossen Sprüngen</button>
+    </div>
   </div>
 
-  <p style="font-size:0.88rem; color:var(--onenote-text); background:var(--onenote-bg); border-left:3px solid var(--onenote-border); padding:10px 14px; border-radius:0 6px 6px 0; margin:12px 0;">📝 Für diese Aufgabe finden Sie in Ihrem persönlichen Bereich auf OneNote eine vorbereitete Seite mit dem Diagramm-Raster (Klassennotizbuch GKG_Ch_2029_E → <strong>4 Atombau – Aufgaben Atombau</strong>).</p>
+  <div class="wz-box" id="ieBox">
+    <div class="wz-kopf"><span class="wz-name">Elektronen entfernen – Ionisierungsenergien (für 6·10²³ Atome)</span><span class="wz-badge">INTERAKTIV</span></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;" id="ieWahl"></div>
+    <div style="display:grid;grid-template-columns:minmax(150px,200px) 1fr;gap:16px;align-items:center;" class="ie-grid">
+      <svg id="ieAtom" viewBox="0 0 200 200" style="width:100%;"></svg>
+      <svg id="ieChart" viewBox="0 0 560 260" style="width:100%;"></svg>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center;">
+      <button class="wz-btn primaer" id="ieNext">Nächstes Elektron entfernen</button>
+      <button class="wz-btn" id="ieAll">Alle entfernen</button>
+      <button class="wz-btn" id="ieReset">Zurücksetzen</button>
+      <label style="font-size:0.88rem;display:flex;gap:6px;align-items:center;margin-left:auto;"><input type="checkbox" id="ieLog"> logarithmische Skala</label>
+    </div>
+    <div class="wz-msg" id="ieMsg"></div>
+  </div>
+  <div class="predict-echo" data-key="ie"></div>
+
+  <div class="aufgabe"><div class="aufgabe-label">Auswertung</div>
+    <p><strong>a)</strong> Nach welchen Elektronen gibt es bei Aluminium grosse Sprünge? Was bedeuten diese Sprünge?<br>
+    <strong>b)</strong> Wie würde das Diagramm aussehen, wenn alle Elektronen gleich weit vom Kern entfernt wären?<br>
+    <strong>c)</strong> Wie kommen die Sprünge zustande? Denken Sie an das Coulomb-Gesetz.<br>
+    <strong>d)</strong> Wählen Sie Natrium und Magnesium. Wie viele Elektronen sind jeweils in der äussersten Schale?</p>
+    <div class="notiz-box" data-key="ie-auswertung" data-label="Ihre Antworten zu a) bis d)"></div>
+  </div>
 
   <h3>4.3 Niels Bohrs geniale Idee</h3>
   <p>Der dänische Physiker <strong>Niels Bohr</strong> (1885–1962) löste dieses Problem 1913 mit einer damals geradezu revolutionären Annahme:</p>
@@ -380,6 +394,19 @@ section { animation: fadeUp 0.4s ease-out both; }
     <img src="quantensprung.png" alt="Quantensprung: Grundzustand → angeregter Zustand → Licht" style="max-width:420px; width:100%; border-radius:8px;">
     <p style="font-size:0.82rem; color:var(--text-muted); margin-top:8px;">Schritt 1: Elektron absorbiert Energie und springt auf höhere Schale (angeregter Zustand). Schritt 2: Instabiler Zustand. Schritt 3: Elektron fällt zurück und sendet Licht aus.</p>
   </div>
+
+  <h4>Simulation: Wasserstoff sendet Licht aus</h4>
+  <p>Klicken Sie im Energiediagramm auf ein <strong>höheres</strong> Niveau: Das Elektron nimmt Energie auf und springt hinauf. Klicken Sie danach auf ein <strong>tieferes</strong> Niveau: Das Elektron fällt zurück und sendet Licht als Welle aus. Je grösser der Sprung, desto mehr Energie hat das Licht und desto kürzer ist seine Wellenlänge.</p>
+  <div class="sim-container" id="bohrBox">
+    <div class="sim-header"><span class="sim-title">Bohr-Modell des Wasserstoffatoms</span><span class="sim-badge" id="bohrZaehler">0 von 4 sichtbaren Linien</span></div>
+    <div style="padding:10px 12px 6px;"><svg id="bohrSvg" viewBox="0 0 900 430" style="width:100%;display:block;user-select:none;"></svg></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 12px;"><button class="wz-btn" id="bohrReset">Spektrum löschen</button></div>
+    <div class="sim-caption">Auftrag: Finden Sie alle vier Übergänge, bei denen Wasserstoff <strong>sichtbares</strong> Licht aussendet. Welches Niveau ist bei allen vier das Ziel?</div>
+  </div>
+  <div class="notiz-box" data-key="bohr" data-label="Ihre Beobachtungen: Welche Sprünge erzeugen sichtbares Licht? Warum sendet Wasserstoff nur ganz bestimmte Farben aus?"></div>
+  <details class="aufloesung"><summary>Auflösung</summary>
+    <p>Sichtbares Licht entsteht bei Sprüngen von n = 3, 4, 5 oder 6 hinunter auf <strong>n = 2</strong> (rot 656 nm, türkis 486 nm, blau 434 nm, violett 410 nm). Sprünge auf n = 1 sind so energiereich, dass UV-Strahlung entsteht; Sprünge auf n = 3 erzeugen Infrarot. Weil das Elektron nur auf ganz bestimmten Energieniveaus sein kann, gibt es nur ganz bestimmte Energiedifferenzen und damit nur ganz bestimmte Farben: das <strong>Linienspektrum</strong> des Wasserstoffs.</p>
+  </details>
 
   <h3>4.4 Das Schalenmodell</h3>
   <p>Die Elektronen ordnen sich in der Atomhülle in <strong>konzentrischen Schalen</strong> um den Kern an. Jede Schale hat eine bestimmte Nummer und einen Buchstaben:</p>
@@ -415,7 +442,7 @@ section { animation: fadeUp 0.4s ease-out both; }
     </div>
 
     <div class="question">
-      <div class="q-text"><span class="q-num">2</span>Die Ionisierungsenergien von Aluminium zeigen drei grosse Sprünge. Was bedeuten diese Sprünge?</div>
+      <div class="q-text"><span class="q-num">2</span>Die Ionisierungsenergien von Aluminium zeigen zwei grosse Sprünge (nach dem 3. und nach dem 11. Elektron). Was bedeuten diese Sprünge?</div>
       <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Aluminium hat drei verschiedene Isotope.</div>
       <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Die Elektronen haben alle die gleiche Energie.</div>
       <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Die Elektronen sind in drei Schalen angeordnet, die unterschiedlich stark an den Kern gebunden sind.</div>
@@ -435,23 +462,17 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <!-- TASK CARD L4 -->
   <h4>Aufgaben zu Lektion 4</h4>
-  <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">&#128221;</div>
-      <div class="task-card-title">Aufgaben 4.1 – 4.2</div>
-      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
-      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
-    </div>
-  </div>
+  <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Aufgaben 4.1 – 4.2</div><div class="dh-text">Im ausgedruckten Aufgabendossier Atombau, Phase 2.</div></div></div>
+
 </section>
 
 
 <!-- ============================================================ -->
 <!--                        LEKTION 5                              -->
 <!-- ============================================================ -->
-<section id="L5">
+<section id="L5" data-dl="DL3">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 05</div>
+    <div class="lesson-number">Lektion 05<span class="dl-tag">Doppellektion 3</span></div>
     <h2>Das Orbitalmodell</h2>
   </div>
 
@@ -574,23 +595,17 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <!-- TASK CARD L5 -->
   <h4>Aufgaben zu Lektion 5</h4>
-  <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">&#128221;</div>
-      <div class="task-card-title">Aufgaben 5.1 – 5.2</div>
-      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
-      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
-    </div>
-  </div>
+  <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Aufgaben 5.1 – 5.2</div><div class="dh-text">Im ausgedruckten Aufgabendossier Atombau, Phase 2.</div></div></div>
+
 </section>
 
 
 <!-- ============================================================ -->
 <!--                        LEKTION 6                              -->
 <!-- ============================================================ -->
-<section id="L6">
+<section id="L6" data-dl="DL4">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 06</div>
+    <div class="lesson-number">Lektion 06<span class="dl-tag">Doppellektion 4</span></div>
     <h2>Auffüllregeln und Elektronenkonfiguration</h2>
   </div>
 
@@ -625,7 +640,7 @@ section { animation: fadeUp 0.4s ease-out both; }
   </div>
 
   <h3>6.3 Der Elektronenspin und das Pauli-Prinzip</h3>
-  <p>Ein Orbital kann maximal <strong>zwei Elektronen</strong> aufnehmen. Aber wie vertragen sich zwei negativ geladene Teilchen auf so engem Raum? Die Antwort: Sie rotieren in <strong>entgegengesetzter Richtung</strong> — man spricht vom <strong>Elektronenspin</strong>.</p>
+  <p>Ein Orbital kann maximal <strong>zwei Elektronen</strong> aufnehmen. Elektronen haben eine Eigenschaft, die man <strong>Spin</strong> nennt. Es gibt genau zwei Spin-Zustände, dargestellt als ↑ und ↓. Oft stellt man sich den Spin als Drehung des Elektrons um die eigene Achse vor. Das ist aber nur ein Bild: Das Elektron dreht sich nicht wirklich, der Spin ist eine Eigenschaft, die erst die Quantenmechanik erklärt. Zwei Elektronen können sich nur dann ein Orbital teilen, wenn ihr Spin <strong>entgegengesetzt</strong> ist.</p>
 
   <div class="merksatz"><div class="merksatz-label">Merksatz – Pauli-Prinzip</div>
     <p>In einem Orbital befinden sich <strong>maximal zwei Elektronen</strong>, und diese müssen <strong>entgegengesetzten Spin</strong> haben. Man stellt sie als ↑ und ↓ dar.</p>
@@ -709,23 +724,17 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <!-- TASK CARD L6 -->
   <h4>Aufgaben zu Lektion 6</h4>
-  <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">&#128221;</div>
-      <div class="task-card-title">Aufgaben 6.1 – 6.8</div>
-      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
-      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
-    </div>
-  </div>
+  <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Aufgaben 6.1 – 6.8</div><div class="dh-text">Im ausgedruckten Aufgabendossier Atombau, Phase 2.</div></div></div>
+
 </section>
 
 
 <!-- ============================================================ -->
 <!--                        LEKTION 7                              -->
 <!-- ============================================================ -->
-<section id="L7">
+<section id="L7" data-dl="DL4">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 07</div>
+    <div class="lesson-number">Lektion 07<span class="dl-tag">Doppellektion 4</span></div>
     <h2>Flammenfärbung</h2>
   </div>
 
@@ -793,14 +802,8 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <!-- TASK CARD L7: Auswertung -->
   <h4>Auswertung Praktikum</h4>
-  <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">&#128221;</div>
-      <div class="task-card-title">Auswertung Flammenfärbung</div>
-      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
-      <div class="task-hint">Die Auswertung laden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Experimente Atombau</strong> hoch</div>
-    </div>
-  </div>
+  <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Auswertung Flammenfärbung</div><div class="dh-text">Beantworten Sie die Auswertungsfragen auf der ausgedruckten Versuchsanleitung.</div></div></div>
+
 
   <!-- QUIZ L7 -->
   <div class="quiz-section">
@@ -831,7 +834,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 <!-- ============================================================ -->
 <!--                    ZUSAMMENFASSUNG                            -->
 <!-- ============================================================ -->
-<section id="zusammenfassung2">
+<section id="zusammenfassung2" data-dl="DL4">
   <div class="lesson-header" style="border-top-color: var(--merksatz-border);">
     <div class="lesson-number" style="color: var(--merksatz-label);">Zusammenfassung</div>
     <h2>Phase 2 auf einen Blick</h2>
@@ -867,7 +870,7 @@ section { animation: fadeUp 0.4s ease-out both; }
         <tr><td>Hauptschale</td><td>Grobstruktur der Hülle: K (n=1), L (n=2), M (n=3), N (n=4); max. 2n² Elektronen</td></tr>
         <tr><td>Unterschale</td><td>Feinstruktur innerhalb einer Hauptschale: s, p, d, f</td></tr>
         <tr><td>Orbital</td><td>Raum mit hoher Aufenthaltswahrscheinlichkeit für max. 2 Elektronen</td></tr>
-        <tr><td>Elektronenspin</td><td>Eigenrotation des Elektrons (↑ oder ↓); zwei Elektronen im gleichen Orbital haben entgegengesetzten Spin</td></tr>
+        <tr><td>Elektronenspin</td><td>Quantenmechanische Eigenschaft des Elektrons mit zwei Zuständen (↑ oder ↓), oft vereinfacht als Drehung dargestellt; zwei Elektronen im gleichen Orbital haben entgegengesetzten Spin</td></tr>
         <tr><td>Pauli-Prinzip</td><td>Max. 2 Elektronen pro Orbital, mit entgegengesetztem Spin</td></tr>
         <tr><td>Hund'sche Regel</td><td>Gleichwertige Orbitale werden zuerst einfach besetzt</td></tr>
         <tr><td>Aufbauprinzip</td><td>Orbitale werden in der Reihenfolge steigender Energie besetzt</td></tr>
@@ -903,6 +906,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 </section>
 
 </main>
+<script src="werkzeuge.js?v=20261113a"></script>
 </div>
 </div>
 
@@ -1061,6 +1065,157 @@ function newElement() {
 }
 
 </script>
+<script>
+/* ===== Ionisierungsenergien ===== */
+(function () {
+  const box = document.getElementById('ieBox'); if (!box) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const D = {
+    Al: { z: 13, sch: [2, 8, 3], ie: [0.6, 1.8, 2.8, 11.6, 14.9, 18.4, 23.3, 27.5, 31.7, 38.5, 42.7, 201, 222] },
+    Na: { z: 11, sch: [2, 8, 1], ie: [0.5, 4.6, 6.9, 9.5, 13.4, 16.6, 20.1, 25.5, 28.9, 141, 159] },
+    Mg: { z: 12, sch: [2, 8, 2], ie: [0.7, 1.5, 7.7, 10.5, 13.6, 18.0, 21.7, 25.7, 31.7, 35.5, 170, 189] } };
+  const FARBE = ['#c05050', '#3d6fb0', '#c08a56'];
+  let el = 'Al', weg = 0;
+  const wahl = document.getElementById('ieWahl'), atom = document.getElementById('ieAtom'), chart = document.getElementById('ieChart'), log = document.getElementById('ieLog');
+  const mk = (p, t, a, txt) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; p.appendChild(e); return e; };
+  Object.keys(D).forEach(k => { const b = document.createElement('button'); b.className = 'tool-btn'; b.textContent = { Al: 'Aluminium', Na: 'Natrium', Mg: 'Magnesium' }[k]; b.onclick = () => { el = k; weg = 0; zeichne(); }; wahl.appendChild(b); });
+  // Reihenfolge des Entfernens: äusserste Schale zuerst
+  const schaleVon = (d, i) => { let rest = d.z - i; let s = 0; for (; s < d.sch.length; s++) { if (rest <= d.sch[s]) return s; rest -= d.sch[s]; } return s; };
+  function zeichne() {
+    const d = D[el];
+    [...wahl.children].forEach(b => b.classList.toggle('chosen', b.textContent.startsWith({ Al: 'Alu', Na: 'Nat', Mg: 'Mag' }[el])));
+    atom.innerHTML = '';
+    mk(atom, 'circle', { cx: 100, cy: 100, r: 14, fill: '#3d5a80' }); mk(atom, 'text', { x: 100, y: 105, 'text-anchor': 'middle', fill: 'white', 'font-size': 12, 'font-weight': 700, 'font-family': 'DM Sans' }, d.z + '+');
+    const R = [34, 60, 88]; let rest = d.z - weg;
+    d.sch.forEach((n, s) => {
+      mk(atom, 'circle', { cx: 100, cy: 100, r: R[s], fill: 'none', stroke: '#cdd6e2', 'stroke-dasharray': '4 3' });
+      const da = Math.min(n, rest); rest -= da;
+      for (let k = 0; k < n; k++) { const w = 2 * Math.PI * k / n - Math.PI / 2; mk(atom, 'circle', { cx: 100 + R[s] * Math.cos(w), cy: 100 + R[s] * Math.sin(w), r: 5.5, fill: k < da ? FARBE[s] : 'white', stroke: FARBE[s], 'stroke-width': 1.5, 'stroke-dasharray': k < da ? '' : '2 2' }); }
+    });
+    // Diagramm
+    chart.innerHTML = '';
+    const X0 = 48, Y0 = 225, W = 500, H = 205, n = d.ie.length, bw = W / 13;
+    const lg = log.checked, max = 230;
+    const y = v => lg ? Y0 - H * Math.log10(v / 0.3) / Math.log10(max / 0.3) : Y0 - H * v / max;
+    mk(chart, 'line', { x1: X0, y1: Y0, x2: X0 + W, y2: Y0, stroke: '#999' }); mk(chart, 'line', { x1: X0, y1: Y0, x2: X0, y2: Y0 - H, stroke: '#999' });
+    (lg ? [1, 10, 100] : [0, 50, 100, 150, 200]).forEach(v => { mk(chart, 'text', { x: X0 - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: '#6b6560', 'font-family': 'DM Sans' }, v); mk(chart, 'line', { x1: X0, y1: y(v), x2: X0 + W, y2: y(v), stroke: '#eee' }); });
+    mk(chart, 'text', { x: 14, y: Y0 - H / 2, transform: 'rotate(-90 14 ' + (Y0 - H / 2) + ')', 'text-anchor': 'middle', 'font-size': 11, fill: '#6b6560', 'font-family': 'DM Sans' }, 'IE in MJ');
+    for (let i = 0; i < n; i++) {
+      const x = X0 + i * bw + 4;
+      mk(chart, 'text', { x: x + (bw - 8) / 2, y: Y0 + 15, 'text-anchor': 'middle', 'font-size': 11, fill: '#6b6560', 'font-family': 'DM Sans' }, i + 1);
+      if (i < weg) {
+        const v = d.ie[i], top = y(v);
+        mk(chart, 'rect', { x, y: top, width: bw - 8, height: Y0 - top, fill: FARBE[schaleVon(d, i)], rx: 2 });
+        mk(chart, 'text', { x: x + (bw - 8) / 2, y: top - 4, 'text-anchor': 'middle', 'font-size': 10, fill: '#333', 'font-family': 'DM Sans' }, v);
+      }
+    }
+    mk(chart, 'text', { x: X0 + W / 2, y: Y0 + 32, 'text-anchor': 'middle', 'font-size': 11, fill: '#6b6560', 'font-family': 'DM Sans' }, 'entferntes Elektron Nr.');
+    const msg = document.getElementById('ieMsg');
+    msg.textContent = weg === 0 ? 'Entfernen Sie das erste Elektron.' : (weg < n ? weg + ' von ' + n + ' Elektronen entfernt.' : 'Alle Elektronen entfernt – übrig bleibt der nackte Kern. Die Farben zeigen, aus welcher Schale das Elektron stammt.');
+    document.getElementById('ieNext').disabled = weg >= n;
+  }
+  document.getElementById('ieNext').onclick = () => { weg++; zeichne(); };
+  document.getElementById('ieAll').onclick = () => { weg = D[el].ie.length; zeichne(); };
+  document.getElementById('ieReset').onclick = () => { weg = 0; zeichne(); };
+  log.onchange = zeichne;
+  zeichne();
+})();
+
+/* ===== Bohr-Modell Wasserstoff ===== */
+(function () {
+  const svg = document.getElementById('bohrSvg'); if (!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const mk = (p, t, a, txt) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; p.appendChild(e); return e; };
+  const NMAX = 6, E = n => -13.6 / (n * n);
+  const lam = (a, b) => 91.13 / (1 / (b * b) - 1 / (a * a)); // nm, Sprung a -> b (a > b)
+  function farbe(l) {
+    let r = 0, g = 0, b = 0;
+    if (l >= 380 && l < 440) { r = -(l - 440) / 60; b = 1; } else if (l < 490) { g = (l - 440) / 50; b = 1; } else if (l < 510) { g = 1; b = -(l - 510) / 20; }
+    else if (l < 580) { r = (l - 510) / 70; g = 1; } else if (l < 645) { r = 1; g = -(l - 645) / 65; } else if (l <= 750) { r = 1; }
+    const f = l < 420 ? 0.4 + 0.6 * (l - 380) / 40 : (l > 700 ? 0.4 + 0.6 * (750 - l) / 50 : 1);
+    return 'rgb(' + [r, g, b].map(c => Math.round(255 * Math.pow(c * f, 0.8))).join(',') + ')';
+  }
+  // Atom links
+  const AX = 150, AY = 190, rad = n => 18 + 25 * (n - 1);
+  for (let n = 1; n <= NMAX; n++) {
+    mk(svg, 'circle', { cx: AX, cy: AY, r: rad(n), fill: 'none', stroke: '#475569', 'stroke-dasharray': '3 4' });
+    mk(svg, 'text', { x: AX + rad(n) * 0.71 + 3, y: AY - rad(n) * 0.71 - 2, 'font-size': 10, fill: '#94a3b8', 'font-family': 'DM Sans' }, 'n=' + n);
+  }
+  mk(svg, 'circle', { cx: AX, cy: AY, r: 7, fill: '#e07070' });
+  const elek = mk(svg, 'circle', { cx: AX + rad(1), cy: AY, r: 6, fill: '#60a5fa', stroke: 'white', 'stroke-width': 1.5 });
+  // Energiediagramm rechts
+  const DX = 650, DW = 200, DY0 = 330, DH = 270;
+  const YP = [0, 340, 205, 145, 110, 86, 66]; const yE = n => YP[n];
+  mk(svg, 'text', { x: DX + DW / 2, y: 30, 'text-anchor': 'middle', 'font-size': 13, fill: '#e2e8f0', 'font-weight': 600, 'font-family': 'DM Sans' }, 'Energieniveaus');
+  mk(svg, 'text', { x: DX + DW / 2, y: 46, 'text-anchor': 'middle', 'font-size': 11, fill: '#94a3b8', 'font-family': 'DM Sans' }, 'zum Springen anklicken · Abstände nicht massstäblich');
+  const stufen = [];
+  for (let n = 1; n <= NMAX; n++) {
+    const g = mk(svg, 'g', { style: 'cursor:pointer' });
+    mk(g, 'rect', { x: DX - 10, y: yE(n) - 8, width: DW + 20, height: 16, fill: 'transparent' });
+    const l = mk(g, 'line', { x1: DX, y1: yE(n), x2: DX + DW, y2: yE(n), stroke: '#cbd5e1', 'stroke-width': 2.5 });
+    mk(g, 'text', { x: DX - 14, y: yE(n) + 4, 'text-anchor': 'end', 'font-size': 11, fill: '#cbd5e1', 'font-family': 'DM Sans' }, 'n=' + n);
+    mk(g, 'text', { x: DX + DW + 6, y: yE(n) + 4, 'font-size': 10, fill: '#94a3b8', 'font-family': 'DM Sans' }, E(n).toFixed(1) + ' eV');
+    g.addEventListener('click', () => springe(n));
+    g.addEventListener('mouseenter', () => l.setAttribute('stroke', '#fbbf24')); g.addEventListener('mouseleave', () => l.setAttribute('stroke', '#cbd5e1'));
+    stufen.push(g);
+  }
+  const eMark = mk(svg, 'circle', { cx: DX + DW / 2, cy: yE(1), r: 7, fill: '#60a5fa', stroke: 'white', 'stroke-width': 1.5 });
+  const pfeil = mk(svg, 'line', { stroke: 'transparent', 'stroke-width': 3, 'marker-end': 'url(#bpf)' });
+  const defs = mk(svg, 'defs', {}); const mrk = mk(defs, 'marker', { id: 'bpf', viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' }); mk(mrk, 'path', { d: 'M0,0 L10,5 L0,10 z', fill: '#fbbf24' });
+  // Wellenbereich
+  const WX0 = AX + rad(NMAX) + 20, WX1 = DX - 60, WY = AY;
+  const welle = mk(svg, 'path', { fill: 'none', 'stroke-width': 3 });
+  const wTxt = mk(svg, 'text', { x: (WX0 + WX1) / 2, y: WY - 52, 'text-anchor': 'middle', 'font-size': 13, fill: '#e2e8f0', 'font-family': 'DM Sans' });
+  // Spektrum unten
+  const SX0 = 120, SX1 = 860, SY = 382, SH = 26, sx = l => SX0 + (SX1 - SX0) * (l - 380) / (750 - 380);
+  const gr = mk(defs, 'linearGradient', { id: 'spk' }); for (let l = 380; l <= 750; l += 10) mk(gr, 'stop', { offset: ((l - 380) / 370 * 100) + '%', 'stop-color': farbe(l), 'stop-opacity': 0.18 });
+  mk(svg, 'rect', { x: SX0, y: SY, width: SX1 - SX0, height: SH, fill: '#020617', stroke: '#475569' });
+  mk(svg, 'rect', { x: SX0, y: SY, width: SX1 - SX0, height: SH, fill: 'url(#spk)' });
+  mk(svg, 'text', { x: SX0 - 8, y: SY + 17, 'text-anchor': 'end', 'font-size': 11, fill: '#cbd5e1', 'font-family': 'DM Sans' }, 'Ihr Spektrum');
+  [400, 500, 600, 700].forEach(l => mk(svg, 'text', { x: sx(l), y: SY + SH + 14, 'text-anchor': 'middle', 'font-size': 10, fill: '#94a3b8', 'font-family': 'DM Sans' }, l + ' nm'));
+  const linien = mk(svg, 'g', {}), unsichtbar = mk(svg, 'text', { x: SX1, y: SY + SH + 30, 'text-anchor': 'end', 'font-size': 11, fill: '#94a3b8', 'font-family': 'DM Sans' });
+  let n = 1, anim = null, gefunden = new Set(), uv = 0, ir = 0;
+  const zaehler = document.getElementById('bohrZaehler');
+  function setzeE(nn) { elek.setAttribute('cx', AX + rad(nn)); elek.setAttribute('cy', AY); eMark.setAttribute('cy', yE(nn)); }
+  function springe(z) {
+    if (z === n || anim) return;
+    const von = n; n = z; setzeE(n);
+    pfeil.setAttribute('x1', DX + DW / 2 + 30); pfeil.setAttribute('x2', DX + DW / 2 + 30);
+    pfeil.setAttribute('y1', yE(von)); pfeil.setAttribute('y2', yE(z) + (z > von ? 6 : -6));
+    pfeil.setAttribute('stroke', '#fbbf24');
+    if (z > von) { welle.setAttribute('d', ''); wTxt.textContent = 'Energie aufgenommen: Elektron springt von n=' + von + ' auf n=' + z; return; }
+    const l = lam(von, z), sicht = l >= 380 && l <= 750;
+    const col = sicht ? farbe(l) : '#94a3b8';
+    wTxt.textContent = 'n=' + von + ' → n=' + z + ': λ = ' + Math.round(l) + ' nm' + (sicht ? '' : (l < 380 ? ' (UV – unsichtbar)' : ' (Infrarot – unsichtbar)'));
+    const lpx = Math.max(7, Math.min(170, l / 9)), amp = 22;
+    welle.setAttribute('stroke', col); welle.setAttribute('stroke-dasharray', sicht ? '' : '6 4');
+    let t0 = null;
+    anim = true;
+    function frame(ts) {
+      if (!t0) t0 = ts; const prog = Math.min(1, (ts - t0) / 1400);
+      const xEnd = WX0 + (WX1 - WX0) * prog; let d = '';
+      for (let x = WX0; x <= xEnd; x += 2) { const ph = 2 * Math.PI * (x - xEnd) / lpx; d += (d ? 'L' : 'M') + x.toFixed(1) + ',' + (WY + amp * Math.sin(ph)).toFixed(1); }
+      welle.setAttribute('d', d);
+      if (prog < 1) requestAnimationFrame(frame);
+      else {
+        anim = null;
+        if (sicht) {
+          if (!gefunden.has(von + '-' + z)) {
+            gefunden.add(von + '-' + z);
+            mk(linien, 'rect', { x: sx(l) - 2, y: SY + 1, width: 4, height: SH - 2, fill: col });
+            mk(linien, 'text', { x: sx(l), y: SY - 6, 'text-anchor': 'middle', 'font-size': 10, fill: col, 'font-family': 'DM Sans' }, Math.round(l));
+          }
+        } else { if (l < 380) uv++; else ir++; }
+        unsichtbar.textContent = (uv || ir) ? 'Unsichtbar ausgesendet: ' + uv + '× UV, ' + ir + '× Infrarot' : '';
+        const k = gefunden.size; zaehler.textContent = k + ' von 4 sichtbaren Linien' + (k === 4 ? ' ✓' : '');
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  document.getElementById('bohrReset').onclick = () => { linien.innerHTML = ''; gefunden.clear(); uv = ir = 0; unsichtbar.textContent = ''; zaehler.textContent = '0 von 4 sichtbaren Linien'; };
+})();
+</script>
+
 <script src="freigabe.js"></script>
 </body>
 </html>

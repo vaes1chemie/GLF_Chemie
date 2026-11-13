@@ -1,0 +1,82 @@
+/* ================================================================
+   Werkzeuge für Lernseiten (Atombau) – ergänzt das Seiten-CSS
+   ================================================================ */
+.wz-title { font-size: 0.82rem; font-weight: 700; color: var(--text-muted, #6b6560); margin-bottom: 2px; }
+.wz-btn, .tool-btn { font-family: var(--sans); font-size: 0.86rem; font-weight: 600; padding: 7px 14px; border: 1.5px solid var(--border, #e5e2dd); border-radius: 8px; background: white; color: var(--text, #1a1a1a); cursor: pointer; transition: border-color .15s, background .15s; }
+.wz-btn:hover, .tool-btn:hover { border-color: var(--accent, #4a7ab5); }
+.wz-btn.primaer { background: var(--accent, #4a7ab5); border-color: var(--accent, #4a7ab5); color: white; }
+.wz-btn:disabled { opacity: .45; cursor: not-allowed; }
+.tool-btn.chosen { background: var(--accent, #4a7ab5); border-color: var(--accent, #4a7ab5); color: white; }
+
+/* Werkzeug-Kasten */
+.wz-box { background: white; border: 1px solid var(--border, #e5e2dd); border-radius: var(--radius, 10px); padding: 18px 20px; margin: 22px 0; }
+.wz-box .wz-kopf { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.wz-box .wz-name { font-weight: 700; font-size: 1rem; }
+.wz-box .wz-badge { font-family: var(--mono); font-size: 0.62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #4a7ab5); background: var(--accent-light, #e8eff7); padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+.wz-hinweis { font-size: 0.86rem; color: var(--text-muted, #6b6560); margin: 8px 0 0; }
+.wz-msg { font-size: 0.9rem; margin-top: 10px; min-height: 1.2em; }
+.wz-msg.ok { color: var(--correct-text, #2d5a37); }
+.wz-msg.bad { color: var(--wrong-text, #7a2020); }
+
+/* Vorhersage */
+.predict { background: var(--accent-light, #e8eff7); border-radius: 10px; padding: 14px 16px; margin: 16px 0; }
+.predict .pr-frage { font-weight: 600; margin-bottom: 10px; }
+.predict .pr-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.predict-echo { font-size: 0.9rem; color: var(--accent, #4a7ab5); background: var(--accent-light, #e8eff7); border-radius: 6px; padding: 8px 12px; margin: 10px 0; }
+
+/* Notiz- und Zeichenfelder */
+.notiz-box, .zeichen-box { margin-top: 14px; background: rgba(255,255,255,0.75); border: 1px dashed var(--border, #e5e2dd); border-radius: 8px; padding: 10px 14px 12px; }
+.notiz-box textarea { width: 100%; min-height: 90px; font-family: var(--sans); font-size: 0.9rem; padding: 8px 10px; border: 1.5px solid var(--border, #e5e2dd); border-radius: 6px; resize: vertical; background: white; margin-top: 4px; }
+.zeichen-box canvas { display: block; width: 100%; height: auto; background: white; border: 1.5px solid var(--border, #e5e2dd); border-radius: 6px; margin-top: 4px; touch-action: none; cursor: crosshair; }
+.zb-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+.zb-farbe { width: 26px; height: 26px; border-radius: 50%; border: 2px solid white; background: var(--c); box-shadow: 0 0 0 1.5px var(--border, #e5e2dd); cursor: pointer; padding: 0; }
+.zb-farbe.aktiv { box-shadow: 0 0 0 2.5px var(--text, #1a1a1a); }
+.zb-radier.aktiv { background: var(--bg-alt, #f3f1ee); border-color: var(--text, #1a1a1a); }
+
+/* Karten zum Aufdecken */
+.stoff-reveal { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 18px 0 6px; }
+.sr-card { font-family: var(--sans); text-align: center; background: white; border: 1.5px solid var(--border, #e5e2dd); border-radius: 12px; padding: 0; cursor: pointer; overflow: hidden; color: var(--text, #1a1a1a); transition: border-color .15s, box-shadow .15s; }
+.sr-card:hover { border-color: var(--accent, #4a7ab5); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.sr-front { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 150px; padding: 18px; }
+.sr-formel { font-size: 1.6rem; font-weight: 700; }
+.sr-frage { font-size: 0.9rem; color: var(--text-muted, #6b6560); }
+.sr-tipp { font-family: var(--mono); font-size: 0.64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #4a7ab5); }
+.sr-back { display: none; flex-direction: column; text-align: left; padding: 14px 16px; font-size: 0.9rem; line-height: 1.55; }
+.sr-back strong:first-child { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.2rem; margin-bottom: 4px; }
+.sr-card.open { border-color: var(--accent, #4a7ab5); }
+.sr-card.open .sr-front { display: none; }
+.sr-card.open .sr-back { display: flex; }
+.sr-card.open .sr-back::after { content: '↺ Klicken zum Zurückdrehen'; font-family: var(--mono); font-size: 0.6rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent, #4a7ab5); margin-top: 8px; }
+
+/* Aufklappbare Auflösung */
+details.aufloesung { margin: 14px 0; border: 1px solid var(--merksatz-border, #7bc08a); border-radius: 8px; background: var(--merksatz-bg, #eef6f0); padding: 10px 14px; }
+details.aufloesung summary { cursor: pointer; font-weight: 700; color: var(--merksatz-text, #2d5a37); }
+details.aufloesung[open] summary { margin-bottom: 8px; }
+
+/* Doppellektionen und Freigabe */
+.dl-gesperrt { margin: 18px 0 8px; padding: 18px 20px; background: var(--bg-alt, #f3f1ee); border: 1px dashed var(--border, #e5e2dd); border-radius: 10px; color: var(--text-muted, #6b6560); font-size: 0.95rem; }
+.nav-dl { display: block; margin-top: 2px; font-family: var(--mono); font-size: 0.58rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--text-light, #9c9891); }
+.dl-tag { display: inline-block; margin-left: 10px; font-family: var(--mono); font-size: 0.62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #4a7ab5); background: var(--accent-light, #e8eff7); padding: 2px 8px; border-radius: 20px; vertical-align: middle; }
+
+/* Hinweis auf das gedruckte Aufgabendossier */
+.dossier-hinweis { display: flex; gap: 14px; align-items: flex-start; margin: 20px 0 36px; padding: 16px 18px; background: var(--aufgabe-bg, #fdf5ee); border: 1px solid var(--aufgabe-border, #d4a574); border-radius: var(--radius, 10px); color: var(--aufgabe-text, #6b4226); }
+.dossier-hinweis .dh-icon { font-size: 1.5rem; line-height: 1; }
+.dossier-hinweis .dh-titel { font-weight: 700; }
+.dossier-hinweis .dh-text { font-size: 0.9rem; }
+
+/* Tabellen mit Eingabefeldern */
+.wz-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 8px; }
+.wz-table th, .wz-table td { border: 1px solid var(--border, #e5e2dd); padding: 6px 8px; text-align: center; }
+.wz-table th { background: var(--bg-alt, #f3f1ee); font-weight: 600; }
+.wz-table input { width: 100%; max-width: 90px; font-family: var(--sans); font-size: 0.9rem; padding: 4px 6px; border: 1.5px solid var(--border, #e5e2dd); border-radius: 6px; text-align: center; }
+.wz-table input.ok { border-color: var(--correct-border, #7bc08a); background: var(--correct-bg, #eef6f0); }
+.wz-table input.bad { border-color: var(--wrong-border, #e07070); background: var(--wrong-bg, #fceaea); }
+.wz-scroll { overflow-x: auto; }
+
+@media print { .zeichen-box .zb-tools, .wz-btn { display: none; } }
+
+/* Breite Tabellen und PSE auf dem Handy seitlich scrollbar */
+@media (max-width: 760px) {
+  main table.data-table, main .wz-table { display: block; overflow-x: auto; max-width: 100%; }
+  main .pse-grid-wrap { overflow-x: auto; max-width: 100%; }
+}

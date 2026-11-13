@@ -245,6 +245,7 @@ a { color: var(--accent); font-weight: 600; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 section { animation: fadeUp 0.4s ease-out both; }
 </style>
+<link rel="stylesheet" href="werkzeuge.css?v=20261113a">
 </head>
 <body>
 <div class="layout">
@@ -253,29 +254,29 @@ section { animation: fadeUp 0.4s ease-out both; }
 <nav class="sidebar">
   <div class="sidebar-brand"><a href="index.html" style="text-decoration:none; color:inherit;">Atombau</a><small>Chemie GLF · 1. Gymnasium · Va</small><a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a></div>
 
-  <div class="sidebar-phase">Phase 1 · Lektionen 1–3</div>
-  <a href="#L1" class="nav-item active"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
-  <a href="#L2" class="nav-item"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
-  <a href="#L3" class="nav-item"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
-  <a href="#zusammenfassung" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+  <div class="sidebar-phase">Phase 1 · Lektionen 1–3 · DL 1–2</div>
+  <a href="#L1" data-dl="DL1" class="nav-item active"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
+  <a href="#L2" data-dl="DL1" class="nav-item"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
+  <a href="#L3" data-dl="DL2" class="nav-item"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
+  <a href="#zusammenfassung" data-dl="DL2" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
 
-  <div class="sidebar-phase">Phase 2 · Lektionen 4–7</div>
-  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr) <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L5 – Orbitalmodell <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L6 – Elektronenkonfiguration <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L7 – Flammenfärbung <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="2"><span class="nav-dot"></span>Zusammenfassung <span class="lock-icon">&#x1F512;</span></a>
+  <div class="sidebar-phase">Phase 2 · Lektionen 4–7 · DL 3–4</div>
+  <a data-dl="DL3" class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr) <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL3" class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L5 – Orbitalmodell <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL4" class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L6 – Elektronenkonfiguration <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL4" class="nav-item locked" data-phase="2"><span class="nav-dot"></span>L7 – Flammenfärbung <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL4" class="nav-item locked" data-phase="2"><span class="nav-dot"></span>Zusammenfassung <span class="lock-icon">&#x1F512;</span></a>
 
-  <div class="sidebar-phase">Phase 3 · Lektionen 8–10</div>
-  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L8 – Das Periodensystem <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L9 – Trends im PSE <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="3"><span class="nav-dot"></span>Zusammenfassung <span class="lock-icon">&#x1F512;</span></a>
+  <div class="sidebar-phase">Phase 3 · Lektionen 8–10 · DL 5–6</div>
+  <a data-dl="DL5" class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L8 – Das Periodensystem <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL5" class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L9 – Trends im PSE <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL6" class="nav-item locked" data-phase="3"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL6" class="nav-item locked" data-phase="3"><span class="nav-dot"></span>Zusammenfassung <span class="lock-icon">&#x1F512;</span></a>
 
-  <div class="sidebar-phase">Phase 4 · Lektionen 11–12</div>
-  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L11 – Repetition <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>Abschluss <span class="lock-icon">&#x1F512;</span></a>
+  <div class="sidebar-phase">Phase 4 · Lektionen 11–12 · DL 7</div>
+  <a data-dl="DL7" class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L11 – Repetition <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL7" class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL7" class="nav-item locked" data-phase="4"><span class="nav-dot"></span>Abschluss <span class="lock-icon">&#x1F512;</span></a>
 
 </nav>
 
@@ -286,7 +287,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 <main class="content">
 
 <div class="hero-inline">
-  <div class="phase-badge">Phase 1 · Lektionen 1–3</div>
+  <div class="phase-badge">Phase 1 · Lektionen 1–3 · DL 1–2</div>
   <h1>Vom Dalton-Modell zum Kern-Hülle-Modell</h1>
   <p class="subtitle">Chemie GLF – 1. Gymnasium – Va</p>
 </div>
@@ -294,9 +295,9 @@ section { animation: fadeUp 0.4s ease-out both; }
 <!-- ============================================================ -->
 <!--                        LEKTION 1                             -->
 <!-- ============================================================ -->
-<section id="L1">
+<section id="L1" data-dl="DL1">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 01</div>
+    <div class="lesson-number">Lektion 01<span class="dl-tag">Doppellektion 1</span></div>
     <h2>Was ist im Atom drin?</h2>
   </div>
 
@@ -491,14 +492,25 @@ section { animation: fadeUp 0.4s ease-out both; }
     <p>Beim Erhitzen eines Metalldrahts im Vakuum treten negativ geladene Teilchen (Elektronen) aus der Metalloberfläche aus. Die Elektronen erhalten durch die Wärmeenergie genug Energie, um die Anziehungskraft des Metalls zu überwinden.</p>
   </div>
 
-  <h4>Video &amp; Animation: Glühelektrischer Effekt</h4>
-  <p>Schauen Sie sich den Versuch als Video und Animation an. LEIFIphysik bietet eine hervorragende interaktive Darstellung:</p>
-  <p style="margin-bottom:8px;">🔗 <a href="https://www.leifiphysik.de/elektrizitaetslehre/gluehelektrischer-effekt/versuche/edison-effekt-einer-diode" target="_blank">LEIFIphysik: Edison-Effekt an einer Diode – Versuch mit Animation</a></p>
-  <p><strong>Beobachten Sie beim Ansehen:</strong></p>
-  <ol>
-    <li>Was geschieht, wenn die Glühwendel erhitzt wird?</li>
-    <li>Was passiert, wenn das Elektroskop positiv geladen ist? Was bei negativer Ladung?</li>
-  </ol>
+  <h4>Animation: Der Edison-Versuch</h4>
+  <p>In einer luftleeren Glasröhre befinden sich ein Glühdraht und eine Metallplatte. Die Platte ist mit einem <strong>Elektroskop</strong> verbunden: Je stärker es geladen ist, desto weiter spreizt sich der Zeiger. Laden Sie das Elektroskop, schalten Sie die Heizung ein und beobachten Sie.</p>
+  <div class="sim-container">
+    <div class="sim-header"><span class="sim-title">Edison-Versuch: Glühdraht und geladene Platte</span><span class="sim-badge">INTERAKTIV</span></div>
+    <div style="padding:14px 16px 4px;">
+      <svg id="edisonSvg" viewBox="0 0 600 300" style="width:100%;display:block;"></svg>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 12px;">
+        <button class="wz-btn" id="edPlus">Elektroskop positiv laden (+)</button>
+        <button class="wz-btn" id="edMinus">Elektroskop negativ laden (−)</button>
+        <button class="wz-btn primaer" id="edHeiz">Heizung einschalten</button>
+        <button class="wz-btn" id="edReset">Zurücksetzen</button>
+      </div>
+    </div>
+    <div class="sim-caption">Vereinfachte Darstellung. Den Versuch mit Video finden Sie auch bei <a href="https://www.leifiphysik.de/elektrizitaetslehre/gluehelektrischer-effekt/versuche/edison-effekt-einer-diode" target="_blank">LEIFIphysik</a>.</div>
+  </div>
+  <div class="notiz-box" data-key="edison" data-label="Beobachtungen: Was geschieht, wenn die Glühwendel erhitzt wird – (a) bei positiv geladenem, (b) bei negativ geladenem Elektroskop?"></div>
+  <details class="aufloesung"><summary>Auflösung</summary>
+    <p>(a) Positiv geladen: Der Zeiger fällt zusammen, das Elektroskop entlädt sich. Vom heissen Draht fliegen Teilchen zur Platte und neutralisieren die positive Ladung. (b) Negativ geladen: Nichts ändert sich, die Teilchen werden von der Platte abgestossen. Die austretenden Teilchen müssen also <strong>negativ</strong> geladen sein: Es sind Elektronen.</p>
+  </details>
 
   <div class="glossar"><div class="glossar-label">Fachbegriff</div>
     <div class="glossar-term">Elektron (e⁻)</div>
@@ -575,21 +587,16 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <!-- TASK CARD L1 -->
   <h4>Aufgaben zu Lektion 1</h4>
-  <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">&#128221;</div>
-      <div class="task-card-title">Aufgaben 1.1 – 1.5 bearbeiten</div>
-      <div class="task-card-desc">Übungsaufgaben auf OneNote</div>
-	   <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
-  </div>
+  <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Aufgaben 1.1 – 1.5</div><div class="dh-text">Im ausgedruckten Aufgabendossier Atombau, Phase 1.</div></div></div>
+
 </section>
 
 <!-- ============================================================ -->
 <!--                        LEKTION 2                             -->
 <!-- ============================================================ -->
-<section id="L2">
+<section id="L2" data-dl="DL1">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 02</div>
+    <div class="lesson-number">Lektion 02<span class="dl-tag">Doppellektion 1</span></div>
     <h2>Der Streuversuch von Rutherford</h2>
   </div>
 
@@ -600,11 +607,17 @@ section { animation: fadeUp 0.4s ease-out both; }
     <li>Sie können den Grössenunterschied zwischen Atomkern und Atomhülle einordnen.</li>
   </ul></div>
 
-  <h3>2.1 Die Fragestellung</h3>
+  <h3>2.1 Einstieg: Die Black Box</h3>
+  <p>Sie haben eine verschlossene Schachtel erhalten. Darin ist ein Gegenstand fest auf den Boden geklebt, den Sie nicht sehen können. Sie dürfen nur Murmeln durch die Schlitze rollen und beobachten, wo sie wieder herauskommen.</p>
+  <div class="zeichen-box" data-key="blackbox" data-label="Skizzieren Sie die Form, die Sie in Ihrer Black Box vermuten. Zeichnen Sie auch einige Murmelbahnen ein." data-hoehe="420"></div>
+  <div class="notiz-box" data-key="blackbox-sicher" data-label="Was können Sie über den versteckten Gegenstand sicher sagen? Was bleibt unsicher?"></div>
+  <p>Genau so ging Ernest Rutherford vor: Er konnte nicht ins Atom hineinschauen und schoss deshalb Teilchen darauf. Aus ihren Bahnen schloss er auf den Aufbau.</p>
+
+  <h3>2.2 Die Fragestellung</h3>
   <p>Wir wissen nun: Atome enthalten negativ geladene Elektronen und müssen auch positive Ladung enthalten. Aber <strong>wie ist diese positive Ladung verteilt?</strong> Gleichmässig im ganzen Atom? Oder an einem bestimmten Ort konzentriert?</p>
   <p>Um 1910 entwarf der neuseeländisch-britische Physiker <strong>Ernest Rutherford</strong> (1871–1937) zusammen mit seinen Mitarbeitern <strong>Hans Geiger</strong> und <strong>Ernest Marsden</strong> ein geniales Experiment, um das herauszufinden.</p>
 
-  <h3>2.2 Der Versuchsaufbau</h3>
+  <h3>2.3 Der Versuchsaufbau</h3>
   <p>Rutherford beschoss eine sehr dünne <strong>Goldfolie</strong> mit sogenannten <strong>Alphateilchen</strong> (α-Teilchen). Um die Goldfolie herum war ein Leuchtschirm angebracht, der bei jedem Auftreffen eines Alphateilchens kurz aufleuchtete. So konnte man beobachten, in welche Richtung die Teilchen nach dem Durchgang flogen.</p>
 
   <div class="glossar"><div class="glossar-label">Fachbegriff</div>
@@ -612,7 +625,7 @@ section { animation: fadeUp 0.4s ease-out both; }
     <p>Positiv geladene Teilchen, die aus 2 Protonen und 2 Neutronen bestehen (entsprechen einem Helium-4-Kern). Sie werden von manchen radioaktiven Stoffen ausgesendet und haben eine relativ grosse Masse.</p>
   </div>
 
-  <h3>2.3 Simulation: Beobachten Sie selbst</h3>
+  <h3>2.4 Simulation: Beobachten Sie selbst</h3>
   <p>Erkunden Sie die folgende Animation zum Streuversuch. Beobachten Sie genau, was mit den Alphateilchen geschieht, wenn sie auf die Goldfolie treffen.</p>
 
   <div class="sim-container">
@@ -626,68 +639,41 @@ section { animation: fadeUp 0.4s ease-out both; }
     <div class="sim-caption">© chemie-interaktiv.net – Animation zum Streuversuch von Rutherford.</div>
   </div>
 
-  <h3>2.4 Entdeckungsauftrag: Auswertung des Streuversuchs</h3>
-  <p>Anstatt die Ergebnisse einfach zu lesen, sollen Sie die Schlussfolgerungen <strong>selbst erarbeiten</strong>. Arbeiten Sie die folgenden Schritte der Reihe nach durch.</p>
+  <h3>2.5 Entdeckungsauftrag: Auswertung des Streuversuchs</h3>
+  <p>Ziehen Sie die Schlussfolgerungen <strong>selbst</strong>. Drei Schritte führen Sie zu Rutherfords Atommodell.</p>
 
-  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 1</div>
-    <h4>Beobachtungen sammeln</h4>
-    <p>Betrachten Sie die Simulation aufmerksam und besprechen Sie Ihre Beobachtungen mit Ihrer Mitschüler<sup>*</sup>in:</p>
-    <ol>
-      <li>Was geschieht mit den <strong>meisten</strong> α-Teilchen, wenn sie auf die Goldfolie treffen?</li>
-      <li>Was geschieht mit <strong>einigen wenigen</strong> α-Teilchen?</li>
-      <li>Was geschieht in <strong>ganz seltenen</strong> Fällen?</li>
-    </ol>
-    <p>Besprechen Sie Ihre drei Beobachtungen mit Ihrer Mitschüler<sup>*</sup>in, bevor Sie weiterlesen.</p>
+  <div class="discovery"><div class="discovery-label">Schritt 1 · Beobachten</div>
+    <h4>Was geschieht mit den α-Teilchen?</h4>
+    <p>Beobachten Sie die Animation genau. Was geschieht mit den <strong>meisten</strong>, mit <strong>einigen wenigen</strong> und mit <strong>ganz wenigen</strong> α-Teilchen?</p>
+    <div class="notiz-box" data-key="rf-beob" data-label="Ihre drei Beobachtungen"></div>
   </div>
 
-  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 2</div>
-    <h4>Interpretieren: Was bedeutet Beobachtung 1?</h4>
-    <p>Die allermeisten α-Teilchen fliegen ungehindert durch die Goldfolie (ca. 99,99 %).</p>
-    <ol>
-      <li>Was sagt das über das <strong>Innere des Atoms</strong> aus? Ist es dicht gefüllt oder eher leer?</li>
-      <li>Formulieren Sie einen Satz, der Ihre Schlussfolgerung zusammenfasst.</li>
-    </ol>
-    <div class="hint">Tipp: Stellen Sie sich vor, Sie werfen Bälle durch einen Raum. Wenn fast alle durchfliegen – was sagt das über die Hindernisse im Raum?</div>
+  <div class="discovery"><div class="discovery-label">Schritt 2 · Deuten</div>
+    <h4>Was bedeuten die Beobachtungen für das Atom?</h4>
+    <table class="data-table" style="margin-top:6px;">
+      <thead><tr><th style="width:38%">Beobachtung</th><th>Was folgt daraus für das Innere des Atoms?</th></tr></thead>
+      <tbody>
+        <tr><td>Fast alle α-Teilchen (ca. 99,99&nbsp;%) fliegen <strong>ungehindert</strong> durch.</td><td>Ist das Atom dicht gefüllt oder grösstenteils leer?</td></tr>
+        <tr><td>Einige werden <strong>leicht abgelenkt</strong>.</td><td>α-Teilchen sind positiv. Was muss sich in der Nähe ihrer Bahn befinden?</td></tr>
+        <tr><td>Etwa 1 von 20'000 prallt <strong>zurück</strong>.</td><td>Wie schwer, wie stark geladen und wie gross muss das sein, worauf es trifft?</td></tr>
+      </tbody>
+    </table>
+    <div class="notiz-box" data-key="rf-deutung" data-label="Ihre Deutungen zu den drei Beobachtungen"></div>
+    <div class="hint">Tipp: Gleiche Ladungen stossen sich ab. Rutherford selbst sagte sinngemäss: «Es war, als ob man mit einer Kanone auf Seidenpapier schiesst und die Kugel zurückkommt.»</div>
   </div>
 
-  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 3</div>
-    <h4>Interpretieren: Was bedeutet Beobachtung 2?</h4>
-    <p>Einige wenige α-Teilchen werden leicht abgelenkt.</p>
-    <ol>
-      <li>Die α-Teilchen sind <em>positiv</em> geladen. Welche Kraft könnte sie ablenken?</li>
-      <li>Was muss sich in der Nähe ihrer Bahn befinden?</li>
-    </ol>
-    <div class="hint">Tipp: Erinnern Sie sich an die elektrostatische Abstossung: Gleiche Ladungen stossen sich ab.</div>
-  </div>
-
-  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 4</div>
-    <h4>Interpretieren: Was bedeutet Beobachtung 3?</h4>
-    <p>Ganz wenige α-Teilchen (etwa 1 von 20'000) prallen zurück und fliegen in die entgegengesetzte Richtung.</p>
-    <ol>
-      <li>Damit ein α-Teilchen <em>zurückprallt</em>, muss es auf etwas treffen, das <strong>schwerer</strong> ist als es selbst und eine <strong>grosse positive Ladung</strong> hat. Warum?</li>
-      <li>Dieses «Etwas» muss <strong>sehr klein</strong> sein, weil es so selten getroffen wird. Warum?</li>
-      <li>Fassen Sie zusammen: Was befindet sich im Innern des Atoms?</li>
-    </ol>
-    <div class="hint">Rutherford selbst beschrieb seine Überraschung sinngemäss: «Es war, als ob man mit einer Kanone auf Seidenpapier schiesst und die Kugel zurückkommt.»</div>
-  </div>
-
-  <div class="discovery"><div class="discovery-label">Entdeckungsauftrag – Schritt 5</div>
+  <div class="discovery"><div class="discovery-label">Schritt 3 · Modell zeichnen</div>
     <h4>Ihr Atommodell</h4>
-    <p>Zeichnen Sie auf Basis Ihrer Schlussfolgerungen aus den Schritten 2–4 eine <strong>Skizze</strong> eines Atoms. Beschriften Sie:</p>
-    <ol>
-      <li>Wo befindet sich die positive Ladung und die Masse?</li>
-      <li>Wo befinden sich die Elektronen?</li>
-      <li>Was befindet sich dazwischen?</li>
-    </ol>
-    <p>Vergleichen Sie Ihre Skizze anschliessend mit dem Modell im nächsten Abschnitt.</p>
+    <p>Zeichnen Sie ein Atom, das alle drei Beobachtungen erklärt. Beschriften Sie, wo sich die <strong>positive Ladung</strong> und die <strong>Masse</strong> befinden, wo die <strong>Elektronen</strong> sind und was <strong>dazwischen</strong> liegt.</p>
+    <div class="zeichen-box" data-key="rf-modell" data-label="Ihr Atommodell" data-hoehe="460"></div>
+    <p class="wz-hinweis">Vergleichen Sie Ihre Zeichnung anschliessend mit dem Modell im nächsten Abschnitt.</p>
   </div>
 
-  <h3>2.5 Das Kern-Hülle-Modell von Rutherford</h3>
-  <p>Wenn Sie die Entdeckungsaufträge sorgfältig bearbeitet haben, sollten Sie zu ähnlichen Schlussfolgerungen gekommen sein wie Rutherford selbst:</p>
+  <h3>2.6 Das Kern-Hülle-Modell von Rutherford</h3>
+  <p>Wenn Sie den Entdeckungsauftrag sorgfältig bearbeitet haben, sollten Sie zu ähnlichen Schlussfolgerungen gekommen sein wie Rutherford selbst:</p>
   <p><strong>1. Der Atomkern:</strong> Die gesamte positive Ladung und nahezu die gesamte Masse des Atoms sind in einem winzigen Kern konzentriert. Der Kern hat einen Durchmesser von etwa 10⁻¹⁵ m bis 10⁻¹⁴ m.</p>
   <p><strong>2. Die Atomhülle:</strong> Die Elektronen bewegen sich in der Hülle um den Kern herum. Die Hülle hat einen Durchmesser von etwa 10⁻¹⁰ m – das ist rund <strong>10'000- bis 100'000-mal grösser</strong> als der Kern!</p>
   <p><strong>3. Leerer Raum:</strong> Das Atom besteht grösstenteils aus leerem Raum. Deshalb fliegen fast alle Alphateilchen ungehindert durch.</p>
-  <p><strong>Grössenvergleich:</strong> Wenn der Atomkern so gross wäre wie eine Erbse (ca. 1 cm), dann hätte die Atomhülle einen Durchmesser von etwa 100 Metern – das ist ein ganzes Fussballfeld!</p>
 
   <!-- Darstellung Kern-Hülle-Modell -->
   <div style="text-align:center; margin:32px 0;">
@@ -780,35 +766,29 @@ section { animation: fadeUp 0.4s ease-out both; }
     </div>
 
     <div class="question" id="q2-3">
-      <div class="q-text"><span class="q-num">3</span>Wenn der Atomkern so gross wäre wie eine Erbse — wie gross wäre dann die Atomhülle?</div>
-      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>So gross wie ein Tennisball</div>
-      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>So gross wie ein Zimmer (ca. 5 m)</div>
-      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>So gross wie ein Fussballfeld (ca. 100 m)</div>
-      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>So gross wie die Schweiz</div>
-      <div class="feedback correct">Richtig! Der Kern ist rund 10'000- bis 100'000-mal kleiner als das Atom. Bei einer Erbse von 1 cm ergibt das ca. 100 m — ein ganzes Fussballfeld, das fast nur aus leerem Raum besteht!</div>
-      <div class="feedback wrong">Der Grössenunterschied zwischen Kern und Hülle beträgt den Faktor 10'000 bis 100'000. Rechne: 1 cm × 10'000 = ?</div>
+      <div class="q-text"><span class="q-num">3</span>Die α-Teilchen fliegen auch an Elektronen vorbei. Warum werden sie von den Elektronen praktisch nicht abgelenkt?</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil Elektronen ungeladen sind.</div>
+      <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>Weil Elektronen sehr viel leichter sind als α-Teilchen.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil Elektronen ebenfalls positiv geladen sind.</div>
+      <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>Weil sich Elektronen im Kern befinden.</div>
+      <div class="feedback correct">Richtig! Ein α-Teilchen ist rund 7300-mal schwerer als ein Elektron – wie eine Bowlingkugel, die auf eine Erbse trifft. Ablenken kann es nur der schwere Kern.</div>
+      <div class="feedback wrong">Denken Sie an die Massen: Ein α-Teilchen besteht aus 2 Protonen und 2 Neutronen. Wie schwer ist im Vergleich dazu ein Elektron?</div>
     </div>
   </div>
 
   <!-- TASK CARD L2 -->
   
   <h4>Aufgaben zu Lektion 2</h4>
- <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">&#128221;</div>
-      <div class="task-card-title">Aufgaben 2.1 – 2.3 + Atommodell-Skizze</div>
-      <div class="task-card-desc">Übungsaufgaben auf OneNote</div>
-	  <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
-    </a>
-  </div>
+ <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Aufgaben 2.1 – 2.3 + Atommodell-Skizze</div><div class="dh-text">Im ausgedruckten Aufgabendossier Atombau, Phase 1.</div></div></div>
+
 </section>
 
 <!-- ============================================================ -->
 <!--                        LEKTION 3                             -->
 <!-- ============================================================ -->
-<section id="L3">
+<section id="L3" data-dl="DL2">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 03</div>
+    <div class="lesson-number">Lektion 03<span class="dl-tag">Doppellektion 2</span></div>
     <h2>Elementarteilchen, Isotope und Nuklidsymbole</h2>
   </div>
   <div class="lernziele"><h3>Lernziele</h3><ul>
@@ -867,6 +847,20 @@ section { animation: fadeUp 0.4s ease-out both; }
     </tbody>
   </table>
 
+  <h4>Trainer: Nuklidsymbole lesen</h4>
+  <div class="wz-box" id="nuklidTrainer">
+    <div class="wz-kopf"><span class="wz-name">Wie viele Teilchen stecken drin?</span><span class="wz-badge" id="ntZaehler">0 richtig</span></div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;">
+      <div id="ntSymbol" style="font-size:2.6rem;font-family:var(--serif);min-width:110px;text-align:center;"></div>
+      <table class="wz-table" style="max-width:360px;">
+        <tr><th>Protonen</th><th>Neutronen</th><th>Elektronen</th></tr>
+        <tr><td><input id="ntP" inputmode="numeric"></td><td><input id="ntN" inputmode="numeric"></td><td><input id="ntE" inputmode="numeric"></td></tr>
+      </table>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;"><button class="wz-btn primaer" id="ntCheck">Prüfen</button><button class="wz-btn" id="ntNext">Nächstes Atom</button></div>
+    <div class="wz-msg" id="ntMsg"></div>
+  </div>
+
   <h3>3.4 Isotope</h3>
   <p>Nicht alle Atome eines Elements sind identisch – das widerspricht Daltons ursprünglicher Annahme! Atome desselben Elements haben zwar immer dieselbe Anzahl Protonen (gleiche Ordnungszahl Z), können aber eine <strong>unterschiedliche Anzahl Neutronen</strong> besitzen. Solche Varianten nennt man <strong>Isotope</strong>.</p>
 
@@ -892,6 +886,18 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <h4>Relative Atommasse im PSE</h4>
   <p>Die im Periodensystem angegebene Atommasse ist ein <strong>gewichteter Durchschnitt</strong> der Massen aller natürlich vorkommenden Isotope eines Elements. Deshalb sind die Werte im PSE meistens keine ganzen Zahlen. Beispiel: Chlor hat die relative Atommasse 35,45 u – ein Mittelwert aus ca. 75 % ³⁵Cl und 25 % ³⁷Cl.</p>
+
+  <h4>Rechner: Woher kommt die Atommasse im PSE?</h4>
+  <div class="wz-box" id="isoRechner">
+    <div class="wz-kopf"><span class="wz-name">Stellen Sie die Häufigkeiten so ein, dass der Wert im PSE herauskommt.</span><span class="wz-badge">INTERAKTIV</span></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;" id="isoWahl"></div>
+    <div id="isoBalken" style="display:flex;height:34px;border-radius:8px;overflow:hidden;border:1px solid var(--border);font-size:0.85rem;font-weight:600;color:white;"></div>
+    <input type="range" id="isoSlider" min="0" max="100" step="0.5" value="50" style="width:100%;margin:12px 0 4px;">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:0.95rem;">
+      <span>Mittlere Atommasse: <strong id="isoWert"></strong></span><span>Wert im PSE: <strong id="isoZiel"></strong></span>
+    </div>
+    <div class="wz-msg" id="isoMsg"></div>
+  </div>
 
   <div class="merksatz"><div class="merksatz-label">Merksatz</div>
     <p>Isotope sind Atome desselben Elements mit gleicher Protonenzahl, aber unterschiedlicher Neutronenzahl. Sie haben dieselben chemischen Eigenschaften, unterscheiden sich jedoch in der Masse. Die Atommasse im PSE ist ein Durchschnitt über alle natürlichen Isotope.</p>
@@ -957,19 +963,14 @@ section { animation: fadeUp 0.4s ease-out both; }
 
 <!-- TASK CARD L3 -->
   <h4>Aufgaben zu Lektion 3</h4>
-  <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">📝</div>
-      <div class="task-card-title">Aufgaben 3.1 – 3.4</div>
-      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
-    </div>
-  </div>
+  <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Aufgaben 3.1 – 3.4</div><div class="dh-text">Im ausgedruckten Aufgabendossier Atombau, Phase 1.</div></div></div>
+
 </section>
 
 <!-- ============================================================ -->
 <!--                    ZUSAMMENFASSUNG                           -->
 <!-- ============================================================ -->
-<section id="zusammenfassung">
+<section id="zusammenfassung" data-dl="DL2">
   <div class="lesson-header" style="border-top-color: var(--merksatz-border);">
     <div class="lesson-number" style="color: var(--merksatz-label);">Zusammenfassung</div>
     <h2>Phase 1 auf einen Blick</h2>
@@ -1032,6 +1033,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 </section>
 
 </main>
+<script src="werkzeuge.js?v=20261113a"></script>
 </div>
 </div>
 
@@ -1079,6 +1081,113 @@ function selectOption(el) {
 }
 
 </script>
+<script>
+/* ===== Edison-Versuch ===== */
+(function () {
+  const svg = document.getElementById('edisonSvg'); if (!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; };
+  // Röhre
+  el('rect', { x: 40, y: 110, width: 400, height: 150, rx: 70, fill: '#f4f8fc', stroke: '#9fb6cf', 'stroke-width': 2.5 });
+  el('text', { x: 240, y: 280, 'text-anchor': 'middle', 'font-size': 12, fill: '#cbd5e1', 'font-family': 'DM Sans' }).textContent = 'luftleere Glasröhre';
+  // Glühdraht
+  const draht = el('polyline', { points: '110,140 120,150 100,160 120,170 100,180 120,190 100,200 120,210 110,225', fill: 'none', stroke: '#777', 'stroke-width': 3, 'stroke-linejoin': 'round' });
+  el('line', { x1: 110, y1: 225, x2: 110, y2: 292, stroke: '#9aa5b4', 'stroke-width': 2 });
+  el('line', { x1: 110, y1: 140, x2: 110, y2: 118, stroke: '#9aa5b4', 'stroke-width': 2 });
+  el('text', { x: 110, y: 104, 'text-anchor': 'middle', 'font-size': 12, fill: '#cbd5e1', 'font-family': 'DM Sans' }).textContent = 'Glühdraht';
+  const glow = el('circle', { cx: 110, cy: 182, r: 34, fill: 'rgba(255,150,40,0)' });
+  // Platte
+  el('rect', { x: 372, y: 135, width: 12, height: 95, fill: '#8a8f99', rx: 2 });
+  el('text', { x: 378, y: 250, 'text-anchor': 'middle', 'font-size': 12, fill: '#6b6560', 'font-family': 'DM Sans' }).textContent = 'Metallplatte';
+  // Leitung zum Elektroskop
+  el('polyline', { points: '378,135 378,60 520,60 520,92', fill: 'none', stroke: '#9aa5b4', 'stroke-width': 2 });
+  // Elektroskop
+  el('rect', { x: 470, y: 92, width: 100, height: 120, rx: 10, fill: 'white', stroke: '#9fb6cf', 'stroke-width': 2 });
+  el('line', { x1: 520, y1: 92, x2: 520, y2: 190, stroke: '#555', 'stroke-width': 3 });
+  const zeiger = el('line', { x1: 520, y1: 120, x2: 520, y2: 180, stroke: '#c05050', 'stroke-width': 3.5, 'stroke-linecap': 'round' });
+  el('text', { x: 520, y: 232, 'text-anchor': 'middle', 'font-size': 12, fill: '#cbd5e1', 'font-family': 'DM Sans' }).textContent = 'Elektroskop';
+  const ladTxt = el('text', { x: 520, y: 82, 'text-anchor': 'middle', 'font-size': 15, 'font-weight': 700, fill: '#e2e8f0', 'font-family': 'DM Sans' });
+  const eGroup = el('g', {});
+  let Q = 0, heiz = false, el_ = [];
+  const btnH = document.getElementById('edHeiz');
+  document.getElementById('edPlus').onclick = () => { Q = 1; };
+  document.getElementById('edMinus').onclick = () => { Q = -1; };
+  btnH.onclick = () => { heiz = !heiz; btnH.textContent = heiz ? 'Heizung ausschalten' : 'Heizung einschalten'; };
+  document.getElementById('edReset').onclick = () => { Q = 0; heiz = false; btnH.textContent = 'Heizung einschalten'; el_.forEach(e => e.n.remove()); el_ = []; };
+  function schritt() {
+    if (heiz && Math.random() < 0.5) {
+      const n = el('circle', { r: 3.5, fill: '#3d6fb0' }, eGroup);
+      el_.push({ n, x: 118 + Math.random() * 6, y: 145 + Math.random() * 75, vx: 0.6 + Math.random() * 0.6, vy: (Math.random() - 0.5) * 0.6, t: 0 });
+    }
+    el_ = el_.filter(e => {
+      e.t++;
+      const ax = Q > 0.02 ? 0.09 * Q + 0.02 : (Q < -0.02 ? -0.12 : -0.015);
+      e.vx += ax; e.x += e.vx; e.y += e.vy;
+      if (e.y < 125 || e.y > 245) e.vy *= -1;
+      if (e.x >= 370) { if (Q > 0) Q = Math.max(0, Q - 0.006); e.n.remove(); return false; }
+      if (e.x < 112 || e.t > 400) { e.n.remove(); return false; }
+      e.n.setAttribute('cx', e.x); e.n.setAttribute('cy', e.y); return true;
+    });
+    glow.setAttribute('fill', heiz ? 'rgba(255,150,40,0.28)' : 'rgba(255,150,40,0)');
+    draht.setAttribute('stroke', heiz ? '#ff8a1e' : '#777');
+    const w = Math.abs(Q) * 50 * Math.PI / 180;
+    zeiger.setAttribute('x1', 520 - Math.sin(w) * 30); zeiger.setAttribute('y1', 150 - Math.cos(w) * 30);
+    zeiger.setAttribute('x2', 520 + Math.sin(w) * 30); zeiger.setAttribute('y2', 150 + Math.cos(w) * 30);
+    ladTxt.textContent = Q > 0.02 ? '+ + +' : (Q < -0.02 ? '− − −' : 'ungeladen');
+    requestAnimationFrame(schritt);
+  }
+  schritt();
+})();
+
+/* ===== Trainer Nuklidsymbole ===== */
+(function () {
+  const box = document.getElementById('nuklidTrainer'); if (!box) return;
+  const N = [['H',1,1],['H',1,2],['He',2,4],['Li',3,7],['C',6,12],['C',6,13],['C',6,14],['N',7,14],['O',8,16],['O',8,18],['F',9,19],['Na',11,23],['Mg',12,24],['Al',13,27],['P',15,31],['S',16,32],['Cl',17,35],['Cl',17,37],['K',19,39],['Ca',20,40],['Fe',26,56],['Cu',29,63],['Zn',30,65],['Br',35,79],['Ag',47,108],['I',53,127],['Au',79,197],['U',92,235],['U',92,238]];
+  let cur, richtig = +(WZ.store.ntRichtig || 0);
+  const z = document.getElementById('ntZaehler'), msg = document.getElementById('ntMsg');
+  const ins = ['ntP', 'ntN', 'ntE'].map(id => document.getElementById(id));
+  function neu() {
+    let k; do { k = N[Math.floor(Math.random() * N.length)]; } while (cur && k === cur);
+    cur = k;
+    document.getElementById('ntSymbol').innerHTML = '<span style="display:inline-flex;flex-direction:column;font-size:1.1rem;line-height:1.1;text-align:right;vertical-align:middle;margin-right:2px;font-family:var(--sans)"><span>' + k[2] + '</span><span>' + k[1] + '</span></span>' + k[0];
+    ins.forEach(i => { i.value = ''; i.classList.remove('ok', 'bad'); }); msg.textContent = ''; msg.className = 'wz-msg';
+  }
+  z.textContent = richtig + ' richtig';
+  document.getElementById('ntCheck').onclick = () => {
+    const soll = [cur[1], cur[2] - cur[1], cur[1]]; let ok = 0;
+    ins.forEach((i, n) => { const g = +i.value === soll[n] && i.value !== ''; i.classList.toggle('ok', g); i.classList.toggle('bad', !g); if (g) ok++; });
+    if (ok === 3) { richtig++; WZ.store.ntRichtig = richtig; WZ.save(); z.textContent = richtig + ' richtig'; msg.className = 'wz-msg ok'; msg.textContent = '✓ Richtig! Neutronen = Massenzahl − Ordnungszahl = ' + cur[2] + ' − ' + cur[1] + ' = ' + (cur[2] - cur[1]) + '.'; }
+    else { msg.className = 'wz-msg bad'; msg.textContent = 'Noch nicht ganz. Unten steht die Ordnungszahl (Protonen), oben die Massenzahl (Protonen + Neutronen).'; }
+  };
+  document.getElementById('ntNext').onclick = neu;
+  neu();
+})();
+
+/* ===== Rechner mittlere Atommasse ===== */
+(function () {
+  const box = document.getElementById('isoRechner'); if (!box) return;
+  const E = [
+    { el: 'Chlor', a: ['³⁵Cl', 34.969], b: ['³⁷Cl', 36.966], pse: 35.45 },
+    { el: 'Kupfer', a: ['⁶³Cu', 62.930], b: ['⁶⁵Cu', 64.928], pse: 63.55 },
+    { el: 'Brom', a: ['⁷⁹Br', 78.918], b: ['⁸¹Br', 80.916], pse: 79.90 },
+    { el: 'Bor', a: ['¹⁰B', 10.013], b: ['¹¹B', 11.009], pse: 10.81 } ];
+  let k = 0;
+  const wahl = document.getElementById('isoWahl'), sl = document.getElementById('isoSlider');
+  E.forEach((e, i) => { const b = document.createElement('button'); b.className = 'tool-btn'; b.textContent = e.el; b.onclick = () => { k = i; sl.value = 50; zeig(); }; wahl.appendChild(b); });
+  function zeig() {
+    const e = E[k], pa = +sl.value, m = (pa * e.a[1] + (100 - pa) * e.b[1]) / 100;
+    [...wahl.children].forEach((b, i) => b.classList.toggle('chosen', i === k));
+    document.getElementById('isoBalken').innerHTML = '<div style="width:' + pa + '%;background:#4a7ab5;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden">' + e.a[0] + ' ' + pa.toFixed(1) + ' %</div><div style="width:' + (100 - pa) + '%;background:#c08a56;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden">' + e.b[0] + ' ' + (100 - pa).toFixed(1) + ' %</div>';
+    document.getElementById('isoWert').textContent = m.toFixed(2) + ' u';
+    document.getElementById('isoZiel').textContent = e.pse.toFixed(2) + ' u';
+    const msg = document.getElementById('isoMsg');
+    if (Math.abs(m - e.pse) < 0.015) { msg.className = 'wz-msg ok'; msg.textContent = '✓ Getroffen! In der Natur kommt ' + e.el + ' zu etwa ' + pa.toFixed(0) + ' % als ' + e.a[0] + ' und zu ' + (100 - pa).toFixed(0) + ' % als ' + e.b[0] + ' vor.'; }
+    else { msg.className = 'wz-msg'; msg.textContent = m > e.pse ? 'Zu schwer – es braucht mehr vom leichteren Isotop.' : 'Zu leicht – es braucht mehr vom schwereren Isotop.'; }
+  }
+  sl.oninput = zeig; zeig();
+})();
+</script>
+
 <script src="freigabe.js"></script>
 </body>
 </html>

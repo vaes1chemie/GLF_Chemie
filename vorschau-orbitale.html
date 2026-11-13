@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vorschau: Orbitale in 3D</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="werkzeuge.css">
+<style>
+:root { --bg:#faf9f7; --bg-alt:#f3f1ee; --text:#1a1a1a; --text-muted:#6b6560; --border:#e5e2dd; --accent:#4a7ab5; --accent-light:#e8eff7;
+  --serif:'DM Serif Display',Georgia,serif; --sans:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace; --radius:10px; }
+body { margin:0; font-family:var(--sans); background:var(--bg); color:var(--text); line-height:1.6; }
+main { max-width:880px; margin:0 auto; padding:32px 20px 60px; }
+h1 { font-family:var(--serif); font-weight:400; font-size:2rem; margin:0 0 6px; }
+.hinweis { background:#fdf5ee; border:1px solid #d4a574; color:#6b4226; border-radius:10px; padding:12px 16px; font-size:0.92rem; margin-bottom:22px; }
+.ov-wrap { display:grid; grid-template-columns: 1fr 230px; gap:16px; }
+.ov-wrap canvas { width:100%; aspect-ratio:1/1; background:#0f172a; border-radius:10px; cursor:grab; touch-action:none; }
+.ov-side h4 { margin:4px 0 6px; font-size:0.8rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted); }
+.ov-side .grp { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+.ov-side .tool-btn { padding:6px 10px; font-size:0.84rem; }
+.ov-info { font-size:0.9rem; background:var(--accent-light); border-radius:8px; padding:10px 12px; }
+@media (max-width:700px){ .ov-wrap { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Vorschau: Orbitale in 3D</h1>
+  <div class="hinweis"><strong>Nur Vorschau für Lehrperson.</strong> So würde der Viewer in Abschnitt 5.3 unter der bestehenden Abbildung erscheinen. Die Abbildung bleibt unverändert.</div>
+
+  <h4 style="margin:0 0 4px;">Simulation: Orbitale von allen Seiten betrachten</h4>
+  <p style="margin-top:0;">«Form» zeigt die Grenzfläche, innerhalb derer sich das Elektron meistens aufhält. «Punktwolke» zeigt mögliche Aufenthaltsorte: Wo die Punkte dicht liegen, ist das Elektron häufig. Die zwei Farben markieren die beiden Hälften (Phasen) eines Orbitals. Drehen Sie das Orbital mit der Maus oder dem Finger.</p>
+  <div class="wz-box">
+    <div class="ov-wrap">
+      <canvas id="ovCanvas" width="640" height="640"></canvas>
+      <div class="ov-side">
+        <h4>s-Orbitale</h4><div class="grp" data-g="s"></div>
+        <h4>p-Orbitale</h4><div class="grp" data-g="p"></div>
+        <h4>d-Orbitale (Auswahl)</h4><div class="grp" data-g="d"></div>
+        <h4>Darstellung</h4>
+        <div class="grp"><button class="tool-btn chosen" id="ovForm">Form</button><button class="tool-btn" id="ovPunkte">Punktwolke</button></div>
+        <div class="ov-info" id="ovInfo"></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+(function () {
+  const cv = document.getElementById('ovCanvas'), ctx = cv.getContext('2d');
+  // Winkelanteile (Vorzeichen bestimmt die Farbe), radiale Verteilung vereinfacht
+  const O = {
+    '1s':  { g: 's', kugel: [[0.38, 0, 1]], f: (x, y, z, r) => 1, rad: r => Math.exp(-r / 1.0), R: 4.5, info: '1s: kugelförmig. Ein Orbital, max. 2 Elektronen.' },
+    '2s':  { g: 's', kugel: [[0.85, 0, 0.8], [0.22, 1, 0.2]], f: (x, y, z, r) => 1, rad: r => Math.abs(2 - r) * Math.exp(-r / 2), R: 11, info: '2s: ebenfalls kugelförmig, aber grösser als 1s. Innen liegt eine zweite, kleine Kugelschale.' },
+    '2px': { g: 'p', f: (x, y, z, r) => x / r, rad: r => r * Math.exp(-r / 2), R: 10, info: '2p<sub>x</sub>: Hantel entlang der x-Achse.' },
+    '2py': { g: 'p', f: (x, y, z, r) => y / r, rad: r => r * Math.exp(-r / 2), R: 11, info: '2p<sub>y</sub>: Hantel entlang der y-Achse.' },
+    '2pz': { g: 'p', f: (x, y, z, r) => z / r, rad: r => r * Math.exp(-r / 2), R: 11, info: '2p<sub>z</sub>: Hantel entlang der z-Achse.' },
+    'alle 2p': { g: 'p', alle: ['2px', '2py', '2pz'], R: 11, info: 'Die drei p-Orbitale stehen senkrecht aufeinander. Zusammen fassen sie 6 Elektronen.' },
+    '3dxy': { g: 'd', f: (x, y, z, r) => x * y / (r * r), rad: r => r * r * Math.exp(-r / 3), R: 20, info: '3d<sub>xy</sub>: vier Keulen zwischen den Achsen («Kleeblatt»).' },
+    '3dz²': { g: 'd', f: (x, y, z, r) => (3 * z * z - r * r) / (r * r), rad: r => r * r * Math.exp(-r / 3), R: 20, info: '3d<sub>z²</sub>: Hantel entlang z mit einem Ring in der Mitte.' } };
+  function wolke(key, n, form) {
+    const o = O[key], pts = [];
+    if (form && o.kugel) {
+      o.kugel.forEach(([rr, sign, anteil]) => { for (let i = 0; i < n * anteil; i++) { const u = Math.random() * 2 - 1, t = Math.random() * 6.283, q = Math.sqrt(1 - u * u); pts.push([rr * q * Math.cos(t), rr * q * Math.sin(t), rr * u, sign]); } });
+      return pts;
+    }
+    const psi = (x, y, z) => { const r = Math.hypot(x, y, z) || 1e-6; const a = o.f(x, y, z, r); return [o.rad(r) * a, a]; };
+    let maxp = 0;
+    for (let i = 0; i < 30000; i++) { const x = (Math.random() * 2 - 1) * o.R, y = (Math.random() * 2 - 1) * o.R, z = (Math.random() * 2 - 1) * o.R; const v = Math.abs(psi(x, y, z)[0]); if (v > maxp) maxp = v; }
+    let tries = 0;
+    while (pts.length < n && tries < 2500000) {
+      tries++;
+      const x = (Math.random() * 2 - 1) * o.R, y = (Math.random() * 2 - 1) * o.R, z = (Math.random() * 2 - 1) * o.R;
+      if (Math.hypot(x, y, z) > o.R) continue;
+      const [v, a] = psi(x, y, z), w = Math.abs(v) / maxp;
+      const ok = form ? (w > 0.26 && w < 0.31) : Math.random() < w * w * 1.6;
+      if (ok) pts.push([x / o.R, y / o.R, z / o.R, v >= 0 ? 0 : 1]);
+    }
+    return pts;
+  }
+  let akt = '2pz', pts = [], ax = -0.5, ay = 0.6, form = true;
+  const FARBEN = [[[250, 204, 21], [249, 115, 22]], [[96, 165, 250], [52, 211, 153]], [[244, 114, 182], [167, 139, 250]]];
+  function lade(k) {
+    akt = k; const o = O[k];
+    pts = o.alle ? o.alle.flatMap((kk, i) => wolke(kk, 2500, form).map(p => [p[0] * O[kk].R / o.R, p[1] * O[kk].R / o.R, p[2] * O[kk].R / o.R, p[3] + 2 * i])) : wolke(k, 6000, form);
+    document.querySelectorAll('.ov-side .grp .tool-btn[data-k]').forEach(b => b.classList.toggle('chosen', b.dataset.k === k));
+    document.getElementById('ovInfo').innerHTML = o.info;
+  }
+  function rot(p) {
+    let [x, y, z] = p; // Welt: z nach oben
+    let X = x * Math.cos(ay) - y * Math.sin(ay), Y = x * Math.sin(ay) + y * Math.cos(ay), Z = z;
+    const Y2 = Y * Math.cos(ax) - Z * Math.sin(ax), Z2 = Y * Math.sin(ax) + Z * Math.cos(ax);
+    return [X, Z2, Y2]; // Bildschirm x, y (oben), Tiefe
+  }
+  function farbe(i, tiefe, alpha) {
+    const pair = FARBEN[Math.floor(i / 2) % 3], c = pair[i % 2], k = 0.65 + 0.35 * (tiefe + 1) / 2;
+    return 'rgba(' + c.map(v => Math.round(v * k)).join(',') + ',' + alpha + ')';
+  }
+  function zeichne() {
+    const W = cv.width, S = W * 0.42, C = W / 2;
+    ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, W, W);
+    // Achsen
+    [[1, 0, 0, 'x'], [0, 1, 0, 'y'], [0, 0, 1, 'z']].forEach(a => {
+      const p = rot(a), m = rot([-a[0], -a[1], -a[2]]);
+      ctx.strokeStyle = 'rgba(203,213,225,0.45)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(C + m[0] * S * 1.1, C - m[1] * S * 1.1); ctx.lineTo(C + p[0] * S * 1.1, C - p[1] * S * 1.1); ctx.stroke();
+      ctx.fillStyle = '#e2e8f0'; ctx.font = '600 22px DM Sans, sans-serif'; ctx.fillText(a[3], C + p[0] * S * 1.18 - 6, C - p[1] * S * 1.18 + 8);
+    });
+    const proj = pts.map(p => { const r = rot(p); return [r[0], r[1], r[2], p[3]]; }).sort((a, b) => b[2] - a[2]);
+    proj.forEach(p => {
+      const x = C + p[0] * S, y = C - p[1] * S;
+      if (form) { ctx.fillStyle = farbe(p[3], -p[2], 0.85); ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 6.283); ctx.fill(); }
+      else { ctx.fillStyle = farbe(p[3], -p[2], 0.7); ctx.fillRect(x - 1.2, y - 1.2, 2.4, 2.4); }
+    });
+    ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(C, C, 5, 0, 6.283); ctx.fill();
+  }
+  Object.keys(O).forEach(k => { const b = document.createElement('button'); b.className = 'tool-btn'; b.dataset.k = k; b.innerHTML = k.replace(/(\d)([spd])(.+)?/, (m, n, l, r) => n + l + (r ? '<sub>' + r + '</sub>' : '')); b.onclick = () => { lade(k); }; document.querySelector('.grp[data-g="' + O[k].g + '"]').appendChild(b); });
+  const modus = f => { form = f; document.getElementById('ovForm').classList.toggle('chosen', f); document.getElementById('ovPunkte').classList.toggle('chosen', !f); lade(akt); };
+  document.getElementById('ovForm').onclick = () => modus(true);
+  document.getElementById('ovPunkte').onclick = () => modus(false);
+  let drag = null, auto = true;
+  cv.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY]; auto = false; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; });
+  cv.addEventListener('pointermove', e => { if (!drag) return; ay += (e.clientX - drag[0]) * 0.01; ax += (e.clientY - drag[1]) * 0.01; ax = Math.max(-1.5, Math.min(1.5, ax)); drag = [e.clientX, e.clientY]; });
+  const up = () => { drag = null; cv.style.cursor = 'grab'; }; cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+  (function loop() { if (auto) ay += 0.004; zeichne(); requestAnimationFrame(loop); })();
+  lade('2pz');
+})();
+</script>
+</body>
+</html>

@@ -1179,7 +1179,12 @@ em { font-style: italic; color: var(--text-muted); }
 }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 section { animation: fadeUp 0.4s ease-out both; }
+.lewis-train .lewis-pos.lb-klick { cursor: pointer; border: 1.5px dashed #c9c4bb; border-radius: 6px; min-width: 22px; min-height: 22px; transition: background .15s, border-color .15s; }
+.lewis-train .lewis-pos.lb-klick:hover { background: var(--accent-light); border-color: var(--accent); }
+.lewis-train.ok { outline: 2px solid var(--correct-border); border-radius: 10px; }
+.lewis-train.bad { outline: 2px solid var(--wrong-border); border-radius: 10px; }
 </style>
+<link rel="stylesheet" href="werkzeuge.css?v=20261113a">
 </head>
 <body>
 <div class="layout">
@@ -1192,26 +1197,26 @@ section { animation: fadeUp 0.4s ease-out both; }
     <a href="index.html" style="display:inline-flex; align-items:center; gap:4px; font-family:var(--sans); font-size:0.72rem; font-weight:600; color:var(--accent); text-decoration:none; margin-top:8px;">&larr; Themenübersicht</a>
   </div>
 
-  <div class="sidebar-phase">Phase 1 · Lektionen 1–3</div>
-  <a href="atombau.html#L1" class="nav-item done"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
-  <a href="atombau.html#L2" class="nav-item done"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
-  <a href="atombau.html#L3" class="nav-item done"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
+  <div class="sidebar-phase">Phase 1 · Lektionen 1–3 · DL 1–2</div>
+  <a href="atombau.html#L1" data-dl="DL1" class="nav-item done"><span class="nav-dot"></span>L1 – Ladungen &amp; innere Struktur</a>
+  <a href="atombau.html#L2" data-dl="DL1" class="nav-item done"><span class="nav-dot"></span>L2 – Streuversuch Rutherford</a>
+  <a href="atombau.html#L3" data-dl="DL2" class="nav-item done"><span class="nav-dot"></span>L3 – Teilchen &amp; Isotope</a>
 
-  <div class="sidebar-phase">Phase 2 · Lektionen 4–7</div>
-  <a href="atombau-phase2.html#L4" class="nav-item done"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr)</a>
-  <a href="atombau-phase2.html#L5" class="nav-item done"><span class="nav-dot"></span>L5 – Orbitalmodell</a>
-  <a href="atombau-phase2.html#L6" class="nav-item done"><span class="nav-dot"></span>L6 – Elektronenkonfiguration</a>
-  <a href="atombau-phase2.html#L7" class="nav-item done"><span class="nav-dot"></span>L7 – Flammenfärbung</a>
+  <div class="sidebar-phase">Phase 2 · Lektionen 4–7 · DL 3–4</div>
+  <a href="atombau-phase2.html#L4" data-dl="DL3" class="nav-item done"><span class="nav-dot"></span>L4 – Schalenmodell (Bohr)</a>
+  <a href="atombau-phase2.html#L5" data-dl="DL3" class="nav-item done"><span class="nav-dot"></span>L5 – Orbitalmodell</a>
+  <a href="atombau-phase2.html#L6" data-dl="DL4" class="nav-item done"><span class="nav-dot"></span>L6 – Elektronenkonfiguration</a>
+  <a href="atombau-phase2.html#L7" data-dl="DL4" class="nav-item done"><span class="nav-dot"></span>L7 – Flammenfärbung</a>
 
-  <div class="sidebar-phase">Phase 3 · Lektionen 8–10</div>
-  <a href="#L8" class="nav-item active"><span class="nav-dot"></span>L8 – Das Periodensystem</a>
-  <a href="#L9" class="nav-item"><span class="nav-dot"></span>L9 – Trends im PSE</a>
-  <a href="#L10" class="nav-item"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis</a>
-  <a href="#zusammenfassung3" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
+  <div class="sidebar-phase">Phase 3 · Lektionen 8–10 · DL 5–6</div>
+  <a href="#L8" data-dl="DL5" class="nav-item active"><span class="nav-dot"></span>L8 – Das Periodensystem</a>
+  <a href="#L9" data-dl="DL5" class="nav-item"><span class="nav-dot"></span>L9 – Trends im PSE</a>
+  <a href="#L10" data-dl="DL6" class="nav-item"><span class="nav-dot"></span>L10 – Valenzelektronen &amp; Lewis</a>
+  <a href="#zusammenfassung3" data-dl="DL6" class="nav-item"><span class="nav-dot"></span>Zusammenfassung</a>
 
-  <div class="sidebar-phase">Phase 4 · Lektionen 11–12</div>
-  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L11 – Repetition <span class="lock-icon">&#x1F512;</span></a>
-  <a class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen <span class="lock-icon">&#x1F512;</span></a>
+  <div class="sidebar-phase">Phase 4 · Lektionen 11–12 · DL 7</div>
+  <a data-dl="DL7" class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L11 – Repetition <span class="lock-icon">&#x1F512;</span></a>
+  <a data-dl="DL7" class="nav-item locked" data-phase="4"><span class="nav-dot"></span>L12 – Ausblick Bindungstypen <span class="lock-icon">&#x1F512;</span></a>
 </nav>
 
 <!-- ======== MAIN ======== -->
@@ -1221,7 +1226,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 <main class="content">
 
 <div class="hero-inline">
-  <div class="phase-badge">Phase 3 · Lektionen 8–10</div>
+  <div class="phase-badge">Phase 3 · Lektionen 8–10 · DL 5–6</div>
   <h1>Vom Atom zur Chemie</h1>
   <p class="subtitle">Periodensystem, Trends und Valenzelektronen — die Brücke zur Chemie der Stoffe</p>
 </div>
@@ -1229,9 +1234,9 @@ section { animation: fadeUp 0.4s ease-out both; }
 <!-- ============================================================ -->
 <!--                        LEKTION 8                              -->
 <!-- ============================================================ -->
-<section id="L8">
+<section id="L8" data-dl="DL5">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 08</div>
+    <div class="lesson-number">Lektion 08<span class="dl-tag">Doppellektion 5</span></div>
     <h2>Das Periodensystem der Elemente</h2>
   </div>
 
@@ -1243,12 +1248,29 @@ section { animation: fadeUp 0.4s ease-out both; }
     <li>Sie können die wichtigsten Hauptgruppen (Alkalimetalle, Erdalkalimetalle, Halogene, Edelgase) charakterisieren.</li>
   </ul></div>
 
-  <h3>8.1 Vom freien Atom zur geordneten Welt der Stoffe</h3>
+  <h3>8.1 Einstieg: Mendelejew spielen</h3>
+  <p>Im Jahr 1869 kannte man rund 60 Elemente – aber kein Periodensystem. Sie erhalten Karten mit Steckbriefen von Elementen, so wie man sie damals kannte. Statt Namen stehen Buchstaben darauf. Ihre Aufgabe: <strong>Bringen Sie Ordnung in die Elemente.</strong> Ein Hinweis: Ordnen Sie zuerst nach der Atommasse und achten Sie dann auf die Formeln der Oxide und der Wasserstoffverbindungen.</p>
+  <div class="notiz-box" data-key="mendelejew-ordnung" data-label="Nach welchen Regeln haben Sie die Karten geordnet? Wo sind Sie auf Probleme gestossen?"></div>
+  <p>Mendelejew bemerkte zwei Stellen, an denen ein Element zu fehlen schien. Er liess Lücken und sagte voraus, wie die fehlenden Elemente sein müssten. Tun Sie es ihm gleich:</p>
+  <div class="wz-scroll"><table class="wz-table" id="mdTabelle" style="max-width:640px;">
+    <tr><th></th><th>Atommasse (ca.)</th><th>Formel des Oxids</th><th>Metall oder Nichtmetall?</th></tr>
+    <tr><th>Lücke 1</th><td><input data-k="l1m"></td><td><input data-k="l1o"></td><td><input data-k="l1e" style="max-width:150px"></td></tr>
+    <tr><th>Lücke 2</th><td><input data-k="l2m"></td><td><input data-k="l2o"></td><td><input data-k="l2e" style="max-width:150px"></td></tr>
+  </table></div>
+  <p class="wz-hinweis">Drehen Sie die Karten erst um, wenn Sie Ihre Vorhersage eingetragen haben.</p>
+  <div class="stoff-reveal">
+    <button class="sr-card" data-key="md-ga"><div class="sr-front"><div class="sr-formel">Lücke 1</div><div class="sr-tipp">Klicken zum Aufdecken</div></div>
+      <div class="sr-back"><strong>Gallium (Ga), entdeckt 1875</strong>Atommasse 69,7 · Oxid Ga₂O₃ · silbriges Metall, das schon in der Hand schmilzt (30 °C). Mendelejew nannte es «Eka-Aluminium»: das Element unter Aluminium.</div></button>
+    <button class="sr-card" data-key="md-ge"><div class="sr-front"><div class="sr-formel">Lücke 2</div><div class="sr-tipp">Klicken zum Aufdecken</div></div>
+      <div class="sr-back"><strong>Germanium (Ge), entdeckt 1886</strong>Atommasse 72,6 · Oxid GeO₂ · grau glänzendes Halbmetall. Mendelejew nannte es «Eka-Silicium»: das Element unter Silicium.</div></button>
+  </div>
+
+  <h3>8.2 Vom freien Atom zur geordneten Welt der Stoffe</h3>
   <p>In Phase 2 haben Sie gelernt, wie Elektronen in Orbitalen um den Kern angeordnet sind und wie Sie eine Elektronenkonfiguration aufschreiben. Doch warum braucht es das alles? Die Antwort lautet: Weil die <strong>Elektronenkonfiguration die chemischen Eigenschaften eines Elements bestimmt</strong>. Und diese Eigenschaften wiederholen sich periodisch — genau das macht das Periodensystem so kraftvoll.</p>
 
   <p>In dieser Lektion lernen Sie, wie das PSE aufgebaut ist, wer es entdeckt hat — und wie eng es mit dem Orbitalmodell verwoben ist.</p>
 
-  <h3>8.2 Vom Chaos zur Ordnung — ein historischer Streifzug</h3>
+  <h3>8.3 Vom Chaos zur Ordnung — ein historischer Streifzug</h3>
   <p>Anfang des 19. Jahrhunderts kannte man rund 30 Elemente, fünfzig Jahre später bereits 60. Die Frage drängte sich auf: Lässt sich diese wachsende Zahl irgendwie sinnvoll ordnen?</p>
 
   <div class="timeline">
@@ -1322,7 +1344,7 @@ section { animation: fadeUp 0.4s ease-out both; }
     <p>Heute ist das PSE nach <strong>steigender Protonenzahl (Ordnungszahl Z)</strong> geordnet. Elemente mit ähnlichen Eigenschaften stehen <strong>untereinander in Spalten</strong> — den Gruppen.</p>
   </div>
 
-  <h3>8.3 Wie ist das PSE aufgebaut?</h3>
+  <h3>8.4 Wie ist das PSE aufgebaut?</h3>
 
   <div class="glossar"><div class="glossar-label">Fachbegriff</div>
     <div class="glossar-term">Periode</div>
@@ -1336,7 +1358,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <p>Man unterscheidet 18 Gruppen. Die <strong>8 Hauptgruppen</strong> (rote Beschriftung im PSE unten) tragen die Nummern I–VIII, dazwischen liegen die <strong>10 Nebengruppen</strong> (Perioden 4–7, sogenannte Übergangsmetalle). Eine zusätzliche Unterteilung trennt das PSE in <strong>Metalle</strong> (links und Mitte), <strong>Nichtmetalle</strong> (rechts oben) und die schmale Diagonale der <strong>Halbmetalle</strong> dazwischen.</p>
 
-  <h3>8.4 Die Brücke zum Orbitalmodell: Blockstruktur</h3>
+  <h3>8.5 Die Brücke zum Orbitalmodell: Blockstruktur</h3>
   <p>Das PSE lässt sich auch nach den <strong>zuletzt besetzten Orbitalen</strong> einteilen. Diese Einteilung verbindet das PSE direkt mit dem Orbitalmodell aus Phase 2:</p>
 
   <ul>
@@ -1378,7 +1400,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <p style="font-size:0.85rem; color:var(--text-muted); margin-top:-8px;">💡 <strong>Tipp:</strong> Klicken Sie auf eine der vier wichtigsten Hauptgruppen (I, II, VII, VIII), um Detailinformationen zu sehen.</p>
 
-  <h3>8.5 Quiz: Verstehen Sie das PSE?</h3>
+  <h3>8.6 Quiz: Verstehen Sie das PSE?</h3>
   <div class="quiz-section">
     <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Kurzcheck: Lektion 8</div></div>
     <div class="quiz-sub">Testen Sie Ihr Verständnis – klicken Sie auf die richtige Antwort.</div>
@@ -1430,23 +1452,17 @@ section { animation: fadeUp 0.4s ease-out both; }
   </div>
 
   <h4>Aufgaben zu Lektion 8</h4>
-  <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">&#128221;</div>
-      <div class="task-card-title">Aufgaben 8.1 – 8.3</div>
-      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
-      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
-    </div>
-  </div>
+  <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Aufgaben 8.1 – 8.3</div><div class="dh-text">Im ausgedruckten Aufgabendossier Atombau, Phase 3.</div></div></div>
+
 </section>
 
 
 <!-- ============================================================ -->
 <!--                        LEKTION 9                              -->
 <!-- ============================================================ -->
-<section id="L9">
+<section id="L9" data-dl="DL5">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 09</div>
+    <div class="lesson-number">Lektion 09<span class="dl-tag">Doppellektion 5</span></div>
     <h2>Trends im Periodensystem</h2>
   </div>
 
@@ -1511,7 +1527,40 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <p><strong>Erklärung:</strong> Je näher ein Elektron am Kern sitzt (kleiner Atomradius!), desto fester wird es gehalten und desto mehr Energie braucht es, um es loszureissen. Daher: kleines Atom → hohe IE, grosses Atom → tiefe IE. Atomradius und IE sind also «zwei Seiten derselben Medaille».</p>
 
-  <h3>9.4 Aus Atomen werden Ionen</h3>
+  <h3>9.4 Demonstration: Alkalimetalle in Wasser</h3>
+  <p>Ihre Lehrperson gibt je ein kleines Stück <strong>Lithium</strong>, <strong>Natrium</strong> und <strong>Kalium</strong> in eine Schale mit Wasser. Alle drei stehen in der I. Hauptgruppe und haben ein einziges Valenzelektron.</p>
+  <div class="predict" data-key="alkali">
+    <div class="pr-frage">Vorhersage: Welches Metall reagiert am heftigsten mit Wasser?</div>
+    <div class="pr-opts">
+      <button class="tool-btn" data-v="li">Lithium</button>
+      <button class="tool-btn" data-v="na">Natrium</button>
+      <button class="tool-btn" data-v="k">Kalium</button>
+      <button class="tool-btn" data-v="gleich">Alle gleich stark</button>
+    </div>
+  </div>
+  <div class="experiment"><div class="experiment-label">Demonstration · Beobachtungen</div>
+    <div class="wz-scroll"><table class="data-table">
+      <thead><tr><th>Metall</th><th>Ihre Beobachtungen</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Lithium</strong></td><td><div class="notiz-box" data-key="alkali-li" data-label="" data-rows="2" style="margin:0;padding:4px 6px;"></div></td></tr>
+        <tr><td><strong>Natrium</strong></td><td><div class="notiz-box" data-key="alkali-na" data-label="" data-rows="2" style="margin:0;padding:4px 6px;"></div></td></tr>
+        <tr><td><strong>Kalium</strong></td><td><div class="notiz-box" data-key="alkali-k" data-label="" data-rows="2" style="margin:0;padding:4px 6px;"></div></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="predict-echo" data-key="alkali"></div>
+  <div class="aufgabe"><div class="aufgabe-label">Auswertung</div>
+    <p><strong>a)</strong> Ordnen Sie die drei Metalle nach der Heftigkeit der Reaktion.<br>
+    <strong>b)</strong> Bei der Reaktion gibt jedes Metallatom sein Valenzelektron ab. Wie verändert sich die Ionisierungsenergie von Lithium über Natrium zu Kalium (9.3)?<br>
+    <strong>c)</strong> Erklären Sie mit dem Atomradius und dem Coulomb-Gesetz, warum Kalium am heftigsten reagiert.<br>
+    <strong>d)</strong> Sagen Sie voraus, wie Rubidium und Caesium reagieren würden.</p>
+    <div class="notiz-box" data-key="alkali-auswertung" data-label="Ihre Antworten zu a) bis d)"></div>
+  </div>
+  <details class="aufloesung"><summary>Auflösung</summary>
+    <p>Kalium reagiert am heftigsten (es entzündet sich, violette Flamme), dann Natrium (flitzt als Kugel umher), Lithium am schwächsten. Von oben nach unten in der Gruppe wird das Atom grösser: Das Valenzelektron ist weiter vom Kern entfernt und wird nach dem Coulomb-Gesetz schwächer angezogen. Die Ionisierungsenergie sinkt, das Elektron lässt sich leichter abgeben – die Reaktion wird heftiger. Rubidium und Caesium reagieren noch heftiger, sogar explosiv.</p>
+  </details>
+
+  <h3>9.5 Aus Atomen werden Ionen</h3>
 
   <p>Sobald ein Atom ein Elektron <strong>verliert</strong> oder ein Elektron <strong>aufnimmt</strong>, wird daraus ein elektrisch geladenes Teilchen — ein <strong>Ion</strong>.</p>
 
@@ -1599,7 +1648,7 @@ section { animation: fadeUp 0.4s ease-out both; }
     </div>
   </div>
 
-  <h3>9.5 Ionen-Schreibweise und Hauptgruppen</h3>
+  <h3>9.6 Ionen-Schreibweise und Hauptgruppen</h3>
 
   <p>Welche Ionen ein Atom typischerweise bildet, hängt direkt von seiner Position im PSE ab. Atome aus den Hauptgruppen I und II geben gerne Elektronen ab und werden zu Kationen. Atome aus den Hauptgruppen VI und VII nehmen gerne Elektronen auf und werden zu Anionen. Edelgase bilden in der Regel gar keine Ionen — sie sind ja schon «zufrieden».</p>
 
@@ -1619,7 +1668,7 @@ section { animation: fadeUp 0.4s ease-out both; }
     <p>Atome bilden Ionen, deren Ladung der typischen «Tendenz» ihrer Hauptgruppe entspricht: <strong>links abgeben (positiv)</strong>, <strong>rechts aufnehmen (negativ)</strong>. <em>Warum</em> sie das tun, beantworten wir in L10 mit der Edelgasregel — und die Bindungen, die daraus entstehen, sind das Thema von Phase 4.</p>
   </div>
 
-  <h3>9.6 Die Elektronegativität — ein kurzer Ausblick</h3>
+  <h3>9.7 Die Elektronegativität — ein kurzer Ausblick</h3>
 
   <div class="glossar"><div class="glossar-label">Fachbegriff</div>
     <div class="glossar-term">Elektronegativität (EN)</div>
@@ -1628,7 +1677,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <p>Die Elektronegativität folgt im Wesentlichen denselben Trends wie die Ionisierungsenergie: Sie nimmt innerhalb einer Periode <strong>nach rechts hin zu</strong> und innerhalb einer Gruppe <strong>nach unten hin ab</strong>. Fluor ist mit EN = 4,0 das «elektronegativste» Element überhaupt.</p>
 
-  <h3>9.7 Trends im interaktiven PSE</h3>
+  <h3>9.8 Trends im interaktiven PSE</h3>
   <p>Im PSE unten können Sie die drei Trends als Heatmap einblenden. Dunklere Farbe steht jeweils für höhere Werte. Beobachten Sie, wie sich die Färbung von Periode zu Periode und von Gruppe zu Gruppe verändert.</p>
 
   <!-- ============== ZWEITES PSE FÜR L9 (TRENDS) ============== -->
@@ -1650,7 +1699,7 @@ section { animation: fadeUp 0.4s ease-out both; }
     <div class="pse-legend" id="pseTrendLegend"></div>
   </div>
 
-  <h3>9.8 Quiz: Verstehen Sie die Trends?</h3>
+  <h3>9.9 Quiz: Verstehen Sie die Trends?</h3>
   <div class="quiz-section">
     <div class="quiz-header"><div class="quiz-icon">?</div><div class="quiz-title">Kurzcheck: Lektion 9</div></div>
     <div class="quiz-sub">Testen Sie Ihr Verständnis – klicken Sie auf die richtige Antwort.</div>
@@ -1693,23 +1742,17 @@ section { animation: fadeUp 0.4s ease-out both; }
   </div>
 
   <h4>Aufgaben zu Lektion 9</h4>
-  <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">&#128221;</div>
-      <div class="task-card-title">Aufgaben 9.1 – 9.3</div>
-      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
-      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
-    </div>
-  </div>
+  <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Aufgaben 9.1 – 9.3</div><div class="dh-text">Im ausgedruckten Aufgabendossier Atombau, Phase 3.</div></div></div>
+
 </section>
 
 
 <!-- ============================================================ -->
 <!--                        LEKTION 10                             -->
 <!-- ============================================================ -->
-<section id="L10">
+<section id="L10" data-dl="DL6">
   <div class="lesson-header">
-    <div class="lesson-number">Lektion 10</div>
+    <div class="lesson-number">Lektion 10<span class="dl-tag">Doppellektion 6</span></div>
     <h2>Valenzelektronen und das Lewis-Symbol</h2>
   </div>
 
@@ -1811,43 +1854,26 @@ section { animation: fadeUp 0.4s ease-out both; }
     <p style="font-size:0.86rem; color:var(--text-muted); margin-top:14px; text-align:center;">Die Lewis-Symbole für die 2. Periode. Beachten Sie: Bis 4 Punkte → einzeln. Ab 5 → paaren, gepaarte Elektronen werden als <strong>Strich</strong> gezeichnet.</p>
   </div>
 
-  <h3>10.6 Lewis-Symbol-Builder</h3>
-  <p>Trainieren Sie selbst! Wählen Sie ein Element aus, schauen Sie, wie viele Valenzelektronen es hat, und prüfen Sie das Lewis-Symbol Schritt für Schritt.</p>
+  <h3>10.6 Lewis-Symbol-Trainer</h3>
+  <p>Jetzt zeichnen Sie selbst! Wählen Sie ein Element, bestimmen Sie die Anzahl Valenzelektronen und setzen Sie Punkte und Striche um das Symbol. Klicken Sie dazu auf die Plätze oben, rechts, unten und links: <strong>1× Klick = Punkt</strong> (ein Elektron), <strong>2× = Strich</strong> (Elektronenpaar), <strong>3× = leer</strong>.</p>
 
   <div class="lewis-builder">
     <div class="lewis-builder-header">
       <span class="pse-controls-label">Element:</span>
-      <select id="lewisElementSelect" class="lewis-select">
-        <option value="H">Wasserstoff (H) — 1 VE</option>
-        <option value="Li">Lithium (Li) — 1 VE</option>
-        <option value="Be">Beryllium (Be) — 2 VE</option>
-        <option value="B">Bor (B) — 3 VE</option>
-        <option value="C" selected>Kohlenstoff (C) — 4 VE</option>
-        <option value="N">Stickstoff (N) — 5 VE</option>
-        <option value="O">Sauerstoff (O) — 6 VE</option>
-        <option value="F">Fluor (F) — 7 VE</option>
-        <option value="Ne">Neon (Ne) — 8 VE</option>
-        <option value="Na">Natrium (Na) — 1 VE</option>
-        <option value="Mg">Magnesium (Mg) — 2 VE</option>
-        <option value="Al">Aluminium (Al) — 3 VE</option>
-        <option value="Si">Silicium (Si) — 4 VE</option>
-        <option value="P">Phosphor (P) — 5 VE</option>
-        <option value="S">Schwefel (S) — 6 VE</option>
-        <option value="Cl">Chlor (Cl) — 7 VE</option>
-        <option value="Ar">Argon (Ar) — 8 VE</option>
-      </select>
+      <select id="lewisElementSelect" class="lewis-select"><option value="H">Wasserstoff (H)</option><option value="Li">Lithium (Li)</option><option value="Be">Beryllium (Be)</option><option value="B">Bor (B)</option><option value="C" selected>Kohlenstoff (C)</option><option value="N">Stickstoff (N)</option><option value="O">Sauerstoff (O)</option><option value="F">Fluor (F)</option><option value="Ne">Neon (Ne)</option><option value="Na">Natrium (Na)</option><option value="Mg">Magnesium (Mg)</option><option value="Al">Aluminium (Al)</option><option value="Si">Silicium (Si)</option><option value="P">Phosphor (P)</option><option value="S">Schwefel (S)</option><option value="Cl">Chlor (Cl)</option><option value="Ar">Argon (Ar)</option></select>
+      <button class="lewis-btn" id="lewisZufall" style="margin-left:8px;">Zufälliges Element</button>
+      <span class="wz-badge" id="lewisRichtig" style="margin-left:auto;">0 richtig</span>
     </div>
-
     <div class="lewis-builder-body">
       <div class="lewis-canvas-wrap">
-        <div class="lewis-symbol-canvas lewis-canvas-big" id="lewisBuilderCanvas" data-symbol="C" data-electrons="0"></div>
-        <div class="lewis-builder-counter" id="lewisCounter">0 / 4 Elektronen</div>
+        <div class="lewis-symbol-canvas lewis-canvas-big lewis-train" id="lewisBuilderCanvas"></div>
+        <div class="lewis-builder-counter" id="lewisCounter">0 Elektronen gesetzt</div>
       </div>
       <div class="lewis-builder-controls">
-        <button class="lewis-btn primary" id="lewisAddBtn" onclick="lewisAdd()">+ Punkt setzen</button>
-        <button class="lewis-btn" onclick="lewisReset()">Zurücksetzen</button>
-        <button class="lewis-btn" onclick="lewisShowSolution()">Lösung zeigen</button>
-        <div class="lewis-builder-hint" id="lewisHint">Klicken Sie auf «+ Punkt setzen», um Schritt für Schritt das Lewis-Symbol aufzubauen.</div>
+        <button class="lewis-btn primary" id="lewisCheck">Prüfen</button>
+        <button class="lewis-btn" id="lewisReset">Zurücksetzen</button>
+        <button class="lewis-btn" id="lewisLoesung">Lösung zeigen</button>
+        <div class="lewis-builder-hint" id="lewisHint">Klicken Sie auf die gestrichelten Plätze rund um das Symbol.</div>
       </div>
     </div>
   </div>
@@ -1895,21 +1921,15 @@ section { animation: fadeUp 0.4s ease-out both; }
   </div>
 
   <h4>Aufgaben zu Lektion 10</h4>
-  <div class="task-links" style="grid-template-columns: 1fr;">
-    <div class="task-card onenote" style="cursor:pointer;" onclick="this.querySelector('.task-hint').classList.toggle('show')">
-      <div class="task-card-icon">&#128221;</div>
-      <div class="task-card-title">Aufgaben 10.1 – 10.3</div>
-      <div class="task-card-desc">Klassennotizbuch · Klicken Sie für den Ablageort</div>
-      <div class="task-hint">Die Aufgaben finden Sie in Ihrem persönlichen Ordner im Klassennotizbuch <strong>GKG_Ch_2029_E</strong> unter <strong>4 Atombau – Aufgaben Atombau</strong></div>
-    </div>
-  </div>
+  <div class="dossier-hinweis"><div class="dh-icon">&#128221;</div><div><div class="dh-titel">Aufgaben 10.1 – 10.3</div><div class="dh-text">Im ausgedruckten Aufgabendossier Atombau, Phase 3.</div></div></div>
+
 </section>
 
 
 <!-- ============================================================ -->
 <!--                  ZUSAMMENFASSUNG PHASE 3                      -->
 <!-- ============================================================ -->
-<section id="zusammenfassung3">
+<section id="zusammenfassung3" data-dl="DL6">
   <div class="lesson-header">
     <div class="lesson-number">Zusammenfassung</div>
     <h2>Was Sie aus Phase 3 mitnehmen</h2>
@@ -1949,6 +1969,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 
 
 </main>
+<script src="werkzeuge.js?v=20261113a"></script>
 </div>
 </div>
 
@@ -2788,66 +2809,58 @@ const VE_MAP = {
   'Na': 1, 'Mg': 2, 'Al': 3, 'Si': 4, 'P': 5, 'S': 6, 'Cl': 7, 'Ar': 8
 };
 
-let lewisBuilderState = { symbol: 'C', current: 0 };
-
-function lewisUpdate() {
-  const canvas = document.getElementById('lewisBuilderCanvas');
-  const counter = document.getElementById('lewisCounter');
-  const hint = document.getElementById('lewisHint');
-  const addBtn = document.getElementById('lewisAddBtn');
-  if (!canvas) return;
-
-  const max = VE_MAP[lewisBuilderState.symbol] || 0;
-  canvas.dataset.symbol = lewisBuilderState.symbol;
-  canvas.dataset.electrons = lewisBuilderState.current;
-  renderLewisSymbol(canvas, lewisBuilderState.symbol, lewisBuilderState.current);
-
-  counter.textContent = `${lewisBuilderState.current} / ${max} Elektronen`;
-
-  // Hinweise je nach Stand
-  if (lewisBuilderState.current === 0) {
-    hint.innerHTML = `Wir starten mit dem Symbol <strong>${lewisBuilderState.symbol}</strong>. Klicken Sie «+ Punkt setzen», um den ersten Punkt zu platzieren.`;
-  } else if (lewisBuilderState.current < 4 && lewisBuilderState.current < max) {
-    hint.innerHTML = `Phase 1: Wir verteilen die Punkte einzeln auf die vier Plätze (oben, rechts, unten, links). Noch ${max - lewisBuilderState.current} Punkt(e) zu setzen.`;
-  } else if (lewisBuilderState.current === 4 && max > 4) {
-    hint.innerHTML = `Vier Plätze sind besetzt. Ab jetzt werden zwei gepaarte Elektronen als <strong>Strich</strong> dargestellt — Phase 2 beginnt.`;
-  } else if (lewisBuilderState.current < max) {
-    hint.innerHTML = `Phase 2: Paare bilden (Punkt + Punkt → Strich). Noch ${max - lewisBuilderState.current} Punkt(e) zu setzen.`;
-  } else {
-    hint.innerHTML = `<strong>Fertig!</strong> Sie haben alle ${max} Valenzelektronen platziert. Das ist das Lewis-Symbol von ${lewisBuilderState.symbol}.`;
-  }
-
-  // Add-Button deaktivieren wenn voll
-  if (addBtn) addBtn.disabled = lewisBuilderState.current >= max;
-}
-
-function lewisAdd() {
-  const max = VE_MAP[lewisBuilderState.symbol] || 0;
-  if (lewisBuilderState.current < max) {
-    lewisBuilderState.current++;
-    lewisUpdate();
-  }
-}
-
-function lewisReset() {
-  lewisBuilderState.current = 0;
-  lewisUpdate();
-}
-
-function lewisShowSolution() {
-  lewisBuilderState.current = VE_MAP[lewisBuilderState.symbol] || 0;
-  lewisUpdate();
-}
-
-function lewisInit() {
-  const select = document.getElementById('lewisElementSelect');
-  if (!select) return;
-  select.addEventListener('change', e => {
-    lewisBuilderState.symbol = e.target.value;
-    lewisBuilderState.current = 0;
-    lewisUpdate();
+let lewisState = { symbol: 'C', pos: { top: 0, right: 0, bottom: 0, left: 0 }, loesung: false };
+let lewisRichtig = 0;
+const LEWIS_ORDER = ['top', 'right', 'bottom', 'left'];
+function lewisZeichne() {
+  const c = document.getElementById('lewisBuilderCanvas'); if (!c) return;
+  c.innerHTML = ''; c.classList.remove('ok', 'bad');
+  const cells = [null, 'top', null, 'left', 'center', 'right', null, 'bottom', null];
+  cells.forEach(cell => {
+    const el = document.createElement('div');
+    if (cell === 'center') { el.className = 'lewis-center'; el.textContent = lewisState.symbol; }
+    else if (cell) {
+      el.className = 'lewis-pos lb-klick'; el.title = 'Klicken: Punkt → Strich → leer';
+      const k = lewisState.pos[cell];
+      if (k === 2) { const b = document.createElement('div'); b.className = 'lewis-bond ' + (cell === 'top' || cell === 'bottom' ? 'horizontal' : 'vertical'); el.appendChild(b); }
+      else if (k === 1) { const d = document.createElement('div'); d.className = 'lewis-dot'; el.appendChild(d); }
+      el.addEventListener('click', () => { lewisState.pos[cell] = (lewisState.pos[cell] + 1) % 3; lewisState.loesung = false; lewisZeichne(); });
+    }
+    c.appendChild(el);
   });
-  lewisUpdate();
+  const n = Object.values(lewisState.pos).reduce((a, k) => a + k, 0);
+  document.getElementById('lewisCounter').textContent = n + (n === 1 ? ' Elektron' : ' Elektronen') + ' gesetzt';
+}
+function lewisNeu(sym) {
+  lewisState.symbol = sym; LEWIS_ORDER.forEach(k => lewisState.pos[k] = 0); lewisState.loesung = false;
+  document.getElementById('lewisElementSelect').value = sym;
+  document.getElementById('lewisHint').innerHTML = 'Wie viele Valenzelektronen hat <strong>' + sym + '</strong>? Setzen Sie Punkte und Striche.';
+  lewisZeichne();
+}
+function lewisPruefen() {
+  const ve = VE_MAP[lewisState.symbol], v = Object.values(lewisState.pos);
+  const n = v.reduce((a, k) => a + k, 0), paare = v.filter(k => k === 2).length, einzel = v.filter(k => k === 1).length;
+  const hint = document.getElementById('lewisHint'), c = document.getElementById('lewisBuilderCanvas');
+  let ok = false;
+  if (n !== ve) hint.innerHTML = 'Sie haben <strong>' + n + '</strong> Elektronen gesetzt. Stimmt das mit der Anzahl Valenzelektronen überein? Tipp: Die Hauptgruppe im PSE verrät sie.';
+  else if (ve <= 4 && paare > 0) hint.innerHTML = 'Die Anzahl stimmt! Aber: Zuerst wird <strong>jede Seite einzeln</strong> mit einem Punkt besetzt. Striche (Paare) gibt es erst ab dem 5. Elektron.';
+  else if (ve > 4 && einzel + paare < 4) hint.innerHTML = 'Die Anzahl stimmt! Aber eine Seite ist noch leer: Zuerst bekommt <strong>jede der vier Seiten</strong> ein Elektron, erst dann werden Paare gebildet.';
+  else { ok = true; hint.innerHTML = '<strong>✓ Richtig!</strong> ' + lewisState.symbol + ' hat ' + ve + ' Valenzelektronen' + (ve > 4 ? ': ' + paare + ' Elektronenpaar(e) und ' + einzel + ' einzelne Elektronen.' : ', alle einzeln.') + ' Wählen Sie das nächste Element.'; if (!lewisState.loesung) { lewisRichtig++; document.getElementById('lewisRichtig').textContent = lewisRichtig + ' richtig'; } }
+  c.classList.toggle('ok', ok); c.classList.toggle('bad', !ok);
+}
+function lewisInit() {
+  const sel = document.getElementById('lewisElementSelect'); if (!sel) return;
+  sel.addEventListener('change', e => lewisNeu(e.target.value));
+  document.getElementById('lewisZufall').onclick = () => { const k = Object.keys(VE_MAP).filter(x => x !== lewisState.symbol); lewisNeu(k[Math.floor(Math.random() * k.length)]); };
+  document.getElementById('lewisReset').onclick = () => lewisNeu(lewisState.symbol);
+  document.getElementById('lewisCheck').onclick = lewisPruefen;
+  document.getElementById('lewisLoesung').onclick = () => {
+    const ve = VE_MAP[lewisState.symbol]; LEWIS_ORDER.forEach((k, i) => lewisState.pos[k] = (i < ve ? 1 : 0) + (i < ve - 4 ? 1 : 0));
+    if (lewisState.symbol === 'H') { LEWIS_ORDER.forEach(k => lewisState.pos[k] = 0); lewisState.pos.right = 1; }
+    lewisState.loesung = true; lewisZeichne();
+    document.getElementById('lewisHint').innerHTML = 'So sieht das Lewis-Symbol von <strong>' + lewisState.symbol + '</strong> aus. Wo die Punkte und Striche stehen, spielt keine Rolle – nur ihre Anzahl.';
+  };
+  lewisNeu('C');
 }
 
 /* =================================================================
@@ -2870,6 +2883,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderAllLewisSymbols();
   lewisInit();
 });
+</script>
+<script>
+document.querySelectorAll('#mdTabelle input').forEach(inp => { const k = 'md:' + inp.dataset.k; inp.value = WZ.store[k] || ''; inp.addEventListener('input', () => { WZ.store[k] = inp.value; WZ.save(); }); });
 </script>
 <script src="freigabe.js"></script>
 </body>
