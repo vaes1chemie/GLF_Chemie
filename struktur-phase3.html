@@ -6,7 +6,7 @@
 <title>Struktur & Eigenschaften – Phase 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="struktur.css?v=20261112e">
+<link rel="stylesheet" href="struktur.css?v=20261113a">
 </head>
 <body>
 <div class="layout">
@@ -113,12 +113,13 @@
   <h3>11.3 Dipol-Dipol-Kräfte <span class="tag-selbst">selbstständig</span></h3>
   <p>Dipolmoleküle haben einen positiven und einen negativen Pol. Benachbarte Dipole richten sich so aus, dass der <strong>positive Pol</strong> des einen Moleküls neben dem <strong>negativen Pol</strong> des Nachbarn liegt. Die entgegengesetzten Teilladungen ziehen sich an – das sind die <strong>Dipol-Dipol-Kräfte</strong>.</p>
   <div class="widget">
-    <div class="widget-header"><span class="widget-title">Dipol-Dipol-Kräfte zwischen <span class="f">HCl</span>-Molekülen</span><span class="widget-badge">MODELL</span></div>
+    <div class="widget-header"><span class="widget-title">Ordnen Sie die <span class="f">HCl</span>-Moleküle an</span><span class="widget-badge">AUFGABE</span></div>
     <div class="widget-body">
-      <svg id="ddSvg" viewBox="0 0 520 230" style="width:100%; max-width:560px; height:auto; display:block; margin:0 auto;"></svg>
-      <div class="sim-controls" style="justify-content:center;"><button class="btn primary" id="ddToggle">Moleküle ausrichten</button></div>
+      <svg id="ddSvg" viewBox="70 15 360 290" style="width:100%; max-width:440px; height:auto; display:block; margin:0 auto; user-select:none;"></svg>
+      <div class="sim-controls" style="justify-content:center;"><button class="btn primary" id="ddPruefen">Prüfen</button><button class="btn" id="ddNeu">Neu mischen</button></div>
+      <div class="cr-out" id="ddOut"></div>
     </div>
-    <div class="widget-caption">Gestrichelt: Anziehung zwischen δ+ (H) und δ− (Cl) benachbarter Moleküle. In der Flüssigkeit bewegen sich die Moleküle – im Mittel liegen aber entgegengesetzte Pole häufiger nebeneinander.</div>
+    <div class="widget-caption">Blau gestrichelt: Anziehung zwischen δ+ und δ− benachbarter Moleküle. Rot gepunktet: Abstossung zwischen gleichen Teilladungen. Es gibt mehrere gute Lösungen.</div>
   </div>
   <p>Dipol-Dipol-Kräfte wirken <strong>nur zwischen Molekülen, die Dipole sind</strong> – also nicht zwischen <span class="f">CO<sub>2</sub></span>- oder <span class="f">CH<sub>4</sub></span>-Molekülen.</p>
 
@@ -141,7 +142,7 @@
         <button class="btn" id="vdwLangsam">Langsamer</button>
       </div>
     </div>
-    <div class="widget-caption">Blau: Elektronenwolke, + Atomkern. Die linke Elektronenwolke schwankt zufällig; die rechte wird dadurch verschoben (induziert). Halten Sie die Simulation an und schauen Sie, wo δ+ und δ− liegen.</div>
+    <div class="widget-caption">Blau: Elektronenwolke, + Atomkern. Beide Elektronenwolken schwanken zufällig. Jede verschiebt dabei die Elektronen im Nachbaratom (induzierter Dipol). Halten Sie die Simulation an und schauen Sie, wo δ+ und δ− liegen.</div>
   </div>
   <div class="aufgabe"><div class="aufgabe-label">Beobachten</div>
     <ol>
@@ -153,33 +154,18 @@
   </div>
   <p>Van-der-Waals-Kräfte wirken zwischen <strong>allen</strong> Molekülen und Atomen. Sie werden stärker, je <strong>mehr Elektronen</strong> ein Teilchen hat (die Elektronenwolke lässt sich leichter verschieben) und je <strong>grösser die Berührungsfläche</strong> zwischen den Molekülen ist. Sie wirken nur auf sehr kurze Distanz.</p>
 
-  <div class="exkurs"><div class="exkurs-label">Exkurs · Zusatz</div>
+  <div class="exkurs"><div class="exkurs-label">Exkurs · Für alle, die schon fertig sind</div>
     <h4>Wie läuft ein Gecko an der Decke?</h4>
-    <p>Ein Tokay-Gecko wiegt bis zu 100 Gramm und läuft trotzdem kopfüber an der Decke – ohne Klebstoff und ohne Saugnäpfe. Lesen Sie den Artikel <em>«Vom Photolack zum Gecko»</em> (O. Bäumchen, H. Hähl, P. Loskill, K. Jacobs, Physik Journal 14 (2015) Nr. 1, S. 37–43). Sie finden ihn auf OneNote. Der Artikel ist für Physikerinnen und Physiker geschrieben – Sie müssen nicht alles verstehen. Konzentrieren Sie sich auf die Einleitung (S. 37), den Infokasten «Van der Waals-Wechselwirkungen» (S. 38), den Abschnitt «Der Gecko an der Decke» (S. 42) sowie die Abbildungen 4 und 5.</p>
-    <h4>Fragen zum Text</h4>
-    <ol>
-      <li><strong>Einleitung und «Kompakt» (S. 37):</strong> Welche Kräfte halten den Gecko an der Decke? Erklären Sie in eigenen Worten, was mit «fluktuierenden Dipolen» gemeint ist.</li>
-      <li><strong>Infokasten (S. 38):</strong> Der Artikel unterscheidet drei Arten von Van-der-Waals-Wechselwirkungen (Keesom, Debye, London). Ordnen Sie sie den Kräften aus 11.3 und 11.4 zu. Welche davon wirkt zwischen allen Teilchen?</li>
-      <li><strong>«Der Gecko an der Decke» (S. 42):</strong> Beschreiben Sie den Aufbau einer Geckopfote von den Lamellen bis zu den Spatulae. Warum sind die Spatulae so fein und so zahlreich? Denken Sie an die Reichweite der Van-der-Waals-Kräfte.</li>
-    </ol>
-    <div class="notiz-box" data-key="gecko-text" data-label="Ihre Antworten zum Text"></div>
-    <h4>Fragen zu den Daten</h4>
-    <ol start="4">
-      <li><strong>Nachrechnen:</strong> Jede Spatula trägt mit 10 bis 20 nN zur Haftung bei (1 nN = 10<sup>−9</sup> N), ein Tokay-Gecko hat mehrere Milliarden Spatulae. a) Berechnen Sie die Gewichtskraft eines 100-g-Geckos (F = m · g, g = 9.81 N/kg). b) Schätzen Sie die Haltekraft von 2 Milliarden Spatulae mit je 10 nN. c) Wie viele Spatulae würden mindestens genügen? Warum hat der Gecko so viel «Reserve»?</li>
-      <li><strong>Reichweite:</strong> Laut Artikel fällt die Wechselwirkung zwischen zwei Molekülen mit 1/d<sup>6</sup> ab (d = Abstand). Um welchen Faktor wird sie schwächer, wenn sich der Abstand verdoppelt? Was bedeutet das für die Haftung auf einer staubigen Oberfläche?</li>
-      <li><strong>Abbildung 5a:</strong> Lesen Sie die Haftkraft der Gecko-Härchen bei 30 % und bei 70 % Luftfeuchte ab – für dickes und für dünnes Oxid. Welche zwei Einflüsse zeigt das Diagramm? Bei 30 % überlappen sich die Fehlerbalken: Was bedeutet das für Ihre Aussage?</li>
-      <li><strong>Abbildung 4b und 4c:</strong> Die Haftkraft eines Bakteriums beträgt auf hydrophilen Oberflächen 0,30(10) nN bzw. 0,65(18) nN, auf hydrophoben 3,2(12) nN bzw. 5,2(10) nN. a) Was bedeutet die Schreibweise 0,30(10) nN? b) Um welchen Faktor haften Bakterien auf hydrophoben Oberflächen stärker als auf hydrophilen (bei dickem Oxid)? c) Warum interessiert das die Medizin? Lesen Sie dazu S. 41.</li>
-    </ol>
-    <div class="notiz-box" data-key="gecko-daten" data-label="Ihre Antworten zu den Daten"></div>
+    <p style="margin-bottom:0;">Ein Tokay-Gecko wiegt bis zu 100 Gramm und läuft trotzdem kopfüber an der Decke – ohne Klebstoff und ohne Saugnäpfe. Wenn Sie alle Aufgaben von Lektion 11–12 erledigt haben, dürfen Sie den Exkurs zu den Van-der-Waals-Kräften beim Gecko bearbeiten. Den Artikel und die Fragen finden Sie auf <strong>OneNote</strong>.</p>
   </div>
 
   <h3>11.5 Wasserstoffbrücken <span class="tag-selbst">selbstständig</span></h3>
-  <p>Wasserstoffbrücken sind besonders starke Dipol-Dipol-Kräfte. Es braucht zwei Partner:</p>
+  <p>Wasserstoffbrücken sind die <strong>stärkste zwischenmolekulare Wechselwirkung</strong>. Sie sind zum Beispiel dafür verantwortlich, dass Wasser bei Raumtemperatur flüssig ist und dass die Doppelhelix unserer DNA zusammengehalten wird. Es braucht zwei Voraussetzungen:</p>
   <ul>
     <li><strong>Wasserstoffbrücken-Donator</strong> (aktiver Teil): ein H-Atom, das an ein stark elektronegatives Atom gebunden ist – an <strong>N, O oder F</strong>. Die Bindung ist so polar, dass das kleine H-Atom eine grosse positive Teilladung δ+ trägt.</li>
     <li><strong>Wasserstoffbrücken-Akzeptor</strong> (passiver Teil): ein <strong>nichtbindendes (freies) Elektronenpaar</strong> an einem N-, O- oder F-Atom eines Nachbarmoleküls (δ−).</li>
   </ul>
-  <p>Das H-Atom des Donators wird vom freien Elektronenpaar des Akzeptors angezogen – es entsteht eine «Brücke» über das H-Atom. Ein Wassermolekül ist zweimal Donator (zwei H-Atome) und zweimal Akzeptor (zwei freie Elektronenpaare am O): Jedes Wassermolekül kann bis zu vier Wasserstoffbrücken bilden.</p>
+  <p>Das H-Atom des Donators (δ+) wird vom freien Elektronenpaar des Akzeptors (δ−) angezogen – es entsteht eine starke elektrostatische Anziehungskraft, die sogenannte <strong>Wasserstoffbrücke</strong> oder <strong>H-Brücke</strong>. Ein Wassermolekül ist zweimal Donator (zwei H-Atome) und zweimal Akzeptor (zwei freie Elektronenpaare am O): Jedes Wassermolekül kann bis zu vier Wasserstoffbrücken bilden.</p>
   <div class="widget">
     <div class="widget-header"><span class="widget-title">Wasserstoffbrücken zwischen Wassermolekülen</span><span class="widget-badge">MODELL</span></div>
     <div class="widget-body"><svg id="hbSvg" viewBox="0 10 440 235" style="width:100%; max-width:560px; height:auto; display:block; margin:0 auto;"></svg></div>
@@ -472,7 +458,7 @@
 </div>
 
 <script>window.PAGE = { key: 'struktur-3', forms: 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=rQuDwrIivEKqXe-HgrWYGz2j0qfMSOpEqRiOQYLBt2dUQVkxN0lFQlNXUlJGVUlGR1NLSVVDVDNPUS4u' };</script>
-<script src="phase-tools.js?v=20261112e"></script>
+<script src="phase-tools.js?v=20261113a"></script>
 <script>
 /* ================= L8: Verdunstungskälte ================= */
 renderChoices('verdFragen', [
@@ -503,7 +489,7 @@ renderChoices('verdFragen', [
     { id: 'h2o', lp: [2,0,0], f: 'H₂O', n: 'Wasser', a: [['O', 0, -0.35], ['H', -0.8, 0.4], ['H', 0.8, 0.4]], b: [[0, 1, 1], [0, 2, 1]], g: 'gewinkelt' },
     { id: 'co2', lp: [2,0,2], f: 'CO₂', n: 'Kohlenstoffdioxid', a: [['O', -1.25, 0], ['C', 0, 0], ['O', 1.25, 0]], b: [[0, 1, 2], [1, 2, 2]], g: 'linear' },
     { id: 'nh3', lp: [1,0,0,0], f: 'NH₃', n: 'Ammoniak', a: [['N', 0, -0.45], ['H', -0.9, 0.3], ['H', 0.75, 0.25], ['H', 0.2, 0.62, 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1]], g: 'pyramidal' },
-    { id: 'so2', lp: [1,2,2], f: 'SO₂', n: 'Schwefeldioxid', a: [['S', 0, -0.35], ['O', -1.0, 0.4], ['O', 1.0, 0.4]], b: [[0, 1, 2], [0, 2, 2]], g: 'gewinkelt' },
+    { id: 'so2', lp: [1,2,3], f: 'SO₂', n: 'Schwefeldioxid', a: [['S', 0, -0.35], ['O', -1.0, 0.4], ['O', 1.0, 0.4]], b: [[0, 1, 2], [0, 2, 1]], g: 'gewinkelt' },
     { id: 'hcn', lp: [0,0,1], f: 'HCN', n: 'Blausäure', a: [['H', -1.45, 0], ['C', -0.35, 0], ['N', 0.85, 0]], b: [[0, 1, 1], [1, 2, 3]], g: 'linear' },
     { id: 'ch3cl', lp: [0,3,0,0,0], f: 'CH₃Cl', n: 'Chlormethan', a: [['C', 0, 0], ['Cl', ...TET[0]], ['H', ...TET[1]], ['H', ...TET[2]], ['H', ...TET[3], 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1], [0, 4, 1]], g: 'tetraedrisch' },
     { id: 'ch2cl2', lp: [0,3,3,0,0], f: 'CH₂Cl₂', n: 'Dichlormethan', a: [['C', 0, 0], ['Cl', ...TET[0]], ['Cl', ...TET[1]], ['H', ...TET[2]], ['H', ...TET[3], 1]], b: [[0, 1, 1], [0, 2, 1], [0, 3, 1], [0, 4, 1]], g: 'tetraedrisch' },
@@ -638,47 +624,62 @@ renderChoices('verdFragen', [
   draw();
 })();
 
-/* ================= L11: Dipol-Dipol-Kräfte (HCl) ================= */
+/* ================= L11: Dipol-Dipol-Kräfte – HCl-Moleküle ausrichten ================= */
 (function () {
   const svg = $id('ddSvg'); if (!svg) return;
   const T = (x, y, t, o) => `<text x="${x}" y="${y}" text-anchor="middle" font-family="DM Sans, sans-serif" ${o}>${t}</text>`;
-  // Gitterplätze, zufällige und ausgerichtete Orientierung
-  const plaetze = [];
-  for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) plaetze.push({ x: 75 + c * 118, y: 45 + r * 72 });
-  const zufall = [200, 35, 290, 120, 340, 80, 250, 160, 15, 105, 225, 310];
-  let geordnet = false;
-  function draw() {
-    let s = '', lin = '';
-    const mol = plaetze.map((p, i) => {
-      const w = (geordnet ? 0 : zufall[i]) * Math.PI / 180, L = 22;
-      return { h: [p.x - L * Math.cos(w), p.y - L * Math.sin(w)], cl: [p.x + L * Math.cos(w) * 1.15, p.y + L * Math.sin(w) * 1.15] };
-    });
-    if (geordnet) {
-      // jedes Cl (δ−) zum nächsten H (δ+) eines Nachbarmoleküls
-      mol.forEach((m, i) => {
-        let best = null;
-        mol.forEach((n, j) => { if (i === j) return; const d = Math.hypot(m.cl[0] - n.h[0], m.cl[1] - n.h[1]); if (!best || d < best.d) best = { d, n }; });
-        if (best && best.d < 90 && Math.abs(best.n.h[1] - m.cl[1]) < 30) lin += `<line x1="${m.cl[0]}" y1="${m.cl[1]}" x2="${best.n.h[0]}" y2="${best.n.h[1]}" stroke="#4a7ab5" stroke-width="2.2" stroke-dasharray="5 5"/>`;
-      });
-    }
-    mol.forEach(m => {
-      s += `<line x1="${m.h[0]}" y1="${m.h[1]}" x2="${m.cl[0]}" y2="${m.cl[1]}" stroke="#666" stroke-width="3"/>`;
-      s += `<circle cx="${m.cl[0]}" cy="${m.cl[1]}" r="19" fill="#3f9a4f" stroke="rgba(0,0,0,0.3)"/>` + T(m.cl[0], m.cl[1] + 5, 'Cl', 'font-size="14" font-weight="700" fill="white"');
-      s += `<circle cx="${m.h[0]}" cy="${m.h[1]}" r="12" fill="white" stroke="#888"/>` + T(m.h[0], m.h[1] + 5, 'H', 'font-size="13" font-weight="700" fill="#333"');
-      s += T(m.cl[0], m.cl[1] - 24, 'δ−', 'font-size="13" font-weight="700" fill="#3d6fb0"') + T(m.h[0], m.h[1] - 17, 'δ+', 'font-size="13" font-weight="700" fill="#c05050"');
-    });
-    svg.innerHTML = lin + s;
-    $id('ddToggle').textContent = geordnet ? 'Ungeordnet zeigen' : 'Moleküle ausrichten';
+  const POS = [[180, 90], [320, 90], [180, 230], [320, 230]];
+  const LH = 24, LCL = 27, NAH = 100;           // Abstände vom Molekülmittelpunkt, «Nachbar»-Distanz
+  const atome = (i, w) => { const [x, y] = POS[i], r = w * Math.PI / 4; return [{ q: 1, x: x - LH * Math.cos(r), y: y - LH * Math.sin(r) }, { q: -1, x: x + LCL * Math.cos(r), y: y + LCL * Math.sin(r) }]; };
+  // Energie aller Teilladungen benachbarter Moleküle (Coulomb, nur Vorzeichen und Abstand)
+  const energie = w => { let e = 0; for (let i = 0; i < 4; i++) for (let j = i + 1; j < 4; j++) atome(i, w[i]).forEach(a => atome(j, w[j]).forEach(b => { e += a.q * b.q / Math.hypot(a.x - b.x, a.y - b.y); })); return e; };
+  let emin = 0;
+  let wbest = null;
+  for (let k = 0; k < 4096; k++) { const w = [k & 7, (k >> 3) & 7, (k >> 6) & 7, (k >> 9) & 7], e = energie(w); if (e < emin) { emin = e; wbest = w; } }
+  
+  let w = [], geprueft = false;
+  const mischen = () => { do { w = [0, 1, 2, 3].map(() => Math.floor(Math.random() * 8)); } while (energie(w) < 0.4 * emin); geprueft = false; };
+  function kontakte() {
+    const k = [];
+    for (let i = 0; i < 4; i++) for (let j = i + 1; j < 4; j++) atome(i, w[i]).forEach(a => atome(j, w[j]).forEach(b => {
+      const d = Math.hypot(a.x - b.x, a.y - b.y); if (d < NAH) k.push({ a, b, anz: a.q !== b.q });
+    }));
+    return k;
   }
-  $id('ddToggle').addEventListener('click', () => { geordnet = !geordnet; draw(); });
-  draw();
+  function draw() {
+    let s = '';
+    const k = kontakte();
+    if (geprueft) k.forEach(c => { s += `<line x1="${c.a.x}" y1="${c.a.y}" x2="${c.b.x}" y2="${c.b.y}" stroke="${c.anz ? '#3d6fb0' : '#c05050'}" stroke-width="2.4" stroke-dasharray="${c.anz ? '5 5' : '2 4'}"/>`; });
+    for (let i = 0; i < 4; i++) {
+      const [h, cl] = atome(i, w[i]), [x, y] = POS[i];
+      s += `<g class="dd-mol" data-i="${i}" style="cursor:pointer"><circle cx="${x}" cy="${y}" r="52" fill="transparent"/>`;
+      s += `<line x1="${h.x}" y1="${h.y}" x2="${cl.x}" y2="${cl.y}" stroke="#666" stroke-width="3"/>`;
+      s += `<circle cx="${cl.x}" cy="${cl.y}" r="19" fill="#3f9a4f" stroke="rgba(0,0,0,0.3)"/>` + T(cl.x, cl.y + 5, 'Cl', 'font-size="14" font-weight="700" fill="white"');
+      s += `<circle cx="${h.x}" cy="${h.y}" r="12" fill="white" stroke="#888"/>` + T(h.x, h.y + 5, 'H', 'font-size="13" font-weight="700" fill="#333"');
+      const lab = (a, t, c, rr) => { const dx = a.x - x, dy = a.y - y, l = Math.hypot(dx, dy) || 1; return T(a.x + dx / l * (rr + 10) - dy / l * 0, a.y + dy / l * (rr + 10) + 5, t, `font-size="13" font-weight="700" fill="${c}"`); };
+      s += lab(cl, 'δ−', '#3d6fb0', 19) + lab(h, 'δ+', '#c05050', 12);
+      s += `<g transform="translate(${x + (i % 2 ? 50 : -50)},${y + (i < 2 ? -44 : 44)})"><circle r="10" fill="white" stroke="#2b7f7a" stroke-width="1.5"/>` + T(0, 5, '⟳', 'font-size="13" fill="#2b7f7a"') + '</g></g>';
+    }
+    svg.innerHTML = s;
+    svg.querySelectorAll('.dd-mol').forEach(g => g.addEventListener('click', () => { const i = +g.dataset.i; w[i] = (w[i] + 1) % 8; geprueft = false; draw(); }));
+    const out = $id('ddOut');
+    if (!geprueft) { out.innerHTML = 'Klicken Sie auf ein Molekül, um es um 45° zu drehen. Ordnen Sie die vier Moleküle so an, dass sie sich möglichst stark anziehen. Dann «Prüfen».'; return; }
+    const e = energie(w), ab = k.filter(c => !c.anz).length, an = k.filter(c => c.anz).length;
+    if (e <= 0.75 * emin && ab === 0) out.innerHTML = '<strong>✓ Sehr gut!</strong> Entgegengesetzte Teilladungen liegen nebeneinander (blau gestrichelt), gleiche nirgends. So ziehen sich die Moleküle stark an.';
+    else if (ab > 0) out.innerHTML = `<strong>Noch nicht optimal.</strong> Rot gepunktet: ${ab} Stelle${ab > 1 ? 'n' : ''}, an der gleiche Teilladungen nebeneinanderliegen – sie stossen sich ab. Drehen Sie diese Moleküle.`;
+    else if (an === 0) out.innerHTML = '<strong>Noch nicht.</strong> Noch nirgends liegt ein δ+ nahe bei einem δ− eines Nachbarmoleküls. Drehen Sie die Moleküle so, dass sich H und Cl verschiedener Moleküle gegenüberstehen.';
+    else out.innerHTML = `<strong>Gut, aber es geht noch besser.</strong> Es gibt ${an} anziehende${an === 1 ? 'n Kontakt' : ' Kontakte'} (blau) und keine abstossenden. Können Sie die Moleküle so drehen, dass noch mehr δ+ und δ− nahe beieinanderliegen?`;
+  }
+  $id('ddPruefen').addEventListener('click', () => { geprueft = true; draw(); });
+  $id('ddNeu').addEventListener('click', () => { mischen(); draw(); });
+  mischen(); draw();
 })();
 
 /* ================= L11: Van-der-Waals-Simulation ================= */
 (function () {
   const svg = $id('vdwSvg'); if (!svg) return;
   const ARTEN = { he: { r: 30, amp: 0.35, pol: 0.35, z: 'He' }, ar: { r: 44, amp: 0.65, pol: 0.65, z: 'Ar' }, xe: { r: 56, amp: 1, pol: 1, z: 'Xe' } };
-  let art = ARTEN.ar, dxL = 0, dxR = 0, vL = 0, pause = false, langsam = false, mittel = 0;
+  let art = ARTEN.ar, dxL = 0, dxR = 0, vL = 0, vR = 0, pause = false, langsam = false, mittel = 0;
   const abstand = () => { const v = +$id('vdwAbstand').value; return 2 * art.r + 12 + v * 1.6; };
   const T = (x, y, t, o) => `<text x="${x}" y="${y}" text-anchor="middle" font-family="DM Sans, sans-serif" ${o}>${t}</text>`;
   svg.innerHTML = `<defs><radialGradient id="vdwWolke"><stop offset="0%" stop-color="#3d6fb0" stop-opacity="0.9"/><stop offset="65%" stop-color="#4a7ab5" stop-opacity="0.4"/><stop offset="100%" stop-color="#4a7ab5" stop-opacity="0"/></radialGradient></defs><g id="vdwG"></g>`;
@@ -708,16 +709,18 @@ renderChoices('verdFragen', [
     let dt = Math.max(0, Math.min(0.05, (t - last) / 1000)); last = t;
     if (!pause) {
       if (langsam) dt *= 0.25;
-      // linke Wolke: zufällige Schwankung (gedämpfte Zufallsbewegung)
-      const zz = (Math.random() + Math.random() + Math.random() - 1.5) * 2;
-      vL += (-12 * dxL - 4 * vL) * dt + zz * art.amp * 14 * Math.sqrt(dt);
-      dxL += vL * dt;
-      if (dxL > 1 || dxL < -1) { dxL = Math.max(-1, Math.min(1, dxL)); vL = -0.3 * vL; }
-      if (!isFinite(dxL) || !isFinite(vL)) { dxL = 0; vL = 0; }
-      // rechte Wolke: wird vom Nachbarn verschoben (induziert), schwächer bei grossem Abstand
+      // Beide Wolken schwanken zufällig (gedämpfte Zufallsbewegung). Jede verschiebt zusätzlich
+      // die andere in die gleiche Richtung (induzierter Dipol) – schwächer bei grossem Abstand.
       const dn = abstand() / (2 * art.r + 12);
-      const ziel = dxL * Math.min(1, art.pol * 1.3 / Math.pow(dn, 2));
-      dxR += (ziel - dxR) * Math.min(1, dt * 12);
+      const c = Math.min(0.85, art.pol * 1.1 / Math.pow(dn, 2));
+      const zufall = () => (Math.random() + Math.random() + Math.random() - 1.5) * 2;
+      const nL = zufall(), nR = zufall();
+      vL += (-12 * (dxL - c * dxR) - 4 * vL) * dt + nL * art.amp * 11 * Math.sqrt(dt);
+      vR += (-12 * (dxR - c * dxL) - 4 * vR) * dt + nR * art.amp * 11 * Math.sqrt(dt);
+      dxL += vL * dt; dxR += vR * dt;
+      if (dxL > 1 || dxL < -1) { dxL = Math.max(-1, Math.min(1, dxL)); vL = -0.3 * vL; }
+      if (dxR > 1 || dxR < -1) { dxR = Math.max(-1, Math.min(1, dxR)); vR = -0.3 * vR; }
+      if (![dxL, dxR, vL, vR].every(isFinite)) { dxL = dxR = vL = vR = 0; }
     }
     zeichne();
     if (document.body.contains(svg)) requestAnimationFrame(schritt);
