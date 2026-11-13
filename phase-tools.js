@@ -85,9 +85,10 @@ document.querySelectorAll('.notiz-box').forEach(nb => {
 /* ---------- Karten zum Aufdecken ---------- */
 document.querySelectorAll('.sr-card').forEach((c, i) => {
   const key = c.dataset.key || ('karte' + i);
-  const open = () => { c.classList.add('open'); c.setAttribute('aria-expanded', 'true'); };
-  c.addEventListener('click', () => { open(); store.karten = store.karten || {}; store.karten[key] = 1; saveStore(); });
-  if ((store.karten || {})[key]) open();
+  const setze = auf => { c.classList.toggle('open', auf); c.setAttribute('aria-expanded', auf ? 'true' : 'false'); };
+  // erneuter Klick dreht die Karte wieder zurück
+  c.addEventListener('click', () => { const auf = !c.classList.contains('open'); setze(auf); store.karten = store.karten || {}; if (auf) store.karten[key] = 1; else delete store.karten[key]; saveStore(); });
+  if ((store.karten || {})[key]) setze(true);
 });
 
 /* ---------- Vorhersagen (werden gespeichert, nicht bewertet) ---------- */

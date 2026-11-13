@@ -187,7 +187,8 @@ details.loesung.locked summary::before { content: '🔒 '; }
 .sr-name { font-family: var(--serif); font-size: 1.35rem; padding: 12px 16px 0; }
 .sr-ionen { padding: 2px 16px 0; font-size: 0.95rem; color: var(--accent-strong); font-weight: 600; }
 .sr-text { padding: 6px 16px 16px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
-.sr-card.open { cursor: default; border-color: var(--accent); }
+.sr-card.open { cursor: pointer; border-color: var(--accent); }
+.sr-card.open .sr-back::after { content: '↺ Klicken zum Zurückdrehen'; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-top: 8px; padding: 0 14px 12px; }
 .sr-card.open .sr-front { display: none; }
 .sr-card.open .sr-back { display: flex; animation: pop 0.25s ease-out; }
 .bildnachweis { font-size: 0.72rem; color: var(--text-light); margin: 0 0 18px; }
@@ -524,3 +525,14 @@ section { animation: fadeUp 0.4s ease-out both; }
 /* Flussdiagramm */
 .flow-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .flow-svg { display: block; width: 100%; min-width: 620px; height: auto; }
+
+/* Kohlenstoff-Tabelle und Abbildungen */
+.kohle-tabelle td { vertical-align: top; }
+.kohle-svg { width: 100%; min-width: 130px; max-width: 200px; height: auto; display: block; margin: 0 auto; }
+.kt textarea { width: 100%; min-width: 120px; font-family: var(--sans); font-size: 0.86rem; border: 1px dashed var(--border); border-radius: 6px; padding: 6px 8px; background: #fffef8; resize: vertical; }
+.kt-tipp-btn { margin-top: 4px; font-family: var(--sans); font-size: 0.74rem; background: none; border: none; color: var(--accent); cursor: pointer; padding: 0; }
+.kt-tipp { display: none; margin-top: 4px; font-size: 0.8rem; line-height: 1.4; color: var(--text-muted); background: #fff8e1; border-radius: 6px; padding: 6px 8px; }
+.kt.tipp-offen .kt-tipp { display: block; }
+.bild-figur { margin: 22px auto; max-width: 340px; text-align: center; }
+.bild-figur img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); background: white; }
+.bild-figur figcaption { font-size: 0.82rem; color: var(--text-muted); margin-top: 8px; text-align: left; }

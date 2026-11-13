@@ -194,7 +194,8 @@ details.loesung.locked summary::before { content: '🔒 '; }
 .sr-name { font-family: var(--serif); font-size: 1.35rem; padding: 12px 16px 0; }
 .sr-ionen { padding: 2px 16px 0; font-size: 0.95rem; color: var(--accent-strong); font-weight: 600; }
 .sr-text { padding: 6px 16px 16px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
-.sr-card.open { cursor: default; border-color: var(--accent); }
+.sr-card.open { cursor: pointer; border-color: var(--accent); }
+.sr-card.open .sr-back::after { content: '↺ Klicken zum Zurückdrehen'; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-top: 8px; padding: 0 14px 12px; }
 .sr-card.open .sr-front { display: none; }
 .sr-card.open .sr-back { display: flex; animation: pop 0.25s ease-out; }
 .bildnachweis { font-size: 0.72rem; color: var(--text-light); margin: 0 0 18px; }
@@ -461,7 +462,7 @@ section { animation: fadeUp 0.4s ease-out both; }
   <div class="sidebar-phase">Phase 3 · Moleküle</div>
   <a href="struktur-phase3.html#L11" class="nav-item nav-lab" data-dl="DL4"><span class="nav-dot"></span><span>L11–12 – Polarität und ZMK<span class="nav-dl">Doppellektion · Labor</span></span></a>
   <a href="struktur-phase3.html#L13" class="nav-item" data-dl="DL5"><span class="nav-dot"></span><span>L13 – Siedepunkte vorhersagen</span></a>
-  <a href="struktur-phase3.html#L14" class="nav-item" data-dl="DL5"><span class="nav-dot"></span><span>L14 – Wasser, Diamant, Graphit</span></a>
+  <a href="struktur-phase3.html#L14" class="nav-item" data-dl="DL5"><span class="nav-dot"></span><span>L14 – Wasser und Kohlenstoff</span></a>
   <div class="sidebar-phase">Phase 4 · Lösen und Mischen</div>
   <a href="struktur-phase4.html#L15" class="nav-item nav-lab" data-dl="DL6"><span class="nav-dot"></span><span>L15–16 – Salze und Moleküle lösen<span class="nav-dl">Doppellektion · Labor</span></span></a>
   <a href="struktur-phase4.html#L17" class="nav-item" data-dl="DL7"><span class="nav-dot"></span><span>L17 – Aussalzen und Alkohole</span></a>
@@ -2162,9 +2163,9 @@ document.querySelectorAll('.notiz-box').forEach(nb => {
 
 // Stoffkarten 1.5 aufdecken
 document.querySelectorAll('.sr-card').forEach((c, i) => {
-  const open = () => { c.classList.add('open'); c.setAttribute('aria-expanded', 'true'); };
-  c.addEventListener('click', () => { open(); store.karten = store.karten || {}; store.karten[i] = 1; saveStore(); });
-  if ((store.karten || {})[i]) open();
+  const setze = auf => { c.classList.toggle('open', auf); c.setAttribute('aria-expanded', auf ? 'true' : 'false'); };
+  c.addEventListener('click', () => { const auf = !c.classList.contains('open'); setze(auf); store.karten = store.karten || {}; if (auf) store.karten[i] = 1; else delete store.karten[i]; saveStore(); });
+  if ((store.karten || {})[i]) setze(true);
 });
 
 // Quizantworten wiederherstellen
