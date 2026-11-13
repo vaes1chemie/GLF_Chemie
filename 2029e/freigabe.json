@@ -3,8 +3,8 @@
   "themen": {
     "atombau":  { "1": "frei", "2": "frei", "3": "frei", "4": "frei" },
     "struktur": { "1": "frei",
-                  "2": { "DL1": "gesperrt", "DL2": "gesperrt", "DL3": "gesperrt" },
-                  "3": { "DL4": "gesperrt", "DL5": "gesperrt" },
-                  "4": { "DL6": "gesperrt", "DL7": "gesperrt" } }
+                  "2": { "DL3": "gesperrt", "DL4": "gesperrt", "DL5": "gesperrt" },
+                  "3": { "DL6": "gesperrt", "DL7": "gesperrt" },
+                  "4": { "DL8": "gesperrt", "DL9": "gesperrt" } }
   }
 }

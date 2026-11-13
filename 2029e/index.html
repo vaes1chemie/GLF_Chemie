@@ -75,7 +75,7 @@ fetch('freigabe.json', { cache: 'no-store' }).then(r => r.json()).then(cfg => {
       const w = f[String(p.nr)];
       const istDatum = v => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v);
       const offen = v => v === 'frei' || v === true || (istDatum(v) && heute() >= v);
-      // Wert pro Phase: "frei" / "gesperrt" / Datum – oder pro Doppellektion { "DL1": …, "DL2": … }
+      // Wert pro Phase: "frei" / "gesperrt" / Datum – oder pro Doppellektion { "DL3": …, "DL4": … }
       const teile = (w && typeof w === 'object') ? Object.values(w) : [w];
       const nOffen = teile.filter(offen).length;
       // Bei Freigabe pro Doppellektion: jede DL einzeln anzeigen

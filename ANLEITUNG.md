@@ -27,13 +27,13 @@ Statt eines Werts für die ganze Phase kann man jede Doppellektion einzeln freig
 
 | Phase | Doppellektionen |
 |---|---|
-| 2 Gitterstoffe | `DL1` (L5–6, Labor) · `DL2` (L7 + L8) · `DL3` (L9 + L10) |
-| 3 Moleküle | `DL4` (L11–12, Labor) · `DL5` (L13 + L14) |
-| 4 Lösen und Mischen | `DL6` (L15–16, Labor) · `DL7` (L17 + L18) |
+| 2 Gitterstoffe | `DL3` (L5–6, Labor) · `DL4` (L7 + L8) · `DL5` (L9 + L10) |
+| 3 Moleküle | `DL6` (L11–12, Labor) · `DL7` (L13 + L14) |
+| 4 Lösen und Mischen | `DL8` (L15–16, Labor) · `DL9` (L17 + L18) |
 
 ```json
 "struktur": { "1": "frei",
-              "2": { "DL1": "frei", "DL2": "2026-12-01", "DL3": "gesperrt" },
+              "2": { "DL3": "frei", "DL4": "2026-12-01", "DL5": "gesperrt" },
               "3": "gesperrt",
               "4": "gesperrt" }
 ```
