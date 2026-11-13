@@ -80,3 +80,13 @@ details.aufloesung[open] summary { margin-bottom: 8px; }
   main table.data-table, main .wz-table { display: block; overflow-x: auto; max-width: 100%; }
   main .pse-grid-wrap { overflow-x: auto; max-width: 100%; }
 }
+
+/* Orbitale in 3D */
+canvas.orb-mini { width: 130px; height: 130px; display: block; margin: 0 auto 8px; border-radius: 10px; }
+.orb-viewer .ov-wrap { display: grid; grid-template-columns: 1fr 230px; gap: 16px; }
+.orb-viewer canvas { width: 100%; aspect-ratio: 1/1; background: #0f172a; border-radius: 10px; }
+.orb-viewer .ov-side h4 { margin: 4px 0 6px; font-size: 0.78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted, #6b6560); }
+.orb-viewer .grp { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.orb-viewer .tool-btn { padding: 6px 10px; font-size: 0.84rem; }
+.orb-viewer .ov-info { font-size: 0.9rem; background: var(--accent-light, #e8eff7); border-radius: 8px; padding: 10px 12px; }
+@media (max-width: 700px) { .orb-viewer .ov-wrap { grid-template-columns: 1fr; } }

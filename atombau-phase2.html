@@ -255,7 +255,7 @@ a { color: var(--accent); font-weight: 600; }
 section { animation: fadeUp 0.4s ease-out both; }
 .ie-grid{ } @media (max-width:640px){ .ie-grid{grid-template-columns:1fr !important;} }
 </style>
-<link rel="stylesheet" href="werkzeuge.css?v=20261113a">
+<link rel="stylesheet" href="werkzeuge.css?v=20261113b">
 </head>
 <body>
 <div class="layout">
@@ -531,33 +531,17 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <div class="orbital-grid">
     <div class="orbital-card">
-      <svg viewBox="0 0 120 120" width="100" height="100" style="margin-bottom:8px;">
-        <defs><radialGradient id="sg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#4a7ab5" stop-opacity="0.5"/><stop offset="70%" stop-color="#4a7ab5" stop-opacity="0.15"/><stop offset="100%" stop-color="#4a7ab5" stop-opacity="0"/></radialGradient></defs>
-        <circle cx="60" cy="60" r="40" fill="url(#sg)" stroke="#4a7ab5" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.7"/>
-        <circle cx="60" cy="60" r="4" fill="#3d5a80"/>
-      </svg>
+      <canvas class="orb-mini" data-orb="1s" width="300" height="300" title="Zum Drehen ziehen"></canvas>
       <h5>s-Orbital</h5>
       <p>Kugelförmig um den Kern. 1 Orbital pro Unterschale.</p>
     </div>
     <div class="orbital-card">
-      <svg viewBox="0 0 120 120" width="100" height="100" style="margin-bottom:8px;">
-        <defs><radialGradient id="pg1" cx="50%" cy="25%" r="40%"><stop offset="0%" stop-color="#c05050" stop-opacity="0.5"/><stop offset="100%" stop-color="#c05050" stop-opacity="0"/></radialGradient><radialGradient id="pg2" cx="50%" cy="75%" r="40%"><stop offset="0%" stop-color="#4a7ab5" stop-opacity="0.5"/><stop offset="100%" stop-color="#4a7ab5" stop-opacity="0"/></radialGradient></defs>
-        <ellipse cx="60" cy="32" rx="22" ry="28" fill="url(#pg1)" stroke="#c05050" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.7"/>
-        <ellipse cx="60" cy="88" rx="22" ry="28" fill="url(#pg2)" stroke="#4a7ab5" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.7"/>
-        <circle cx="60" cy="60" r="4" fill="#3d5a80"/>
-      </svg>
+      <canvas class="orb-mini" data-orb="2pz" width="300" height="300" title="Zum Drehen ziehen"></canvas>
       <h5>p-Orbital</h5>
       <p>Hantelförmig. 3 Orbitale (p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub>), je entlang einer Achse.</p>
     </div>
     <div class="orbital-card">
-      <svg viewBox="0 0 120 120" width="100" height="100" style="margin-bottom:8px;">
-        <defs><radialGradient id="dg1" cx="50%" cy="25%" r="35%"><stop offset="0%" stop-color="#8b72b0" stop-opacity="0.4"/><stop offset="100%" stop-color="#8b72b0" stop-opacity="0"/></radialGradient><radialGradient id="dg2" cx="50%" cy="75%" r="35%"><stop offset="0%" stop-color="#c08a56" stop-opacity="0.4"/><stop offset="100%" stop-color="#c08a56" stop-opacity="0"/></radialGradient></defs>
-        <ellipse cx="40" cy="38" rx="20" ry="24" fill="url(#dg1)" stroke="#8b72b0" stroke-width="1.2" stroke-dasharray="4 2" opacity="0.7" transform="rotate(-45 40 38)"/>
-        <ellipse cx="80" cy="38" rx="20" ry="24" fill="url(#dg1)" stroke="#8b72b0" stroke-width="1.2" stroke-dasharray="4 2" opacity="0.7" transform="rotate(45 80 38)"/>
-        <ellipse cx="40" cy="82" rx="20" ry="24" fill="url(#dg2)" stroke="#c08a56" stroke-width="1.2" stroke-dasharray="4 2" opacity="0.7" transform="rotate(45 40 82)"/>
-        <ellipse cx="80" cy="82" rx="20" ry="24" fill="url(#dg2)" stroke="#c08a56" stroke-width="1.2" stroke-dasharray="4 2" opacity="0.7" transform="rotate(-45 80 82)"/>
-        <circle cx="60" cy="60" r="4" fill="#3d5a80"/>
-      </svg>
+      <canvas class="orb-mini" data-orb="3dxy" width="300" height="300" title="Zum Drehen ziehen"></canvas>
       <h5>d-Orbital</h5>
       <p>Komplexere Formen (z.B. Kleeblatt). 5 Orbitale pro Unterschale.</p>
     </div>
@@ -568,6 +552,10 @@ section { animation: fadeUp 0.4s ease-out both; }
     <img src="auffuellschema-orbitale.png" alt="s- und p-Orbitale aus dem Skript" style="max-width:100%; border-radius:8px; border:1px solid var(--border);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
     <p style="display:none; font-size:0.82rem; color:var(--text-muted); font-style:italic;">(Abbildung wird im Unterricht gezeigt)</p>
   </div>
+
+  <h4>Simulation: Orbitale von allen Seiten betrachten</h4>
+  <p>«Form» zeigt die Grenzfläche, innerhalb derer sich das Elektron meistens aufhält. «Punktwolke» zeigt mögliche Aufenthaltsorte: Wo die Punkte dicht liegen, ist das Elektron häufig. Die zwei Farben markieren die beiden Hälften (Phasen) eines Orbitals. Drehen Sie das Orbital mit der Maus oder dem Finger.</p>
+  <div class="wz-box orb-viewer"></div>
 
   <!-- QUIZ L5 -->
   <div class="quiz-section">
@@ -1216,6 +1204,7 @@ function newElement() {
 })();
 </script>
 
+<script src="orbitale.js?v=20261113a"></script>
 <script src="freigabe.js"></script>
 </body>
 </html>
