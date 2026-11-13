@@ -1183,8 +1183,13 @@ section { animation: fadeUp 0.4s ease-out both; }
 .lewis-train .lewis-pos.lb-klick:hover { background: var(--accent-light); border-color: var(--accent); }
 .lewis-train.ok { outline: 2px solid var(--correct-border); border-radius: 10px; }
 .lewis-train.bad { outline: 2px solid var(--wrong-border); border-radius: 10px; }
+.vertiefung-klapp > summary { cursor: pointer; list-style: none; }
+.vertiefung-klapp > summary::-webkit-details-marker { display: none; }
+.vertiefung-klapp > summary::before { content: "▸ "; }
+.vertiefung-klapp[open] > summary::before { content: "▾ "; }
+.vertiefung-klapp .klapp-hinweis { text-transform: none; letter-spacing: 0; font-weight: 400; opacity: .75; }
 </style>
-<link rel="stylesheet" href="werkzeuge.css?v=20261113b">
+<link rel="stylesheet" href="werkzeuge.css?v=20261113c">
 </head>
 <body>
 <div class="layout">
@@ -1296,7 +1301,7 @@ section { animation: fadeUp 0.4s ease-out both; }
     </div>
   </div>
 
-  <div class="discovery"><div class="discovery-label">Vertiefung: Triaden &amp; magische Zahl 8</div>
+  <details class="discovery vertiefung-klapp"><summary class="discovery-label">Vertiefung: Triaden &amp; magische Zahl 8 <span class="klapp-hinweis">– zum Aufklappen</span></summary>
 
     <p><strong>Döbereiners Triaden (1829).</strong> Döbereiner fiel auf, dass es Dreiergruppen («Triaden») chemisch ähnlicher Elemente gibt — und dass die <em>Atommasse</em> des mittleren Elements ungefähr dem Mittelwert der äusseren beiden entspricht.</p>
 
@@ -1320,7 +1325,7 @@ section { animation: fadeUp 0.4s ease-out both; }
     <p style="font-size:0.88rem; margin-top:8px;">Konkret: Zählt man bei Lithium los und geht acht Plätze weiter, landet man bei Natrium — beides weiche, sehr reaktive Metalle. Acht weiter: Kalium, wieder dasselbe Verhaltensmuster. Geht man von Fluor acht Plätze weiter, kommt Chlor — beides giftige, reaktive Nichtmetalle.</p>
 
     <p style="font-size:0.88rem; margin-top:8px; margin-bottom:0;">Diese <strong>periodische Wiederkehr ähnlicher Eigenschaften</strong> war das Schlüsselargument: Wenn man die Elementreihe nach jedem achten Element umbricht und untereinander schreibt, stehen chemisch ähnliche Elemente plötzlich in derselben Spalte. Das ist die Geburtsstunde des Periodensystems — und der Grund, warum es «Periodensystem» heisst.</p>
-  </div>
+  </details>
 
   <div class="geniestreich">
     <h4>Mendelejews Geniestreich</h4>
@@ -1516,8 +1521,136 @@ section { animation: fadeUp 0.4s ease-out both; }
   <p>Die Ionisierungsenergie folgt zwei klaren Trends — entgegengesetzt zum Atomradius:</p>
 
   <figure class="trend-figure">
-    <img src="ionisierungsenergie.png" alt="Diagramm der ersten Ionisierungsenergie aller Elemente, mit Maxima bei den Edelgasen und Minima bei den Alkalimetallen.">
-    <figcaption>Erste Ionisierungsenergie aller Elemente in Abhängigkeit der Ordnungszahl. Die Maxima liegen bei den Edelgasen (He, Ne, Ar, Kr, Xe, Rn), die Minima bei den Alkalimetallen (Li, Na, K, Rb, Cs, Fr).</figcaption>
+    <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;" role="img" aria-label="Erste Ionisierungsenergie der Elemente 1 bis 86">
+<line x1="56" y1="300.0" x2="736" y2="300.0" stroke="#eeeae4"/><text x="48" y="304.0" text-anchor="end" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">0</text>
+<line x1="56" y1="250.0" x2="736" y2="250.0" stroke="#eeeae4"/><text x="48" y="254.0" text-anchor="end" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">5</text>
+<line x1="56" y1="200.0" x2="736" y2="200.0" stroke="#eeeae4"/><text x="48" y="204.0" text-anchor="end" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">10</text>
+<line x1="56" y1="150.0" x2="736" y2="150.0" stroke="#eeeae4"/><text x="48" y="154.0" text-anchor="end" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">15</text>
+<line x1="56" y1="100.0" x2="736" y2="100.0" stroke="#eeeae4"/><text x="48" y="104.0" text-anchor="end" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">20</text>
+<line x1="56" y1="50.0" x2="736" y2="50.0" stroke="#eeeae4"/><text x="48" y="54.0" text-anchor="end" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">25</text>
+<text x="56.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">1</text>
+<text x="120.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">9</text>
+<text x="184.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">17</text>
+<text x="248.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">25</text>
+<text x="312.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">33</text>
+<text x="376.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">41</text>
+<text x="440.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">49</text>
+<text x="504.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">57</text>
+<text x="568.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">65</text>
+<text x="632.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">73</text>
+<text x="696.0" y="318" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">81</text>
+<line x1="56" y1="300" x2="736" y2="300" stroke="#999"/><line x1="56" y1="300" x2="56" y2="40" stroke="#999"/>
+<text x="396.0" y="340" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="13" fill="#3d3a36" font-weight="600">Ordnungszahl</text>
+<text x="16" y="170.0" transform="rotate(-90 16 170.0)" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="13" fill="#3d3a36" font-weight="600">1. Ionisierungsenergie in eV</text>
+<polyline points="56.0,164.0 64.0,54.1 72.0,246.1 80.0,206.8 88.0,217.0 96.0,187.4 104.0,154.7 112.0,163.8 120.0,125.8 128.0,84.3 136.0,248.6 144.0,223.5 152.0,240.1 160.0,218.5 168.0,195.1 176.0,196.4 184.0,170.3 192.0,142.4 200.0,256.6 208.0,238.9 216.0,234.4 224.0,231.7 232.0,232.5 240.0,232.3 248.0,225.7 256.0,221.0 264.0,221.2 272.0,223.6 280.0,222.7 288.0,206.1 296.0,240.0 304.0,221.0 312.0,202.1 320.0,202.5 328.0,181.9 336.0,160.0 344.0,258.2 352.0,243.1 360.0,237.8 368.0,233.7 376.0,232.4 384.0,229.1 392.0,227.2 400.0,226.4 408.0,225.4 416.0,216.6 424.0,224.2 432.0,210.1 440.0,242.1 448.0,226.6 456.0,213.9 464.0,209.9 472.0,195.5 480.0,178.7 488.0,261.1 496.0,247.9 504.0,244.2 512.0,244.6 520.0,245.3 528.0,244.8 536.0,244.2 544.0,243.6 552.0,243.3 560.0,238.5 568.0,241.4 576.0,240.6 584.0,239.8 592.0,238.9 600.0,238.2 608.0,237.5 616.0,245.7 624.0,231.8 632.0,224.5 640.0,221.4 648.0,221.7 656.0,215.6 664.0,210.3 672.0,210.4 680.0,207.7 688.0,195.6 696.0,238.9 704.0,225.8 712.0,227.1 720.0,215.9 728.0,206.8 736.0,192.5" fill="none" stroke="#9c9891" stroke-width="1.4"/>
+<circle cx="56.0" cy="164.0" r="4.3" fill="#2f9e44" stroke="white" stroke-width="1"><title>H (Z = 1): 13,598 eV</title></circle>
+<circle cx="64.0" cy="54.1" r="4.3" fill="#3d8bd9" stroke="white" stroke-width="1"><title>He (Z = 2): 24,587 eV</title></circle>
+<circle cx="72.0" cy="246.1" r="4.3" fill="#d9480f" stroke="white" stroke-width="1"><title>Li (Z = 3): 5,392 eV</title></circle>
+<circle cx="80.0" cy="206.8" r="4.3" fill="#f08c00" stroke="white" stroke-width="1"><title>Be (Z = 4): 9,323 eV</title></circle>
+<circle cx="88.0" cy="217.0" r="4.3" fill="#a0785a" stroke="white" stroke-width="1"><title>B (Z = 5): 8,298 eV</title></circle>
+<circle cx="96.0" cy="187.4" r="4.3" fill="#2f9e44" stroke="white" stroke-width="1"><title>C (Z = 6): 11,26 eV</title></circle>
+<circle cx="104.0" cy="154.7" r="4.3" fill="#2f9e44" stroke="white" stroke-width="1"><title>N (Z = 7): 14,534 eV</title></circle>
+<circle cx="112.0" cy="163.8" r="4.3" fill="#2f9e44" stroke="white" stroke-width="1"><title>O (Z = 8): 13,618 eV</title></circle>
+<circle cx="120.0" cy="125.8" r="4.3" fill="#d4b106" stroke="white" stroke-width="1"><title>F (Z = 9): 17,423 eV</title></circle>
+<circle cx="128.0" cy="84.3" r="4.3" fill="#3d8bd9" stroke="white" stroke-width="1"><title>Ne (Z = 10): 21,565 eV</title></circle>
+<circle cx="136.0" cy="248.6" r="4.3" fill="#d9480f" stroke="white" stroke-width="1"><title>Na (Z = 11): 5,139 eV</title></circle>
+<circle cx="144.0" cy="223.5" r="4.3" fill="#f08c00" stroke="white" stroke-width="1"><title>Mg (Z = 12): 7,646 eV</title></circle>
+<circle cx="152.0" cy="240.1" r="4.3" fill="#868e96" stroke="white" stroke-width="1"><title>Al (Z = 13): 5,986 eV</title></circle>
+<circle cx="160.0" cy="218.5" r="4.3" fill="#a0785a" stroke="white" stroke-width="1"><title>Si (Z = 14): 8,152 eV</title></circle>
+<circle cx="168.0" cy="195.1" r="4.3" fill="#2f9e44" stroke="white" stroke-width="1"><title>P (Z = 15): 10,487 eV</title></circle>
+<circle cx="176.0" cy="196.4" r="4.3" fill="#2f9e44" stroke="white" stroke-width="1"><title>S (Z = 16): 10,36 eV</title></circle>
+<circle cx="184.0" cy="170.3" r="4.3" fill="#d4b106" stroke="white" stroke-width="1"><title>Cl (Z = 17): 12,968 eV</title></circle>
+<circle cx="192.0" cy="142.4" r="4.3" fill="#3d8bd9" stroke="white" stroke-width="1"><title>Ar (Z = 18): 15,76 eV</title></circle>
+<circle cx="200.0" cy="256.6" r="4.3" fill="#d9480f" stroke="white" stroke-width="1"><title>K (Z = 19): 4,341 eV</title></circle>
+<circle cx="208.0" cy="238.9" r="4.3" fill="#f08c00" stroke="white" stroke-width="1"><title>Ca (Z = 20): 6,113 eV</title></circle>
+<circle cx="216.0" cy="234.4" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Sc (Z = 21): 6,561 eV</title></circle>
+<circle cx="224.0" cy="231.7" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Ti (Z = 22): 6,828 eV</title></circle>
+<circle cx="232.0" cy="232.5" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>V (Z = 23): 6,746 eV</title></circle>
+<circle cx="240.0" cy="232.3" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Cr (Z = 24): 6,767 eV</title></circle>
+<circle cx="248.0" cy="225.7" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Mn (Z = 25): 7,434 eV</title></circle>
+<circle cx="256.0" cy="221.0" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Fe (Z = 26): 7,902 eV</title></circle>
+<circle cx="264.0" cy="221.2" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Co (Z = 27): 7,881 eV</title></circle>
+<circle cx="272.0" cy="223.6" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Ni (Z = 28): 7,64 eV</title></circle>
+<circle cx="280.0" cy="222.7" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Cu (Z = 29): 7,726 eV</title></circle>
+<circle cx="288.0" cy="206.1" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Zn (Z = 30): 9,394 eV</title></circle>
+<circle cx="296.0" cy="240.0" r="4.3" fill="#868e96" stroke="white" stroke-width="1"><title>Ga (Z = 31): 5,999 eV</title></circle>
+<circle cx="304.0" cy="221.0" r="4.3" fill="#a0785a" stroke="white" stroke-width="1"><title>Ge (Z = 32): 7,9 eV</title></circle>
+<circle cx="312.0" cy="202.1" r="4.3" fill="#a0785a" stroke="white" stroke-width="1"><title>As (Z = 33): 9,789 eV</title></circle>
+<circle cx="320.0" cy="202.5" r="4.3" fill="#2f9e44" stroke="white" stroke-width="1"><title>Se (Z = 34): 9,752 eV</title></circle>
+<circle cx="328.0" cy="181.9" r="4.3" fill="#d4b106" stroke="white" stroke-width="1"><title>Br (Z = 35): 11,814 eV</title></circle>
+<circle cx="336.0" cy="160.0" r="4.3" fill="#3d8bd9" stroke="white" stroke-width="1"><title>Kr (Z = 36): 13,999 eV</title></circle>
+<circle cx="344.0" cy="258.2" r="4.3" fill="#d9480f" stroke="white" stroke-width="1"><title>Rb (Z = 37): 4,177 eV</title></circle>
+<circle cx="352.0" cy="243.1" r="4.3" fill="#f08c00" stroke="white" stroke-width="1"><title>Sr (Z = 38): 5,695 eV</title></circle>
+<circle cx="360.0" cy="237.8" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Y (Z = 39): 6,217 eV</title></circle>
+<circle cx="368.0" cy="233.7" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Zr (Z = 40): 6,634 eV</title></circle>
+<circle cx="376.0" cy="232.4" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Nb (Z = 41): 6,759 eV</title></circle>
+<circle cx="384.0" cy="229.1" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Mo (Z = 42): 7,092 eV</title></circle>
+<circle cx="392.0" cy="227.2" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Tc (Z = 43): 7,28 eV</title></circle>
+<circle cx="400.0" cy="226.4" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Ru (Z = 44): 7,361 eV</title></circle>
+<circle cx="408.0" cy="225.4" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Rh (Z = 45): 7,459 eV</title></circle>
+<circle cx="416.0" cy="216.6" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Pd (Z = 46): 8,337 eV</title></circle>
+<circle cx="424.0" cy="224.2" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Ag (Z = 47): 7,576 eV</title></circle>
+<circle cx="432.0" cy="210.1" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Cd (Z = 48): 8,994 eV</title></circle>
+<circle cx="440.0" cy="242.1" r="4.3" fill="#868e96" stroke="white" stroke-width="1"><title>In (Z = 49): 5,786 eV</title></circle>
+<circle cx="448.0" cy="226.6" r="4.3" fill="#868e96" stroke="white" stroke-width="1"><title>Sn (Z = 50): 7,344 eV</title></circle>
+<circle cx="456.0" cy="213.9" r="4.3" fill="#a0785a" stroke="white" stroke-width="1"><title>Sb (Z = 51): 8,608 eV</title></circle>
+<circle cx="464.0" cy="209.9" r="4.3" fill="#a0785a" stroke="white" stroke-width="1"><title>Te (Z = 52): 9,01 eV</title></circle>
+<circle cx="472.0" cy="195.5" r="4.3" fill="#d4b106" stroke="white" stroke-width="1"><title>I (Z = 53): 10,451 eV</title></circle>
+<circle cx="480.0" cy="178.7" r="4.3" fill="#3d8bd9" stroke="white" stroke-width="1"><title>Xe (Z = 54): 12,13 eV</title></circle>
+<circle cx="488.0" cy="261.1" r="4.3" fill="#d9480f" stroke="white" stroke-width="1"><title>Cs (Z = 55): 3,894 eV</title></circle>
+<circle cx="496.0" cy="247.9" r="4.3" fill="#f08c00" stroke="white" stroke-width="1"><title>Ba (Z = 56): 5,212 eV</title></circle>
+<circle cx="504.0" cy="244.2" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>La (Z = 57): 5,577 eV</title></circle>
+<circle cx="512.0" cy="244.6" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Ce (Z = 58): 5,539 eV</title></circle>
+<circle cx="520.0" cy="245.3" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Pr (Z = 59): 5,473 eV</title></circle>
+<circle cx="528.0" cy="244.8" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Nd (Z = 60): 5,525 eV</title></circle>
+<circle cx="536.0" cy="244.2" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Pm (Z = 61): 5,582 eV</title></circle>
+<circle cx="544.0" cy="243.6" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Sm (Z = 62): 5,644 eV</title></circle>
+<circle cx="552.0" cy="243.3" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Eu (Z = 63): 5,67 eV</title></circle>
+<circle cx="560.0" cy="238.5" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Gd (Z = 64): 6,15 eV</title></circle>
+<circle cx="568.0" cy="241.4" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Tb (Z = 65): 5,864 eV</title></circle>
+<circle cx="576.0" cy="240.6" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Dy (Z = 66): 5,939 eV</title></circle>
+<circle cx="584.0" cy="239.8" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Ho (Z = 67): 6,022 eV</title></circle>
+<circle cx="592.0" cy="238.9" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Er (Z = 68): 6,108 eV</title></circle>
+<circle cx="600.0" cy="238.2" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Tm (Z = 69): 6,184 eV</title></circle>
+<circle cx="608.0" cy="237.5" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Yb (Z = 70): 6,254 eV</title></circle>
+<circle cx="616.0" cy="245.7" r="4.3" fill="#b197fc" stroke="white" stroke-width="1"><title>Lu (Z = 71): 5,426 eV</title></circle>
+<circle cx="624.0" cy="231.8" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Hf (Z = 72): 6,825 eV</title></circle>
+<circle cx="632.0" cy="224.5" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Ta (Z = 73): 7,55 eV</title></circle>
+<circle cx="640.0" cy="221.4" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>W (Z = 74): 7,864 eV</title></circle>
+<circle cx="648.0" cy="221.7" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Re (Z = 75): 7,834 eV</title></circle>
+<circle cx="656.0" cy="215.6" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Os (Z = 76): 8,438 eV</title></circle>
+<circle cx="664.0" cy="210.3" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Ir (Z = 77): 8,967 eV</title></circle>
+<circle cx="672.0" cy="210.4" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Pt (Z = 78): 8,959 eV</title></circle>
+<circle cx="680.0" cy="207.7" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Au (Z = 79): 9,226 eV</title></circle>
+<circle cx="688.0" cy="195.6" r="4.3" fill="#e8829a" stroke="white" stroke-width="1"><title>Hg (Z = 80): 10,438 eV</title></circle>
+<circle cx="696.0" cy="238.9" r="4.3" fill="#868e96" stroke="white" stroke-width="1"><title>Tl (Z = 81): 6,108 eV</title></circle>
+<circle cx="704.0" cy="225.8" r="4.3" fill="#868e96" stroke="white" stroke-width="1"><title>Pb (Z = 82): 7,417 eV</title></circle>
+<circle cx="712.0" cy="227.1" r="4.3" fill="#868e96" stroke="white" stroke-width="1"><title>Bi (Z = 83): 7,286 eV</title></circle>
+<circle cx="720.0" cy="215.9" r="4.3" fill="#a0785a" stroke="white" stroke-width="1"><title>Po (Z = 84): 8,414 eV</title></circle>
+<circle cx="728.0" cy="206.8" r="4.3" fill="#d4b106" stroke="white" stroke-width="1"><title>At (Z = 85): 9,318 eV</title></circle>
+<circle cx="736.0" cy="192.5" r="4.3" fill="#3d8bd9" stroke="white" stroke-width="1"><title>Rn (Z = 86): 10,749 eV</title></circle>
+<text x="64.0" y="45.1" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#3d8bd9">He</text>
+<text x="128.0" y="75.3" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#3d8bd9">Ne</text>
+<text x="192.0" y="133.4" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#3d8bd9">Ar</text>
+<text x="336.0" y="151.0" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#3d8bd9">Kr</text>
+<text x="480.0" y="169.7" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#3d8bd9">Xe</text>
+<text x="736.0" y="183.5" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#3d8bd9">Rn</text>
+<text x="72.0" y="264.1" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#d9480f">Li</text>
+<text x="136.0" y="266.6" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#d9480f">Na</text>
+<text x="200.0" y="274.6" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#d9480f">K</text>
+<text x="344.0" y="276.2" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#d9480f">Rb</text>
+<text x="488.0" y="279.1" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#d9480f">Cs</text>
+<circle cx="760" cy="48" r="5" fill="#d9480f"/><text x="772" y="52" font-family="DM Sans, sans-serif" font-size="12" fill="#3d3a36">Alkalimetalle</text>
+<circle cx="760" cy="70" r="5" fill="#f08c00"/><text x="772" y="74" font-family="DM Sans, sans-serif" font-size="12" fill="#3d3a36">Erdalkalimetalle</text>
+<circle cx="760" cy="92" r="5" fill="#e8829a"/><text x="772" y="96" font-family="DM Sans, sans-serif" font-size="12" fill="#3d3a36">Übergangsmetalle</text>
+<circle cx="760" cy="114" r="5" fill="#b197fc"/><text x="772" y="118" font-family="DM Sans, sans-serif" font-size="12" fill="#3d3a36">Lanthanoide</text>
+<circle cx="760" cy="136" r="5" fill="#868e96"/><text x="772" y="140" font-family="DM Sans, sans-serif" font-size="12" fill="#3d3a36">andere Metalle</text>
+<circle cx="760" cy="158" r="5" fill="#a0785a"/><text x="772" y="162" font-family="DM Sans, sans-serif" font-size="12" fill="#3d3a36">Halbmetalle</text>
+<circle cx="760" cy="180" r="5" fill="#2f9e44"/><text x="772" y="184" font-family="DM Sans, sans-serif" font-size="12" fill="#3d3a36">Nichtmetalle</text>
+<circle cx="760" cy="202" r="5" fill="#d4b106"/><text x="772" y="206" font-family="DM Sans, sans-serif" font-size="12" fill="#3d3a36">Halogene</text>
+<circle cx="760" cy="224" r="5" fill="#3d8bd9"/><text x="772" y="228" font-family="DM Sans, sans-serif" font-size="12" fill="#3d3a36">Edelgase</text>
+</svg>
+    <figcaption>Erste Ionisierungsenergie der Elemente 1 bis 86 in Abhängigkeit der Ordnungszahl. Fahren Sie mit der Maus über einen Punkt, um das Element zu sehen. Die Maxima liegen bei den Edelgasen (He, Ne, Ar, Kr, Xe, Rn), die Minima bei den Alkalimetallen (Li, Na, K, Rb, Cs, Fr).</figcaption>
   </figure>
 
   <div class="merksatz"><div class="merksatz-label">Trends Ionisierungsenergie</div>
@@ -1814,14 +1947,51 @@ section { animation: fadeUp 0.4s ease-out both; }
   <p>Schauen wir auf die Aussenschale von Kohlenstoff: 2s² 2p². Das wären <strong>zwei verschiedene Sorten</strong> Orbitale — ein s-Orbital (kugelig) mit 2 Elektronen und zwei p-Orbitale (hantelförmig) mit je 1 Elektron. Methan liegt aber tetraedrisch vor. Deshalb können in dem gebundenen C-Atom ein s-Orbital und drei p-Orbitale <strong>nicht in ihrer ursprünglichen Form</strong> vorhanden sein, da so die tetraedrische Geometrie nicht möglich wäre. Die Hybridisierungstheorie erklärt dies mit einer <strong>Mischung der verschiedenen s- und p-Orbitale</strong> des zentralen Kohlenstoffatoms.</p>
 
   <figure class="hybrid-figure">
-    <img src="Elektronendichte_Methan.png" alt="Berechnete Elektronendichte des Methan-Moleküls als grüne, leicht abgerundete Würfelform mit vier hervorstehenden Ecken, in denen die Wasserstoffatome sitzen.">
-    <figcaption>Berechnete Elektronendichte des Methan-Moleküls (CH₄). Die vier C–H-Bindungen zeigen in die Ecken eines Tetraeders — alle vier sind völlig gleichwertig.</figcaption>
+    <svg viewBox="0 0 320 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto;" role="img" aria-label="Methan-Molekül mit vier tetraedrisch angeordneten Bindungen">
+ <defs><radialGradient id="meL" cx="50%" cy="80%" r="80%"><stop offset="0%" stop-color="#c5f6fa"/><stop offset="100%" stop-color="#3bc9db"/></radialGradient>
+ <radialGradient id="meH" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ced4da"/></radialGradient></defs>
+ <path d="M0,0 C -26.0,-21.7 -22.1,-62.0 0,-62.0 C 22.1,-62.0 26.0,-21.7 0,0 Z" transform="translate(160,150) rotate(180)" fill="url(#meL)" opacity="0.5" stroke="#2b7a8c" stroke-width="1"/>
+ <path d="M0,0 C -32.0,-32.2 -27.2,-92.0 0,-92.0 C 27.2,-92.0 32.0,-32.2 0,0 Z" transform="translate(160,150) rotate(0)" fill="url(#meL)" opacity="1" stroke="#2b7a8c" stroke-width="1"/>
+ <path d="M0,0 C -32.0,-34.3 -27.2,-98.0 0,-98.0 C 27.2,-98.0 32.0,-34.3 0,0 Z" transform="translate(160,150) rotate(-118)" fill="url(#meL)" opacity="1" stroke="#2b7a8c" stroke-width="1"/>
+ <path d="M0,0 C -32.0,-34.3 -27.2,-98.0 0,-98.0 C 27.2,-98.0 32.0,-34.3 0,0 Z" transform="translate(160,150) rotate(118)" fill="url(#meL)" opacity="1" stroke="#2b7a8c" stroke-width="1"/>
+ <circle cx="160" cy="214" r="12" fill="url(#meH)" stroke="#868e96" opacity="0.75"/>
+ <circle cx="160" cy="40" r="15" fill="url(#meH)" stroke="#868e96"/>
+ <circle cx="62" cy="222" r="15" fill="url(#meH)" stroke="#868e96"/>
+ <circle cx="258" cy="222" r="15" fill="url(#meH)" stroke="#868e96"/>
+ <g font-family="DM Sans, sans-serif" font-size="12" font-weight="700" fill="#495057" text-anchor="middle"><text x="160" y="45">H</text><text x="62" y="227">H</text><text x="258" y="227">H</text><text x="160" y="218" opacity="0.75">H</text></g>
+ <circle cx="160" cy="150" r="13" fill="#343a40"/><text x="160" y="155" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="13" font-weight="700" fill="white">C</text>
+ <text x="160" y="290" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="13" fill="#6b6560">Bindungswinkel 109,5°</text>
+</svg>
+    <figcaption>Methan (CH₄): Die vier C–H-Bindungen zeigen in die Ecken eines Tetraeders — alle vier sind völlig gleichwertig.</figcaption>
   </figure>
 
   <p>Stellen Sie sich also vor, Sie mischen ein s-Orbital mit drei p-Orbitalen. Das Resultat sind <strong>vier neue, völlig gleichwertige Orbitale</strong>, die wir <strong>sp³-Hybridorbitale</strong> nennen. Räumlich zeigen sie in vier Richtungen — in die Ecken eines Tetraeders, also möglichst weit voneinander weg.</p>
 
   <figure class="hybrid-figure">
-    <img src="hybridisierungsp3.png" alt="Schematische Darstellung der sp3-Hybridisierung: links ein s-Orbital und drei p-Orbitale (px, py, pz) als Hanteln, rechts vier gleichwertige, tetraedrisch angeordnete sp3-Hybridorbitale.">
+    <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto;" role="img" aria-label="sp3-Hybridisierung">
+ <defs><radialGradient id="spS" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#adb5bd"/></radialGradient>
+ <linearGradient id="spA" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#ffc9c9"/><stop offset="100%" stop-color="#f03e3e"/></linearGradient>
+ <linearGradient id="spB" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#d3f9d8"/><stop offset="100%" stop-color="#8ce99a"/></linearGradient>
+ <linearGradient id="spH" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#c5f6fa"/><stop offset="100%" stop-color="#3bc9db"/></linearGradient>
+ <marker id="spP" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3d3a36"/></marker></defs>
+ <circle cx="60" cy="140" r="30" fill="url(#spS)" stroke="#8a8580" stroke-width="0.8"/><circle cx="60" cy="140" r="4" fill="#212529"/>
+ <text x="60" y="195" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" fill="#3d3a36">s</text>
+ <text x="110" y="146" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="20" fill="#6b6560">+</text>
+ <path d="M0,0 C -20.0,-18.2 -17.0,-52.0 0,-52.0 C 17.0,-52.0 20.0,-18.2 0,0 Z" transform="translate(180,140) rotate(90)" fill="url(#spA)" stroke="#8a8580" stroke-width="0.8"/><path d="M0,0 C -20.0,-18.2 -17.0,-52.0 0,-52.0 C 17.0,-52.0 20.0,-18.2 0,0 Z" transform="translate(180,140) rotate(270)" fill="url(#spB)" stroke="#8a8580" stroke-width="0.8"/><circle cx="180" cy="140" r="4" fill="#212529"/>
+ <path d="M0,0 C -20.0,-18.2 -17.0,-52.0 0,-52.0 C 17.0,-52.0 20.0,-18.2 0,0 Z" transform="translate(275,140) rotate(0)" fill="url(#spA)" stroke="#8a8580" stroke-width="0.8"/><path d="M0,0 C -20.0,-18.2 -17.0,-52.0 0,-52.0 C 17.0,-52.0 20.0,-18.2 0,0 Z" transform="translate(275,140) rotate(180)" fill="url(#spB)" stroke="#8a8580" stroke-width="0.8"/><circle cx="275" cy="140" r="4" fill="#212529"/>
+ <path d="M0,0 C -20.0,-18.2 -17.0,-52.0 0,-52.0 C 17.0,-52.0 20.0,-18.2 0,0 Z" transform="translate(365,140) rotate(40)" fill="url(#spA)" stroke="#8a8580" stroke-width="0.8"/><path d="M0,0 C -20.0,-18.2 -17.0,-52.0 0,-52.0 C 17.0,-52.0 20.0,-18.2 0,0 Z" transform="translate(365,140) rotate(220)" fill="url(#spB)" stroke="#8a8580" stroke-width="0.8"/><circle cx="365" cy="140" r="4" fill="#212529"/>
+ <g font-family="DM Sans, sans-serif" font-size="15" fill="#3d3a36" text-anchor="middle"><text x="180" y="225">p<tspan font-size="11" dy="4">x</tspan></text><text x="275" y="225">p<tspan font-size="11" dy="4">z</tspan></text><text x="365" y="225">p<tspan font-size="11" dy="4">y</tspan></text></g>
+ <line x1="425" y1="140" x2="490" y2="140" stroke="#3d3a36" stroke-width="2" marker-end="url(#spP)"/>
+ <text x="457" y="128" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6b6560">mischen</text>
+ <path d="M0,0 C -22.0,-18.2 -18.7,-52.0 0,-52.0 C 18.7,-52.0 22.0,-18.2 0,0 Z" transform="translate(600,150) rotate(180)" fill="url(#spH)" opacity="0.5" stroke="#2b7a8c" stroke-width="1"/>
+ <path d="M0,0 C -28.0,-28.7 -23.8,-82.0 0,-82.0 C 23.8,-82.0 28.0,-28.7 0,0 Z" transform="translate(600,150) rotate(0)" fill="url(#spH)" opacity="1" stroke="#2b7a8c" stroke-width="1"/>
+ <path d="M0,0 C -28.0,-30.1 -23.8,-86.0 0,-86.0 C 23.8,-86.0 28.0,-30.1 0,0 Z" transform="translate(600,150) rotate(-118)" fill="url(#spH)" opacity="1" stroke="#2b7a8c" stroke-width="1"/>
+ <path d="M0,0 C -28.0,-30.1 -23.8,-86.0 0,-86.0 C 23.8,-86.0 28.0,-30.1 0,0 Z" transform="translate(600,150) rotate(118)" fill="url(#spH)" opacity="1" stroke="#2b7a8c" stroke-width="1"/>
+ <circle cx="600" cy="150" r="5" fill="#212529"/>
+ <text x="600" y="265" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="15" fill="#3d3a36">4 sp³-Hybridorbitale</text>
+ <text x="600" y="284" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="13" fill="#6b6560">gleichwertig, tetraedrisch</text>
+ <text x="215" y="265" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="13" fill="#6b6560">1 s-Orbital + 3 p-Orbitale</text>
+</svg>
     <figcaption>Aus einem s-Orbital und drei p-Orbitalen entstehen rechnerisch vier gleichwertige sp³-Hybridorbitale, die tetraedrisch um den Kern angeordnet sind.</figcaption>
   </figure>
 

@@ -523,8 +523,16 @@ em { font-style: italic; color: var(--text-muted); }
 }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 section { animation: fadeUp 0.4s ease-out both; }
+.bindung-uebersicht { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0 4px; }
+.bu-karte { background: white; border: 1px solid var(--border); border-top: 4px solid var(--bu); border-radius: 12px; padding: 16px; text-align: center; display: flex; flex-direction: column; gap: 6px; }
+.bu-kopf { font-weight: 700; font-size: 1.05rem; color: var(--bu); }
+.bu-stoff { font-family: var(--serif); font-size: 1.3rem; }
+.bu-karte svg { width: 120px; height: 90px; margin: 4px auto; }
+.bu-aus { font-size: 0.92rem; }
+.bu-bsp { font-size: 0.85rem; color: var(--text-muted); margin-top: auto; padding-top: 6px; border-top: 1px solid var(--border); }
+@media (max-width: 680px) { .bindung-uebersicht { grid-template-columns: 1fr; } }
 </style>
-<link rel="stylesheet" href="werkzeuge.css?v=20261113b">
+<link rel="stylesheet" href="werkzeuge.css?v=20261113c">
 </head>
 <body>
 
@@ -824,12 +832,23 @@ section { animation: fadeUp 0.4s ease-out both; }
 
   <h3>12.3 Die drei Bindungstypen im Überblick</h3>
 
-  <p>Die folgende Tabelle aus dem MINT-Skript stellt die drei Bindungstypen nebeneinander. In Kapitel 5 schauen wir uns jeden Bindungstyp genauer an.</p>
+  <p>Die folgende Übersicht stellt die drei Bindungstypen nebeneinander. In Kapitel 5 schauen wir uns jeden Bindungstyp genauer an.</p>
 
-  <figure class="mint-figure">
-    <img src="mint-tabelle-bindungsarten.jpeg" alt="Übersichtstabelle der drei Bindungsarten (ionisch, metallisch, kovalent)">
-    <figcaption>Tabelle 1: Die drei Bindungsarten. Quelle: Zwyssig &amp; Lipscher, MINT-Lernzentrum ETH Zürich.</figcaption>
-  </figure>
+  <div class="bindung-uebersicht">
+    <div class="bu-karte" style="--bu:#c0392b"><div class="bu-kopf">kovalente Bindung</div><div class="bu-stoff">Moleküle</div>
+      <svg viewBox="0 0 120 90" aria-label="Wassermolekül"><defs><radialGradient id="buO" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#ff8787"/><stop offset="100%" stop-color="#c92a2a"/></radialGradient><radialGradient id="buH" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#ced4da"/></radialGradient></defs>
+        <circle cx="38" cy="58" r="17" fill="url(#buH)" stroke="#adb5bd"/><circle cx="82" cy="58" r="17" fill="url(#buH)" stroke="#adb5bd"/><circle cx="60" cy="40" r="27" fill="url(#buO)"/></svg>
+      <div class="bu-aus">aus einem oder mehreren <strong>Nichtmetallen</strong></div><div class="bu-bsp">Beispiele: O₂, H₂O, CO₂</div></div>
+    <div class="bu-karte" style="--bu:#868e96"><div class="bu-kopf">metallische Bindung</div><div class="bu-stoff">Metalle</div>
+      <svg viewBox="0 0 120 90" aria-label="Metallgitter"><defs><radialGradient id="buM" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#f1f3f5"/><stop offset="100%" stop-color="#868e96"/></radialGradient></defs>
+        <g fill="url(#buM)" stroke="#adb5bd"><circle cx="24" cy="20" r="12"/><circle cx="48" cy="20" r="12"/><circle cx="72" cy="20" r="12"/><circle cx="96" cy="20" r="12"/><circle cx="36" cy="41" r="12"/><circle cx="60" cy="41" r="12"/><circle cx="84" cy="41" r="12"/><circle cx="24" cy="62" r="12"/><circle cx="48" cy="62" r="12"/><circle cx="72" cy="62" r="12"/><circle cx="96" cy="62" r="12"/></g></svg>
+      <div class="bu-aus">aus einem oder mehreren <strong>Metallen</strong></div><div class="bu-bsp">Beispiele: Na, Fe, NaHg</div></div>
+    <div class="bu-karte" style="--bu:#2f9e44"><div class="bu-kopf">ionische Bindung</div><div class="bu-stoff">Salze</div>
+      <svg viewBox="0 0 120 90" aria-label="Ionengitter"><defs><radialGradient id="buCl" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#b2f2bb"/><stop offset="100%" stop-color="#2f9e44"/></radialGradient><radialGradient id="buNa" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#e5dbff"/><stop offset="100%" stop-color="#7048e8"/></radialGradient></defs>
+        <circle cx="22" cy="14" r="10" fill="url(#buCl)"/><circle cx="41" cy="14" r="6.5" fill="url(#buNa)"/><circle cx="60" cy="14" r="10" fill="url(#buCl)"/><circle cx="79" cy="14" r="6.5" fill="url(#buNa)"/><circle cx="98" cy="14" r="10" fill="url(#buCl)"/><circle cx="22" cy="33" r="6.5" fill="url(#buNa)"/><circle cx="41" cy="33" r="10" fill="url(#buCl)"/><circle cx="60" cy="33" r="6.5" fill="url(#buNa)"/><circle cx="79" cy="33" r="10" fill="url(#buCl)"/><circle cx="98" cy="33" r="6.5" fill="url(#buNa)"/><circle cx="22" cy="52" r="10" fill="url(#buCl)"/><circle cx="41" cy="52" r="6.5" fill="url(#buNa)"/><circle cx="60" cy="52" r="10" fill="url(#buCl)"/><circle cx="79" cy="52" r="6.5" fill="url(#buNa)"/><circle cx="98" cy="52" r="10" fill="url(#buCl)"/><circle cx="22" cy="71" r="6.5" fill="url(#buNa)"/><circle cx="41" cy="71" r="10" fill="url(#buCl)"/><circle cx="60" cy="71" r="6.5" fill="url(#buNa)"/><circle cx="79" cy="71" r="10" fill="url(#buCl)"/><circle cx="98" cy="71" r="6.5" fill="url(#buNa)"/></svg>
+      <div class="bu-aus">aus <strong>Metallen</strong> und <strong>Nichtmetallen</strong></div><div class="bu-bsp">Beispiele: NaCl, KI, CaCO₃</div></div>
+  </div>
+  <p style="font-size:0.82rem;color:var(--text-muted);text-align:center;margin-top:6px;">Die drei Arten der chemischen Bindung, nach Zwyssig &amp; Lipscher, MINT-Lernzentrum ETH Zürich.</p>
 
   <h3>12.4 Welche Bindung liegt vor? — Interaktiv</h3>
   <p>Wenden Sie das Gelernte an. Klicken Sie auf die Antwort, die Sie für richtig halten — Sie erhalten direkt Feedback.</p>
@@ -1005,7 +1024,7 @@ function toolAnswer(btn, choice) {
 (function () {
   const wrap = document.getElementById('escape'); if (!wrap) return;
   const R = [
-    { b: 'C', t: 'Kästchen 1 · auf dem Schreibtisch', q: 'Auf dem Deckel steht das Nuklidsymbol <sup>35</sup><sub style="margin-left:-0.5em">17</sub>Cl. Wie viele Neutronen hat dieses Atom?', a: 18, tipp: 'Neutronen = Massenzahl − Ordnungszahl.' },
+    { b: 'C', t: 'Kästchen 1 · auf dem Schreibtisch', q: 'Auf dem Deckel steht das Nuklidsymbol <span class="nuklid"><span class="nz"><span>35</span><span>17</span></span>Cl</span>. Wie viele Neutronen hat dieses Atom?', a: 18, tipp: 'Neutronen = Massenzahl − Ordnungszahl.' },
     { b: 'O', t: 'Kästchen 2 · neben der Goldfolie', q: 'Zwei Ladungen ziehen sich an. Der Abstand zwischen ihnen wird verdreifacht. Die Kraft sinkt auf 1/x. Wie gross ist x?', a: 9, tipp: 'Im Coulomb-Gesetz steht r² im Nenner.' },
     { b: 'U', t: 'Kästchen 3 · im Regal', q: 'Wie viele Elektronen hat ein Magnesium-Ion Mg²⁺?', a: 10, tipp: 'Magnesium hat 12 Elektronen und gibt zwei ab.' },
     { b: 'L', t: 'Kästchen 4 · unter dem Bunsenbrenner', q: 'Wie viele Elektronen passen höchstens in die M-Schale (3. Hauptschale)?', a: 18, tipp: '2n²' },

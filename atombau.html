@@ -245,7 +245,7 @@ a { color: var(--accent); font-weight: 600; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 section { animation: fadeUp 0.4s ease-out both; }
 </style>
-<link rel="stylesheet" href="werkzeuge.css?v=20261113b">
+<link rel="stylesheet" href="werkzeuge.css?v=20261113c">
 </head>
 <body>
 <div class="layout">
@@ -898,17 +898,17 @@ section { animation: fadeUp 0.4s ease-out both; }
   <h3>3.3 Die Nuklidsymbol-Schreibweise</h3>
   <p>Um ein bestimmtes Atom eindeutig zu kennzeichnen, verwendet man das <strong>Nuklidsymbol</strong>. Dabei steht die Massenzahl links oben und die Ordnungszahl links unten am Elementsymbol:</p>
   <div style="text-align:center; font-size:2.5rem; margin:24px 0; font-family:var(--serif);">
-    <sup style="font-size:1.2rem; vertical-align:super; margin-right:-4px;">A</sup><sub style="font-size:1.2rem; vertical-align:sub; margin-right:2px;">Z</sub>X
+    <span class="nuklid"><span class="nz"><span>A</span><span>Z</span></span>X</span>
   </div>
   <p>Beispiele:</p>
   <table class="data-table">
     <thead><tr><th>Nuklidsymbol</th><th>Protonen (Z)</th><th>Neutronen (N = A − Z)</th><th>Elektronen (neutral)</th></tr></thead>
     <tbody>
-      <tr><td><sup>12</sup><sub>6</sub>C (Kohlenstoff-12)</td><td>6</td><td>6</td><td>6</td></tr>
-      <tr><td><sup>14</sup><sub>6</sub>C (Kohlenstoff-14)</td><td>6</td><td>8</td><td>6</td></tr>
-      <tr><td><sup>23</sup><sub>11</sub>Na (Natrium-23)</td><td>11</td><td>12</td><td>11</td></tr>
-      <tr><td><sup>56</sup><sub>26</sub>Fe (Eisen-56)</td><td>26</td><td>30</td><td>26</td></tr>
-      <tr><td><sup>197</sup><sub>79</sub>Au (Gold-197)</td><td>79</td><td>118</td><td>79</td></tr>
+      <tr><td><span class="nuklid"><span class="nz"><span>12</span><span>6</span></span>C</span> (Kohlenstoff-12)</td><td>6</td><td>6</td><td>6</td></tr>
+      <tr><td><span class="nuklid"><span class="nz"><span>14</span><span>6</span></span>C</span> (Kohlenstoff-14)</td><td>6</td><td>8</td><td>6</td></tr>
+      <tr><td><span class="nuklid"><span class="nz"><span>23</span><span>11</span></span>Na</span> (Natrium-23)</td><td>11</td><td>12</td><td>11</td></tr>
+      <tr><td><span class="nuklid"><span class="nz"><span>56</span><span>26</span></span>Fe</span> (Eisen-56)</td><td>26</td><td>30</td><td>26</td></tr>
+      <tr><td><span class="nuklid"><span class="nz"><span>197</span><span>79</span></span>Au</span> (Gold-197)</td><td>79</td><td>118</td><td>79</td></tr>
     </tbody>
   </table>
 
@@ -1001,7 +1001,7 @@ section { animation: fadeUp 0.4s ease-out both; }
       <div class="option" data-correct="true" onclick="selectOption(this)"><span class="radio"></span>16</div>
       <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>24</div>
       <div class="option" data-correct="false" onclick="selectOption(this)"><span class="radio"></span>64</div>
-      <div class="feedback correct">Genau! A = Z + N = 8 Protonen + 8 Neutronen = 16. Das ist Sauerstoff-16 (<sup>16</sup><sub>8</sub>O). Elektronen zählen nicht zur Massenzahl, weil ihre Masse verschwindend gering ist.</div>
+      <div class="feedback correct">Genau! A = Z + N = 8 Protonen + 8 Neutronen = 16. Das ist Sauerstoff-16 (<span class="nuklid"><span class="nz"><span>16</span><span>8</span></span>O</span>). Elektronen zählen nicht zur Massenzahl, weil ihre Masse verschwindend gering ist.</div>
       <div class="feedback wrong">Die Massenzahl A ist die Summe von Protonen und Neutronen (Nukleonen). Elektronen zählen nicht dazu. Also: A = Z + N = ?</div>
     </div>
 

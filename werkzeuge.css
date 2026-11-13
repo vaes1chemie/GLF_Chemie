@@ -90,3 +90,7 @@ canvas.orb-mini { width: 130px; height: 130px; display: block; margin: 0 auto 8p
 .orb-viewer .tool-btn { padding: 6px 10px; font-size: 0.84rem; }
 .orb-viewer .ov-info { font-size: 0.9rem; background: var(--accent-light, #e8eff7); border-radius: 8px; padding: 10px 12px; }
 @media (max-width: 700px) { .orb-viewer .ov-wrap { grid-template-columns: 1fr; } }
+
+/* Nuklidsymbol: Massenzahl und Ordnungszahl rechtsbündig übereinander */
+.nuklid { display: inline-flex; align-items: center; vertical-align: middle; white-space: nowrap; }
+.nuklid .nz { display: inline-flex; flex-direction: column; align-items: flex-end; font-size: 0.7em; line-height: 1.05; margin-right: 0.1em; }
