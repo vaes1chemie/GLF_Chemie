@@ -35,7 +35,7 @@ h1 { font-family:var(--serif); font-weight:400; font-size:2rem; margin:0 0 6px; 
       <div class="ov-side">
         <h4>s-Orbitale</h4><div class="grp" data-g="s"></div>
         <h4>p-Orbitale</h4><div class="grp" data-g="p"></div>
-        <h4>d-Orbitale (Auswahl)</h4><div class="grp" data-g="d"></div>
+        <h4>d-Orbitale</h4><div class="grp" data-g="d"></div>
         <h4>Darstellung</h4>
         <div class="grp"><button class="tool-btn chosen" id="ovForm">Form</button><button class="tool-btn" id="ovPunkte">Punktwolke</button></div>
         <div class="ov-info" id="ovInfo"></div>
@@ -55,7 +55,10 @@ h1 { font-family:var(--serif); font-weight:400; font-size:2rem; margin:0 0 6px; 
     '2pz': { g: 'p', f: (x, y, z, r) => z / r, rad: r => r * Math.exp(-r / 2), R: 11, info: '2p<sub>z</sub>: Hantel entlang der z-Achse.' },
     'alle 2p': { g: 'p', alle: ['2px', '2py', '2pz'], R: 11, info: 'Die drei p-Orbitale stehen senkrecht aufeinander. Zusammen fassen sie 6 Elektronen.' },
     '3dxy': { g: 'd', f: (x, y, z, r) => x * y / (r * r), rad: r => r * r * Math.exp(-r / 3), R: 20, info: '3d<sub>xy</sub>: vier Keulen zwischen den Achsen («Kleeblatt»).' },
-    '3dz²': { g: 'd', f: (x, y, z, r) => (3 * z * z - r * r) / (r * r), rad: r => r * r * Math.exp(-r / 3), R: 20, info: '3d<sub>z²</sub>: Hantel entlang z mit einem Ring in der Mitte.' } };
+    '3dxz': { g: 'd', f: (x, y, z, r) => x * z / (r * r), rad: r => r * r * Math.exp(-r / 3), R: 20, info: '3d<sub>xz</sub>: vier Keulen zwischen der x- und der z-Achse.' },
+    '3dyz': { g: 'd', f: (x, y, z, r) => y * z / (r * r), rad: r => r * r * Math.exp(-r / 3), R: 20, info: '3d<sub>yz</sub>: vier Keulen zwischen der y- und der z-Achse.' },
+    '3dx²−y²': { g: 'd', f: (x, y, z, r) => (x * x - y * y) / (r * r), rad: r => r * r * Math.exp(-r / 3), R: 20, info: '3d<sub>x²−y²</sub>: vier Keulen direkt auf der x- und der y-Achse.' },
+    '3dz²': { g: 'd', f: (x, y, z, r) => (3 * z * z - r * r) / (r * r), rad: r => r * r * Math.exp(-r / 3), R: 20, info: '3d<sub>z²</sub>: Hantel entlang z mit einem Ring in der Mitte. Zusammen fassen die fünf d-Orbitale 10 Elektronen.' } };
   function wolke(key, n, form) {
     const o = O[key], pts = [];
     if (form && o.kugel) {
