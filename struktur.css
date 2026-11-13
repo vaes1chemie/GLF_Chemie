@@ -520,3 +520,7 @@ section { animation: fadeUp 0.4s ease-out both; }
 .vdw-bar { flex: 1; height: 12px; background: var(--bg-alt); border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
 .vdw-bar div { height: 100%; width: 0; background: #4a7ab5; transition: width 0.08s linear; }
 #vdwMittel { background: #2b7f7a; }
+
+/* Flussdiagramm */
+.flow-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.flow-svg { display: block; width: 100%; min-width: 620px; height: auto; }
