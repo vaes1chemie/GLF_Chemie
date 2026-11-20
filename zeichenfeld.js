@@ -15,6 +15,7 @@ window.Zeichenfeld = function (zb, opt) {
     ['m1', 'Anion − (klein)'], ['m2', 'Anion − (gross)'], ['m2b', 'Anion 2− (gross)'],
     ['e', 'Elektron e⁻'],
     ['w', 'Wassermolekül'], ['wd', 'Wassermolekül mit δ+ / δ−']];
+  if ((zb.dataset.extra || '').includes('ethanol')) TEILCHEN.push(['et', 'Ethanolmolekül'], ['etd', 'Ethanolmolekül mit δ+ / δ−']);
   zb.innerHTML = `<div class="${opt.titelKlasse || 'gate-title'}">${zb.dataset.label || 'Ihre Zeichnung'}</div>
     <canvas width="1000" height="${H}" style="aspect-ratio:1000/${H}" tabindex="0"></canvas>
     <div class="zb-tools">
@@ -27,7 +28,7 @@ window.Zeichenfeld = function (zb, opt) {
     <div class="zb-tools zb-teilchen">
       <label class="zb-label">Teilchen einsetzen <select class="zb-typ">${TEILCHEN.map(([v, t]) => `<option value="${v}">${t}</option>`).join('')}</select></label>
       <button type="button" class="${kn} zb-del" disabled>Teilchen entfernen</button>
-      <span class="zb-hinweis">Teilchen auswählen und in die Fläche klicken. Eingesetzte Teilchen anklicken und ziehen zum Verschieben; Wassermoleküle am runden Griff ↻ drehen.</span>
+      <span class="zb-hinweis">Teilchen auswählen und in die Fläche klicken. Eingesetzte Teilchen anklicken und ziehen zum Verschieben; Moleküle am runden Griff ↻ drehen.</span>
     </div>`;
   const cv = zb.querySelector('canvas'), ctx = cv.getContext('2d');
   const base = document.createElement('canvas'); base.width = cv.width; base.height = cv.height;
@@ -54,15 +55,28 @@ window.Zeichenfeld = function (zb, opt) {
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(zeichen, x, y + r * 0.04);
     }
   }
-  const radius = o => ({ k1: 14, k2: 22, k3: 32, p1: 16, p2: 30, p2b: 30, m1: 16, m2: 30, m2b: 30, e: 11, w: 34, wd: 34 })[o.t];
+  const radius = o => ({ k1: 14, k2: 22, k3: 32, p1: 16, p2: 30, p2b: 30, m1: 16, m2: 30, m2b: 30, e: 11, w: 34, wd: 34, et: 50, etd: 50 })[o.t];
+  const drehbar = o => o && (o.t[0] === 'w' || o.t === 'et' || o.t === 'etd');
+  const rot = (o, u, v) => [o.x + u * Math.cos(o.a) + v * Math.sin(o.a), o.y - u * Math.sin(o.a) + v * Math.cos(o.a)];
   const wasserH = o => { const d = 27, half = 52 * Math.PI / 180; return [-half, half].map(w => [o.x + d * Math.sin(o.a + w), o.y + d * Math.cos(o.a + w)]); };
-  const griff = o => [o.x - 58 * Math.sin(o.a), o.y - 58 * Math.cos(o.a)];
+  const griff = o => rot(o, 0, o.t[0] === 'w' ? -58 : -72);
   function zeichneObj(o) {
     const t = o.t, f = o.c;
     if (t[0] === 'k') kugel(o.x, o.y, radius(o), f);
     else if (t[0] === 'p') kugel(o.x, o.y, radius(o), f, t === 'p2b' ? '2+' : '+');
     else if (t[0] === 'm') kugel(o.x, o.y, radius(o), f, t === 'm2b' ? '2−' : '−');
     else if (t === 'e') kugel(o.x, o.y, 11, f, '−');
+    else if (t === 'et' || t === 'etd') {
+      const P = (u, v) => rot(o, u, v);
+      [[-60, 2], [-46, 26], [-46, -22], [4, -30], [-2, 26], [54, -18]].forEach(([u, v]) => { const [hx, hy] = P(u, v); kugel(hx, hy, 11, '#f1f3f5'); });
+      [[-38, 2], [0, -4]].forEach(([u, v]) => { const [cx2, cy2] = P(u, v); kugel(cx2, cy2, 18, '#495057'); });
+      const [ox, oy] = P(36, 4); kugel(ox, oy, 19, '#d6453d');
+      if (t === 'etd') {
+        ctx.font = '600 15px DM Sans, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#c0392b'; const [a1, b1] = P(42, 34); ctx.fillText('δ−', a1, b1);
+        ctx.fillStyle = '#3d6fb0'; const [a2, b2] = P(70, -32); ctx.fillText('δ+', a2, b2);
+      }
+    }
     else {
       const hs = wasserH(o);
       hs.forEach(([hx, hy]) => kugel(hx, hy, 13, '#f1f3f5'));
@@ -82,9 +96,9 @@ window.Zeichenfeld = function (zb, opt) {
       const o = objs[sel], r = radius(o) + 6;
       ctx.setLineDash([5, 4]); ctx.strokeStyle = '#4a7ab5'; ctx.lineWidth = 1.5;
       ctx.beginPath(); ctx.arc(o.x, o.y, r, 0, 2 * Math.PI); ctx.stroke(); ctx.setLineDash([]);
-      if (o.t[0] === 'w') {
-        const [gx, gy] = griff(o);
-        ctx.strokeStyle = '#4a7ab5'; ctx.beginPath(); ctx.moveTo(o.x - 40 * Math.sin(o.a), o.y - 40 * Math.cos(o.a)); ctx.lineTo(gx, gy); ctx.stroke();
+      if (drehbar(o)) {
+        const [gx, gy] = griff(o), [sx, sy] = rot(o, 0, o.t[0] === 'w' ? -40 : -48);
+        ctx.strokeStyle = '#4a7ab5'; ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(gx, gy); ctx.stroke();
         ctx.beginPath(); ctx.arc(gx, gy, 11, 0, 2 * Math.PI); ctx.fillStyle = '#4a7ab5'; ctx.fill();
         ctx.fillStyle = 'white'; ctx.font = '700 14px DM Sans, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('↻', gx, gy + 1);
       }
@@ -111,7 +125,7 @@ window.Zeichenfeld = function (zb, opt) {
   /* ---- Maus, Finger, Stift ---- */
   const punkt = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; };
   const treffer = (x, y) => { for (let i = objs.length - 1; i >= 0; i--) { const o = objs[i]; if (Math.hypot(x - o.x, y - o.y) <= radius(o)) return i; } return -1; };
-  const aufGriff = (x, y) => sel >= 0 && objs[sel] && objs[sel].t[0] === 'w' && Math.hypot(x - griff(objs[sel])[0], y - griff(objs[sel])[1]) < 16;
+  const aufGriff = (x, y) => sel >= 0 && drehbar(objs[sel]) && Math.hypot(x - griff(objs[sel])[0], y - griff(objs[sel])[1]) < 16;
   const dicke = () => +dickeSel.value;
   cv.addEventListener('pointerdown', e => {
     e.preventDefault(); cv.focus({ preventScroll: true });
