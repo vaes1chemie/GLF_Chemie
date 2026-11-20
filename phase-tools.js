@@ -216,5 +216,5 @@ window.addEventListener('DOMContentLoaded', () => {
 /* ---------- Zeichenfelder (siehe zeichenfeld.js) ---------- */
 document.querySelectorAll('.zeichen-box').forEach(zb => {
   const key = 'zeichnung:' + zb.dataset.key;
-  Zeichenfeld(zb, { laden: () => store[key], speichern: d => { store[key] = d; saveStore(); }, loeschen: () => { delete store[key]; saveStore(); }, titelKlasse: 'gate-title', knopfKlasse: 'btn' });
+  Zeichenfeld(zb, { laden: () => store[key], speichern: d => { store[key] = d; saveStore(); }, laden2: () => store[key + ':ebenen'], speichern2: o => { store[key + ':ebenen'] = o; saveStore(); }, loeschen: () => { delete store[key]; delete store[key + ':ebenen']; saveStore(); }, titelKlasse: 'gate-title', knopfKlasse: 'btn' });
 });

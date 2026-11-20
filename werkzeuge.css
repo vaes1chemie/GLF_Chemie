@@ -101,4 +101,4 @@ canvas.orb-mini { width: 130px; height: 130px; display: block; margin: 0 auto 8p
 .zb-teilchen { margin-top: 6px; }
 .zb-hinweis { font-size: 0.78rem; color: var(--text-light, #9c9891); }
 .zb-radier.aktiv { background: var(--bg-alt, #f3f1ee); border-color: var(--text, #1a1a1a); }
-.zb-label[hidden] { display: none; }
+.zeichen-box canvas:focus { outline: none; }

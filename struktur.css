@@ -582,4 +582,4 @@ section { animation: fadeUp 0.4s ease-out both; }
 .zb-teilchen { margin-top: 6px; }
 .zb-hinweis { font-size: 0.78rem; color: var(--text-light, #9c9891); }
 .zb-radier.aktiv { background: var(--bg-alt, #f3f1ee); border-color: var(--text, #1a1a1a); }
-.zb-label[hidden] { display: none; }
+.zeichen-box canvas:focus { outline: none; }

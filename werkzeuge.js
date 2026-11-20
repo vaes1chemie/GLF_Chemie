@@ -52,7 +52,7 @@
     /* ---------- Zeichenfelder (siehe zeichenfeld.js) ---------- */
     document.querySelectorAll('.zeichen-box').forEach(zb => {
       const key = 'zeichnung:' + zb.dataset.key;
-      Zeichenfeld(zb, { laden: () => store[key], speichern: d => { store[key] = d; save(); }, loeschen: () => { delete store[key]; save(); }, titelKlasse: 'wz-title', knopfKlasse: 'wz-btn' });
+      Zeichenfeld(zb, { laden: () => store[key], speichern: d => { store[key] = d; save(); }, laden2: () => store[key + ':ebenen'], speichern2: o => { store[key + ':ebenen'] = o; save(); }, loeschen: () => { delete store[key]; delete store[key + ':ebenen']; save(); }, titelKlasse: 'wz-title', knopfKlasse: 'wz-btn' });
     });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
