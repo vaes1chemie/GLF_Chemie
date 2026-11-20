@@ -685,8 +685,8 @@ section { animation: fadeUp 0.4s ease-out both; }
   </table></div>
 
   <div class="merksatz"><div class="merksatz-label">Merksatz – römische Ziffern</div>
-    <p>Bei den <strong>Nebengruppenmetallen (Gruppen 3–12)</strong> und bei Metallen der <strong>Gruppen 13–16 ab Periode 4</strong> (z.&nbsp;B. Gallium, Zinn, Blei) wird die Ladung des Metall-Ions als römische Ziffer angegeben: <em>Eisen(III)-chlorid</em>, <em>Blei(II)-oxid</em>.</p>
-    <p>Bei Hauptgruppenmetallen wie Natrium, Calcium oder Aluminium ist die Ladung eindeutig – dort steht <strong>keine</strong> Ziffer.</p>
+    <p>Bei den <strong>Nebengruppenmetallen (Gruppen 3–12)</strong> sowie bei <strong>Zinn und Blei</strong> wird die Ladung des Metall-Ions als römische Ziffer angegeben: <em>Eisen(III)-chlorid</em>, <em>Blei(II)-oxid</em>.</p>
+    <p>Bei Hauptgruppenmetallen wie Natrium, Calcium, Aluminium oder Gallium ist die Ladung eindeutig – dort steht <strong>keine</strong> Ziffer.</p>
   </div>
 
   <div class="aufgabe"><div class="aufgabe-label">Kurz überlegen – rückwärts rechnen</div>
@@ -1381,7 +1381,7 @@ const CATIONS = {
   Pb4: { s: 'Pb', n: 'Blei', q: 4, t: 'u' },
   Sn2: { s: 'Sn', n: 'Zinn', q: 2, t: 'u' },
   Au:  { s: 'Au', n: 'Gold', q: 3, t: 'u' },
-  Ga:  { s: 'Ga', n: 'Gallium', q: 3, t: 'u' },
+  Ga:  { s: 'Ga', n: 'Gallium', q: 3, t: 'h' },
   NH4: { s: 'NH4', n: 'Ammonium', q: 1, t: 'm' }
 };
 const ANIONS = {
@@ -1936,7 +1936,7 @@ const MOLECULES = [
   ['PCl3', 'Phosphortrichlorid'], ['PCl5', 'Phosphorpentachlorid'], ['P4O10', 'Tetraphosphordecaoxid', ['tetraphosphordecoxid', 'tetraphosphordekaoxid']],
   ['SiF4', 'Siliciumtetrafluorid', ['siliziumtetrafluorid']], ['SiO2', 'Siliciumdioxid', ['siliziumdioxid']],
   ['IBr', 'Iodbromid', ['iodmonobromid']], ['BrI', 'Bromiodid', ['brommonoiodid']], ['ClF3', 'Chlortrifluorid'],
-  ['HF', 'Wasserstofffluorid', ['fluorwasserstoff', 'hydrogenfluorid']],
+  ['HF', 'Wasserstofffluorid', ['fluorwasserstoff']],
   ['H2O', 'Dihydrogenoxid', ['diwasserstoffoxid', 'wasser', 'dihydrogenmonoxid', 'diwasserstoffmonoxid']]
 ];
 function makeMolecule() {
@@ -1945,8 +1945,8 @@ function makeMolecule() {
 }
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 const LEVELS = [
-  { l: '1 · Ionen (Hauptgruppen)', cat: ['Li','Na','K','Rb','Cs','Be','Mg','Ca','Sr','Ba','Al'], an: ['F','Cl','Br','I','O','S','N','P','H'] },
-  { l: '2 · Römische Ziffern', cat: ['Fe2','Fe3','Cu1','Cu2','Zn','Ag','Ni','Cr','Co','Mn2','Mn4','Pb2','Pb4','Sn2','Au','Ga'], an: ['F','Cl','Br','I','O','S','N','P'] },
+  { l: '1 · Ionen (Hauptgruppen)', cat: ['Li','Na','K','Rb','Cs','Be','Mg','Ca','Sr','Ba','Al','Ga'], an: ['F','Cl','Br','I','O','S','N','P','H'] },
+  { l: '2 · Römische Ziffern', cat: ['Fe2','Fe3','Cu1','Cu2','Zn','Ag','Ni','Cr','Co','Mn2','Mn4','Pb2','Pb4','Sn2','Au'], an: ['F','Cl','Br','I','O','S','N','P'] },
   { l: '3 · Molekülionen', cat: ['Na','K','Li','Mg','Ca','Ba','Al','NH4','Fe2','Fe3','Cu2','Zn','Ag','Pb2'], an: ['SO4','HSO4','PO4','HPO4','H2PO4','NO3','CO3','HCO3','OH','CH3COO'], extraNH4: true },
   { l: '4 · Molekülverbindungen', mol: true },
   { l: '5 · Alles gemischt', mix: true }
