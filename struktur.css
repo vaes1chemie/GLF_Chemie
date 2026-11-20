@@ -564,3 +564,14 @@ section { animation: fadeUp 0.4s ease-out both; }
 .pfeil-h2o { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 8px; line-height: 1; }
 .pfeil-h2o .ueber { font-size: 0.72em; margin-bottom: -2px; }
 .pfeil-h2o .pf { font-size: 1.3em; }
+
+/* Sortierauftrag Wärmeleitung */
+.ws-liste { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.ws-zeile { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; background: white; border: 1.5px solid var(--border); border-radius: 8px; padding: 6px 10px; }
+.ws-zeile.ok { border-color: var(--correct-border, #7bc08a); background: var(--correct-bg, #eef6f0); }
+.ws-zeile.bad { border-color: var(--wrong-border, #e07070); background: var(--wrong-bg, #fceaea); }
+.ws-ding { font-weight: 600; }
+.ws-wahl { display: flex; gap: 6px; }
+.ws-wahl .tool-btn { font-size: 0.85rem; padding: 4px 10px; }
+.ws-msg { margin-top: 10px; font-size: 0.92rem; min-height: 1.2em; }
+.ws-msg.ok { color: var(--correct-text, #2d5a37); } .ws-msg.bad { color: var(--wrong-text, #7a2020); }

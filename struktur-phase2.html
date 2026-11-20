@@ -6,7 +6,7 @@
 <title>Struktur & Eigenschaften – Phase 2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="struktur.css?v=20261113e">
+<link rel="stylesheet" href="struktur.css?v=20261120a">
 </head>
 <body>
 <div class="layout">
@@ -445,11 +445,51 @@
     <div class="notiz-box" data-key="hammer-erklaerung" data-label="Ihre Erklärung"></div>
   </div>
 
-  <h3>9.2 Wärmeleitung und Schmelzsicherung <span class="tag-gemeinsam">gemeinsam</span></h3>
-  <p>Ihre Lehrperson zeigt zwei kurze Demonstrationen: Gleich lange Stäbe aus Kupfer, Eisen und Glas werden an einem Ende erhitzt – auf welchem Stab schmilzt das Wachs zuerst? Danach fliesst immer mehr Strom durch einen dünnen Eisendraht, bis er durchschmilzt. Notieren Sie Ihre Beobachtungen.</p>
-  <div class="notiz-box" data-key="demos-l7" data-label="Beobachtungen Demos"></div>
+  <h3>9.2 Wärmeleitung im Alltag</h3>
+  <p>Metalle leiten Wärme sehr gut, Holz, Glas, Keramik und Kunststoff dagegen schlecht. Diese Eigenschaft nutzen wir ständig – manchmal soll ein Gegenstand Wärme möglichst gut weiterleiten, manchmal soll er sie gerade zurückhalten.</p>
+  <div class="aufgabe"><div class="aufgabe-label">Überlegungsauftrag · Sortieren</div>
+    <p>Soll der Gegenstand die Wärme <strong>gut leiten</strong> oder soll er sie <strong>abhalten</strong>? Klicken Sie die passende Spalte an und prüfen Sie am Schluss.</p>
+    <div id="waermeSort" class="ws-liste"></div>
+    <div style="display:flex;gap:8px;margin-top:12px;"><button class="btn" id="wsCheck">Prüfen</button></div>
+    <div class="ws-msg" id="wsMsg"></div>
+  </div>
+  <div class="aufgabe"><div class="aufgabe-label">Überlegungsauftrag · Weiterdenken</div>
+    <p><strong>a)</strong> Finden Sie je zwei weitere Gegenstände: einen aus Metall, der Wärme leiten soll, und einen aus Holz, Glas, Keramik oder Kunststoff, der sie abhalten soll.<br>
+    <strong>b)</strong> Warum hat eine Metallpfanne oft einen Griff aus Holz oder Kunststoff?<br>
+    <strong>c)</strong> Im Winter fühlt sich ein Metallgeländer viel kälter an als eine Holzbank daneben – obwohl beide die gleiche Temperatur haben. Erklären Sie.<br>
+    <strong>d)</strong> Warum ist der Kühlkörper auf dem Prozessor eines Computers aus Aluminium oder Kupfer?</p>
+    <div class="notiz-box" data-key="waerme-alltag" data-label="Ihre Antworten zu a) bis d)"></div>
+  </div>
   <div class="aufgabe"><div class="aufgabe-label">Kurz überlegen</div>
     <div id="demoFragen"></div>
+  </div>
+
+  <h4>Demonstration: Ein Draht beginnt zu glühen <span class="tag-gemeinsam">gemeinsam</span></h4>
+  <p>Ihre Lehrperson spannt einen dünnen Eisendraht zwischen zwei Klemmen und schliesst ihn an ein Netzgerät an. Dann erhöht sie die Stromstärke langsam. Beobachten Sie den Draht genau.</p>
+  <div class="notiz-box" data-key="demo-draht" data-label="Ihre Beobachtungen: Was geschieht mit dem Draht, wenn die Stromstärke steigt?"></div>
+  <div class="merksatz"><div class="merksatz-label">Die Schmelzsicherung</div>
+    <p>Fliesst Strom durch einen Draht, stossen die Elektronen ständig mit den Atomrümpfen zusammen. Die Atomrümpfe schwingen stärker, der Draht wird warm. Je mehr Strom fliesst und je dünner der Draht ist, desto heisser wird er – bis er glüht und schliesslich schmilzt.</p>
+    <p>Genau das nutzt die <strong>Schmelzsicherung</strong>: Sie enthält einen absichtlich dünnen Draht, den Schmelzleiter, meist in einem kleinen Glas- oder Keramikröhrchen. Fliesst zu viel Strom, zum Beispiel bei einem Kurzschluss oder wenn zu viele Geräte an einer Leitung hängen, schmilzt dieser Draht als Erstes. Der Stromkreis ist unterbrochen, bevor die Kabel in der Wand so heiss werden, dass ein Brand entsteht. Eine durchgebrannte Schmelzsicherung muss ersetzt werden.</p>
+  </div>
+  <figure style="margin:16px 0;text-align:center;">
+    <svg viewBox="0 0 560 150" style="width:100%;max-width:560px;" role="img" aria-label="Schmelzsicherung intakt und durchgebrannt">
+      <g font-family="DM Sans, sans-serif" font-size="13" fill="#3d3a36" text-anchor="middle">
+        <rect x="30" y="45" width="200" height="50" rx="25" fill="#eef4fa" stroke="#9fb6cf" stroke-width="2"/>
+        <rect x="18" y="45" width="26" height="50" rx="4" fill="#b8bec7"/><rect x="216" y="45" width="26" height="50" rx="4" fill="#b8bec7"/>
+        <path d="M44 70 q 23 -10 46 0 t 46 0 t 46 0 t 34 0" fill="none" stroke="#5c5c5c" stroke-width="2"/>
+        <text x="130" y="122">intakt: Strom fliesst</text>
+        <rect x="320" y="45" width="200" height="50" rx="25" fill="#eef4fa" stroke="#9fb6cf" stroke-width="2"/>
+        <rect x="308" y="45" width="26" height="50" rx="4" fill="#b8bec7"/><rect x="506" y="45" width="26" height="50" rx="4" fill="#b8bec7"/>
+        <path d="M334 70 q 23 -10 46 0 t 30 2" fill="none" stroke="#5c5c5c" stroke-width="2"/><circle cx="412" cy="73" r="3" fill="#5c5c5c"/>
+        <path d="M444 72 q 16 -8 32 -2 t 30 0" fill="none" stroke="#5c5c5c" stroke-width="2"/><circle cx="443" cy="72" r="3" fill="#5c5c5c"/>
+        <path d="M427 52 l -6 10 h 8 l -6 12" fill="none" stroke="#e67e22" stroke-width="2"/>
+        <text x="420" y="122">durchgebrannt: Stromkreis unterbrochen</text>
+        <text x="130" y="30" fill="#6b6560" font-size="12">Schmelzleiter (dünner Draht)</text>
+      </g>
+    </svg>
+  </figure>
+  <div class="aufgabe"><div class="aufgabe-label">Kurz überlegen</div>
+    <div id="drahtFragen"></div>
   </div>
   <div class="aufgabe"><div class="aufgabe-label">Alltagsbezug</div>
     <p>Auf jeder Kabeltrommel steht: «Aufgerollt max. 1000 W, abgerollt max. 3500 W». Billige Schnellladekabel werden beim Laden spürbar heiss. Erklären Sie mit Ihren Beobachtungen aus der Demonstration, warum ein Kabel warm wird, wovon es abhängt, wie stark – und warum eine Sicherung im Stromkreis einen Kabelbrand verhindert.</p>
@@ -598,7 +638,7 @@
 </div>
 
 <script>window.PAGE = { key: 'struktur-2', forms: 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=rQuDwrIivEKqXe-HgrWYGz2j0qfMSOpEqRiOQYLBt2dUMU00VTlXWllKOVREWEcyOUNQVENLR0U2Ui4u' };</script>
-<script src="phase-tools.js?v=20261113e"></script>
+<script src="phase-tools.js?v=20261120a"></script>
 <script>
 /* ================= L5: Elektronengas-Simulation ================= */
 (function () {
@@ -811,11 +851,35 @@ renderChoices('kzFragen', [
   });
 })();
 
+(function () {
+  const box = $id('waermeSort'); if (!box) return;
+  const ITEMS = [['Bratpfanne', 'g'], ['Kochlöffel aus Holz', 'a'], ['Fensterscheibe', 'a'], ['Heizkörper', 'g'], ['Topflappen', 'a'], ['Kühlkörper im Computer', 'g'], ['Kaffeetasse aus Keramik', 'a'], ['Sohle des Bügeleisens', 'g'], ['Griff einer Pfanne', 'a'], ['Kochtopf', 'g']];
+  store.waermeSort = store.waermeSort || {};
+  box.innerHTML = ITEMS.map(([t], i) => `<div class="ws-zeile" data-i="${i}"><span class="ws-ding">${t}</span><span class="ws-wahl"><button type="button" class="tool-btn" data-v="g">leitet Wärme gut</button><button type="button" class="tool-btn" data-v="a">hält Wärme ab</button></span></div>`).join('');
+  const zeig = () => box.querySelectorAll('.ws-zeile').forEach(z => z.querySelectorAll('.tool-btn').forEach(b => b.classList.toggle('chosen', store.waermeSort[z.dataset.i] === b.dataset.v)));
+  box.querySelectorAll('.ws-zeile').forEach(z => z.querySelectorAll('.tool-btn').forEach(b => b.addEventListener('click', () => { store.waermeSort[z.dataset.i] = b.dataset.v; saveStore(); z.classList.remove('ok', 'bad'); zeig(); })));
+  zeig();
+  $id('wsCheck').addEventListener('click', () => {
+    let ok = 0, offen = 0;
+    box.querySelectorAll('.ws-zeile').forEach(z => { const v = store.waermeSort[z.dataset.i]; if (!v) { offen++; return; } const g = v === ITEMS[z.dataset.i][1]; z.classList.toggle('ok', g); z.classList.toggle('bad', !g); if (g) ok++; });
+    const m = $id('wsMsg');
+    m.textContent = offen ? 'Ordnen Sie zuerst alle Gegenstände zu (' + offen + ' offen).' : (ok === ITEMS.length ? '✓ Alles richtig! Pfanne, Topf, Heizkörper, Bügeleisen und Kühlkörper sind aus Metall, weil sie Wärme weitergeben sollen. Holz, Glas, Keramik und Stoff halten sie ab.' : ok + ' von ' + ITEMS.length + ' richtig. Überlegen Sie bei den rot markierten: Soll die Wärme weitergegeben werden oder soll man sich nicht verbrennen bzw. nicht frieren?');
+    m.className = 'ws-msg ' + (ok === ITEMS.length && !offen ? 'ok' : 'bad');
+  });
+})();
+
 renderChoices('demoFragen', [
   { p: 'Warum leiten Metalle die Wärme viel besser als Glas oder Holz?', a: 'e',
     options: [{ v: 'e', l: 'Die beweglichen Elektronen geben die Energie schnell weiter.' }, { v: 's', l: 'Metalle sind schwerer.' }, { v: 'g', l: 'Metalle glänzen.' }],
     ok: 'Richtig. Die Elektronen des Elektronengases transportieren nicht nur Ladung, sondern auch Bewegungsenergie.',
     no: 'Denken Sie an das Elektronengas: Was können die beweglichen Elektronen ausser Ladung noch transportieren?' },
+  { p: 'Warum fühlt sich Metall bei gleicher Temperatur kälter an als Holz?', a: 'l',
+    options: [{ v: 'l', l: 'Metall leitet die Wärme schnell von der Hand weg.' }, { v: 'k', l: 'Metall ist tatsächlich kälter.' }, { v: 'f', l: 'Metall gibt Kälte an die Hand ab.' }],
+    ok: 'Richtig. Beide haben die gleiche Temperatur, aber Metall transportiert die Wärme der Hand viel schneller weg. Die Haut kühlt ab, das fühlt sich kalt an.',
+    no: 'Ein Thermometer würde bei beiden dieselbe Temperatur messen. Was macht das Metall mit der Wärme Ihrer Hand?' }
+]);
+
+renderChoices('drahtFragen', [
   { p: 'Warum schmilzt der dünne Draht in einer Schmelzsicherung, wenn zu viel Strom fliesst?', a: 'w',
     options: [{ v: 'w', l: 'Viele Elektronen stossen mit den Atomrümpfen zusammen, der Draht wird heiss.' }, { v: 'i', l: 'Die Atomrümpfe beginnen zu wandern.' }, { v: 'l', l: 'Der Draht verliert seine Elektronen.' }],
     ok: 'Richtig. Jeder Zusammenstoss gibt Energie an die Atomrümpfe ab, sie schwingen stärker – der Draht wird heiss, bis er schmilzt und den Stromkreis unterbricht.',
