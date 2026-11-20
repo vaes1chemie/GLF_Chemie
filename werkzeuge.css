@@ -94,3 +94,11 @@ canvas.orb-mini { width: 130px; height: 130px; display: block; margin: 0 auto 8p
 /* Nuklidsymbol: Massenzahl und Ordnungszahl rechtsbündig übereinander */
 .nuklid { display: inline-flex; align-items: center; vertical-align: middle; white-space: nowrap; }
 .nuklid .nz { display: inline-flex; flex-direction: column; align-items: flex-end; font-size: 0.7em; line-height: 1.05; margin-right: 0.1em; }
+
+/* Zeichenfeld: Strichstärke und Teilchen */
+.zb-label { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--text-muted, #6b6560); }
+.zb-label select { font-family: var(--sans); font-size: 0.85rem; padding: 4px 6px; border: 1.5px solid var(--border, #e5e2dd); border-radius: 6px; background: white; color: var(--text, #1a1a1a); }
+.zb-teilchen { margin-top: 6px; }
+.zb-hinweis { font-size: 0.78rem; color: var(--text-light, #9c9891); }
+.zb-radier.aktiv { background: var(--bg-alt, #f3f1ee); border-color: var(--text, #1a1a1a); }
+.zb-label[hidden] { display: none; }
